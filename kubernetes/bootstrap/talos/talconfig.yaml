@@ -1,0 +1,170 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
+---
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.6.7
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.29.3
+
+clusterName: &cluster home-kubernetes
+endpoint: https://10.17.1.7:6443
+clusterPodNets:
+  - "10.69.0.0/16"
+clusterSvcNets:
+  - "10.96.0.0/16"
+additionalApiServerCertSans: &sans
+  - "10.17.1.7"
+  - 127.0.0.1 # KubePrism
+additionalMachineCertSans: *sans
+cniConfig:
+  name: none
+
+nodes:
+  - hostname: "kube-proxmox-001"
+    ipAddress: "10.17.1.125"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/a424065714ed9d7242c4f3b98e4cc84567ecf987e450b0a9683dc0f3ae9a8bdb
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:41:5f:39"
+        dhcp: false
+        addresses:
+          - "10.17.1.125/24"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.17.1.1"
+        vip:
+          ip: "10.17.1.7"
+  - hostname: "kube-proxmox-002"
+    ipAddress: "10.17.1.126"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/a424065714ed9d7242c4f3b98e4cc84567ecf987e450b0a9683dc0f3ae9a8bdb
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:ef:8f:39"
+        dhcp: false
+        addresses:
+          - "10.17.1.126/24"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.17.1.1"
+
+patches:
+  # Configure containerd
+  - |-
+    machine:
+      files:
+        - op: create
+          path: /etc/cri/conf.d/20-customization.part
+          content: |-
+            [plugins."io.containerd.grpc.v1.cri"]
+              enable_unprivileged_ports = true
+              enable_unprivileged_icmp = true
+            [plugins."io.containerd.grpc.v1.cri".containerd]
+              discard_unpacked_layers = false
+            [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+              discard_unpacked_layers = false
+
+  # Disable search domain everywhere
+  - |-
+    machine:
+      network:
+        disableSearchDomain: true
+
+  # Enable cluster discovery
+  - |-
+    cluster:
+      discovery:
+        registries:
+          kubernetes:
+            disabled: false
+          service:
+            disabled: false
+
+  # Configure kubelet
+  - |-
+    machine:
+      kubelet:
+        extraArgs:
+          rotate-server-certificates: true
+        nodeIP:
+          validSubnets: ["10.17.1.0/24"]
+
+  # Force nameserver
+  - |-
+    machine:
+      network:
+        nameservers:
+          - 10.17.1.1
+
+  # Configure NTP
+  - |-
+    machine:
+      time:
+        disabled: false
+        servers: ["time.cloudflare.com"]
+
+  # Custom sysctl settings
+  - |-
+    machine:
+      sysctls:
+        fs.inotify.max_queued_events: "65536"
+        fs.inotify.max_user_watches: "524288"
+        fs.inotify.max_user_instances: "8192"
+        net.core.rmem_max: "2500000"
+        net.core.wmem_max: "2500000"
+
+  # Mount openebs-hostpath in kubelet
+  - |-
+    machine:
+      kubelet:
+        extraMounts:
+          - destination: /var/openebs/local
+            type: bind
+            source: /var/openebs/local
+            options: ["bind", "rshared", "rw"]
+
+
+
+controlPlane:
+  patches:
+    # Cluster configuration
+    - |-
+      cluster:
+        allowSchedulingOnControlPlanes: true
+        controllerManager:
+          extraArgs:
+            bind-address: 0.0.0.0
+        proxy:
+          disabled: true
+        scheduler:
+          extraArgs:
+            bind-address: 0.0.0.0
+
+    # ETCD configuration
+    - |-
+      cluster:
+        etcd:
+          extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
+          advertisedSubnets:
+            - "10.17.1.0/24"
+
+    # Disable default API server admission plugins.
+    - |-
+      - op: remove
+        path: /cluster/apiServer/admissionControl
+
+    # Enable K8s Talos API Access
+    - |-
+      machine:
+        features:
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles: ["os:admin"]
+            allowedKubernetesNamespaces: ["system-upgrade"]
+
+
