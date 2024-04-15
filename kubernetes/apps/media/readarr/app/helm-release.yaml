@@ -1,0 +1,108 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: readarr
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      readarr:
+        containers:
+          app:
+            image:
+              repository: lscr.io/linuxserver/readarr
+              tag: 0.3.10-develop
+            env:
+              TZ: ${TIMEZONE}
+              PUID: 568
+              PGID: 1003
+            probes:
+              liveness: &probes
+                spec:
+                  timeoutSeconds: 2
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+              seccompProfile:
+                type: RuntimeDefault
+            resources:
+              requests:
+                cpu: 15m
+                memory: 0.5G
+              limits:
+                # cpu: 500m
+                memory: 1G
+        pod:
+          securityContext:
+            runAsUser: 65534
+            runAsGroup: 65534
+            runAsNonRoot: true
+    service:
+      app:
+        controller: readarr
+        ports:
+          http:
+            port: 8787
+    ingress:
+      app:
+        className: internal
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          hajimari.io/enable: "true"
+          hajimari.io/group: "media"
+          hajimari.io/icon: "bookshelf"
+          hajimari.io/info: "Books"
+        hosts:
+          - host: &host "readarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: readarr-tls
+    # persistence:
+    #   config:
+    #     enabled: true
+    #     type: persistentVolumeClaim
+    #     existingClaim: readarr-config-v1
+    #     globalMounts:
+    #       - path: /config
+    #   books:
+    #     enabled: true
+    #     type: nfs
+    #     server: "${TRUENAS_ADDR}"
+    #     path: /mnt/tank/media
+    #     globalMounts:
+    #       - path: /books
+    #         subPath: Books
+    #   downloads:
+    #     enabled: true
+    #     type: nfs
+    #     server: "${TRUENAS_ADDR}"
+    #     path: /mnt/tank/downloads
+    #     globalMounts:
+    #       - path: /downloads
+    #         subPath: complete/books
