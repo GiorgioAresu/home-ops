@@ -27,7 +27,7 @@ spec:
         containers:
           app:
             image:
-              repository: lscr.io/linuxserver/tautulli
+              repository: ghcr.io/onedr0p/tautulli
               tag: 2.13.2
             env:
               TZ: ${TIMEZONE}

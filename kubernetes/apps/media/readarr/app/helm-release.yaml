@@ -27,7 +27,7 @@ spec:
         containers:
           app:
             image:
-              repository: lscr.io/linuxserver/readarr
+              repository: ghcr.io/onedr0p/readarr
               tag: 0.3.10-develop
             env:
               TZ: ${TIMEZONE}

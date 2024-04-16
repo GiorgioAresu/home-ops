@@ -27,7 +27,7 @@ spec:
         containers:
           app:
             image:
-              repository: lscr.io/linuxserver/sonarr
+              repository: ghcr.io/onedr0p/sonarr
               tag: 3.0.10
             env:
               TZ: ${TIMEZONE}

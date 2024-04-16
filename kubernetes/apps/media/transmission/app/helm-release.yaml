@@ -27,7 +27,7 @@ spec:
         containers:
           app:
             image:
-              repository: lscr.io/linuxserver/transmission
+              repository: ghcr.io/onedr0p/transmission
               tag: 4.0.4
             env:
               TZ: "${TIMEZONE}"

@@ -27,7 +27,7 @@ spec:
         containers:
           app:
             image:
-              repository: lscr.io/linuxserver/radarr
+              repository: ghcr.io/onedr0p/radarr
               tag: 4.7.5
             env:
               TZ: ${TIMEZONE}

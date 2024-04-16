@@ -27,7 +27,7 @@ spec:
         containers:
           app:
             image:
-              repository: lscr.io/linuxserver/plex
+              repository: ghcr.io/onedr0p/plex
               tag: 1.32.7
             env:
               TZ: ${TIMEZONE}
