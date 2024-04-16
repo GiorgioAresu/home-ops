@@ -103,6 +103,8 @@ spec:
       #   existingClaim: lidarr-config-v1
       #   globalMounts:
       #     - path: /config
+      config:
+        type: emptyDir
       tmp:
         type: emptyDir
       music:

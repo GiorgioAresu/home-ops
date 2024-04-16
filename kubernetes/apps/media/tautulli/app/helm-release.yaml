@@ -111,6 +111,8 @@ spec:
     #     existingClaim: tautulli-config-v1
     #     globalMounts:
     #       - path: /config
+      config:
+        type: emptyDir
       tmp:
         type: emptyDir
       add-ons:

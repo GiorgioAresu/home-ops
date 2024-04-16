@@ -143,6 +143,8 @@ spec:
       #   globalMounts:
       #     - path: /config
       # Separate PVC for cache to avoid backing up cache files
+      config:
+        type: emptyDir
       cache:
         existingClaim: plex-cache
         globalMounts:

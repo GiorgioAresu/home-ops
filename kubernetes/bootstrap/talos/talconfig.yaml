@@ -51,6 +51,21 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.17.1.1"
+  - hostname: "kube-proxmox-003"
+    ipAddress: "10.17.1.127"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/a424065714ed9d7242c4f3b98e4cc84567ecf987e450b0a9683dc0f3ae9a8bdb
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:90:da:27"
+        dhcp: false
+        addresses:
+          - "10.17.1.127/24"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.17.1.1"
 
 patches:
   # Configure containerd
