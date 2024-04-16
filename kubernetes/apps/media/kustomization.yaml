@@ -11,4 +11,4 @@ resources:
   - ./readarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
-  - ./transmission/ks.yaml
+  - ./qbittorrent/ks.yaml

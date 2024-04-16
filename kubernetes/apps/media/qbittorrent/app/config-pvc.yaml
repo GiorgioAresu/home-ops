@@ -2,8 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: transmission-config-v1
-  namespace: media
+  name: qbittorrent-config-v1
   annotations:
     helm.sh/resource-policy: "keep"
 spec:

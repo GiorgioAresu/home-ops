@@ -1,9 +1,8 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: tautulli
-  namespace: media
 spec:
   interval: 30m
   chart:
@@ -20,6 +19,7 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
   values:
     controllers:
@@ -28,65 +28,90 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/tautulli
-              tag: 2.13.2
+              tag: v2.13.4@sha256:fb5e22c7a4d9e770703a30d145f355786fecb28dfca6df56c5073c457f3c8a8e
             env:
               TZ: ${TIMEZONE}
-              PUID: 568
-              PGID: 1003
+            command: ["/usr/local/bin/python", "Tautulli.py"]
+            args: [
+              "--config", "/config/config.ini",
+              "--datadir", "/config",
+              "--port", "80"
+            ]
             probes:
               liveness: &probes
+                enabled: true
+                custom: true
                 spec:
-                  timeoutSeconds: 2
+                  httpGet:
+                    path: /status
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
               readiness: *probes
-              startup: *probes
-            securityContext:
+            securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-              seccompProfile:
-                type: RuntimeDefault
             resources:
               requests:
-                cpu: 15m
-                memory: 0.5G
+                cpu: 10m
               limits:
                 # cpu: 500m
-                memory: 1.5G
-        pod:
-          securityContext:
-            runAsUser: 65534
-            runAsGroup: 65534
-            runAsNonRoot: true
+                memory: 1Gi
+          jbops:
+            image:
+              repository: registry.k8s.io/git-sync/git-sync
+              tag: v4.2.2@sha256:2dc189a0886c0df1b5b0cc816c60b5fe0799230a5bb7e123aa28ff4f74ac988a
+            env:
+              GITSYNC_REPO: https://github.com/blacktwin/JBOPS
+              GITSYNC_REF: master
+              GITSYNC_PERIOD: 24h
+              GITSYNC_ROOT: /add-ons
+            securityContext: *securityContext
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 128Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: tautulli
         ports:
           http:
-            port: 8181
+            port: *port
     ingress:
       app:
         className: internal
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
           hajimari.io/enable: "true"
           hajimari.io/group: "media"
           hajimari.io/icon: "plex"
           hajimari.io/info: "Plex Stats"
         hosts:
-          - host: &host "tautulli.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: tautulli-tls
-    # persistence:
+    persistence:
     #   config:
     #     enabled: true
     #     type: persistentVolumeClaim
     #     existingClaim: tautulli-config-v1
     #     globalMounts:
     #       - path: /config
+      tmp:
+        type: emptyDir
+      add-ons:
+        type: emptyDir

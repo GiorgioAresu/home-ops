@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app transmission
+  name: &app qbittorrent
   namespace: flux-system
 spec:
   targetNamespace: media
@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   # dependsOn:
   #   - name: external-dns
-  path: ./kubernetes/apps/media/transmission/app
+  path: ./kubernetes/apps/media/qbittorrent/app
   prune: true
   sourceRef:
     kind: GitRepository

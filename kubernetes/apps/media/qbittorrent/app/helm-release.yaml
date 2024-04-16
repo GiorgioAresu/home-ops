@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: sonarr
+  name: qbittorrent
 spec:
   interval: 30m
   chart:
@@ -23,34 +23,36 @@ spec:
       retries: 3
   values:
     controllers:
-      sonarr:
+      qbittorrent:
         annotations:
           reloader.stakater.com/auto: "true"
-        # initContainers:
-        #   init-db:
-        #     image:
-        #       repository: ghcr.io/onedr0p/postgres-init
-        #       tag: 16
-        #     envFrom: &envFrom
-        #       - secretRef:
-        #           name: sonarr-secret
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/sonarr
-              tag: 4.0.4.1491@sha256:3689961acc03cc295a2c51cf6fb2227fd69c00c3c27a803c6e8e255ae3e45890 
+              repository: ghcr.io/onedr0p/qbittorrent
+              tag: 4.6.4@ sha256:b9af0f2173572a69d2c02eab8f701ef7b04f61689efe1c5338b96445d528dec4
             env:
-              TZ: ${TIMEZONE}
-              SONARR__PORT: &port 80
-              SONARR__LOG_LEVEL: info
-            envFrom: *envFrom
+              TZ: "${TIMEZONE}"
+              QBITTORRENT__PORT: &port 80
+              QBITTORRENT__BT_PORT: &bittorrentPort 51413
+              QBT_Application__MemoryWorkingSetLimit: 10000
+              QBT_Preferences__WebUI__AlternativeUIEnabled: false
+              QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
+              QBT_Preferences__WebUI__AuthSubnetWhitelist: 10.17.1.0/24
+              QBT_Preferences__WebUI__LocalHostAuth: false
+              # QBT_BitTorrent__Session__Interface: eth0
+              # QBT_BitTorrent__Session__InterfaceAddress:
+              #   valueFrom:
+              #     fieldRef:
+              #       fieldPath: status.podIP
+              # QBT_BitTorrent__Session__InterfaceName: eth0
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /ping
+                    path: /api/v2/app/version
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -63,9 +65,9 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 10m
+                cpu: 100m
               limits:
-                memory: 1Gi
+                memory: 2Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -77,18 +79,23 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: sonarr
+        controller: qbittorrent
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: 192.168.42.122
         ports:
           http:
             port: *port
+          bittorrent:
+            port: *bittorrentPort
+            protocol: TCP
     ingress:
       app:
         className: internal
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/group: "media"
-          hajimari.io/icon: "television-box"
-          hajimari.io/info: "TV Shows"
+          hajimari.io/icon: "cloud-download"
         hosts:
           - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -100,22 +107,16 @@ spec:
       # config:
       #   enabled: true
       #   type: persistentVolumeClaim
-      #   existingClaim: sonarr-config-v1
+      #   existingClaim: qbittorrent-config-v1
       #   globalMounts:
       #     - path: /config
-      tmp:
-        type: emptyDir
-      tv:
-        type: nfs
-        server: "${TRUENAS_ADDR}"
-        path: "/mnt/tank/media"
-        globalMounts:
-          - path: /tv
-            subPath: "TV Shows"
       downloads:
+        enabled: true
         type: nfs
         server: "${TRUENAS_ADDR}"
         path: "/mnt/tank/downloads"
         globalMounts:
           - path: /downloads
-            subPath: "complete/tv"
+      # watch:
+      #   globalMounts:
+      #     - path: /watch

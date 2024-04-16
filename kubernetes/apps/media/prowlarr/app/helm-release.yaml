@@ -1,9 +1,8 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: prowlarr
-  namespace: media
 spec:
   interval: 30m
   chart:
@@ -20,72 +19,89 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
   values:
     controllers:
       prowlarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        # initContainers:
+        #   init-db:
+        #     image:
+        #       repository: ghcr.io/onedr0p/postgres-init
+        #       tag: 16
+        #     envFrom: &envFrom
+        #       - secretRef:
+        #           name: prowlarr-secret
         containers:
           app:
             image:
-              repository: linuxserver/prowlarr
-              tag: version-1.8.6.3946
+              repository: ghcr.io/onedr0p/prowlarr
+              tag: 1.15.0.4361@sha256:cf646c64fdb90f3acddb5e2ec6ffad064392ad1aaf9da7875b8a7a962263f5fc
             env:
               TZ: ${TIMEZONE}
-              PUID: 568
-              PGID: 1003
+              PROWLARR__PORT: &port 80
+              PROWLARR__LOG_LEVEL: info
+            # envFrom: *envFrom
             probes:
               liveness: &probes
+                enabled: true
+                custom: true
                 spec:
-                  timeoutSeconds: 2
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
               readiness: *probes
-              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-              seccompProfile:
-                type: RuntimeDefault
             resources:
               requests:
-                cpu: 15m
-                memory: 0.5G
+                cpu: 10m
               limits:
-                # cpu: 500m
-                memory: 1G
-        pod:
-          securityContext:
-            runAsUser: 65534
-            runAsGroup: 65534
-            runAsNonRoot: true
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: prowlarr
         ports:
           http:
-            port: 9696
+            port: *port
     ingress:
       app:
         className: internal
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
           hajimari.io/enable: "true"
           hajimari.io/group: "media"
           hajimari.io/icon: "cloud-search"
         hosts:
-          - host: &host "prowlarr.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: prowlarr-tls
-    # persistence:
-    #   config:
-    #     enabled: true
-    #     type: persistentVolumeClaim
-    #     existingClaim: prowlarr-config-v1
-    #     globalMounts:
-    #       - path: /config
+    persistence:
+      # config:
+      #   enabled: true
+      #   type: persistentVolumeClaim
+      #   existingClaim: prowlarr-config-v1
+      #   globalMounts:
+      #     - path: /config
+      config:
+        type: emptyDir
+      tmp:
+        type: emptyDir

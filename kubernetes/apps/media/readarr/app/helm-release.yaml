@@ -1,9 +1,8 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: readarr
-  namespace: media
 spec:
   interval: 30m
   chart:
@@ -20,89 +19,103 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
   values:
     controllers:
       readarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        # initContainers:
+        #   init-db:
+        #     image:
+        #       repository: ghcr.io/onedr0p/postgres-init
+        #       tag: 16
+        #     envFrom: &envFrom
+        #       - secretRef:
+        #           name: readarr-secret
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/readarr
-              tag: 0.3.10-develop
+              repository: ghcr.io/onedr0p/readarr-develop
+              tag: 0.3.22.2499@ sha256:54883dc20b860ca5bc53f710745ec6dd31437de293d7f68284a0ea48cd494a38 
             env:
               TZ: ${TIMEZONE}
-              PUID: 568
-              PGID: 1003
+              RADARR__PORT: &port 80
+              RADARR__LOG_LEVEL: info
+            # envFrom: *envFrom
             probes:
               liveness: &probes
+                enabled: true
+                custom: true
                 spec:
-                  timeoutSeconds: 2
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
               readiness: *probes
-              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-              seccompProfile:
-                type: RuntimeDefault
             resources:
               requests:
-                cpu: 15m
-                memory: 0.5G
+                cpu: 10m
               limits:
-                # cpu: 500m
-                memory: 1G
-        pod:
-          securityContext:
-            runAsUser: 65534
-            runAsGroup: 65534
-            runAsNonRoot: true
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [1003]
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: readarr
         ports:
           http:
-            port: 8787
+            port: *port
     ingress:
       app:
         className: internal
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
           hajimari.io/enable: "true"
           hajimari.io/group: "media"
           hajimari.io/icon: "bookshelf"
           hajimari.io/info: "Books"
         hosts:
-          - host: &host "readarr.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: readarr-tls
-    # persistence:
-    #   config:
-    #     enabled: true
-    #     type: persistentVolumeClaim
-    #     existingClaim: readarr-config-v1
-    #     globalMounts:
-    #       - path: /config
-    #   books:
-    #     enabled: true
-    #     type: nfs
-    #     server: "${TRUENAS_ADDR}"
-    #     path: /mnt/tank/media
-    #     globalMounts:
-    #       - path: /books
-    #         subPath: Books
-    #   downloads:
-    #     enabled: true
-    #     type: nfs
-    #     server: "${TRUENAS_ADDR}"
-    #     path: /mnt/tank/downloads
-    #     globalMounts:
-    #       - path: /downloads
-    #         subPath: complete/books
+    persistence:
+      # config:
+      #   enabled: true
+      #   type: persistentVolumeClaim
+      #   existingClaim: readarr-config-v1
+      #   globalMounts:
+      #     - path: /config
+      tmp:
+        type: emptyDir
+      books:
+        type: nfs
+        server: "${TRUENAS_ADDR}"
+        path: /mnt/tank/media
+        globalMounts:
+          - path: /books
+            subPath: Books
+      downloads:
+        type: nfs
+        server: "${TRUENAS_ADDR}"
+        path: /mnt/tank/downloads
+        globalMounts:
+          - path: /downloads
+            subPath: complete/books
