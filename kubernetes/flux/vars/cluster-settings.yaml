@@ -8,3 +8,4 @@ data:
   TIMEZONE: "Europe/Rome"
   CLUSTER_CIDR: "10.69.0.0/16"
   NODE_CIDR: "10.17.1.0/24"
+  TRUENAS_ADDR: "10.17.1.2"
