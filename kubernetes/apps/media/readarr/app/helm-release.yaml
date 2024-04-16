@@ -49,9 +49,9 @@ spec:
                 enabled: true
                 custom: true
                 spec:
-                  httpGet:
-                    path: /ping
-                    port: *port
+                  # httpGet:
+                  #   path: /ping
+                  #   port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -77,7 +77,7 @@ spec:
         controller: readarr
         ports:
           http:
-            port: *port
+            port: 8787
     ingress:
       app:
         className: internal
