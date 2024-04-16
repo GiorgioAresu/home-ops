@@ -41,8 +41,8 @@ spec:
               tag: 2.2.5.4141@sha256:6eea2458a2b0da20fde3ad18b64f970acde9ede4645b9af89e193ec08b635d09
             env:
               TZ: ${TIMEZONE}
-              RADARR__PORT: &port 80
-              RADARR__LOG_LEVEL: info
+              LIDARR__PORT: &port 80
+              LIDARR__LOG_LEVEL: info
             # envFrom: *envFrom
             probes:
               liveness: &probes
