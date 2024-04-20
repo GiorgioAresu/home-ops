@@ -13,7 +13,6 @@ spec:
         kind: HelmRepository
         name: intel
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
@@ -21,8 +20,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: intel-device-plugin-operator
       namespace: kube-system
