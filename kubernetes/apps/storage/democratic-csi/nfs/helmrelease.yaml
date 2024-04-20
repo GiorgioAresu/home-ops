@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: democratic-csi-nfs
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: democratic-csi
+      version: 0.14.6
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controller:
+      driver:
+        image: docker.io/democraticcsi/democratic-csi:v1.8.4
+    csiDriver:
+      name: "org.democratic-csi.nfs"
+    storageClasses:
+      - name: freenas-nfs-csi
+        defaultClass: true
+        reclaimPolicy: Delete
+        volumeBindingMode: Immediate
+        allowVolumeExpansion: true
+        parameters:
+          fsType: nfs
+          detachedVolumesFromSnapshots: false
+        mountOptions:
+          - noatime
+          - nfsvers=4
+        secrets:
+          provisioner-secret: {}
+          controller-publish-secret: {}
+          node-stage-secret: {}
+          node-publish-secret: {}
+          controller-expand-secret: {}
+    # volumeSnapshotClasses:
+    # - name: nfs
+    #   parameters:
+    #     detachedSnapshots: "true"
+    driver:
+      config:
+        driver: freenas-api-nfs
+        httpConnection:
+          protocol: https
+          host: "truenas.${SECRET_DOMAIN}"
+          port: 443
+          apiKey: "${SECRET_TRUENAS_API_KEY}"
+        zfs:
+          datasetParentName: storage/k8s/nfs/v
+          detachedSnapshotsDatasetParentName: storage/k8s/nfs/s
+          datasetEnableQuotas: true
+          datasetEnableReservation: false
+          datasetPermissionsMode: "0777"
+          datasetPermissionsUser: 0
+          datasetPermissionsGroup: 0
+        nfs:
+          shareAlldirs: false
+          shareAllowedHosts: []
+          shareAllowedNetworks: []
+          shareHost: "truenas.${SECRET_DOMAIN}"
+          shareMapallGroup: ""
+          shareMapallUser: ""
+          shareMaprootGroup: wheel
+          shareMaprootUser: root
