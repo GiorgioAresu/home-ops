@@ -42,4 +42,4 @@ spec:
     args:
       - --nodes=$(NODE_IP)
       - upgrade-k8s
-      - --to=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+      - --to=$(TALOS_VERSION)
