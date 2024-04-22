@@ -58,8 +58,8 @@ spec:
           port: 443
           apiKey: "${SECRET_TRUENAS_API_KEY}"
         zfs:
-          datasetParentName: storage/k8s/nfs/v
-          detachedSnapshotsDatasetParentName: storage/k8s/nfs/s
+          datasetParentName: tank/k8s/nfs/v
+          detachedSnapshotsDatasetParentName: tank/k8s/nfs/s
           datasetEnableQuotas: true
           datasetEnableReservation: false
           datasetPermissionsMode: "0777"

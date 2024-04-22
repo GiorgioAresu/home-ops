@@ -56,15 +56,15 @@ spec:
           port: 443
           apiKey: "${SECRET_TRUENAS_API_KEY}"
         zfs:
-          datasetParentName: storage/k8s/iscsi/v
-          detachedSnapshotsDatasetParentName: storage/k8s/iscsi/s
+          datasetParentName: tank/k8s/iscsi/v
+          detachedSnapshotsDatasetParentName: tank/k8s/iscsi/s
           zvolCompression:
           zvolDedup:
           zvolEnableReservation: false
           zvolBlocksize:
         iscsi:
           targetPortal: "truenas.${SECRET_DOMAIN}:3260"
-          targetPortals: [] 
+          targetPortals: []
           interface:
           namePrefix: csi-
           nameSuffix: "-clustera"
