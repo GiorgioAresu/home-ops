@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "${APP}-${VOLNAME}-v1"
+  namespace: infrastructure
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /mnt/tank/kubernetes/${APP}-${VOLNAME}
+    server: ${TRUENAS_ADDR}
+  mountOptions:
+    - nfsvers=4.2
