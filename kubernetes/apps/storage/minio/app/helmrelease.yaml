@@ -65,7 +65,8 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                memory: 2Gi
+                # TODO: restore memory: 2Gi
+                memory: 1Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
