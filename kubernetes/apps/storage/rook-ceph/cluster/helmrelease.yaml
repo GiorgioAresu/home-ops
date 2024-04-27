@@ -29,6 +29,7 @@ spec:
     - name: snapshot-controller
       namespace: storage
   values:
+    operatorNamespace: storage
     monitoring:
       enabled: true
       createPrometheusRules: true
