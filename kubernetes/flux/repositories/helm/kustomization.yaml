@@ -20,5 +20,6 @@ resources:
   - ./openebs.yaml
   - ./piraeus.yaml
   - ./postfinance.yaml
+  - ./rook-ceph.yaml
   - ./spegel.yaml
   - ./stakater.yaml
