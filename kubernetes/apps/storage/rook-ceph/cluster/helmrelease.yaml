@@ -25,9 +25,9 @@ spec:
       retries: 3
   dependsOn:
     - name: rook-ceph-operator
-      namespace: rook-ceph
+      namespace: storage
     - name: snapshot-controller
-      namespace: volsync-system
+      namespace: storage
   values:
     monitoring:
       enabled: true
