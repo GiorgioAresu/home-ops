@@ -7,7 +7,6 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./democratic-csi/ks.yaml
-  - ./longhorn/ks.yaml
   - ./minio/ks.yaml
   - ./openebs/ks.yaml
   - ./rook-ceph/ks.yaml

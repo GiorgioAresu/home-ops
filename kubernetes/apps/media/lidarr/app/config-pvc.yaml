@@ -11,5 +11,5 @@ spec:
   resources:
     requests:
       storage: 4Gi
-  storageClassName: longhorn-static
+  storageClassName: openebs-hostpath
   volumeMode: Filesystem
