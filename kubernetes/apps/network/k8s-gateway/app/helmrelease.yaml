@@ -31,3 +31,4 @@ spec:
       annotations:
         io.cilium/lb-ipam-ips: "10.17.1.252"
       externalTrafficPolicy: Cluster
+    watchedResources: ["Ingress", "Service"]
