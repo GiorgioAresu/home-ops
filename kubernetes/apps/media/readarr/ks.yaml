@@ -13,6 +13,7 @@ spec:
   dependsOn:
     - name: prowlarr
     - name: qbittorrent
+    - name: volsync
   path: ./kubernetes/apps/media/readarr/app
   prune: true
   sourceRef:
