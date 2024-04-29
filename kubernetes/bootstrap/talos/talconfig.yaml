@@ -142,6 +142,21 @@ patches:
             source: /var/openebs/local
             options: ["bind", "rshared", "rw"]
 
+  # Mount longhorn in kubelet
+  - |-
+    machine:
+      kubelet:
+        extraMounts:
+          - destination: /var/lib/longhorn
+            type: bind
+            source: /var/lib/longhorn
+            options: ["bind", "rshared", "rw"]
+      disks:
+          - device: /dev/sdb
+            partitions:
+              - mountpoint: /var/lib/longhorn
+      sysctls:
+        vm.nr_hugepages: "1024"
 
 
 controlPlane:
