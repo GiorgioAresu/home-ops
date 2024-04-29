@@ -22,7 +22,7 @@ spec:
     remediation:
       retries: 3
   values:
-    providerRegex: ^(kube-proxmox-001|kube-proxmox-002)$
+    providerRegex: ^(kube-proxmox-001|kube-proxmox-002|kube-proxmox-003)$
     bypassDnsResolution: true
     metrics:
       enable: true

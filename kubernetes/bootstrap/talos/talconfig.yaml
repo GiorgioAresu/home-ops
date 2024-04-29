@@ -22,7 +22,7 @@ nodes:
   - hostname: "kube-proxmox-001"
     ipAddress: "10.17.1.125"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/b79808c404852c83c548906b79867b67c80ca56edd7fb070ed12a4c850019327
+    talosImageURL: factory.talos.dev/installer/09c354fff435f8c8b9e702c6fe825722ed4896014f5124b128ba1eee83fd0e00
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -39,7 +39,7 @@ nodes:
   - hostname: "kube-proxmox-002"
     ipAddress: "10.17.1.126"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/b79808c404852c83c548906b79867b67c80ca56edd7fb070ed12a4c850019327
+    talosImageURL: factory.talos.dev/installer/09c354fff435f8c8b9e702c6fe825722ed4896014f5124b128ba1eee83fd0e00
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -54,7 +54,7 @@ nodes:
   - hostname: "kube-proxmox-003"
     ipAddress: "10.17.1.127"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/b79808c404852c83c548906b79867b67c80ca56edd7fb070ed12a4c850019327
+    talosImageURL: factory.talos.dev/installer/09c354fff435f8c8b9e702c6fe825722ed4896014f5124b128ba1eee83fd0e00
     controlPlane: false
     networkInterfaces:
       - deviceSelector:

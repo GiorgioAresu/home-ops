@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings-user
+  namespace: flux-system
+data:
+  TRUENAS_ADDR: "10.17.1.2"
+  #
+  SVC_MONGODB_ADDR: "10.17.1.211"
+  SVC_VLMCSD_ADDR: "10.17.1.209"
