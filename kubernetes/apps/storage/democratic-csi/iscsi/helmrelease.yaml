@@ -28,7 +28,7 @@ spec:
     csiDriver:
       name: "org.democratic-csi.iscsi"
     storageClasses:
-      - name: freenas-iscsi-csi
+      - name: truenas-iscsi-csi
         defaultClass: false
         reclaimPolicy: Delete
         volumeBindingMode: Immediate
@@ -77,5 +77,5 @@ spec:
           extentXenCompat: false
           extentDisablePhysicalBlocksize: true
           extentBlocksize: 512
-          extentRpm: "SSD"
+          extentRpm: "" # Let truenas decide
           extentAvailThreshold: 0
