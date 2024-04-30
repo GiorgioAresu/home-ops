@@ -108,3 +108,10 @@ tasks:
   .reset:
     internal: true
     cmd: rm -rf {{.TALOS_DIR}}
+
+  update-config:
+    desc: Regenerate talos config and apply to cluster
+    dir: "{{.TALOS_DIR}}"
+    cmds:
+      - task: bootstrap-genconfig
+      - cmd: talhelper gencommand apply | bash
