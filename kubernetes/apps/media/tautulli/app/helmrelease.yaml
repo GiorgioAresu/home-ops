@@ -106,14 +106,11 @@ spec:
                   identifier: app
                   port: http
     persistence:
-    #   config:
-    #     enabled: true
-    #     type: persistentVolumeClaim
-    #     existingClaim: tautulli-config-v1
-    #     globalMounts:
-    #       - path: /config
       config:
-        type: emptyDir
+        type: persistentVolumeClaim
+        existingClaim: tautulli
+        globalMounts:
+          - path: /config
       tmp:
         type: emptyDir
       add-ons:

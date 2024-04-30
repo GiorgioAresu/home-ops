@@ -98,14 +98,11 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      # config:
-      #   enabled: true
-      #   type: persistentVolumeClaim
-      #   existingClaim: sonarr-config-v1
-      #   globalMounts:
-      #     - path: /config
       config:
-        type: emptyDir
+        type: persistentVolumeClaim
+        existingClaim: sonarr
+        globalMounts:
+          - path: /config
       tmp:
         type: emptyDir
       tv:
