@@ -34,7 +34,7 @@ spec:
       concurrentReplicaRebuildPerNodeLimit: 2
       createDefaultDiskLabeledNodes: false
       defaultLonghornStaticStorageClass: longhorn
-      defaultReplicaCount: 2
+      defaultReplicaCount: 1
       # guaranteedEngineManagerCPU: 20
       # guaranteedReplicaManagerCPU: 20
       node-drain-policy: allow-if-replica-is-stopped
@@ -59,8 +59,8 @@ spec:
       path: /
       tls: true
     persistence:
-      defaultClassReplicaCount: 2
-      reclaimPolicy: Retain
+      defaultClassReplicaCount: 1
+      reclaimPolicy: Delete
     metrics:
       serviceMonitor:
         enabled: true
