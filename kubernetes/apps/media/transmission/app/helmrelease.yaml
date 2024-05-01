@@ -1,0 +1,97 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: transmission
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      transmission:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: lscr.io/linuxserver/transmission
+              tag: 4.0.5
+            env:
+              TZ: ${TIMEZONE}
+              PUID: 568
+              PGID: 1003
+              PEERPORT: 51413
+            # envFrom: *envFrom
+            probes:
+              liveness: &probes
+                spec:
+                  timeoutSeconds: 2
+              readiness: *probes
+              startup: *probes
+            resources:
+              requests:
+                cpu: 15m
+                memory: 50Mi
+              limits:
+                # cpu: 500m
+                memory: 0.5Gi
+    service:
+      app:
+        controller: transmission
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: 10.17.1.197
+        ports:
+          http:
+            port: 9091
+          utp-tcp:
+            port: 51413
+            protocol: TCP
+          utp-udp:
+            port: 51413
+            protocol: UDP
+    ingress:
+      app:
+        className: internal
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/group: "media"
+          hajimari.io/icon: "cloud-download"
+        hosts:
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        type: persistentVolumeClaim
+        existingClaim: transmission-config-v1
+        globalMounts:
+          - path: /config
+      downloads:
+        type: nfs
+        server: "${TRUENAS_ADDR}"
+        path: /mnt/tank/downloads
+        globalMounts:
+          - path: /downloads
+      # watch:
+      #   globalMounts:
+      #     - path: /watch
