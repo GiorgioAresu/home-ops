@@ -108,7 +108,7 @@ spec:
     persistence:
       config:
         type: persistentVolumeClaim
-        existingClaim: tautulli
+        existingClaim: tautulli-config-v1
         globalMounts:
           - path: /config
       tmp:

@@ -100,7 +100,7 @@ spec:
     persistence:
       config:
         type: persistentVolumeClaim
-        existingClaim: sonarr
+        existingClaim: sonarr-config-v1
         globalMounts:
           - path: /config
       tmp:

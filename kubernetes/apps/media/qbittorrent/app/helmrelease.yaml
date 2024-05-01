@@ -107,7 +107,7 @@ spec:
     persistence:
       config:
         type: persistentVolumeClaim
-        existingClaim: qbittorrent
+        existingClaim: qbittorrent-config-v1
         globalMounts:
           - path: /config
       downloads:
