@@ -1,0 +1,62 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: postgresql
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: postgresql
+      version: 15.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    strategy:
+      type: Recreate
+    architecture: standalone
+    useStatefulSet: true
+    clusterDomain: "${SECRET_DOMAIN}"
+    global:
+      postgresql:
+        auth:
+          postgresPassword: "${SECRET_POSTGRES_PASSWORD}"
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: postgresql-primary-v1
+      service:
+        type: LoadBalancer
+        loadBalancerIP: "${SVC_POSTGRESQL_ADDR}"
+    diagnosticMode: # All probes will be disabled and the command will be overridden with sleep infinity
+      enabled: false
+    backup:
+      enabled: true
+      cronjob:
+        schedule: "@daily"
+        storage:
+          existingClaim: postgresql-backups-v1
+    metrics:
+      # TODO: enabled: true # Helm install failed for release database/postgresql with chart postgresql@15.2.2: execution error at (postgresql/templates/primary/statefulset.yaml:530:29): In order to enable metrics you need to specify a database (.Values.auth.database or .Values.global.postgresql.auth.database)
+      serviceMonitor:
+        enabled: true
+        interval: 1m
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 10m
+      # limits:
+      #   memory: 100Mi
+      #   cpu: 100m
+    # nodeSelector:
+    #   kubernetes.io/arch: amd64
