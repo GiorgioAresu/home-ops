@@ -8,3 +8,4 @@ resources:
   # Flux-Kustomizations
   - ./mongodb/ks.yaml
   - ./postgresql/ks.yaml
+  - ./redis/ks.yaml # TODO: Switch to valkey
