@@ -64,6 +64,7 @@ spec:
             resources:
               requests:
                 cpu: 100m
+                memory: 300Mi
               limits:
                 # TODO: restore memory: 2Gi
                 memory: 1Gi
