@@ -5,4 +5,5 @@ kind: Kustomization
 resources:
   - ./config-pvc.yaml
   - ./helmrelease.yaml
+  - ./unifi-mongo.sops.yaml
   # - ../../../../templates/volsync
