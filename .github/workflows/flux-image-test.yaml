@@ -35,9 +35,10 @@ jobs:
         id: changed-clusters
         uses: tj-actions/changed-files@v44
         with:
-          files: kubernetes/**
+          files: "."
           dir_names: true
-          dir_names_max_depth: 1
+          dir_names_include_files: kubernetes
+          dir_names_max_depth: 2
           matrix: true
 
       - name: List All Changed Clusters
