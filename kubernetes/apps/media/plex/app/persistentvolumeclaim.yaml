@@ -11,5 +11,5 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageclassname: longhorn-replicated
+  storageClassName: longhorn-replicated
   volumeMode: Filesystem

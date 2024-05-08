@@ -11,5 +11,5 @@ spec:
   resources:
     requests:
       storage: 200Mi
-  storageclassname: longhorn-replicated
+  storageClassName: longhorn-replicated
   volumeMode: Filesystem
