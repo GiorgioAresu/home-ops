@@ -2,3 +2,9 @@ home-kubernetes-kube-proxmox-001.yaml
 home-kubernetes-kube-proxmox-002.yaml
 home-kubernetes-kube-proxmox-003.yaml
 talosconfig
+home-kubernetes-kube-proxmox-01.yaml
+home-kubernetes-kube-proxmox-02.yaml
+home-kubernetes-kube-proxmox-03.yaml
+home-kubernetes-kube-rpi4-01.yaml
+home-kubernetes-kube-rpi4-02.yaml
+home-kubernetes-kube-nuc-01.yaml

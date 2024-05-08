@@ -19,10 +19,10 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: "kube-proxmox-001"
+  - hostname: "kube-proxmox-01"
     ipAddress: "10.17.1.125"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/09c354fff435f8c8b9e702c6fe825722ed4896014f5124b128ba1eee83fd0e00
+    talosImageURL: factory.talos.dev/installer/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -36,10 +36,18 @@ nodes:
             gateway: "10.17.1.1"
         vip:
           ip: "10.17.1.7"
-  - hostname: "kube-proxmox-002"
+    patches:
+      - &longhorn_sdb |-
+        machine:
+          disks:
+          - device: /dev/sdb
+            partitions:
+              - mountpoint: /var/lib/longhorn
+
+  - hostname: "kube-proxmox-02"
     ipAddress: "10.17.1.126"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/09c354fff435f8c8b9e702c6fe825722ed4896014f5124b128ba1eee83fd0e00
+    talosImageURL: factory.talos.dev/installer/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -51,10 +59,13 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.17.1.1"
-  - hostname: "kube-proxmox-003"
+    patches:
+      - *longhorn_sdb
+
+  - hostname: "kube-proxmox-03"
     ipAddress: "10.17.1.127"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/09c354fff435f8c8b9e702c6fe825722ed4896014f5124b128ba1eee83fd0e00
+    talosImageURL: factory.talos.dev/installer/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -66,6 +77,69 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.17.1.1"
+    patches:
+      - *longhorn_sdb
+
+  - hostname: "kube-rpi4-01"
+    ipAddress: "10.17.1.34"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "e4:5f:01:48:d7:4e"
+        dhcp: false
+        addresses:
+          - "10.17.1.34/24"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.17.1.1"
+        vip:
+          ip: "10.17.1.7"
+    patches:
+      - &longhorn_mmcblk0 |-
+        machine:
+          disks:
+          - device: /dev/mmcblk0
+            partitions:
+              - mountpoint: /var/lib/longhorn
+
+  - hostname: "kube-rpi4-02"
+    ipAddress: "10.17.1.35"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "e4:5f:01:96:b3:71"
+        dhcp: false
+        addresses:
+          - "10.17.1.35/24"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.17.1.1"
+    patches:
+      - *longhorn_mmcblk0
+
+  - hostname: "kube-nuc-01"
+    ipAddress: "10.17.1.36"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/b0f625a97dda4d776607a73ab2443418f55922f738948ae728d7d29a8687a21c
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "68:5b:35:a1:01:ca"
+        dhcp: false
+        addresses:
+          - "10.17.1.36/24"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.17.1.1"
+        vip:
+          ip: "10.17.1.7"
 
 patches:
   # Configure containerd
@@ -151,10 +225,6 @@ patches:
             type: bind
             source: /var/lib/longhorn
             options: ["bind", "rshared", "rw"]
-      disks:
-          - device: /dev/sdb
-            partitions:
-              - mountpoint: /var/lib/longhorn
       sysctls:
         vm.nr_hugepages: "1024"
 

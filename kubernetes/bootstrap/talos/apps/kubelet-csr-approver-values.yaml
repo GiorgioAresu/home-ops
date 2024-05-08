@@ -1,3 +1,3 @@
 ---
-providerRegex: ^(kube-proxmox-001|kube-proxmox-002|kube-proxmox-003)$
+providerRegex: ^(kube-proxmox-01|kube-proxmox-02|kube-proxmox-03|kube-rpi4-01|kube-rpi4-02|kube-nuc-01)$
 bypassDnsResolution: true
