@@ -47,15 +47,6 @@ spec:
             probes:
               liveness: &probes
                 enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /ping
-                    port: &port 8384
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
@@ -81,7 +72,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: *port
+            port: 8384
       listen:
         controller: *app
         # type: LoadBalancer
@@ -114,8 +105,8 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      config:
+      data:
         type: persistentVolumeClaim
-        existingClaim: syncthing-config-v1
+        existingClaim: syncthing-data-v1
         globalMounts:
-          - path: /config
+          - path: /var/syncthing
