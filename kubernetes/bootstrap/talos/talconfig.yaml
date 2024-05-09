@@ -20,7 +20,7 @@ cniConfig:
 
 nodes:
   - hostname: "kube-proxmox-01"
-    ipAddress: "10.17.1.125"
+    ipAddress: "10.17.1.32"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b
     controlPlane: true
@@ -29,7 +29,7 @@ nodes:
           hardwareAddr: "bc:24:11:41:5f:39"
         dhcp: false
         addresses:
-          - "10.17.1.125/24"
+          - "10.17.1.32/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
@@ -45,7 +45,7 @@ nodes:
               - mountpoint: /var/lib/longhorn
 
   - hostname: "kube-proxmox-02"
-    ipAddress: "10.17.1.126"
+    ipAddress: "10.17.1.33"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b
     controlPlane: false
@@ -54,7 +54,7 @@ nodes:
           hardwareAddr: "bc:24:11:ef:8f:39"
         dhcp: false
         addresses:
-          - "10.17.1.126/24"
+          - "10.17.1.33/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
@@ -63,7 +63,7 @@ nodes:
       - *longhorn_sdb
 
   - hostname: "kube-proxmox-03"
-    ipAddress: "10.17.1.127"
+    ipAddress: "10.17.1.37"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b
     controlPlane: false
@@ -72,7 +72,7 @@ nodes:
           hardwareAddr: "bc:24:11:90:da:27"
         dhcp: false
         addresses:
-          - "10.17.1.127/24"
+          - "10.17.1.37/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
@@ -125,7 +125,9 @@ nodes:
 
   - hostname: "kube-nuc-01"
     ipAddress: "10.17.1.36"
-    installDisk: "/dev/sda"
+    installDiskSelector:
+      size: "<= 128GB"
+      model: "USB3.0*"
     talosImageURL: factory.talos.dev/installer/b0f625a97dda4d776607a73ab2443418f55922f738948ae728d7d29a8687a21c
     controlPlane: true
     networkInterfaces:
@@ -194,7 +196,7 @@ patches:
     machine:
       time:
         disabled: false
-        servers: ["time.cloudflare.com"]
+        servers: ["10.17.1.1"]
 
   # Custom sysctl settings
   - |-
