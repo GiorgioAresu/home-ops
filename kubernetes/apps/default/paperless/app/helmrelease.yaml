@@ -46,7 +46,7 @@ spec:
               PAPERLESS_WORKER_TIMEOUT: 3600 # 1h
             envFrom:
               - secretRef:
-                  name: paperless-db
+                  name: paperless-secret
             probes:
               liveness: &probes
                 spec:
