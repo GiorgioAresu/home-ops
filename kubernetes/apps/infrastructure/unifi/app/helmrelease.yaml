@@ -28,7 +28,7 @@ spec:
         containers:
           app:
             image:
-              repository: lscr.io/linuxserver/unifi-network-application
+              repository: lscr.io/linuxserver/unifi-network-application # TODO: Switch to jacobalberty/unifi-docker for multiarch support
               tag: 8.1.127@sha256:8f333c2a2a163cc8881f1f6413b3f77fc85e5644036fb2c08383f99e5a1c7de0
             env:
               TZ: "${TIMEZONE}"
@@ -45,6 +45,9 @@ spec:
               limits:
                 cpu: 796m
                 memory: 1243M
+    defaultPodOptions:
+      nodeSelector:
+        kubernetes.io/arch: amd64
     service:
       app:
         controller: unifi
