@@ -12,9 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: postgresql
-      namespace: database
     - name: redis
-      namespace: database
   path: ./kubernetes/apps/default/paperless/app
   prune: true
   sourceRef:
