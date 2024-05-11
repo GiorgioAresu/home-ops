@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app unifi
+  name: &app unifi-controller
   namespace: flux-system
 spec:
   targetNamespace: infrastructure
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/infrastructure/unifi/app
+  path: ./kubernetes/apps/infrastructure/unifi-controller/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: unifi
+  name: unifi-controller
 spec:
   interval: 30m0s
   chart:
@@ -25,6 +25,8 @@ spec:
   values:
     controllers:
       unifi:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -37,7 +39,7 @@ spec:
               MEM_LIMIT: "250"
             envFrom:
               - secretRef:
-                  name: unifi-mongo
+                  name: unifi-controller-secret
             resources:
               requests:
                 cpu: 475m
@@ -51,52 +53,35 @@ spec:
     service:
       app:
         controller: unifi
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${SVC_UNIFIDIRECT_ADDR}
         ports:
           http:
             port: 8443
             protocol: HTTPS
-          guest-http:
-            enabled: false
-            port: 8880
-            protocol: HTTP
-          guest-https:
-            enabled: false
-            port: 8843
-            protocol: HTTPS
-          device-comms:
+          controller:
             port: 8080
             protocol: TCP
-          mobile-test:
+          portal-http:
+            port: 8880
+            protocol: HTTP
+          portal-https:
+            port: 8843
+            protocol: HTTPS
+          speedtest:
             port: 6789
             protocol: TCP
           syslog:
             port: 5514
-            protocol: TCP
+            protocol: UDP
           stun:
             port: 3478
             protocol: UDP
           l2-discovery:
             port: 1900
             protocol: UDP
-          ap-discovery:
-            port: 10001
-            protocol: UDP
-      direct:
-        controller: unifi
-        type: LoadBalancer
-        annotations:
-          io.cilium/lb-ipam-ips: ${SVC_UNIFIDIRECT_ADDR}
-        ports:
-          device-comms:
-            enabled: true
-            port: 8080
-            protocol: TCP
-          discovery:
-            enabled: true
-            port: 1900
-            protocol: UDP
-          ap-discovery:
-            enabled: true
+          device-discovery:
             port: 10001
             protocol: UDP
     ingress:
