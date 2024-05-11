@@ -29,7 +29,7 @@ spec:
       serviceMonitor:
         create: true
       volumeSnapshotClasses:
-        - name: longhorn
+        - name: longhorn-snapshot
           annotations:
             snapshot.storage.kubernetes.io/is-default-class: "true"
           driver: driver.longhorn.io
@@ -38,5 +38,14 @@ spec:
             # needed for successful VolumeSnapshots
             # see: https://github.com/longhorn/longhorn/issues/2534#issuecomment-1010508714
             type: snap
+        - name: longhorn-backup
+          # annotations:
+          #   snapshot.storage.kubernetes.io/is-default-class: "true"
+          driver: driver.longhorn.io
+          deletionPolicy: Delete
+          parameters:
+            # needed for successful VolumeSnapshots
+            # see: https://github.com/longhorn/longhorn/issues/2534#issuecomment-1010508714
+            type: bak
     webhook:
       enabled: false
