@@ -55,6 +55,10 @@ spec:
         hajimari.io/icon: "harddisk"
         nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
         nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+        # prevent the controller from redirecting (308) to HTTPS
+        nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+        # custom max body size for file uploading like backing image uploading
+        nginx.ingress.kubernetes.io/proxy-body-size: 10000m
       host: "longhorn.${SECRET_DOMAIN}"
       path: /
       tls: true
