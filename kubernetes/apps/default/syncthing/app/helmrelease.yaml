@@ -73,22 +73,19 @@ spec:
         ports:
           http:
             port: 8384
-      listen:
+      discovery:
         controller: *app
-        # type: LoadBalancer
-        # annotations:
-        #   io.cilium/lb-ipam-ips: ${SVC_SYNCTHING_ADDR}
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${SVC_SYNCTHING_ADDR}
         ports:
           discovery:
-            enabled: true
             port: 21027
             protocol: UDP
           listen:
-            enabled: true
             port: 22000
             protocol: TCP
           listen-udp:
-            enabled: true
             port: 22000
             protocol: UDP
     ingress:
