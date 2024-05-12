@@ -7,5 +7,6 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./hajimari/ks.yaml
+  - ./nextcloud/ks.yaml
   - ./paperless/ks.yaml
   - ./syncthing/ks.yaml
