@@ -36,6 +36,8 @@ spec:
     service:
       type: LoadBalancer
       loadBalancerIP: "${SVC_MONGODB_ADDR}"
+      annotations:
+        external-dns.alpha.kubernetes.io/hostname: "{{ .Release.Name }}.${SECRET_DOMAIN}"
     diagnosticMode: # All probes will be disabled and the command will be overridden with sleep infinity
       enabled: false
     backup:
