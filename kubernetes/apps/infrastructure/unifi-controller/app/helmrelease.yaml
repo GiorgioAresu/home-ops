@@ -30,16 +30,13 @@ spec:
         containers:
           app:
             image:
-              repository: jacobalberty/unifi
-              tag: v8.1.113@sha256:483b7f294845c9e32eeb84ad2cda20ff90e996bcb6fa3107cba35ef36e578fb6
+              repository: lscr.io/linuxserver/unifi-network-application # TODO: Switch to jacobalberty/unifi-docker for multiarch support
+              tag: 8.1.127@sha256:8f333c2a2a163cc8881f1f6413b3f77fc85e5644036fb2c08383f99e5a1c7de0
             env:
               TZ: "${TIMEZONE}"
-              RUNAS_UID0: "false"
-              UNIFI_UID: "1000"
-              UNIFI_GID: "1000"
-              UNIFI_STDOUT: "true"
-              JVM_INIT_HEAP_SIZE:
-              JVM_MAX_HEAP_SIZE: 512M
+              PUID: 1000
+              PGID: 1000
+              MEM_LIMIT: "250"
             envFrom:
               - secretRef:
                   name: unifi-controller-secret
@@ -50,6 +47,9 @@ spec:
               limits:
                 cpu: 796m
                 memory: 1243M
+    defaultPodOptions:
+      nodeSelector:
+        kubernetes.io/arch: amd64
     service:
       app:
         controller: unifi
@@ -117,4 +117,4 @@ spec:
         type: persistentVolumeClaim
         existingClaim: unifi-config-v1
         globalMounts:
-          - path: /unifi
+          - path: /config
