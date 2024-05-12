@@ -126,6 +126,7 @@ spec:
       app:
         className: external
         annotations:
+          # external-dns.alpha.kubernetes.io/hostname: "plex.direct,{{ .Release.Name }}.${SECRET_DOMAIN}" 
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           # nginx.ingress.kubernetes.io/app-root: "/web" # Redirect / -> /web
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
