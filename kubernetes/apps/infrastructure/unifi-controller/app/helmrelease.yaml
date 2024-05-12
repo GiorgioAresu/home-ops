@@ -53,22 +53,26 @@ spec:
     service:
       app:
         controller: unifi
-        type: LoadBalancer
-        annotations:
-          io.cilium/lb-ipam-ips: ${SVC_UNIFIDIRECT_ADDR}
         ports:
           http:
             port: 8443
             protocol: HTTPS
-          controller:
-            port: 8080
-            protocol: TCP
           portal-http:
             port: 8880
             protocol: HTTP
           portal-https:
             port: 8843
             protocol: HTTPS
+      controller:
+        controller: unifi
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "unifi.${SECRET_DOMAIN}"
+          io.cilium/lb-ipam-ips: ${SVC_UNIFIDIRECT_ADDR}
+        ports:
+          controller:
+            port: 8080
+            protocol: TCP
           speedtest:
             port: 6789
             protocol: TCP
@@ -79,9 +83,11 @@ spec:
             port: 3478
             protocol: UDP
           l2-discovery:
+            # Doesn't really work due to cilium not handling brodcast addresses, see private docs
             port: 1900
             protocol: UDP
           device-discovery:
+            # Doesn't really work due to cilium not handling brodcast addresses, see private docs
             port: 10001
             protocol: UDP
     ingress:
@@ -99,17 +105,12 @@ spec:
                 service:
                   identifier: app
                   port: http
-    # portal:
-    #   className: internal
-    #   annotations:
-    #     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    #     hosts:
-    #       - host: &host-guest "guest.${SECRET_DOMAIN}"
-    #         paths:
-    #           - path: /
-    #             pathType: Prefix
-    #             service:
-    #               port: guest-https
+          - host: "hotspot.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: portal-https
     persistence:
       data:
         enabled: true
