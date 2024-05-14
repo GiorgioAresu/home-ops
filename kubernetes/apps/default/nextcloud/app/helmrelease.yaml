@@ -25,8 +25,12 @@ spec:
   values:
     image:
       flavor: fpm-alpine
+    env:
+      PHP_MEMORY_LIMIT: 256M
     cronjob:
       enabled: true
+      failedJobsHistoryLimit: 1
+      successfulJobsHistoryLimit: 1
     nextcloud:
       extraInitContainers:
         - name: wait-database
@@ -69,10 +73,10 @@ spec:
         enabled: true
         fromAddress: "${SECRET_EMAIL_USER}"
         domain: "${SECRET_EMAIL_DOMAIN}"
-      # securityContext:
-      #   runAsUser: 1022
-      #   runAsGroup: 1022
-      #   runAsNonRoot: true
+      securityContext:
+        runAsUser: 82
+        runAsGroup: 82
+        runAsNonRoot: true
     nginx:
       enabled: true
     internalDatabase:
@@ -91,7 +95,7 @@ spec:
       enabled: true
       className: external
       annotations:
-        external-dns.alpha.kubernetes.io/target: external.${CLUSTER_DOMAIN}
+        external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
         hajimari.io/icon: mdi:dropbox
         nginx.ingress.kubernetes.io/proxy-body-size: "10G"
         nginx.ingress.kubernetes.io/proxy-buffering: "off"
