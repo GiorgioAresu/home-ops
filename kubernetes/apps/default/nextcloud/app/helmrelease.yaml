@@ -85,7 +85,7 @@ spec:
       enabled: true
       type: postgresql
       host: *postgresHost
-      database: nextcloud
+      database: nextcloud-test
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
@@ -129,11 +129,7 @@ spec:
     metrics:
       enabled: true
     persistence:
-      enabled: true
-      existingClaim: nextcloud-config-v1
-      nextcloudData:
-        enabled: true
-        existingClaim: nextcloud-data-v1
+      enabled: false
     # this seems to be required for nextcloud initialization which takes a long time
     startupProbe:
       enabled: true
