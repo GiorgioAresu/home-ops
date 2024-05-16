@@ -23,15 +23,25 @@ spec:
       strategy: rollback
       retries: 3
   values:
-  #   env:
-  #     PHP_MEMORY_LIMIT: 256M
+    image:
+      flavor: fpm
+    nginx:
+      enabled: true
   #   cronjob:
   #     enabled: true
   #     failedJobsHistoryLimit: 1
   #     successfulJobsHistoryLimit: 1
     nextcloud:
   #     datadir: /var/www/data
-  #     extraEnv: *redisEnvs
+      extraEnv:
+        # - name: PHP_MEMORY_LIMIT
+        #   value: 10G
+        - name: REDIS_HOST
+          value: redis-master.database.svc.cluster.local
+        - name: REDIS_HOST_PORT
+          value: "6379"
+        - name: REDIS_HOST_PASSWORD
+          value: ${SECRET_REDIS_PASSWORD}
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
@@ -60,18 +70,18 @@ spec:
         # SMTP default configuration
         smtp.config.php: true
       configs:
-  #       proxy.config.php: |-
-  #         <?php
-  #         $CONFIG = array (
-  #           'trusted_proxies' =>
-  #           array(
-  #              0 => '${CLUSTER_CIDR}',
-  #           ),
-  #           'forwarded_for_headers' =>
-  #           array (
-  #             0 => 'HTTP_X_FORWARDED_FOR',
-  #           ),
-  #         );
+        proxy.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' =>
+            array(
+               0 => '${CLUSTER_CIDR}',
+            ),
+            'forwarded_for_headers' =>
+            array (
+              0 => 'HTTP_X_FORWARDED_FOR',
+            ),
+          );
         gitops.config.php: |-
           <?php
           $CONFIG = array (
