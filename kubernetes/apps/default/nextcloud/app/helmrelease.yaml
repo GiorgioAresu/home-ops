@@ -27,10 +27,10 @@ spec:
       flavor: fpm
     nginx:
       enabled: true
-  #   cronjob:
-  #     enabled: true
-  #     failedJobsHistoryLimit: 1
-  #     successfulJobsHistoryLimit: 1
+    cronjob:
+      enabled: true
+      failedJobsHistoryLimit: 1
+      successfulJobsHistoryLimit: 1
     nextcloud:
   #     datadir: /var/www/data
       extraEnv:
@@ -42,18 +42,41 @@ spec:
           value: "6379"
         - name: REDIS_HOST_PASSWORD
           value: ${SECRET_REDIS_PASSWORD}
+        - name: PASSWORD_SALT
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secret
+              key: password-salt
+        - name: SECRET
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secret
+              key: secret
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
       host: "nextcloud.${SECRET_DOMAIN}"
       phpConfigs:
+        opcache.ini: |
+          opcache.enable=1
+          opcache.interned_strings_buffer=8
+          opcache.max_accelerated_files=10000
+          opcache.memory_consumption=128
+          opcache.save_comments=1
+          opcache.revalidate_freq=1
         uploadLimit.ini: |
           upload_max_filesize = 16G
           post_max_size = 16G
           max_input_time = 3600
           max_execution_time = 3600
-        regionalSettings.ini: |
-          default_phone_region = IT
+        # Made things actually worse
+        # www2.conf: |
+        #   [www]
+        #   pm = dynamic
+        #   pm.max_children = 120
+        #   pm.start_servers = 12
+        #   pm.min_spare_servers = 6
+        #   pm.max_spare_servers = 18
       defaultConfigs:
         # To protect /var/www/html/config
         .htaccess: true
@@ -74,40 +97,51 @@ spec:
           <?php
           $CONFIG = array (
             'trusted_proxies' =>
-            array(
-               0 => '${CLUSTER_CIDR}',
-            ),
+              array(
+                0 => '${CLUSTER_CIDR}',
+              ),
             'forwarded_for_headers' =>
-            array (
-              0 => 'HTTP_X_FORWARDED_FOR',
-            ),
-          );
-        gitops.config.php: |-
-          <?php
-          $CONFIG = array (
-            'appstoreenabled' => true,
-            #'appstoreurl' => 'https://apps.nextcloud.com/api/v0',
-            'mail_domain' => '${CLUSTER_DOMAIN}',
+              array (
+                0 => 'HTTP_X_FORWARDED_FOR',
+              ),
           );
         #Circumvention for client freezes - https://github.com/nextcloud/desktop/issues/5094
-        bulkupload.config.php: |-
-          <?php
-          $CONFIG = array (
-            'bulkupload.enabled' => false,
-          );
+        # bulkupload.config.php: |-
+        #   <?php
+        #   $CONFIG = array (
+        #     'bulkupload.enabled' => false,
+        #   );
         cron.config.php: |-
           <?php
           $CONFIG = array (
             'maintenance_window_start' => 1,
           );
-  #     mail:
-  #       enabled: true
-  #       fromAddress: "${SECRET_EMAIL_USER}"
-  #       domain: "${SECRET_EMAIL_DOMAIN}"
+        region.config.php: |-
+          <?php
+          $CONFIG = array (
+            'default_phone_region' => 'IT',
+            'default_timezone' => 'Europe/Rome',
+          );
+        instance.config.php: |-
+          <?php
+          $CONFIG = array (
+            'passwordsalt' => getenv('PASSWORD_SALT'),
+            'secret' => getenv('SECRET'),
+          );
+      mail:
+        enabled: true
+        fromAddress: "${SECRET_EMAIL_USER}"
+        domain: "${SECRET_EMAIL_DOMAIN}"
+        smtp:
+          secure: ssl
+          port: 465
+          authtype: LOGIN
   #     # securityContext:
   #     #   runAsUser: 82
   #     #   runAsGroup: 82
   #     #   runAsNonRoot: true
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -176,8 +210,8 @@ spec:
       pathType: Prefix
   #   metrics:
   #     enabled: true
-  #   persistence:
-  #     enabled: false
+    persistence:
+      enabled: false
   #   # # this seems to be required for nextcloud initialization which takes a long time
   #   # startupProbe:
   #   #   enabled: true

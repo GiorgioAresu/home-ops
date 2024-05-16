@@ -1,0 +1,33 @@
+# nuc.yaml
+# customization:
+#   systemExtensions:
+#     officialExtensions:
+#     - siderolabs/i915-ucode
+#     - siderolabs/intel-ucode
+#     - siderolabs/iscsi-tools
+#     - siderolabs/realtek-firmware
+#     - siderolabs/thunderbolt
+#     - siderolabs/util-linux-tools
+
+# https://factory.talos.dev/image/b0f625a97dda4d776607a73ab2443418f55922f738948ae728d7d29a8687a21c/v1.7.1/metal-amd64.iso
+
+# proxmox.yaml
+customization:
+  systemExtensions:
+    officialExtensions:
+    - siderolabs/iscsi-tools
+    - siderolabs/qemu-guest-agent
+    - siderolabs/util-linux-tools
+# https://factory.talos.dev/image/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b/v1.7.1/metal-amd64.iso
+
+# RPI
+# customization:
+#   systemExtensions:
+#     officialExtensions:
+#     - siderolabs/iscsi-tools
+#     - siderolabs/util-linux-tools
+# https://factory.talos.dev/image/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d/v1.7.1/metal-arm64.raw.xz
+
+# overlay:
+#     image: siderolabs/sbc-raspberrypi
+#     name: rpi_generic
