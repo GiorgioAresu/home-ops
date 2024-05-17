@@ -148,7 +148,7 @@ spec:
       enabled: true
       type: postgresql
       host: postgresql.database.svc.cluster.local
-      database: nextcloud-test
+      database: nextcloud
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
@@ -211,15 +211,19 @@ spec:
   #   metrics:
   #     enabled: true
     persistence:
-      enabled: false
-  #   # # this seems to be required for nextcloud initialization which takes a long time
-  #   # startupProbe:
-  #   #   enabled: true
-  #   #   initialDelaySeconds: 10
-  #   #   periodSeconds: 20
-  #   #   timeoutSeconds: 5
-  #   #   failureThreshold: 30
-  #   #   successThreshold: 1
+      enabled: true
+      existingClaim: nextcloud-config-v1
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-data-v1
+    # # this seems to be required for nextcloud initialization which takes a long time
+    # startupProbe:
+    #   enabled: true
+    #   initialDelaySeconds: 10
+    #   periodSeconds: 20
+    #   timeoutSeconds: 5
+    #   failureThreshold: 30
+    #   successThreshold: 1
     startupProbe:
       enabled: false
     livenessProbe:
