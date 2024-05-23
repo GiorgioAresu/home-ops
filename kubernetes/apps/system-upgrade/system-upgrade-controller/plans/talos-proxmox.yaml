@@ -1,9 +1,8 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/upgrade.cattle.io/plan_v1.json
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
-  name: talos
+  name: talos-proxmox
 spec:
   version: ${TALOS_VERSION}
   serviceAccountName: system-upgrade
@@ -21,6 +20,12 @@ spec:
       - key: feature.node.kubernetes.io/system-os_release.VERSION_ID
         operator: NotIn
         values: ["${TALOS_VERSION}"]
+      - key: kubernetes.io/hostname
+        operator: In
+        values:
+          - kube-proxmox-01
+          - kube-proxmox-02
+          - kube-proxmox-03
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
@@ -43,6 +48,6 @@ spec:
     args:
       - --nodes=$(NODE_IP)
       - upgrade
-      - --image=factory.talos.dev/installer/09c354fff435f8c8b9e702c6fe825722ed4896014f5124b128ba1eee83fd0e00:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+      - --image=factory.talos.dev/installer/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
       - --preserve=true
       - --wait=false
