@@ -105,24 +105,6 @@ nodes:
             partitions:
               - mountpoint: /var/lib/longhorn
 
-  - hostname: "kube-rpi4-02"
-    ipAddress: "10.17.1.35"
-    installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "e4:5f:01:96:b3:71"
-        dhcp: false
-        addresses:
-          - "10.17.1.35/24"
-        mtu: 1500
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "10.17.1.1"
-    patches:
-      - *longhorn_mmcblk0
-
   - hostname: "kube-nuc-01"
     ipAddress: "10.17.1.36"
     installDiskSelector:
