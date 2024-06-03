@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: lscr.io/linuxserver/unifi-network-application # TODO: Switch to jacobalberty/unifi-docker for multiarch support
-              tag: 8.1.127@sha256:2165e9dbdc2ec3affdfe15e303912db719dbb7ff8c1a8562af3d04d47ff2e5fe
+              tag: 8.2.93@sha256:0bfad0096c4508fad5b7934142abcad12d9f79a339cad86ea70789119bd03ad6
             env:
               TZ: "${TIMEZONE}"
               PUID: 1000
