@@ -5,4 +5,12 @@ kind: ConfigMap
 metadata:
   name: cluster-settings
   namespace: flux-system
-data: {}
+data:
+  TIMEZONE: "Europe/Rome"
+
+  TRUENAS_ADDR: "10.17.1.2"
+  SVC_POSTGRESQL_ADDR: "10.17.1.208"
+  SVC_VLMCSD_ADDR: "10.17.1.209"
+  SVC_UNIFIDIRECT_ADDR: "10.17.1.210"
+  SVC_MONGODB_ADDR: "10.17.1.211"
+  SVC_SYNCTHING_ADDR: "10.17.1.212"
