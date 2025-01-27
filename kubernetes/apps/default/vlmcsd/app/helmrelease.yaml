@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: mikolatero/vlmcsd
-              tag: latest@sha256:217a03280410aa06bca7dd1b4e3e206317ba740a990d90683462fb21b17c9e7d # TODO: Check
+              tag: latest@sha256:217a03280410aa06bca7dd1b4e3e206317ba740a990d90683462fb21b17c9e7d
             env: {}
             # probes:
             #   liveness: &probes
@@ -55,7 +55,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 64Mi # TODO: was 250
+                memory: 64Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -72,22 +72,3 @@ spec:
         ports:
           http:
             port: &port 1688
-    # serviceMonitor:
-    #   app:
-    #     serviceName: vlmcsd
-    #     endpoints:
-    #       - port: http
-    #         scheme: http
-    #         path: /metrics
-    #         interval: 1m
-    #         scrapeTimeout: 10s
-    # ingress:
-    #   app:
-    #     className: external
-    #     hosts:
-    #       - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
-    #         paths:
-    #           - path: /
-    #             service:
-    #               identifier: app
-    #               port: http
