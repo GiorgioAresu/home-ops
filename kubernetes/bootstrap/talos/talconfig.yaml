@@ -25,10 +25,15 @@ cniConfig:
 nodes:
   - hostname: "kube-bmax-01"
     ipAddress: "10.17.1.34"
-    installDisk: "/dev/sdc"
+    install:
+      diskSelector:
+        model: TOSHIBA MK2546GS
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/70d243b7e2cbe699e4db5e73356a2add6b4bb8e34eadba9db22c823110e79099
+    talosImageURL: factory.talos.dev/installer/6170f9e5c119a8d9fc1b57cff00af0425a93fa650d9c0848595f3d8c3fe15c77
+      # - siderolabs/i915
+      # - siderolabs/intel-ucode
+      # - siderolabs/util-linux-tools
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
