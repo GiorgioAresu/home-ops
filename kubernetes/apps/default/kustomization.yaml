@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./echo-server/ks.yaml
   - ./frigate/ks.yaml
+  - ./plex/ks.yaml
   - ./vlmcsd/ks.yaml
 components:
   - ../../components/namespace
