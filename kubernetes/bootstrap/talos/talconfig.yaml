@@ -25,9 +25,8 @@ cniConfig:
 nodes:
   - hostname: "kube-bmax-01"
     ipAddress: "10.17.1.34"
-    install:
-      diskSelector:
-        model: TOSHIBA MK2546GS
+    installDiskSelector:
+      model: TOSHIBA MK2546GS
     machineSpec:
       secureboot: false
     talosImageURL: factory.talos.dev/installer/6170f9e5c119a8d9fc1b57cff00af0425a93fa650d9c0848595f3d8c3fe15c77
