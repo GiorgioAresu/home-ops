@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./snapshot-controller/ks.yaml
   - ./volsync/ks.yaml
+  - ./volumesnapshotclass.yaml
 components:
   - ../../components/namespace
 patches:
