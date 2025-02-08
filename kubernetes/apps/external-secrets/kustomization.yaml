@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./external-secrets/ks.yaml
 components:
-  - ../../flux/components/namespace
+  - ../../components/namespace
 patches:
   - # Add the name to the namespace
     patch: |

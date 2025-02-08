@@ -13,6 +13,7 @@ spec:
   dependsOn:
     - name: external-secrets-stores
     - name: node-feature-discovery-rules
+    - name: volsync
   path: ./kubernetes/apps/default/frigate/app
   prune: true
   sourceRef:
@@ -21,6 +22,8 @@ spec:
   wait: false
   interval: 30m
   timeout: 5m
+  components:
+    - ../../../../components/volsync
   postBuild:
     substitute:
       APP: *app

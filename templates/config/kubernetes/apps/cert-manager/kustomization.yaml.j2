@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./cert-manager/ks.yaml
 components:
-  - ../../flux/components/namespace
+  - ../../components/namespace
 patches:
   - # Add the name to the namespace
     patch: |
