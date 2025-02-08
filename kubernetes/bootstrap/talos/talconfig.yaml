@@ -46,6 +46,10 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.17.1.8"
+    machineDisks:
+      - device: /dev/sda
+        partitions:
+          - mountpoint: /var/openebs
 
 # Global patches
 patches:
@@ -54,10 +58,12 @@ patches:
   - "@./patches/global/machine-network.yaml"
   - "@./patches/global/machine-sysctls.yaml"
   - "@./patches/global/machine-time.yaml"
+  - "@./patches/global/mayastor-patch.yaml"
 
 # Controller patches
 controlPlane:
   patches:
     - "@./patches/controller/admission-controller-patch.yaml"
     - "@./patches/controller/cluster.yaml"
+    - "@./patches/controller/mayastor-patch-cp.yaml"
 

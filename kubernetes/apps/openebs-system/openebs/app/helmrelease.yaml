@@ -30,7 +30,7 @@ spec:
           enabled: false
       replicated:
         mayastor:
-          enabled: false
+          enabled: true
     openebs-crds:
       csi:
         volumeSnapshots:
@@ -47,3 +47,9 @@ spec:
         name: openebs-hostpath
         isDefaultClass: false
         basePath: /var/openebs/local
+    mayastor:
+      csi:
+        node:
+          initContainers:
+            enabled: false
+          kubeletDir: /var/openebs/mayastor
