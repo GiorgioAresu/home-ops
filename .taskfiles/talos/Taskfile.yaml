@@ -28,14 +28,12 @@ tasks:
 
   upgrade-node:
     desc: Upgrade Talos on a single node [IP=required]
-    cmd: talhelper gencommand upgrade --node {{.IP}} --config-file {{.TALHELPER_CONFIG_FILE}} --out-dir {{.TALHELPER_CLUSTER_DIR}} --extra-flags "--image='factory.talos.dev/installer{{if eq .TALOS_SECUREBOOT "true"}}-secureboot{{end}}/{{.TALOS_SCHEMATIC_ID}}:{{.TALOS_VERSION}}' --timeout=10m" | bash
+    cmd: talhelper gencommand upgrade --node {{.IP}} --config-file {{.TALHELPER_CONFIG_FILE}} --out-dir {{.TALHELPER_CLUSTER_DIR}} --extra-flags "--image='{{.TALOS_IMAGE}}' --timeout=10m" | bash
     vars:
-      TALOS_SCHEMATIC_ID:
-        sh: yq '.nodes[] | select(.ipAddress == "{{.IP}}") | .talosImageURL' {{.TALHELPER_CONFIG_FILE}} | awk -F/ '{print $NF}'
-      TALOS_SECUREBOOT:
-        sh: yq '.nodes[] | select(.ipAddress == "{{.IP}}") | .machineSpec.secureboot' {{.TALHELPER_CONFIG_FILE}}
-      TALOS_VERSION:
-        sh: yq '.talosVersion' {{.TALHELPER_CONFIG_FILE}}
+      FILE:
+        sh: ls {{.TALHELPER_CLUSTER_DIR}}/kubernetes-{{.NODE}}*.yaml
+      TALOS_IMAGE:
+        sh: yq '.machine.install.image' < "{{.FILE}}"
     requires:
       vars: [IP]
     preconditions:
