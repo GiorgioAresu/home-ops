@@ -59,19 +59,13 @@ spec:
               limits:
                 gpu.intel.com/i915: "1"
                 memory: 2Gi
-    initContainers:
-      copyconfig:
-        image:
-          repository: *imageRepo
-          tag: *imageTag
-        volumeMounts:
-          - mountPath: /config.yml
-            subPath: config.yml
-            name: configmap
-          - mountPath: /config
-            name: config
-        command: [ "cp" ]
-        args: [ "-v", "/config.yml", "/config/config.yaml" ]
+        initContainers:
+          copyconfig:
+            image:
+              repository: *imageRepo
+              tag: *imageTag
+            command: [ "cp" ]
+            args: [ "-v", "/config.yml", "/config/config.yaml" ]
     defaultPodOptions:
       # affinity:
       #   podAntiAffinity:
@@ -107,19 +101,27 @@ spec:
       config:
         existingClaim: frigate
         globalMounts:
-          - path: /data
+          - path: /config
+      config-file:
+        type: configMap
+        name: frigate-configmap
+        advancedMounts:
+          frigate:
+            copyconfig:
+              - path: /config.yml
+                subPath: config.yml
+                readOnly: true
       cache:
         type: emptyDir
         medium: Memory
         sizeLimit: 256Mi
         globalMounts:
           - path: /dev/shm
-      # usb:
-      #   type: hostPath
-      #   hostPath: /dev/bus/usb
-      #   hostPathType: Directory
-      #   globalMounts:
-      #     - path: /dev/bus/usb
+      intel:
+        type: hostPath
+        hostPath: /dev/dri/renderD128
+        globalMounts:
+          - path: /dev/dri/renderD128
       media:
         type: nfs
         server: ${TRUENAS_ADDR}
