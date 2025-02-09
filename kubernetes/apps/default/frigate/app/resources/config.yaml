@@ -1,5 +1,7 @@
 ---
 # yaml-language-server: $schema=https://frigate.devbu.io/api/config/schema.json
+version: 0.14
+
 logger:
   default: info
   # logs:
@@ -8,8 +10,8 @@ logger:
 mqtt:
   host: 10.17.1.4
   topic_prefix: frigate
-  user: "{FRIGATE_MQTT_USERNAME}"
-  password: "{FRIGATE_MQTT_PASSWORD}"
+  user: '{FRIGATE_MQTT_USERNAME}'
+  password: '{FRIGATE_MQTT_PASSWORD}'
 
 database:
   path: /data/frigate.db
@@ -29,7 +31,7 @@ model:
   labelmap_path: /openvino-model/coco_91cl_bkgr.txt
 
 ffmpeg:
-  global_args: ["-hide_banner", "-loglevel", "warning"]
+  global_args: [-hide_banner, -loglevel, warning]
   hwaccel_args: preset-vaapi
   # hwaccel_args: ["-hwaccel", "vaapi", "-hwaccel_device", "/dev/dri/renderD128", "-hwaccel_output_format", "yuv420p"]
   output_args:
