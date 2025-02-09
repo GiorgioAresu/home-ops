@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./backube.yaml
   - ./bjw-s.yaml
+  - ./blakeblackshear.yaml
   - ./cilium.yaml
   - ./controlplaneio.yaml
   - ./coredns.yaml
