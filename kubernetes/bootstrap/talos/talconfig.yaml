@@ -14,8 +14,8 @@ clusterSvcNets:
   - "10.96.0.0/16"
 
 additionalApiServerCertSans: &sans
-  - "10.17.1.8"
-  - "127.0.0.1"
+  - &talosControlplaneVip 10.17.1.8
+  - 127.0.0.1 # KubePrism
 additionalMachineCertSans: *sans
 
 # Disable built-in Flannel to use Cilium
@@ -23,29 +23,17 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: "kube-bmax-01"
-    ipAddress: "10.17.1.34"
+  - hostname: kube-bmax-01
+    ipAddress: 10.17.1.34
     installDiskSelector:
       model: TOSHIBA MK2546GS
-    machineSpec:
-      secureboot: false
-    talosImageURL: factory.talos.dev/installer/6170f9e5c119a8d9fc1b57cff00af0425a93fa650d9c0848595f3d8c3fe15c77
-      # - siderolabs/i915
-      # - siderolabs/intel-ucode
-      # - siderolabs/util-linux-tools
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:e0:4c:2e:36:08"
-        dhcp: false
-        addresses:
-          - "10.17.1.34/24"
-        routes:
-          - network: "0.0.0.0/0"
-            gateway: "10.17.1.1"
-        mtu: 1500
+          hardwareAddr: 00:e0:4c:2e:36:08
+        dhcp: true
         vip:
-          ip: "10.17.1.8"
+          ip: *talosControlplaneVip
     machineDisks:
       - device: /dev/sda
         partitions:
@@ -62,6 +50,24 @@ patches:
 
 # Controller patches
 controlPlane:
+  schematic:
+    customization:
+      extraKernelArgs:
+        - apparmor=0 # Less security, more speed
+        - init_on_alloc=0 # Less security, more speed
+        - init_on_free=0 # Less security, more speed
+        - intel_iommu=on # PCI Passthrough
+        - iommu=pt # PCI Passthrough
+        - mitigations=off # Less security, more speed
+        - security=none # Less security, more speed
+        - net.ifnames=1 # Enable predictable NIC naming
+      systemExtensions:
+        officialExtensions:
+          # - siderolabs/gasket-driver # Coral
+          - siderolabs/i915
+          - siderolabs/intel-ucode
+          - siderolabs/mei
+
   patches:
     - "@./patches/controller/admission-controller-patch.yaml"
     - "@./patches/controller/cluster.yaml"
