@@ -30,8 +30,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/blakeblackshear/frigate
-              tag: 0.14.1@sha256:22e3d0b486df52c3d669682254c2b1bf4205fa6ad8bd8f8c9f7fe76b1517005d
+              repository: &imageRepo ghcr.io/blakeblackshear/frigate
+              tag: &imageTag 0.14.1@sha256:22e3d0b486df52c3d669682254c2b1bf4205fa6ad8bd8f8c9f7fe76b1517005d
             env:
               TZ: ${TIMEZONE}
               LIBVA_DRIVER_NAME: i965
@@ -59,6 +59,19 @@ spec:
               limits:
                 gpu.intel.com/i915: "1"
                 memory: 2Gi
+    initContainers:
+      copyconfig:
+        image:
+          repository: *imageRepo
+          tag: *imageTag
+        volumeMounts:
+          - mountPath: /config.yml
+            subPath: config.yml
+            name: configmap
+          - mountPath: /config
+            name: config
+        command: [ "cp" ]
+        args: [ "-v", "/config.yml", "/config/config.yaml" ]
     defaultPodOptions:
       # affinity:
       #   podAntiAffinity:
@@ -95,13 +108,6 @@ spec:
         existingClaim: frigate
         globalMounts:
           - path: /data
-      config-file:
-        type: configMap
-        name: frigate-configmap
-        globalMounts:
-          - path: /config/config.yml
-            subPath: config.yml
-            # readOnly: true
       cache:
         type: emptyDir
         medium: Memory
