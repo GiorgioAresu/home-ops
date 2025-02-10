@@ -51,15 +51,11 @@ spec:
     extraVolumeMounts:
       - name: media
         mountPath: /media
-      - name: intel
-        mountPath: /dev/dri/renderD128
     extraVolumes:
       - name: media
         nfs:
           server: ${TRUENAS_ADDR}
           path: /mnt/tank/media/frigate
-      - name: intel
-        hostPath: /dev/dri/renderD128
     resources:
       requests:
         cpu: 100m
