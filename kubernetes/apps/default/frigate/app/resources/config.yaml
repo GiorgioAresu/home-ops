@@ -13,7 +13,7 @@ mqtt:
   password: '{FRIGATE_MQTT_PASSWORD}'
 
 database:
-  path: /data/frigate.db
+  path: /config/frigate.db
 
 detectors:
   ov:
