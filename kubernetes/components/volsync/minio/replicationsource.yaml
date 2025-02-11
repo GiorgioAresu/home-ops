@@ -11,11 +11,12 @@ spec:
   restic:
     accessModes:
       - "${VOLSYNC_SNAP_ACCESSMODES:-ReadWriteOnce}"
-    cacheAccessModes:
-      - "${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"
-    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
-    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-openebs-hostpath}"
-    copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
+    # cacheAccessModes:
+    #   - "${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"
+    # cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
+    # cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-openebs-hostpath}"
+    copyMethod: "${VOLSYNC_COPYMETHOD:-Direct}"
+    # copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
     moverSecurityContext:
       runAsUser: ${APP_UID:-2000}
       runAsGroup: ${APP_GID:-2000}
@@ -26,4 +27,4 @@ spec:
       hourly: 24
       daily: 7
     storageClassName: "${VOLSYNC_STORAGECLASS:-openebs-hostpath}"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-hostpath-snapclass}"
+    # volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-hostpath-snapclass}"
