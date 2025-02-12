@@ -22,9 +22,9 @@ spec:
     # copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
     copyMethod: "${VOLSYNC_COPYMETHOD:-Direct}"
     moverSecurityContext:
-      runAsUser: ${APP_UID:-2000}
-      runAsGroup: ${APP_GID:-2000}
-      fsGroup: ${APP_GID:-2000}
+      runAsUser: ${APP_UID:-568}
+      runAsGroup: ${APP_GID:-568}
+      fsGroup: ${APP_GID:-568}
     repository: "${APP}-volsync-minio"
     storageClassName: "${VOLSYNC_STORAGECLASS:-openebs-hostpath}"
     # volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-hostpath-snapclass}"

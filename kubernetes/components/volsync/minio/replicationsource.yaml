@@ -18,9 +18,9 @@ spec:
     copyMethod: "${VOLSYNC_COPYMETHOD:-Direct}"
     # copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
     moverSecurityContext:
-      runAsUser: ${APP_UID:-2000}
-      runAsGroup: ${APP_GID:-2000}
-      fsGroup: ${APP_GID:-2000}
+      runAsUser: ${APP_UID:-568}
+      runAsGroup: ${APP_GID:-568}
+      fsGroup: ${APP_GID:-568}
     pruneIntervalDays: 7
     repository: ${APP}-volsync-minio
     retain:
