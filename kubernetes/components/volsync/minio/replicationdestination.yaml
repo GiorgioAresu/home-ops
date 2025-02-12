@@ -3,7 +3,8 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: "${APP}-bootstrap"
+  name: "${APP}"
+  # name: "${APP}-bootstrap"
 spec:
   trigger:
     manual: restore-once
