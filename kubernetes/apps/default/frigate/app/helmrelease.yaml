@@ -22,11 +22,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  valuesFrom:
-    - kind: ConfigMap
-      name: frigate-configmap
-      valuesKey: config.yml
-      targetPath: config
   values:
     image:
       repository: ghcr.io/blakeblackshear/frigate
@@ -76,3 +71,87 @@ spec:
     #         topologyKey: kubernetes.io/hostname
     podAnnotations:
       reloader.stakater.com/auto: "true"
+
+    config: |
+      version: 0.15-1
+
+      logger:
+        default: info
+        # logs:
+        #   frigate.record: debug
+
+      mqtt:
+        host: 10.17.1.4
+        topic_prefix: frigate
+        user: '{FRIGATE_MQTT_USERNAME}'
+        password: '{FRIGATE_MQTT_PASSWORD}'
+
+      database:
+        path: /config/frigate.db
+
+      detectors:
+        ov:
+          type: openvino
+          device: GPU
+          model_path: /openvino-model/ssdlite_mobilenet_v2.xml
+      model:
+        width: 300
+        height: 300
+        input_tensor: nhwc
+        input_pixel_format: bgr
+        labelmap_path: /openvino-model/coco_91cl_bkgr.txt
+
+      ffmpeg:
+        global_args:
+          - '-hide_banner'
+          - '-loglevel'
+          - warning
+        hwaccel_args: 'preset-vaapi'
+        # hwaccel_args:
+        # - '-hwaccel'
+        # - vaapi
+        # - '-hwaccel_device'
+        # - /dev/dri/renderD128
+        # - '-hwaccel_output_format'
+        # - yuv420p
+        output_args:
+          record: preset-record-generic-audio-copy
+
+      snapshots:
+        enabled: true
+        timestamp: false
+        bounding_box: true
+        retain:
+          default: 1
+
+      record:
+        enabled: true
+        retain:
+          days: 1
+          mode: all
+        alerts:
+          retain:
+            days: 1
+        detections:
+          retain:
+            days: 1
+      timestamp_style:
+        format: '%d/%m/%Y %H:%M:%S'
+        effect: solid
+
+      audio:
+        enabled: true
+
+      cameras:
+        DCS-935L:
+          enabled: true
+          ffmpeg:
+            inputs:
+              - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108:554/play1.sdp
+                roles:
+                  - audio
+                  - record
+              - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108:554/play1.sdp
+                roles:
+                  - detect
+          webui_url: http://10.17.1.108
