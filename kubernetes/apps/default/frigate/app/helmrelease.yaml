@@ -22,6 +22,18 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+
+  postRenderers:
+    - kustomize:
+        patches: # Remove limited data volume definition to replace with nfs mount
+          - target:
+              version: v1
+              kind: Deployment
+              name: frigate
+            patch: |
+              - op: remove
+                path: /spec/template/spec/volumes/3
+
   values:
     image:
       repository: ghcr.io/blakeblackshear/frigate
@@ -35,7 +47,7 @@ spec:
       enabled: true
       ingressClassName: internal
       hosts:
-        - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        - host: "frigate.${SECRET_DOMAIN}"
           paths:
             - path: /
               portName: http-auth
@@ -43,9 +55,6 @@ spec:
       config:
         enabled: true
         existingClaim: frigate
-    extraVolumeMounts:
-      - name: media
-        mountPath: /media
     extraVolumes:
       - name: media
         nfs:
