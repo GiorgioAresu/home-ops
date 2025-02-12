@@ -8,11 +8,11 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: frigate
-      version: 7.7.0
+      chart: app-template
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
-        name: blakeblackshear
+        name: bjw-s
         namespace: flux-system
   install:
     remediation:
@@ -22,145 +22,94 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-
-  postRenderers:
-    - kustomize:
-        patches: # Remove limited data volume definition to replace with nfs mount
-          - target:
-              version: v1
-              kind: Deployment
-              name: frigate
-            patch: |
-              - op: remove
-                path: /spec/template/spec/volumes/3
-
   values:
-    image:
-      repository: ghcr.io/blakeblackshear/frigate
-      tag: 0.15.0@sha256:dc77295ccc5a7258510ab6b1d9d5b7a339027305e2d29224338534febc4d1e89
-    env:
-      TZ: ${TIMEZONE}
-    envFromSecrets:
-      - frigate-secret
-    shmSize: 256Mi
+    controllers:
+      frigate:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/blakeblackshear/frigate
+              tag: 0.15.0@sha256:dc77295ccc5a7258510ab6b1d9d5b7a339027305e2d29224338534febc4d1e89
+            env:
+              TZ: ${TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: frigate-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/version
+                    port: &port 5000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            # securityContext:
+            #   privileged: true
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                gpu.intel.com/i915: "1"
+                memory: 1Gi
+    defaultPodOptions:
+      # affinity:
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       - labelSelector:
+      #           matchExpressions:
+      #             - key: app.kubernetes.io/name
+      #               operator: In
+      #               values: ["plex"]
+      #         topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        # google.feature.node.kubernetes.io/coral: "true"
+        intel.feature.node.kubernetes.io/gpu: "true"
+    service:
+      app:
+        controller: frigate
+        ports:
+          http:
+            port: *port
+          rtsp:
+            port: 8554
     ingress:
-      enabled: true
-      ingressClassName: internal
-      hosts:
-        - host: "frigate.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              portName: http-auth
+      app:
+        className: internal
+        hosts:
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
     persistence:
       config:
-        enabled: true
         existingClaim: frigate
-    extraVolumes:
-      - name: media
-        nfs:
-          server: ${TRUENAS_ADDR}
-          path: /mnt/tank/media/frigate
-    resources:
-      requests:
-        cpu: 100m
-      limits:
-        gpu.intel.com/i915: "1"
-        memory: 2Gi
-    nodeSelector:
-      # google.feature.node.kubernetes.io/coral: "true"
-      intel.feature.node.kubernetes.io/gpu: "true"
-    # affinity:
-    #   podAntiAffinity:
-    #     requiredDuringSchedulingIgnoredDuringExecution:
-    #       - labelSelector:
-    #           matchExpressions:
-    #             - key: app.kubernetes.io/name
-    #               operator: In
-    #               values: ["plex"]
-    #         topologyKey: kubernetes.io/hostname
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
-
-    config: |
-      version: 0.15-1
-
-      logger:
-        default: info
-        # logs:
-        #   frigate.record: debug
-
-      mqtt:
-        host: 10.17.1.4
-        topic_prefix: frigate
-        user: '{FRIGATE_MQTT_USERNAME}'
-        password: '{FRIGATE_MQTT_PASSWORD}'
-
-      database:
-        path: /config/frigate.db
-
-      detectors:
-        ov:
-          type: openvino
-          device: GPU
-          model_path: /openvino-model/ssdlite_mobilenet_v2.xml
-      model:
-        width: 300
-        height: 300
-        input_tensor: nhwc
-        input_pixel_format: bgr
-        labelmap_path: /openvino-model/coco_91cl_bkgr.txt
-
-      ffmpeg:
-        global_args:
-          - '-hide_banner'
-          - '-loglevel'
-          - warning
-        hwaccel_args: 'preset-vaapi'
-        # hwaccel_args:
-        # - '-hwaccel'
-        # - vaapi
-        # - '-hwaccel_device'
-        # - /dev/dri/renderD128
-        # - '-hwaccel_output_format'
-        # - yuv420p
-        output_args:
-          record: preset-record-generic-audio-copy
-
-      snapshots:
-        enabled: true
-        timestamp: false
-        bounding_box: true
-        retain:
-          default: 1
-
-      record:
-        enabled: true
-        retain:
-          days: 1
-          mode: all
-        alerts:
-          retain:
-            days: 1
-        detections:
-          retain:
-            days: 1
-      timestamp_style:
-        format: '%d/%m/%Y %H:%M:%S'
-        effect: solid
-
-      audio:
-        enabled: true
-
-      cameras:
-        DCS-935L:
-          enabled: true
-          ffmpeg:
-            inputs:
-              - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108:554/play1.sdp
-                roles:
-                  - audio
-                  - record
-              - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108:554/play1.sdp
-                roles:
-                  - detect
-          webui_url: http://10.17.1.108
+        globalMounts:
+          - path: /config
+      config-file:
+        type: configMap
+        name: frigate-configmap
+        globalMounts:
+          - path: /config/config.yml
+            subPath: config.yml
+            readOnly: true
+      cache:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 256Mi
+        globalMounts:
+          - path: /dev/shm\
+      media:
+        type: nfs
+        server: ${TRUENAS_ADDR}
+        path: /mnt/tank/media/frigate
+        globalMounts:
+          - path: /media
