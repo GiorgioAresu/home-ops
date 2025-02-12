@@ -30,8 +30,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/blakeblackshear/frigate
-              tag: 0.15.0@sha256:dc77295ccc5a7258510ab6b1d9d5b7a339027305e2d29224338534febc4d1e89
+              repository: &imageRepo ghcr.io/blakeblackshear/frigate
+              tag: &imageTag 0.15.0@sha256:dc77295ccc5a7258510ab6b1d9d5b7a339027305e2d29224338534febc4d1e89
             env:
               TZ: ${TIMEZONE}
             envFrom:
@@ -58,6 +58,13 @@ spec:
               limits:
                 gpu.intel.com/i915: "1"
                 memory: 1Gi
+        initContainers:
+          copyconfig:
+            image:
+              repository: *imageRepo
+              tag: *imageTag
+            command: [ "cp" ]
+            args: [ "-v", "/tmp/config.yml", "/config/config.yaml" ]
     defaultPodOptions:
       # affinity:
       #   podAntiAffinity:
@@ -98,7 +105,7 @@ spec:
         type: configMap
         name: frigate-configmap
         globalMounts:
-          - path: /config/config.yml
+          - path: /tmp/config.yml # Let the initContainer copy it
             subPath: config.yml
             readOnly: true
       cache:
