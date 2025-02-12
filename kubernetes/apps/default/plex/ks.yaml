@@ -21,3 +21,9 @@ spec:
   wait: false
   interval: 30m
   timeout: 5m
+  components:
+    - ../../../../components/volsync
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 10Gi
