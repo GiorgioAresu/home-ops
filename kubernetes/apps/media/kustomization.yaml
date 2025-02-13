@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: media
 resources:
   - ./plex/ks.yaml
+  - ./plex-auto-languages/ks.yaml
   - ./tautulli/ks.yaml
 components:
   - ../../components/namespace
