@@ -3,8 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname external-secrets
-  namespace: &namespace external-secrets
+  name: &appname plex
+  namespace: &namespace media
 spec:
   targetNamespace: *namespace
   commonMetadata:
@@ -12,20 +12,34 @@ spec:
       app.kubernetes.io/name: *appname
   interval: 30m
   timeout: 5m
-  path: "./kubernetes/apps/external-secrets/external-secrets/app"
+  path: "./kubernetes/apps/media/plex/app"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: true
+  wait: false
+  dependsOn:
+    - name: onepassword-store
+      namespace: external-secrets
+    - name: volsync
+      namespace: flux-system
+  components:
+    - ../../../../components/volsync
+  postBuild:
+    substitute:
+      APP: *appname
+      APP_UID: "568"
+      APP_GID: "568"
+      VOLSYNC_CLAIM: plex-config
+      VOLSYNC_CAPACITY: 5Gi
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname onepassword-store
-  namespace: &namespace external-secrets
+  name: &appname plex-image-cleanup
+  namespace: &namespace media
 spec:
   targetNamespace: *namespace
   commonMetadata:
@@ -33,15 +47,16 @@ spec:
       app.kubernetes.io/name: *appname
   interval: 30m
   timeout: 5m
-  path: "./kubernetes/apps/external-secrets/external-secrets/stores/onepassword"
+  path: "./kubernetes/apps/media/plex/plex-image-cleanup"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: true
+  wait: false
   dependsOn:
-    - name: external-secrets
+    - name: onepassword-store
       namespace: external-secrets
-    - name: onepassword-connect
-      namespace: external-secrets
+  postBuild:
+    substitute:
+      APP: *appname

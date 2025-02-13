@@ -3,29 +3,32 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app plex
-  namespace: flux-system
+  name: &appname tautulli
+  namespace: &namespace media
 spec:
-  targetNamespace: default
+  targetNamespace: *namespace
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
-  dependsOn:
-    - name: intel-device-plugins-gpu
-    - name: node-feature-discovery-rules
-  path: ./kubernetes/apps/default/plex/app
+      app.kubernetes.io/name: *appname
+  interval: 30m
+  timeout: 5m
+  path: "./kubernetes/apps/media/tautulli/app"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
   wait: false
-  interval: 30m
-  timeout: 5m
+  dependsOn:
+    - name: onepassword-store
+      namespace: external-secrets
+    - name: volsync
+      namespace: flux-system
   components:
     - ../../../../components/volsync
   postBuild:
     substitute:
-      APP: *app
-      VOLSYNC_CAPACITY: 10Gi
+      APP: *appname
       APP_UID: "568"
       APP_GID: "568"
+      VOLSYNC_CLAIM: tautulli-config
