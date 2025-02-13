@@ -22,7 +22,7 @@ spec:
   interval: 30m
   timeout: 5m
   components:
-    - ../../../../components/volsync
+    - ../../../../components/volsync-frombackup
   postBuild:
     substitute:
       APP: *app
