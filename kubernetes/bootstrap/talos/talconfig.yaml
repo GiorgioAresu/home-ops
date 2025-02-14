@@ -73,3 +73,11 @@ controlPlane:
     - "@./patches/controller/cluster.yaml"
     - "@./patches/controller/mayastor-patch-cp.yaml"
 
+    # Enable K8s Talos API Access
+    - |-
+      machine:
+        features:
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles: ["os:admin"]
+            allowedKubernetesNamespaces: ["system-upgrade"]
