@@ -30,6 +30,7 @@ spec:
             supplementalGroups:
               - 44
               - 109
+              - 1000 # NAS
               - 1003 # NAS
 
         containers:
