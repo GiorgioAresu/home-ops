@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: coredns
 spec:
-  interval: 30m
   chart:
     spec:
       chart: coredns
@@ -14,14 +13,8 @@ spec:
         kind: HelmRepository
         name: coredns
         namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
+  interval: 30m
+
   valuesFrom:
     - kind: ConfigMap
-      name: coredns-helm-values
+      name: coredns-values
