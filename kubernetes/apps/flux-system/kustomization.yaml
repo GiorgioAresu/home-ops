@@ -2,15 +2,11 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: flux-system
 resources:
   - ./flux-operator/ks.yaml
+  - ./kustomize-mutating-webhook/ks.yaml
 components:
   - ../../components/namespace
-patches:
-  - # Add the name to the namespace
-    patch: |
-      - op: add
-        path: /metadata/name
-        value: flux-system
-    target:
-      kind: Namespace
+  - ../../components/flux/alerts
+  - ../../components/flux/sops

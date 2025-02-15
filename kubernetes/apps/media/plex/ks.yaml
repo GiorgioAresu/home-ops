@@ -23,7 +23,7 @@ spec:
     - name: onepassword-store
       namespace: external-secrets
     - name: volsync
-      namespace: flux-system
+      namespace: system
   components:
     - ../../../../components/volsync
   postBuild:

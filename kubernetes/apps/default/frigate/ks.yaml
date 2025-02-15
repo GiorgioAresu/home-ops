@@ -13,14 +13,14 @@ spec:
   dependsOn:
     - name: onepassword-store
       namespace: external-secrets
-    - name: intel-device-plugins-gpu
-    - name: node-feature-discovery-rules
     - name: volsync
+      namespace: system
   path: ./kubernetes/apps/default/frigate/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
   wait: false
   interval: 30m
   timeout: 5m

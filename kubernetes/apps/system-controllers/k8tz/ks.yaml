@@ -21,4 +21,4 @@ spec:
   wait: false
   dependsOn:
     - name: cert-manager
-      namespace: flux-system
+      namespace: cert-manager
