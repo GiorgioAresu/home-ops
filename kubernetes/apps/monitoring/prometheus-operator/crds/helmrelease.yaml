@@ -10,14 +10,8 @@ spec:
     spec:
       chart: prometheus-operator-crds
       version: 18.0.0
+      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
