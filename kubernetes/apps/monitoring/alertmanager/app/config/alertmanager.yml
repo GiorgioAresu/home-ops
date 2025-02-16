@@ -9,26 +9,34 @@ receivers:
           [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
         message: |-
           {{- range .Alerts }}
-            {{- if ne .Labels.severity "" }}
-              <b>Severity:</b> <i>{{ .Labels.severity }}</i>
-            {{- else }}
-              <b>Severity:</b> <i>N/A</i>
-            {{- end }}
-            {{- if ne .Annotations.description "" }}
-              <b>Description:</b> <i>{{ .Annotations.description }}</i>
-            {{- else if ne .Annotations.summary "" }}
-              <b>Summary:</b> <i>{{ .Annotations.summary }}</i>
-            {{- else if ne .Annotations.message "" }}
-              <b>Message:</b> <i>{{ .Annotations.message }}</i>
-            {{- else }}
-              <b>Description:</b> <i>N/A</i>
-            {{- end }}
-            {{- if gt (len .Labels.SortedPairs) 0 }}
-              <b>Details:</b>
-              {{- range .Labels.SortedPairs }}
-                • <b>{{ .Name }}:</b> <i>{{ .Value }}</i>
-              {{- end }}
-            {{- end }}
+          {{- if ne .Labels.severity "" }}
+          **Severity:** _{{ .Labels.severity }}_
+
+          {{- else }}
+          **Severity:** _N/A_
+
+          {{- end }}
+          {{- if ne .Annotations.description "" }}
+          **Description:** _{{ .Annotations.description }}_
+
+          {{- else if ne .Annotations.summary "" }}
+          **Summary:** _{{ .Annotations.summary }}_
+
+          {{- else if ne .Annotations.message "" }}
+          **Message:** _{{ .Annotations.message }}_
+
+          {{- else }}
+          **Description:** _N/A_
+
+          {{- end }}
+          {{- if gt (len .Labels.SortedPairs) 0 }}
+          **Details:**
+
+          {{- range .Labels.SortedPairs }}
+          * **{{ .Name }}:** _{{ .Value }}_
+
+          {{- end }}
+          {{- end }}
           {{- end }}
 
 route:
