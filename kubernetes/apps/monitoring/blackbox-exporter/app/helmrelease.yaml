@@ -115,6 +115,22 @@ spec:
           name: unraid-icmp
           url: "unraid.${SECRET_DOMAIN}"
 
+        # NodeProxyManager
+        - module: http_2xx
+          name: npm-http
+          url: "http://npm.${SECRET_DOMAIN}"
+        - module: icmp
+          name: npm-icmp
+          url: "npm.${SECRET_DOMAIN}"
+
+        # HomeAssistant
+        - module: http_2xx
+          name: homeassistant-http
+          url: "http://10.17.1.4:8123"
+        - module: icmp
+          name: homeassistant-icmp
+          url: "10.17.1.4"
+
         - module: icmp
           name: ping-cloudflare
           url: 1.1.1.1
