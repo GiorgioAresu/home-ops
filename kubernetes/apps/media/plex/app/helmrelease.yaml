@@ -39,7 +39,7 @@ spec:
               repository: ghcr.io/onedr0p/plex
               tag: 1.41.4.9463-630c9f557@sha256:1f66577fe4fa60dc0984d568ca55fb5c2b3fae8498ef96ac1ed57710517552be
             env:
-              PLEX_ADVERTISE_URL: https://10.1.1.199:32400,https://{{ .Release.Name }}.${SECRET_DOMAIN}:443
+              PLEX_ADVERTISE_URL: https://10.17.1.199:32400,https://{{ .Release.Name }}.${SECRET_DOMAIN}:443
               PLEX_NO_AUTH_NETWORKS: 10.69.0.0/16
             probes:
               liveness: &probes
