@@ -21,8 +21,8 @@ spec:
   upgrade:
     crds: Skip
   dependsOn:
-    - name: openebs
-      namespace: openebs-system
+    - name: openebs-mayastor
+      namespace: openebs
   values:
     crds:
       enabled: false

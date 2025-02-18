@@ -37,7 +37,7 @@ nodes:
     machineDisks:
       - device: /dev/sda
         partitions:
-          - mountpoint: /var/openebs
+          - mountpoint: /var/mnt/extra
 
 # Global patches
 patches:

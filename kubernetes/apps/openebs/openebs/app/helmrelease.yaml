@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: openebs
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: openebs
+      version: 4.1.3
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: openebs
+        namespace: flux-system
+  values:
+    mayastor:
+      csi:
+        node:
+          initContainers:
+            enabled: false # Talos has the nvme_tcp module built-in
+          # kubeletDir: &mayastorHostPath /var/local
+      nats:
+        cluster:
+          replicas: 1 # TODO: Increase this to 3 when adding nodes
+      etcd:
+        replicaCount: 1 # TODO: Increase this to 3 when adding nodes
+
+    engines:
+      local:
+        lvm:
+          enabled: false
+        zfs:
+          enabled: false
