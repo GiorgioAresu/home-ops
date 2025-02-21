@@ -1,29 +1,38 @@
 ---
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
-version: '3'
+version: "3"
 
-set: [pipefail]
-shopt: [globstar]
-
-vars:
-  KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
-  PRIVATE_DIR: '{{.ROOT_DIR}}/.private'
-  SOPS_CONFIG_FILE: '{{.ROOT_DIR}}/.sops.yaml'
-  TALHELPER_CLUSTER_DIR: '{{.KUBERNETES_DIR}}/bootstrap/talos/clusterconfig'
-  TALHELPER_CONFIG_FILE: '{{.KUBERNETES_DIR}}/bootstrap/talos/talconfig.yaml'
-  TALHELPER_SECRET_FILE: '{{.KUBERNETES_DIR}}/bootstrap/talos/talsecret.sops.yaml'
-  TALOSCONFIG: '{{.TALHELPER_CLUSTER_DIR}}/talosconfig'
-
-env:
-  KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
-  SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
-  TALOSCONFIG: '{{.TALOSCONFIG}}'
+set:
+  - pipefail
+shopt:
+  - globstar
 
 includes:
-  bootstrap: .taskfiles/bootstrap
-  kubernetes: .taskfiles/kubernetes
-  talos: .taskfiles/talos
+  flux: .taskfiles/flux/Taskfile.yaml
+  k8s: .taskfiles/k8s/Taskfile.yaml
+  k8s-bootstrap: .taskfiles/k8s-bootstrap/Taskfile.yaml
+  # postgres: .taskfiles/postgres/Taskfile.yaml
+  sops: .taskfiles/sops/Taskfile.yaml
+  talos: .taskfiles/talos/Taskfile.yaml
+  volsync: .taskfiles/volsync/Taskfile.yaml
+
+vars:
+  K8S_DIR: "{{.ROOT_DIR}}/kubernetes"
+  KUBECONFIG: "{{.K8S_DIR}}/kubeconfig"
+  MINIJINJA_CONFIG_FILE: "{{.ROOT_DIR}}/.minijinja.toml"
+  TALOSCONFIG: "{{.K8S_DIR}}/talos/clusterconfig/talosconfig"
+
+env:
+  KUBECONFIG: "{{.KUBECONFIG}}"
+  MINIJINJA_CONFIG_FILE: "{{.MINIJINJA_CONFIG_FILE}}"
+  TALOSCONFIG: "{{.TALOSCONFIG}}"
 
 tasks:
+  default:
+    silent: true
+    cmd: task --list
 
-  default: task --list
+  noop:
+    internal: true
+    silent: true
+    cmd: noop() { :; }
