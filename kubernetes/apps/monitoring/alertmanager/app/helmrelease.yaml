@@ -16,7 +16,7 @@ spec:
         name: bjw-s
         namespace: flux-system
   dependsOn:
-    - name: openebs-mayastor
+    - name: openebs
       namespace: openebs
   values:
     controllers:
