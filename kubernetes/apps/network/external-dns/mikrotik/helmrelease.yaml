@@ -19,7 +19,7 @@ spec:
   values:
     fullnameOverride: &name externaldns-mikrotik
     domainFilters:
-      - "${SECRET_DOMAIN}"
+      - aresu.eu
     extraArgs:
       - --ignore-ingress-tls-spec
     podAnnotations:

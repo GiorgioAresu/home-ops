@@ -45,9 +45,9 @@ spec:
       enabled: true
       className: internal-nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: &hostname "ingress-int.${SECRET_DOMAIN}"
+        external-dns.alpha.kubernetes.io/target: &hostname "ingress-int.aresu.eu"
       hosts:
-        - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        - host: "{{ .Release.Name }}.aresu.eu"
           paths:
             - path: /
               pathType: Prefix
@@ -102,26 +102,26 @@ spec:
         # TrueNAS
         - module: http_2xx
           name: truenas-http
-          url: "http://truenas.${SECRET_DOMAIN}"
+          url: "http://truenas.aresu.eu"
         - module: icmp
           name: truenas-icmp
-          url: "truenas.${SECRET_DOMAIN}"
+          url: "truenas.aresu.eu"
 
         # Unraid
         - module: http_2xx
           name: unraid-http
-          url: "http://unraid.${SECRET_DOMAIN}"
+          url: "http://unraid.aresu.eu"
         - module: icmp
           name: unraid-icmp
-          url: "unraid.${SECRET_DOMAIN}"
+          url: "unraid.aresu.eu"
 
         # NodeProxyManager
         - module: http_2xx
           name: npm-http
-          url: "http://npm.${SECRET_DOMAIN}"
+          url: "http://npm.aresu.eu"
         - module: icmp
           name: npm-icmp
-          url: "npm.${SECRET_DOMAIN}"
+          url: "npm.aresu.eu"
 
         # HomeAssistant
         - module: http_2xx

@@ -113,7 +113,7 @@ spec:
         enabled: true
         ingressClassName: internal-nginx
         hosts:
-          - prometheus.${SECRET_DOMAIN}
+          - prometheus.aresu.eu
         pathType: Prefix
 
       prometheusSpec:

@@ -1,11 +1,11 @@
 ---
 ingress:
-  - hostname: "${SECRET_DOMAIN}"
+  - hostname: aresu.eu
     service: https://nginx-external-controller.network.svc.cluster.local:443
     originRequest:
-      originServerName: "ingress-ext.${SECRET_DOMAIN}"
-  - hostname: "*.${SECRET_DOMAIN}"
+      originServerName: "ingress-ext.aresu.eu"
+  - hostname: "*.aresu.eu"
     service: https://nginx-external-controller.network.svc.cluster.local:443
     originRequest:
-      originServerName: "ingress-ext.${SECRET_DOMAIN}"
+      originServerName: "ingress-ext.aresu.eu"
   - service: http_status:404

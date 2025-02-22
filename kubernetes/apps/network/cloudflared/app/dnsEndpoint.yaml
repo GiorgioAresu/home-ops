@@ -6,6 +6,6 @@ metadata:
   name: cloudflared-tunnel
 spec:
   endpoints:
-    - dnsName: "ingress-ext.${SECRET_DOMAIN}"
+    - dnsName: "ingress-ext.aresu.eu"
       recordType: CNAME
       targets: ["${SECRET_CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com"]

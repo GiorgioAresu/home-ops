@@ -39,7 +39,7 @@ spec:
               repository: ghcr.io/onedr0p/plex
               tag: 1.41.4.9463-630c9f557@sha256:1d7589538a85a48ed3c14703b33ae8bacda7ca7db5307c68e8bc1b8ae6e888de
             env:
-              PLEX_ADVERTISE_URL: https://10.17.1.199:32400,https://{{ .Release.Name }}.${SECRET_DOMAIN}:443
+              PLEX_ADVERTISE_URL: https://10.17.1.199:32400,https://{{ .Release.Name }}.aresu.eu:443
               PLEX_NO_AUTH_NETWORKS: 10.69.0.0/16
             probes:
               liveness: &probes
@@ -106,7 +106,7 @@ spec:
           nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         className: external-nginx
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.aresu.eu"
             paths:
               - path: /
                 service:

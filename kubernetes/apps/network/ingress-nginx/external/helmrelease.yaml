@@ -31,7 +31,7 @@ spec:
         enabled: true
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: &hostname "ingress-ext.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/hostname: &hostname "ingress-ext.aresu.eu"
           lbipam.cilium.io/ips: "10.17.1.11"
 
       publishService:
