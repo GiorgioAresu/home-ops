@@ -22,9 +22,6 @@ spec:
           initContainers:
             enabled: false # Talos has the nvme_tcp module built-in
           # kubeletDir: &mayastorHostPath /var/local
-      nats:
-        cluster:
-          replicas: 1 # TODO: Increase this to 3 when adding nodes
       etcd:
         replicaCount: 1 # TODO: Increase this to 3 when adding nodes
 
