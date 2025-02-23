@@ -25,4 +25,4 @@ spec:
       fsGroup: ${APP_GID:-2000}
     repository: "${APP}-volsync-nfs"
     storageClassName: "${VOLSYNC_STORAGECLASS:-openebs-single-replica}"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-openebs-singlereplica}"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-openebs-single-replica}"
