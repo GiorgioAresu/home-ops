@@ -24,7 +24,8 @@ spec:
           # kubeletDir: &mayastorHostPath /var/local
       etcd:
         replicaCount: 1 # TODO: Increase this to 3 when adding nodes
-
+      io_engine:
+        cpuCount: 500m
       storageClass:
         parameters:
           thin: "true"
