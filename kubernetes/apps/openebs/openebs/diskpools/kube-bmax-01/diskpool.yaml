@@ -1,7 +1,7 @@
 apiVersion: "openebs.io/v1beta2"
 kind: DiskPool
 metadata:
-  name: pool-on-bmax-01
+  name: kube-bmax-01
   namespace: openebs
 spec:
   node: kube-bmax-01
