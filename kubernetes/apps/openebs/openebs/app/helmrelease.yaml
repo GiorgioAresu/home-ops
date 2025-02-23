@@ -25,6 +25,10 @@ spec:
       etcd:
         replicaCount: 1 # TODO: Increase this to 3 when adding nodes
 
+      storageClass:
+        parameters:
+          thin: "true"
+
     engines:
       local:
         lvm:
