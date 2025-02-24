@@ -1,0 +1,77 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: longhorn
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: longhorn
+      version: v1.8.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: longhorn
+        namespace: flux-system
+  values:
+    csi:
+      attacherReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
+      provisionerReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
+      resizerReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
+      snapshotterReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
+
+    defaultSettings:
+      concurrentAutomaticEngineUpgradePerNodeLimit: 1
+      concurrentReplicaRebuildPerNodeLimit: 3
+      concurrentVolumeBackupRestorePerNodeLimit: 3
+      defaultDataPath: /var/lib/longhorn
+      defaultLonghornStaticStorageClass: longhorn
+      defaultReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
+      detachManuallyAttachedVolumesWhenCordoned: true
+      #guaranteedEngineManagerCPU: 20
+      #guaranteedReplicaManagerCPU: 20
+      node-drain-policy: allow-if-replica-is-stopped
+      #nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+      orphanAutoDeletion: true
+      replicaAutoBalance: true
+      restoreVolumeRecurringJobs: true # Don´t need this if we create a default one and then use localpath for the ones we don´t want to backup
+      storageMinimalAvailablePercentage: 10
+      storageOverProvisioningPercentage: 150
+
+    defaultBackupStore:
+      backupTarget: nfs://${TRUENAS_ADDR}:/mnt/tank/longhorn-backups
+
+    longhornUI:
+      replicas: 1
+
+    annotations:
+      configmap.reloader.stakater.com/reload: longhorn-default-setting
+
+    ingress:
+      enabled: true
+      ingressClassName: internal-nginx
+      annotations:
+        hajimari.io/appName: "longhorn"
+        hajimari.io/enable: "true"
+        hajimari.io/group: "admin"
+        hajimari.io/icon: "harddisk"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+        # prevent the controller from redirecting (308) to HTTPS
+        nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+        # custom max body size for file uploading like backing image uploading
+        nginx.ingress.kubernetes.io/proxy-body-size: 10000m
+      host: "longhorn.${SECRET_DOMAIN}"
+      path: /
+      tls: true
+
+    persistence:
+      defaultClassReplicaCount: 1
+      reclaimPolicy: Delete
+      backupTargetName: default
+
+    metrics:
+      serviceMonitor:
+        enabled: true
