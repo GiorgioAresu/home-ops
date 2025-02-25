@@ -1,8 +1,0 @@
-apiVersion: "openebs.io/v1beta2"
-kind: DiskPool
-metadata:
-  name: kube-bmax-01
-  namespace: openebs
-spec:
-  node: kube-bmax-01
-  disks: ["aio:///dev/disk/by-id/ata-UDSS_UD2CS1HT100-512G_TUSMA248YX03408"]

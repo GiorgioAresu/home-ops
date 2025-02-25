@@ -16,27 +16,22 @@ spec:
         name: openebs
         namespace: flux-system
   values:
-    mayastor:
-      csi:
-        node:
-          initContainers:
-            enabled: false # Talos has the nvme_tcp module built-in
-          # kubeletDir: &mayastorHostPath /var/local
-      etcd:
-        replicaCount: 1 # TODO: Increase this to 3 when adding nodes
-      io_engine:
-        resources:
-          requests:
-            cpu: 500m
-          limits:
-            cpu: 2000m
-      storageClass:
-        parameters:
-          thin: "true"
+    localpv-provisioner:
+      localpv:
+        basePath: &hostPath /var/mnt/extra/openebs/local
+      hostpathClass:
+        enabled: true
+        name: openebs-hostpath
+        isDefaultClass: false
+        basePath: *hostPath
+
 
     engines:
       local:
         lvm:
           enabled: false
         zfs:
+          enabled: false
+      replicated:
+        mayastor:
           enabled: false

@@ -1,8 +1,0 @@
----
-# yaml-language-server: $schema=https://json.schemastore.org/kustomization
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - ./kube-bmax-01/diskpool.yaml
-  - ./kube-proxmox-01/diskpool.yaml
-  - ./kube-proxmox-02/diskpool.yaml
