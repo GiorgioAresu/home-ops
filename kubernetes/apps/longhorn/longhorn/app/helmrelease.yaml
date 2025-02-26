@@ -75,3 +75,9 @@ spec:
     metrics:
       serviceMonitor:
         enabled: true
+
+    image:
+      longhorn:
+        manager:
+          repository: phanle1010/longhorn-manager
+          tag: v1.8.0-10303 # Fix for csi-plugin until v1.8.1 is out
