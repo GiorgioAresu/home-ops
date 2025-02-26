@@ -17,14 +17,13 @@ spec:
         namespace: flux-system
   values:
     localpv-provisioner:
-      localpv:
-        basePath: &hostPath /var/mnt/extra/openebs/local
+      # localpv:
+      #   basePath: &hostPath /var/mnt/extra/openebs/local
       hostpathClass:
         enabled: true
         name: openebs-hostpath
         isDefaultClass: false
-        basePath: *hostPath
-
+        # basePath: *hostPath
 
     engines:
       local:
