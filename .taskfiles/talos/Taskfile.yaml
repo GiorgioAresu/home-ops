@@ -98,7 +98,5 @@ tasks:
     prompt: This will destroy your cluster and reset the nodes back to maintenance mode... Continue?
     cmds:
       - talosctl reset
-        --nodes "{{.HOSTNAME}}"
-        --file "{{.FILENAME}}"
         --graceful=false
         --reboot
