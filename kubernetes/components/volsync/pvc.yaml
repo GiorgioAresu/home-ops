@@ -13,4 +13,5 @@ spec:
   resources:
     requests:
       storage: "${VOLSYNC_CAPACITY:-1Gi}"
+  volumeName: "${VOLSYNC_CLAIM:-${APP}}"
   storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn}"
