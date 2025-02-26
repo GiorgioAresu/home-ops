@@ -37,6 +37,7 @@ spec:
       orphanAutoDeletion: true
       replicaAutoBalance: true
       restoreVolumeRecurringJobs: true # Don´t need this if we create a default one and then use localpath for the ones we don´t want to backup
+      snapshotMaxCount: 10
       storageMinimalAvailablePercentage: 10
       storageOverProvisioningPercentage: 150
 
