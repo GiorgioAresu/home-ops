@@ -3,8 +3,9 @@ kind: RecurringJob
 metadata:
   name: snapshot-cleanup
 spec:
+  concurrency: 1
   cron: "0 2 * * *"
-  task: snapshot-cleanup
+  name: snapshot-cleanup
   groups:
     - default
-  name: snapshot-cleanup
+  task: snapshot-cleanup

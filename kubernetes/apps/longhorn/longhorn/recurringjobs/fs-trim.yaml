@@ -3,8 +3,9 @@ kind: RecurringJob
 metadata:
   name: fs-trim
 spec:
+  concurrency: 1
   cron: "0 3 * * *"
-  task: filesystem-trim
+  name: fs-trim
   groups:
     - default
-  name: fs-trim
+  task: filesystem-trim
