@@ -56,7 +56,7 @@ spec:
               # Configure redis integration
               PAPERLESS_REDIS: redis://paperless-redis.selfhosted.svc.cluster.local:6379
               # Configure user permissions
-              USERMAP_GID: "65542" # gladius:external-services
+              USERMAP_GID: "1000" # truenas
               # Configure admin user
               PAPERLESS_ADMIN_USER:
                 valueFrom:
@@ -130,8 +130,8 @@ spec:
               - path: /data/local
       nas:
         type: nfs
-        server: ${TRUENAS_ADDR}
-        path: /mnt/tank/apps/frigate
+        server: truenas.aresu.eu
+        path: /mnt/tank/apps/paperless
         advancedMounts:
           paperless:
             app:

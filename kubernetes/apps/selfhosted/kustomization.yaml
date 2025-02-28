@@ -12,7 +12,7 @@ resources:
   - ./manyfold/ks.yaml
   - ./miniflux/ks.yaml
   - ./n8n/ks.yaml
-  # - ./paperless/ks.yaml
+  - ./paperless/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/flux/alerts
