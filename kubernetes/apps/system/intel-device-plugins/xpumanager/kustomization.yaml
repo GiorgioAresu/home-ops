@@ -1,0 +1,8 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - https://github.com/intel/xpumanager//deployment/kubernetes/daemonset/base/?timeout=120&ref=V1.2.39
+  - https://raw.githubusercontent.com/intel/xpumanager/refs/tags/V1.2.39/deployment/kubernetes/monitoring/service-intel-xpum.yaml
+  - https://raw.githubusercontent.com/intel/xpumanager/refs/tags/V1.2.39/deployment/kubernetes/monitoring/servicemonitor-intel-xpum.yaml

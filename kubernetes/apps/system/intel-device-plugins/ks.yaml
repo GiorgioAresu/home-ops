@@ -52,52 +52,10 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  path: "./deployment/kubernetes/daemonset/base"
+  path: "./kubernetes/apps/system/intel-device-plugins/xpumanager"
   sourceRef:
     kind: GitRepository
-    name: xpumanager
-    namespace: flux-system
-  interval: 30m
-  timeout: 5m
-  prune: true
-  wait: false
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &appname intel-device-plugins-xpumanager-service
-  namespace: &namespace system
-spec:
-  targetNamespace: *namespace
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
-  path: "./deployment/kubernetes/monitoring/service-intel-xpum.yaml"
-  sourceRef:
-    kind: GitRepository
-    name: xpumanager
-    namespace: flux-system
-  interval: 30m
-  timeout: 5m
-  prune: true
-  wait: false
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &appname intel-device-plugins-xpumanager-servicemonitor
-  namespace: &namespace system
-spec:
-  targetNamespace: *namespace
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
-  path: "./deployment/kubernetes/monitoring/servicemonitor-intel-xpum.yaml"
-  sourceRef:
-    kind: GitRepository
-    name: xpumanager
+    name: flux-system
     namespace: flux-system
   interval: 30m
   timeout: 5m
