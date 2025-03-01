@@ -10,5 +10,8 @@ patches:
   - patch: |
       - op: remove
         path: /spec/namespaceSelector
+      - op: add
+        path: /spec/fallbackScrapeProtocol
+        value: PrometheusText0.0.4
     target:
       kind: ServiceMonitor
