@@ -50,8 +50,8 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-            # securityContext:
-            #   privileged: true
+            securityContext:
+              privileged: true # Required for intel_gpu_top to work
             resources:
               requests:
                 cpu: 100m
