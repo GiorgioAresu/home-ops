@@ -125,6 +125,10 @@ spec:
                   secretKeyRef:
                     name: hoarder-secret
                     key: meilisearch_master_key
+            # Dumpless upgrades (experimental)
+            # args:
+            #   - /bin/meilisearch
+            #   - --experimental-dumpless-upgrade
             resources:
               requests:
                 cpu: 10m
