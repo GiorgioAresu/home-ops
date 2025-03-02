@@ -1,11 +1,24 @@
 version: 0.15-1
 
 go2rtc:
+  # rtsp:
+  #   username: "admin"
+  #   password: "pass"
   streams:
     bullet:
-      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.122:554/0
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.122/0
+    bullet_sub:
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.122/1
+    # dome:
+    #   - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.128/0
+    # dome_sub:
+    #   - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.128/1
     DCS-935L:
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108/0 # <- stream which supports video & aac audio. This is only supported for rtsp streams, http must use ffmpeg
+      - "ffmpeg:DCS-935L#audio=opus" # <- copy of the stream which transcodes audio to opus
+    DCS-935L_sub:
       - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108:554/play1.sdp
+      - "ffmpeg:DCS-935L_sub#audio=opus"
 
 logger:
   default: info
@@ -62,53 +75,50 @@ timestamp_style:
   format: '%d/%m/%Y %H:%M:%S'
   effect: solid
 
-audio:
-  enabled: true
+# audio:
+#   enabled: true
 
 cameras:
   DCS-935L:
-    enabled: true
     ffmpeg:
+      output_args:
+        record: preset-record-generic-audio-copy
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108:554/play1.sdp
+        - path: rtsp://127.0.0.1:8554/DCS-935L_sub # <--- the name here must match the name of the camera_sub in restream
+          input_args: preset-rtsp-restream
           roles:
-            - audio
-            - record
-        - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108:554/play2.sdp
-          roles:
+            # - audio # <- only necessary if audio detection is enabled
             - detect
+        - path: rtsp://127.0.0.1:8554/DCS-935L # <--- the name here must match the name of the camera in restream
+          input_args: preset-rtsp-restream
+          roles:
+            - record
     webui_url: http://10.17.1.108
-  DCS-935L-go2rtc:
+  bullet:
     ffmpeg:
       output_args:
         record: preset-record-generic-audio-copy
       inputs:
-        - path: rtsp://127.0.0.1:8554/DCS-935L
+        - path: rtsp://127.0.0.1:8554/bullet_sub # <--- the name here must match the name of the camera_sub in restream
           input_args: preset-rtsp-restream
           roles:
-            # - record
             - detect
-            - audio # <- only necessary if audio detection is enabled
-  bullet-go2rtc:
-    ffmpeg:
-      output_args:
-        record: preset-record-generic-audio-copy
-      inputs:
-        - path: rtsp://127.0.0.1:8554/bullet
+        - path: rtsp://127.0.0.1:8554/bullet # <--- the name here must match the name of the camera in restream
           input_args: preset-rtsp-restream
           roles:
-            # - record
-            - detect
-            - audio # <- only necessary if audio detection is enabled
-  Bullet:
-    enabled: true
-    ffmpeg:
-      inputs:
-        - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.122:554/0
-          roles:
-            - audio
             - record
-        - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.122:554/1
-          roles:
-            - detect
     webui_url: http://10.17.1.122
+  # dome:
+  #   ffmpeg:
+  #     output_args:
+  #       record: preset-record-generic-audio-copy
+  #     inputs:
+  #       - path: rtsp://127.0.0.1:8554/dome_sub # <--- the name here must match the name of the camera_sub in restream
+  #         input_args: preset-rtsp-restream
+  #         roles:
+  #           - detect
+  #       - path: rtsp://127.0.0.1:8554/dome # <--- the name here must match the name of the camera in restream
+  #         input_args: preset-rtsp-restream
+  #         roles:
+  #           - record
+  #   webui_url: http://10.17.1.128
