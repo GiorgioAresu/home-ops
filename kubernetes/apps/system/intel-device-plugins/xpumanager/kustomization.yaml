@@ -8,6 +8,12 @@ resources:
   - https://raw.githubusercontent.com/intel/xpumanager/refs/tags/V1.2.39/deployment/kubernetes/monitoring/servicemonitor-intel-xpum.yaml
 patches:
   - patch: |
+      - op: add
+        path: /spec/template/spec/nodeSelector/intel.feature.node.kubernetes.io~1gpu
+        value: "true"
+    target:
+      kind: DaemonSet
+  - patch: |
       - op: remove
         path: /spec/namespaceSelector
       - op: add
