@@ -67,7 +67,7 @@ cameras:
           roles:
             - audio
             - record
-        - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108:554/play1.sdp
+        - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108:554/play2.sdp
           roles:
             - detect
     webui_url: http://10.17.1.108
