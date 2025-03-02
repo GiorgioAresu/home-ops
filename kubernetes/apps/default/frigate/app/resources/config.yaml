@@ -1,5 +1,12 @@
 version: 0.15-1
 
+go2rtc:
+  streams:
+    bullet:
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.122:554/0
+    DCS-935L:
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108:554/play1.sdp
+
 logger:
   default: info
   # logs:
@@ -71,6 +78,28 @@ cameras:
           roles:
             - detect
     webui_url: http://10.17.1.108
+  DCS-935L-go2rtc:
+    ffmpeg:
+      output_args:
+        record: preset-record-generic-audio-copy
+      inputs:
+        - path: rtsp://127.0.0.1:8554/DCS-935L
+          input_args: preset-rtsp-restream
+          roles:
+            # - record
+            - detect
+            - audio # <- only necessary if audio detection is enabled
+  bullet-go2rtc:
+    ffmpeg:
+      output_args:
+        record: preset-record-generic-audio-copy
+      inputs:
+        - path: rtsp://127.0.0.1:8554/bullet
+          input_args: preset-rtsp-restream
+          roles:
+            # - record
+            - detect
+            - audio # <- only necessary if audio detection is enabled
   Bullet:
     enabled: true
     ffmpeg:
