@@ -23,7 +23,7 @@ spec:
   values:
     controllers:
       cloudflared:
-        replicas: 1 # TODO: Increase this to 2-3 when adding nodes
+        replicas: 2 # TODO: Increase this to 2-3 when adding nodes
         strategy: RollingUpdate
 
         annotations:

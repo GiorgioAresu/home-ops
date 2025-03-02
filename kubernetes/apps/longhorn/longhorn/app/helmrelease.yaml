@@ -16,11 +16,11 @@ spec:
         name: longhorn
         namespace: flux-system
   values:
-    csi:
-      attacherReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
-      provisionerReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
-      resizerReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
-      snapshotterReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
+    # csi:
+    #   attacherReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
+    #   provisionerReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
+    #   resizerReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
+    #   snapshotterReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
 
     defaultSettings:
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
@@ -28,7 +28,7 @@ spec:
       concurrentVolumeBackupRestorePerNodeLimit: 3
       defaultDataPath: /var/lib/longhorn
       defaultLonghornStaticStorageClass: longhorn
-      defaultReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
+      defaultReplicaCount: 2 # TODO: Increase this to 2-3 when adding nodes
       detachManuallyAttachedVolumesWhenCordoned: true
       #guaranteedEngineManagerCPU: 20
       #guaranteedReplicaManagerCPU: 20

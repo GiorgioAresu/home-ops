@@ -19,7 +19,7 @@ spec:
     fullnameOverride: nginx-internal
 
     controller:
-      replicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
+      replicaCount: 2 # TODO: Increase this to 2-3 when adding nodes
 
       updateStrategy:
         type: RollingUpdate
