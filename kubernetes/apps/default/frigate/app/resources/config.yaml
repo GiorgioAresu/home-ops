@@ -71,3 +71,15 @@ cameras:
           roles:
             - detect
     webui_url: http://10.17.1.108
+  Bullet:
+    enabled: true
+    ffmpeg:
+      inputs:
+        - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.122:554/0
+          roles:
+            - audio
+            - record
+        - path: rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.122:554/1
+          roles:
+            - detect
+    webui_url: http://10.17.1.122
