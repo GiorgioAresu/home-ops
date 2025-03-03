@@ -150,6 +150,10 @@ spec:
           revision: 4
           datasource: Prometheus
 
+        intel-gpu:
+          url: https://raw.githubusercontent.com/intel/xpumanager/refs/heads/master/deployment/kubernetes/monitoring/grafana-dashboard.json
+          datasource: prometheus
+
       openebs:
         openebs-cluster:
           # renovate: dashboardName="1 OpenEBS Dashboard"
