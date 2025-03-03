@@ -111,7 +111,7 @@ nodes:
           officialExtensions:
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
-            # - siderolabs/qemu-guest-agent
+            - siderolabs/qemu-guest-agent
 
     patches:
       - &pve_disks |-
