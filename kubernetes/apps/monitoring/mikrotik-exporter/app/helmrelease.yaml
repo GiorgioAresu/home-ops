@@ -40,7 +40,7 @@ spec:
                 spec:
                   httpGet:
                     path: /
-                    port: &port "49090"
+                    port: &port 49090
                   initialDelaySeconds: 15
                   periodSeconds: 20
                   timeoutSeconds: 1
@@ -65,7 +65,7 @@ spec:
       app:
         controller: mikrotik-exporter
         annotations:
-          prometheus.io/port: *port
+          prometheus.io/port: "49090"
           prometheus.io/scrape: "true"
         ports:
           http:
