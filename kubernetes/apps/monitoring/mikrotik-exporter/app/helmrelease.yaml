@@ -18,14 +18,19 @@ spec:
   values:
     controllers:
       mikrotik-exporter:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
         pod:
           securityContext:
-            runAsGroup: 1000
-            runAsUser: 1000
+            runAsGroup: 101
+            runAsUser: 100
+            fsGroup: 101
+            fsGroupChangePolicy: "OnRootMismatch"
             runAsNonRoot: true
 
         containers:
-          mikrotik-exporter:
+          app:
             image:
               repository: ghcr.io/akpw/mktxp
               tag: 1.2.9@sha256:d69cd5ff47bb2a2c1194e7911805d8d1acd3e32afb3cde78620fb0b79680221f
@@ -76,11 +81,12 @@ spec:
         serviceName: mikrotik-exporter
         endpoints:
           - port: http
-            interval: 5s
+            interval: 15s
 
     persistence:
       config:
         type: secret
         name: mikrotik-exporter-secret
+        defaultMode: 0644 # Set readable permissions
         globalMounts:
           - path: /mktxp_config
