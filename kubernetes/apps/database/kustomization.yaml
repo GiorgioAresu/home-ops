@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: database
 resources:
   - ./crunchy-postgres-operator/ks.yaml
+  - ./emqx/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/flux/alerts
