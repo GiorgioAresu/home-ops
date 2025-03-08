@@ -97,7 +97,7 @@ spec:
         path: /mnt/tank/media/Movies
         globalMounts:
           - path: /movies
-      tv_shows:
+      tv:
         type: nfs
         server: truenas.aresu.eu
         path: /mnt/tank/media/TV Shows
