@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: longhorn
-      version: v1.8.0
+      version: 1.8.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
