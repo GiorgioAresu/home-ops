@@ -8,6 +8,7 @@ resources:
   - ./bazarr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
+  - ./readarr/ks.yaml
   - ./sonarr/ks.yaml
 components:
   - ../../components/namespace
