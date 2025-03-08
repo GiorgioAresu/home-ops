@@ -119,6 +119,9 @@ spec:
             image:
               repository: docker.io/getmeili/meilisearch
               tag: v1.13.3
+            args:
+              - /bin/meilisearch
+              - --experimental-dumpless-upgrade
             env:
               MEILI_NO_ANALYTICS: true
               MEILI_MASTER_KEY:
@@ -126,10 +129,6 @@ spec:
                   secretKeyRef:
                     name: hoarder-secret
                     key: meilisearch_master_key
-            # Dumpless upgrades (experimental)
-            # args:
-            #   - /bin/meilisearch
-            #   - --experimental-dumpless-upgrade
             resources:
               requests:
                 cpu: 10m
