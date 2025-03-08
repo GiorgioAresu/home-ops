@@ -15,29 +15,32 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn
   values:
     controllers:
       freshrss:
-        replicas: 1
-        strategy: RollingUpdate
-
         annotations:
           reloader.stakater.com/auto: "true"
 
         pod:
-          securityContext:
-            fsGroup: 2000
-            fsGroupChangePolicy: "OnRootMismatch"
+          hostUsers: false
 
         containers:
           app:
             image:
-              repository: ghcr.io/linuxserver/freshrss
-              tag: 1.26.0@sha256:829c67c2f36973054c8ab3d550fade3821bbc7e6306de140ac582671169ed0e1
+              repository: freshrss/freshrss
+              tag: 1.26.0-alpine
             env:
-              PUID: 2000
-              PGID: 2000
+              CRON_MIN: "*"
+              DOMAIN: freshrss.aresu.eu
+              LISTEN: 8080
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 5m
@@ -50,7 +53,7 @@ spec:
         controller: freshrss
         ports:
           http:
-            port: 80
+            port: 8080
 
     ingress:
       app:
@@ -64,7 +67,14 @@ spec:
                   port: http
 
     persistence:
-      config:
+      data:
         existingClaim: freshrss
-        globalMounts:
-          - path: /config
+        advancedMounts:
+          freshrss:
+            app:
+              - path: /var/www/FreshRSS/data
+                subPath: data
+                readOnly: false
+              - path: /var/www/FreshRSS/extensions
+                subPath: extensions
+                readOnly: false
