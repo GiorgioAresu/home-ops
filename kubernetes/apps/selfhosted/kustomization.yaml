@@ -9,8 +9,6 @@ resources:
   - ./freshrss/ks.yaml
   - ./hoarder/ks.yaml
   - ./it-tools/ks.yaml
-  - ./manyfold/ks.yaml
-  - ./miniflux/ks.yaml
   - ./n8n/ks.yaml
   - ./paperless/ks.yaml
 components:
