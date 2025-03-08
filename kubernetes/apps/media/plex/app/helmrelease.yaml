@@ -31,6 +31,7 @@ spec:
               - 44
               - 109
               - 100 # NAS: users
+              - 1000
               - 1003 # NAS: nfs-user
 
         containers:

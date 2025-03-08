@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.7.2
+      version: 3.7.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -33,6 +33,7 @@ spec:
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
               - 100 # NAS: users
+              - 1000
               - 1003 # NAS: nfs-user
 
         containers:
