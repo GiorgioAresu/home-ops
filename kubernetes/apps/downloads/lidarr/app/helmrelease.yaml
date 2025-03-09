@@ -111,9 +111,9 @@ spec:
         path: /mnt/tank/downloads
         globalMounts:
           - path: /downloads
-      books:
+      music:
         type: nfs
         server: truenas.aresu.eu
-        path: /mnt/tank/media/Books
+        path: /mnt/tank/media/Music
         globalMounts:
-          - path: /books
+          - path: /music
