@@ -117,7 +117,9 @@ spec:
           # renovate: dashboardName="Mikrotik MKTXP Exporter"
           gnetId: 13679
           revision: 22
-          datasource: Prometheus
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
 
         node-exporter-full:
           # renovate: dashboardName="Node Exporter Full"
@@ -130,7 +132,8 @@ spec:
           gnetId: 22604
           revision: 1
           datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
+            - name: DS_PROMETHEUS
+              value: Prometheus
 
         spegel:
           # renovate: dashboardName="Spegel"

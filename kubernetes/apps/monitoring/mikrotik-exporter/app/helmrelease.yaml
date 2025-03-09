@@ -81,7 +81,8 @@ spec:
         serviceName: mikrotik-exporter
         endpoints:
           - port: http
-            interval: 15s
+            interval: 45s
+            scrapeTimeout: 30s
 
     persistence:
       config:
