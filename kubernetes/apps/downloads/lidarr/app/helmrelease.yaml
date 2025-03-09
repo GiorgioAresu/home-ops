@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/nklmilojevic/lidarr-develop
-              tag: 0.4.8.2726@sha256:14b189e72497510689273a864a21c5e43da87e1002eee24f7969733a7cdb746f
+              tag: 2.9.3.4527@sha256:f7169a59d4be082f83dc7a3bbdac663eb21ef57455b87898559b9989e5092b35
             env:
               LIDARR__APP__INSTANCENAME: Lidarr
               LIDARR__AUTH__APIKEY:
