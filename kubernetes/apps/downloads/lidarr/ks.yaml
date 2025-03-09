@@ -30,3 +30,4 @@ spec:
     substitute:
       APP: *appname
       VOLSYNC_CLAIM: lidarr-config
+      VOLSYNC_CAPACITY: 5Gi
