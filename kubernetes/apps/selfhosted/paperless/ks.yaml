@@ -32,4 +32,4 @@ spec:
       APP_UID: "1000"
       APP_GID: "65542"
       VOLSYNC_CLAIM: paperless-data
-      VOLSYNC_CAPACITY: 15Gi
+      VOLSYNC_CAPACITY: 10Gi
