@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./nfs-pv.yaml
-  - ./kustomization.yaml
   - ./postgrescluster.yaml
