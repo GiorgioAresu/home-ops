@@ -36,6 +36,8 @@ nodes:
         dhcp: true
         vip:
           ip: *talosControlplaneVip
+    nodeLabels:
+      node.kubernetes.io/virtual: "false"
     # machineDisks:
     #   - device: /dev/sda
     #     partitions:
@@ -85,6 +87,8 @@ nodes:
         dhcp: true
         vip:
           ip: *talosControlplaneVip
+    nodeLabels:
+      node.kubernetes.io/virtual: "false"
     schematic:
       customization:
         systemExtensions:
@@ -105,6 +109,8 @@ nodes:
         dhcp: true
         vip:
           ip: *talosControlplaneVip
+    nodeLabels:
+      node.kubernetes.io/virtual: "true"
     schematic: &pve_schematic
       customization:
         systemExtensions:

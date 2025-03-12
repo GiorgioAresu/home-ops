@@ -35,3 +35,6 @@ spec:
 
     prometheusRules:
       enabled: false
+
+    nodeSelector:
+      node.kubernetes.io/virtual: "false"
