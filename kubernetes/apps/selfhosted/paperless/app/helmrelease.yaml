@@ -42,10 +42,10 @@ spec:
               PAPERLESS_WEBSERVER_WORKERS: "2"
               PAPERLESS_TASK_WORKERS: "2"
               # Configure folders
-              PAPERLESS_CONSUMPTION_DIR: /data/nas/incoming
-              PAPERLESS_DATA_DIR: /data/local/data
-              PAPERLESS_EXPORT_DIR: /data/nas/export
-              PAPERLESS_MEDIA_ROOT: /data/local/media
+              # PAPERLESS_CONSUMPTION_DIR: /data/nas/incoming
+              # PAPERLESS_DATA_DIR: /data/local/data
+              # PAPERLESS_EXPORT_DIR: /data/nas/export
+              # PAPERLESS_MEDIA_ROOT: /data/local/media
               # Configure folder importer
               PAPERLESS_CONSUMER_POLLING: "60"
               PAPERLESS_CONSUMER_RECURSIVE: "true"
@@ -68,6 +68,9 @@ spec:
                   secretKeyRef:
                     name: paperless-secret
                     key: PAPERLESS_ADMIN_PASSWORD
+            envFrom:
+              - secretRef:
+                  name: paperless-secret
             probes:
               liveness:
                 enabled: true
@@ -122,17 +125,46 @@ spec:
                   port: http
 
     persistence:
+      # data:
+      #   existingClaim: paperless-data
+      #   advancedMounts:
+      #     paperless:
+      #       app:
+      #         - path: /data/local
+      # nas:
+      #   type: nfs
+      #   server: truenas.aresu.eu
+      #   path: /mnt/tank/apps/paperless
+      #   advancedMounts:
+      #     paperless:
+      #       app:
+      #         - path: /data/nas
+
+      # Restore old volumes temporarily
       data:
-        existingClaim: paperless-data
-        advancedMounts:
-          paperless:
-            app:
-              - path: /data/local
-      nas:
+        type: persistentVolumeClaim
+        existingClaim: paperless-data-v1
+        globalMounts:
+          - path: /usr/src/paperless/data
+      # -- Configure persistence for media.
+      media:
+        type: persistentVolumeClaim
+        existingClaim: paperless-media-v1
+        globalMounts:
+          - path: /usr/src/paperless/media
+      # -- Configure volume to monitor for new documents.
+      consume:
         type: nfs
-        server: truenas.aresu.eu
-        path: /mnt/tank/apps/paperless
-        advancedMounts:
-          paperless:
-            app:
-              - path: /data/nas
+        server: "${TRUENAS_ADDR}"
+        path: /mnt/tank/media
+        globalMounts:
+          - path: /usr/src/paperless/consume
+            subPath: Paperless/consume
+      # -- Configure export volume.
+      export:
+        type: nfs
+        server: "${TRUENAS_ADDR}"
+        path: /mnt/tank/media
+        globalMounts:
+          - path: /usr/src/paperless/export
+            subPath: Paperless/export
