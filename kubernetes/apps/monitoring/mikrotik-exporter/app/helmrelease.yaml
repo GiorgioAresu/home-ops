@@ -6,15 +6,10 @@ metadata:
   name: mikrotik-exporter
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.2
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
   values:
     controllers:
       mikrotik-exporter:
@@ -69,9 +64,6 @@ spec:
     service:
       app:
         controller: mikrotik-exporter
-        annotations:
-          prometheus.io/port: "49090"
-          prometheus.io/scrape: "true"
         ports:
           http:
             port: *port

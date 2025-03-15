@@ -7,22 +7,16 @@ metadata:
 spec:
   interval: 30m
   timeout: 15m
-  chart:
-    spec:
-      chart: kube-prometheus-stack
-      version: 69.8.2
-      sourceRef:
-        kind: HelmRepository
-        name: prometheus-community
-        namespace: flux-system
-      interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: kube-prometheus-stack
   install:
     crds: Skip
   upgrade:
     crds: Skip
   dependsOn:
-    - name: openebs
-      namespace: openebs
+    - name: longhorn
+      namespace: longhorn
   values:
     crds:
       enabled: false
@@ -145,8 +139,18 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: openebs-hostpath
+              storageClassName: longhorn
               resources:
                 requests:
                   storage: 55Gi
         walCompression: true
+
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - prometheus.aresu.eu
+          parentRefs:
+            - name: internal
+              namespace: kube-system
+              sectionName: https

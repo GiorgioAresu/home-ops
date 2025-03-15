@@ -5,15 +5,10 @@ kind: HelmRelease
 metadata:
   name: fstrim
 spec:
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.2
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
   interval: 30m
   values:
     controllers:
@@ -22,7 +17,7 @@ spec:
 
         cronjob:
           schedule: "0 0 * * 1"
-          parallelism: ${NODES_COUNT}
+          parallelism: 3 # TODO: Set this to your number of nodes
           backoffLimit: 0
           failedJobsHistory: 1
           successfulJobsHistory: 0

@@ -18,11 +18,6 @@ additionalMachineCertSans: *sans
 cniConfig:
   name: none
 
-clusterPodNets:
-  - "10.69.0.0/16"
-clusterSvcNets:
-  - "10.96.0.0/16"
-
 nodes:
   - hostname: kube-bmax-01
     ipAddress: 10.17.1.34

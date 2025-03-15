@@ -3,16 +3,13 @@ keys:
   - &user_giorgio age19ufzusf8ls394p4kl5498myl24w7x6ggc5w9grq4tk8dcyh709ls6ku97r
 
 creation_rules:
-  - # IMPORTANT: This rule MUST be above the others
   - path_regex: kubernetes/.*/talos/.*\.sops\.ya?ml$
-    mac_only_encrypted: true
     key_groups:
       - age:
           - *user_giorgio
 
   - path_regex: kubernetes/.*\.sops\.ya?ml$
     encrypted_regex: "^(data|stringData)$"
-    mac_only_encrypted: true
     key_groups:
       - age:
           - *user_giorgio
@@ -21,7 +18,3 @@ creation_rules:
     key_groups:
       - age:
           - *user_giorgio
-
-stores:
-  yaml:
-    indent: 2
