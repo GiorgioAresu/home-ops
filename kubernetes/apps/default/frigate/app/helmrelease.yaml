@@ -6,14 +6,10 @@ metadata:
   name: frigate
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.2
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
   install:
     remediation:
       retries: 3
@@ -65,6 +61,7 @@ spec:
               tag: *imageTag
             command: ["cp"]
             args: ["-v", "/tmp/config.yml", "/config/config.yaml"]
+
     defaultPodOptions:
       # affinity:
       #   podAntiAffinity:
@@ -78,6 +75,7 @@ spec:
       nodeSelector:
         # google.feature.node.kubernetes.io/coral: "true"
         intel.feature.node.kubernetes.io/gpu: "true"
+
     service:
       app:
         controller: frigate
@@ -86,6 +84,7 @@ spec:
             port: *port
           rtsp:
             port: 8554
+
     ingress:
       app:
         className: internal-nginx
@@ -96,6 +95,7 @@ spec:
                 service:
                   identifier: app
                   port: http
+
     persistence:
       config:
         existingClaim: frigate

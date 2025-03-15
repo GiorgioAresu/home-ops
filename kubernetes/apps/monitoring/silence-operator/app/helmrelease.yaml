@@ -6,15 +6,10 @@ metadata:
   name: silence-operator
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.2
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
   values:
     configMaps:
       config:
@@ -50,7 +45,7 @@ spec:
           silence-operator:
             image:
               repository: quay.io/giantswarm/silence-operator
-              tag: 0.12.0
+              tag: 0.13.0
             args:
               - daemon
               - --config.dirs=/var/run/silence-operator/configmap/

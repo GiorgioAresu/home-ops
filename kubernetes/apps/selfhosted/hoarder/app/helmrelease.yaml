@@ -6,15 +6,10 @@ metadata:
   name: hoarder
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.2
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
   dependsOn:
     - name: longhorn
       namespace: longhorn
@@ -137,10 +132,11 @@ spec:
 
     service:
       app:
+        primary: true
         controller: hoarder
         ports:
           http:
-            port: 3000
+            port: &httpPort 3000
       chrome:
         controller: chrome
         ports:
@@ -175,3 +171,16 @@ spec:
             app:
               - path: /meili_data
                 subPath: meilisearch
+
+    route:
+      app:
+        hostnames:
+          - hoarder.aresu.eu
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: hoarder
+                port: *httpPort

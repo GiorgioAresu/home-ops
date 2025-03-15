@@ -10,8 +10,8 @@ configMapGenerator:
   - name: cloudflared
     files:
       - config/config.yaml
-# generatorOptions:
-#   annotations:
-#     kustomize.toolkit.fluxcd.io/substitute: disabled
+generatorOptions:
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
 configurations:
   - kustomizeconfig.yaml

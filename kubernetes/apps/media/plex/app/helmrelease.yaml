@@ -5,19 +5,14 @@ kind: HelmRelease
 metadata:
   name: plex
 spec:
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.2
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
   interval: 30m
   dependsOn:
-    - name: openebs
-      namespace: openebs
+    - name: longhorn
+      namespace: longhorn
   values:
     controllers:
       plex:
@@ -38,10 +33,10 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/plex
-              tag: 1.41.4.9463-630c9f557@sha256:7e169d17670c8f34bcb1f40500747b1b689c1c2ef7b80e604b968b5375e62022
+              tag: 1.41.5.9522-a96edc606@sha256:98a2883445f4901ec816b8dc4d684f94b4a6a21663cf6bde218f274a8c4ef289
             env:
-              PLEX_ADVERTISE_URL: https://10.17.1.199:32400,https://{{ .Release.Name }}.aresu.eu:443
-              PLEX_NO_AUTH_NETWORKS: 10.69.0.0/16
+              PLEX_ADVERTISE_URL: https://10.17.1.210:32400,https://{{ .Release.Name }}.aresu.eu:443
+              PLEX_NO_AUTH_NETWORKS: 10.244.0.0/16
             probes:
               liveness: &probes
                 enabled: true
@@ -78,28 +73,10 @@ spec:
         controller: plex
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 10.17.1.199
+          lbipam.cilium.io/ips: 10.17.1.210
         ports:
           http:
-            port: 32400
-          # dlna:
-          #   port: 1900
-          #   protocol: UDP
-          # gdm-discovery-1:
-          #   port: 32410
-          #   protocol: UDP
-          # gdm-discovery-2:
-          #   port: 32412
-          #   protocol: UDP
-          # gdm-discovery-3:
-          #   port: 32413
-          #   protocol: UDP
-          # gdm-discovery-4:
-          #   port: 32414
-          #   protocol: UDP
-          # dlna-plex:
-          #   port: 32469
-          #   protocol: TCP
+            port: &port 32400
 
     ingress:
       app:
@@ -147,3 +124,16 @@ spec:
           plex:
             app:
               - path: /transcode
+
+    route:
+      app:
+        hostnames:
+          - plex.aresu.eu
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: plex
+                port: *port

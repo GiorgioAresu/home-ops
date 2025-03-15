@@ -12,8 +12,7 @@ spec:
       version: 1.15.2
       sourceRef:
         kind: HelmRepository
-        name: kubernetes-sigs-external-dns
-        namespace: flux-system
+        name: external-dns-mikrotik
       interval: 30m
 
   values:
@@ -79,14 +78,16 @@ spec:
           timeoutSeconds: 5
     resources:
       requests:
-        cpu: 16m
-        memory: 90M
+        cpu: 13m
+        memory: 42M
       limits:
-        memory: 90M
+        memory: 42M
     serviceMonitor:
       enabled: true
     sources:
+      # - gateway-httproute # TODO: Replace with this when GatewayRoutes work
       - ingress
+
       - service
     triggerLoopOnEvent: true
     txtOwnerId: main

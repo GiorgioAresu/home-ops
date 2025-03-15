@@ -1,4 +1,6 @@
 ---
+originRequest:
+  originServerName: ingress-ext.aresu.eu
 ingress:
   - hostname: aresu.eu
     service: https://nginx-external-controller.network.svc.cluster.local:443
@@ -9,3 +11,10 @@ ingress:
     originRequest:
       originServerName: "ingress-ext.aresu.eu"
   - service: http_status:404
+# TODO: Replace with this when GatewayRoutes work
+# ingress:
+#   - hostname: aresu.eu
+#     service: &svc https://cilium-gateway-external.kube-system.svc.cluster.local
+#   - hostname: "*.aresu.eu"
+#     service: *svc
+#   - service: http_status:404

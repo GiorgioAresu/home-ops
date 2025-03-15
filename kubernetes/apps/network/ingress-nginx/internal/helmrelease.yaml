@@ -32,7 +32,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: &hostname "ingress-int.aresu.eu"
-          lbipam.cilium.io/ips: "10.17.1.10"
+          lbipam.cilium.io/ips: "10.17.1.200"
 
       publishService:
         enabled: false
@@ -87,7 +87,7 @@ spec:
             any: true
 
       extraArgs:
-        default-ssl-certificate: "cert-manager/${SECRET_DOMAIN/./-}-production-tls"
+        default-ssl-certificate: "kube-system/${SECRET_DOMAIN/./-}-tls"
         publish-status-address: *hostname
 
       topologySpreadConstraints:

@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: external-nginx
   rules:
-    - host: "flux-webhook.aresu.eu"
+    - host: "flux-webhook.${SECRET_DOMAIN}"
       http:
         paths:
           - path: /hook/

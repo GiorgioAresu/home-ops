@@ -6,15 +6,10 @@ metadata:
   name: echo-server
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.2
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
 
   values:
     controllers:
@@ -41,23 +36,12 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
-            # securityContext:
-            #   allowPrivilegeEscalation: false
-            #   readOnlyRootFilesystem: true
-            #   capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 5m
-                memory: 64Mi
+                memory: 64M
               limits:
-                memory: 64Mi
-
-    # defaultPodOptions:
-    #   securityContext:
-    #     runAsNonRoot: true
-    #     runAsUser: 65534
-    #     runAsGroup: 65534
-    #     seccompProfile: { type: RuntimeDefault }
+                memory: 64M
 
     service:
       app:
@@ -66,13 +50,15 @@ spec:
           http:
             port: *port
 
-    ingress:
+    route:
       app:
-        className: "internal-nginx"
-        hosts:
-          - host: "{{ .Release.Name }}.aresu.eu"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames:
+          - echo-server.aresu.eu
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: echo-server
+                port: *port
