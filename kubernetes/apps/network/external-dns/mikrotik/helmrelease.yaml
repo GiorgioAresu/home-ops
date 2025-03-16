@@ -85,9 +85,7 @@ spec:
     serviceMonitor:
       enabled: true
     sources:
-      # - gateway-httproute # TODO: Replace with this when GatewayRoutes work
-      - ingress
-
+      - gateway-httproute
       - service
     triggerLoopOnEvent: true
     txtOwnerId: main
