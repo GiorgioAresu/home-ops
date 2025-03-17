@@ -1,0 +1,113 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: homepage
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+
+  values:
+    controllers:
+      homepage:
+        replicas: 1
+        strategy: RollingUpdate
+
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/gethomepage/homepage
+              tag: v1.0.4@sha256:78a34acb9ca1e63eecf12919fc9fb6c91f5dea748395172d7c1904db4c5bc973
+            env:
+              TZ: ${TIMEZONE}
+              HOMEPAGE_ALLOWED_HOSTS: homepage.aresu.eu
+            envFrom:
+              - secretRef:
+                  name: homepage-secret
+            resources:
+              requests:
+                cpu: 5m
+                memory: 32Mi
+              limits:
+                memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              # readOnlyRootFilesystem: true
+
+    service:
+      app:
+        controller: homepage
+        ports:
+          http:
+            port: &port 3000
+
+    ingress:
+      app:
+        className: "internal-nginx"
+        hosts:
+          - host: homepage.aresu.eu
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      config:
+        type: configMap
+        name: homepage-config
+        globalMounts:
+          - subPath: bookmarks.yaml
+            path: /app/config/bookmarks.yaml
+          - subPath: custom.css
+            path: /app/config/custom.css
+          - subPath: custom.js
+            path: /app/config/custom.js
+          - subPath: docker.yaml
+            path: /app/config/docker.yaml
+          - subPath: kubernetes.yaml
+            path: /app/config/kubernetes.yaml
+          - subPath: services.yaml
+            path: /app/config/services.yaml
+          - subPath: settings.yaml
+            path: /app/config/settings.yaml
+          - subPath: widgets.yaml
+            path: /app/config/widgets.yaml
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /app/config/logs
+
+    route:
+      app:
+        hostnames:
+          - homepage.aresu.eu
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: homepage
+                port: *port
+
+    serviceAccount:
+      create: true
+      name: homepage

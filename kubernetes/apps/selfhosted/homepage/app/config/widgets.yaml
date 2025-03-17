@@ -1,0 +1,46 @@
+---
+#- logo:
+#    icon: https://raw.githubusercontent.com/LilDrunkenSmurf/k3s-home-cluster/main/icons/lds-transparent.png
+- search:
+    provider: [duckduckgo, brave, google]
+    target: _blank
+- greeting:
+    text_size: xl
+    text: Bentornato.
+- kubernetes:
+    cluster:
+      cpu: true
+      label: cluster
+      memory: true
+      show: true
+      showLabel: true
+    nodes:
+      cpu: true
+      memory: true
+      show: true
+      showLabel: true
+- longhorn:
+    # Show the expanded view
+    expanded: true
+    # Shows a node representing the aggregate values
+    total: true
+    # Shows the node names as labels
+    labels: true
+    # Show the nodes
+    nodes: true
+- openweathermap:
+    latitude: "{{HOMEPAGE_VAR_LATITUDE}}"
+    longitude: "{{HOMEPAGE_VAR_LONGITUDE}}"
+    units: metric
+- openmeteo:
+    label: Home
+    latitude: "{{HOMEPAGE_VAR_LATITUDE}}"
+    longitude: "{{HOMEPAGE_VAR_LONGITUDE}}"
+    timezone: Europe/Rome
+    units: metric
+    cache: 5
+- datetime:
+    # text_size: xl
+    format:
+      timeStyle: short
+      hourCycle: h23

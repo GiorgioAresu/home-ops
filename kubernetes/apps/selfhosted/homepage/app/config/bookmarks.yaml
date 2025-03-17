@@ -1,0 +1,34 @@
+---
+- Developer:
+    - Github:
+        - abbr: GH
+          href: https://github.com/GiorgioAresu
+          description: GiorgioAresu
+          icon: sh-github-light.svg
+    - BJW's Github:
+        - abbr: BJ
+          href: https://github.com/bjws-labs/home-ops
+          description: BJW's home-ops
+          icon: sh-github-light.svg
+
+- News:
+    - ANSA:
+        - abbr: AN
+          href: https://ansa.it/
+          icon: https://www.ansa.it/sito/imgnew/favicon.svg
+    - Repubblica:
+        - abbr: RE
+          href: https://repubblica.it/
+          icon: https://www.repstatic.it/cless/main/nazionale/2016-v1/img/common/favicon/favicon.ico
+
+- Entertainment:
+    - Reddit:
+        - abbr: RE
+          href: https://reddit.com/
+          description: The front page of the internet
+          icon: sh-reddit.svg
+    - YouTube:
+        - abbr: YT
+          href: https://youtube.com/
+          description: YouTube
+          icon: sh-youtube.svg

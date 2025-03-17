@@ -1,0 +1,121 @@
+---
+- Media:
+  - Plex:
+      href: https://plex.${SECRET_DOMAIN}
+      icon: plex.svg
+      namespace: media
+      app: plex
+      widget:
+        type: plex
+        url: http://plex.media.svc.cluster.local.:32400
+        key: {{HOMEPAGE_VAR_PLEX_TOKEN}}
+        enableNowPlaying: true
+        # fields: ["streams", "movies", "tv", "albums"]
+  - Tautulli:
+      href: https://tautulli.${SECRET_DOMAIN}
+      icon: tautulli.svg
+      namespace: media
+      app: tautulli
+      widget:
+        type: tautulli
+        url: http://tautulli.media.svc.cluster.local.:8181
+        key: {{HOMEPAGE_VAR_TAUTULLI_TOKEN}}
+        enableUser: true # optional, defaults to false
+        # expandOneStreamToTwoRows: false # optional, defaults to true
+        # showEpisodeNumber: true # optional, defaults to false
+  - Immich:
+      href: https://immich.${SECRET_DOMAIN}
+      icon: immich.svg
+      ping: https://immich.${SECRET_DOMAIN}
+      # widget:
+      #   type: immich
+      #   url: https://immich.aresu.eu # TODO: Migrate to svc when deployed
+      #   key: {{HOMEPAGE_VAR_IMMICH_TOKEN}}
+  - FreshRSS:
+      href: https://rss.${SECRET_DOMAIN}
+      icon: freshrss.svg
+      namespace: selfhosted
+      app: freshrss
+      widget:
+        type: freshrss
+        url: http://freshrss.selfhosted.svc.cluster.local.:8080
+        username: {{HOMEPAGE_VAR_FRESHRSS_USERNAME}}
+        password: {{HOMEPAGE_VAR_FRESHRSS_PASSWORD}}
+- Downloads:
+  - Bazarr:
+      description: Subtitles Management
+      href: https://bazarr.${SECRET_DOMAIN}
+      icon: bazarr.svg
+      namespace: downloads
+      app: bazarr
+      widget:
+        type: bazarr
+        url: http://bazarr.downloads.svc.cluster.local.:6767
+        key: {{HOMEPAGE_VAR_BAZARR_TOKEN}}
+  - Lidarr:
+      description: Music
+      href: https://lidarr.${SECRET_DOMAIN}
+      icon: lidarr.svg
+      namespace: downloads
+      app: lidarr
+      widget:
+        type: lidarr
+        url: http://lidarr.downloads.svc.cluster.local.:8686
+        key: {{HOMEPAGE_VAR_LIDARR_TOKEN}}
+  - Radarr:
+      description: Movies
+      href: https://radarr.${SECRET_DOMAIN}
+      icon: radarr.svg
+      namespace: downloads
+      app: radarr
+      widget:
+        type: radarr
+        url: http://radarr.downloads.svc.cluster.local.:7878
+        key: {{HOMEPAGE_VAR_RADARR_TOKEN}}
+  - Sonarr:
+      description: TV Shows
+      href: https://sonarr.${SECRET_DOMAIN}
+      icon: sonarr.svg
+      namespace: downloads
+      app: sonarr
+      widget:
+        type: sonarr
+        url: http://sonarr.downloads.svc.cluster.local.:8989
+        key: {{HOMEPAGE_VAR_SONARR_TOKEN}}
+
+- Hardware:
+  - IPMI TV:
+      description: ASRockRack E3C226D2I
+      href: http://ipmi-asrockrack.${SECRET_DOMAIN}
+      icon: asrockrackipmi.png
+      ping: http://ipmi-asrockrack.${SECRET_DOMAIN}
+  - IPMI Server:
+      description: Supermicro X10SL7-F
+      href: https://ipmi-supermicro.${SECRET_DOMAIN}
+      icon: supermicro.svg
+      ping: https://ipmi-supermicro.${SECRET_DOMAIN}
+
+- Services:
+  - HomeAssistant:
+      description: Home Assistant
+      href: https://homeassistant.${SECRET_DOMAIN}
+      icon: home-assistant.svg
+      ping: https://homeassistant.${SECRET_DOMAIN}
+      # widget:
+      #   type: homeassistant
+      #   url: https://homeassistant.${SECRET_DOMAIN}
+      #   key: {{HOMEPAGE_VAR_HASS_TOKEN}}
+
+- Calendar:
+    - Agenda:
+        widget:
+          type: calendar
+          view: agenda # optional - possible values monthly, agenda
+          maxEvents: 5 # optional - defaults to 10
+          integrations: # optional
+            - type: sonarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr>
+              service_group: Media # group name where widget exists
+              service_name: Sonarr # service name for that widget
+            - type: radarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr>
+              service_group: Media # group name where widget exists
+              service_name: Radarr # service name for that widget
