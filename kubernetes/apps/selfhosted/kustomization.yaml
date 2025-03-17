@@ -8,6 +8,7 @@ resources:
   - ./atuin/ks.yaml
   - ./freshrss/ks.yaml
   - ./hoarder/ks.yaml
+  - ./homepage/ks.yaml
   - ./it-tools/ks.yaml
   - ./n8n/ks.yaml
   - ./paperless/ks.yaml
