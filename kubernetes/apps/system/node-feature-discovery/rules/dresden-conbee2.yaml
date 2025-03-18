@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/nfd.k8s-sigs.io/nodefeaturerule_v1alpha1.json
+apiVersion: nfd.k8s-sigs.io/v1alpha1
+kind: NodeFeatureRule
+metadata:
+  name: dresden-conbee2-device
+spec:
+  rules:
+    - # Dresden Elektronik ZigBee gateway [ConBee II]
+      name: dresden.conbee2
+      labels:
+        dresden.feature.node.kubernetes.io/conbee2: "true"
+        zigbee.feature.node.kubernetes.io/present: "true"
+      matchFeatures:
+        - feature: usb.device
+          matchExpressions:
+            vendor: { op: In, value: ["1cf1", "0030"] }

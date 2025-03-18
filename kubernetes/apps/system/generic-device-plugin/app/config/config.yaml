@@ -15,6 +15,19 @@ devices:
   #     - paths:
   #         - path: /dev/rfcomm*
 
+  - name: thread
+    groups:
+      - paths:
+          - path: /dev/serial/by-id/usb-Nordic_Semiconductor_nRF528xx_OpenThread_Device_*
+
+  - name: zigbee
+    groups:
+      # - paths:
+      #     - path: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_*
+      - usb:
+          - vendor: 1cf1
+            product: 0030
+
   - name: video
     groups:
       - paths:
