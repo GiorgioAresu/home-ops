@@ -9,10 +9,10 @@ go2rtc:
       - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.122/0
     bullet_sub:
       - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.122/1
-    # dome:
-    #   - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.128/0
-    # dome_sub:
-    #   - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.128/1
+    dome:
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.128/0
+    dome_sub:
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.128/1
     DCS-935L:
       - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.1.108/0 # <- stream which supports video & aac audio. This is only supported for rtsp streams, http must use ffmpeg
       - "ffmpeg:DCS-935L#audio=opus" # <- copy of the stream which transcodes audio to opus
@@ -26,7 +26,7 @@ logger:
   #   frigate.record: debug
 
 mqtt:
-  host: 10.17.1.4
+  host: mqtt.aresu.eu
   topic_prefix: frigate
   user: '{FRIGATE_MQTT_USERNAME}'
   password: '{FRIGATE_MQTT_PASSWORD}'
@@ -108,17 +108,17 @@ cameras:
           roles:
             - record
     webui_url: http://10.17.1.122
-  # dome:
-  #   ffmpeg:
-  #     output_args:
-  #       record: preset-record-generic-audio-copy
-  #     inputs:
-  #       - path: rtsp://127.0.0.1:8554/dome_sub # <--- the name here must match the name of the camera_sub in restream
-  #         input_args: preset-rtsp-restream
-  #         roles:
-  #           - detect
-  #       - path: rtsp://127.0.0.1:8554/dome # <--- the name here must match the name of the camera in restream
-  #         input_args: preset-rtsp-restream
-  #         roles:
-  #           - record
-  #   webui_url: http://10.17.1.128
+  dome:
+    ffmpeg:
+      output_args:
+        record: preset-record-generic-audio-copy
+      inputs:
+        - path: rtsp://127.0.0.1:8554/dome_sub # <--- the name here must match the name of the camera_sub in restream
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+        - path: rtsp://127.0.0.1:8554/dome # <--- the name here must match the name of the camera in restream
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+    webui_url: http://10.17.1.128

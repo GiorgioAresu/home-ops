@@ -113,7 +113,7 @@ spec:
         medium: Memory
         sizeLimit: 256Mi
         globalMounts:
-          - path: /dev/shm\
+          - path: /dev/shm
       media:
         type: nfs
         server: ${TRUENAS_ADDR}
