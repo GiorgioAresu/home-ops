@@ -19,6 +19,8 @@ spec:
 
     controllers:
       generic-device-plugin:
+        annotations:
+          reloader.stakater.com/auto: "true"
         type: daemonset
         strategy: RollingUpdate
         containers:
@@ -45,7 +47,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: generic-device-plugin
+        name: generic-device-plugin-config
         globalMounts:
           - path: /config/config.yaml
             subPath: config.yaml

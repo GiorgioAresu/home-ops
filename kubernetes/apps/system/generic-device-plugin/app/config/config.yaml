@@ -22,11 +22,8 @@ devices:
 
   - name: zigbee
     groups:
-      # - paths:
-      #     - path: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_*
-      - usb:
-          - vendor: 1cf1
-            product: 0030
+      - paths:
+          - path: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_*
 
   - name: video
     groups:
