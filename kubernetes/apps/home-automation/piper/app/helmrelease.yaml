@@ -44,8 +44,6 @@ spec:
             image:
               repository: rhasspy/wyoming-piper
               tag: 1.5.0@sha256:b6bf208855f26168790ed336ad16576b2fb290f31b51fb98aca496a45561516f
-            env:
-              TZ: ${TIMEZONE}
             args:
               - --update-voices
               - --voice

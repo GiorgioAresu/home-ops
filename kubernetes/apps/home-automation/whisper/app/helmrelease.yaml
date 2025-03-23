@@ -44,8 +44,6 @@ spec:
             image:
               repository: rhasspy/wyoming-whisper
               tag: 2.4.0@sha256:2687f79715734606f856fc4478351ce91a76bdaf6899086bcb837eb9ac7cddb8
-            env:
-              TZ: ${TIMEZONE}
             args:
               - --model
               - base-int8
