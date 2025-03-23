@@ -83,10 +83,8 @@ spec:
         globalMounts:
           - path: /data
       tmp:
-        enabled: true
         type: emptyDir
       tmpfs:
-        enabled: true
         type: emptyDir
         globalMounts:
-          - /.cache
+          - path: /.cache
