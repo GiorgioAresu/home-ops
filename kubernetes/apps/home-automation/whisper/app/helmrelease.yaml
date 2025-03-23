@@ -47,7 +47,7 @@ spec:
               TZ: ${TIMEZONE}
             args:
               - --model
-              - auto
+              - base-int8
               - --language
               - it
             ports:
