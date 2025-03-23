@@ -86,3 +86,8 @@ spec:
       tmp:
         enabled: true
         type: emptyDir
+      tmpfs:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - /.cache
