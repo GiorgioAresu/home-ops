@@ -37,6 +37,7 @@ spec:
             #   - 44
             #   - 109
             #   - 65542 # gladius:external-services
+          terminationGracePeriodSeconds: 1
 
         containers:
           app:
@@ -46,6 +47,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
             args:
+              # - --update-voices
               - --voice
               - it_IT-paola-medium
             ports:
