@@ -6,6 +6,8 @@ namespace: home-automation
 resources:
   - ./esphome/ks.yaml
   - ./home-assistant/ks.yaml
+  - ./piper/ks.yaml
+  - ./whisper/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/flux/alerts

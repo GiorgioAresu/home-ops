@@ -1,0 +1,88 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: whisper
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn
+  values:
+    controllers:
+      whisper:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          # annotations:
+          #   k8s.v1.cni.cncf.io/networks: |
+          #     [{
+          #       "name":"multus-iot",
+          #       "namespace": "network",
+          #       "ips": ["10.1.3.153/24"],
+          #       "mac": "76:fa:11:c0:c9:84"
+          #     }]
+          securityContext:
+            runAsUser: 2000
+            runAsGroup: 2000
+            fsGroup: 2000
+            fsGroupChangePolicy: "OnRootMismatch"
+            # supplementalGroups:
+            #   - 44
+            #   - 109
+            #   - 65542 # gladius:external-services
+
+        containers:
+          app:
+            image:
+              repository: rhasspy/wyoming-whisper
+              tag: 2.4.0@sha256:2687f79715734606f856fc4478351ce91a76bdaf6899086bcb837eb9ac7cddb8
+            env:
+              TZ: ${TIMEZONE}
+            args:
+              - --model
+              - auto
+              - --language
+              - it
+            ports:
+              - name: wyoming
+                containerPort: &port 10300
+                protocol: TCP
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 200m
+              limits:
+                memory: 300Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        controller: whisper
+        ports:
+          wyoming:
+            port: *port
+
+    persistence:
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /data
+      tmp:
+        enabled: true
+        type: emptyDir
