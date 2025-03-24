@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   name: homeassistant
   annotations:
+    ingress.cilium.io/loadbalancer-mode: dedicated
     hajimari.io/enable: "true"
     hajimari.io/icon: "home-assistant"
   labels:

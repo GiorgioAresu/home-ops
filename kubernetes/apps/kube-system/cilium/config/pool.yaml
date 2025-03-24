@@ -3,7 +3,17 @@
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
-  name: pool
+  name: default
+spec:
+  allowFirstLastIPs: "No"
+  blocks:
+    - cidr: 172.16.0.0/16
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumloadbalancerippool_v2alpha1.json
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: lan
 spec:
   allowFirstLastIPs: "Yes"
   blocks:
