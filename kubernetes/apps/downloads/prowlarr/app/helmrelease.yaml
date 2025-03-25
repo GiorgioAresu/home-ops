@@ -91,3 +91,16 @@ spec:
     persistence:
       config:
         existingClaim: prowlarr-config
+
+    route:
+      app:
+        hostnames:
+          - prowlarr.aresu.eu
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: radarr
+                port: *port
