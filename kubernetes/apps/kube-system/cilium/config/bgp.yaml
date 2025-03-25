@@ -30,7 +30,7 @@ spec:
           advertise: "bgp"
   gracefulRestart:
     enabled: true
-    restartTimeSeconds: 15
+    restartTimeSeconds: 120
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPAdvertisement

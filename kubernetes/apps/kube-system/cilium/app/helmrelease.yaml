@@ -18,6 +18,8 @@ spec:
     - kind: ConfigMap
       name: cilium-values
   values:
+    envoy:
+      initialFetchTimeoutSeconds: 60 # To try fixing warnings
     hubble:
       enabled: true
       metrics:
