@@ -1,8 +1,8 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "github>GiorgioAresu/home-ops//.renovate/default.json",
-    "github>GiorgioAresu/home-ops//.renovate/automerge-github-actions",
+    "github>GiorgioAresu/home-ops//.renovate/renovate-config/default.json",
+    "github>GiorgioAresu/home-ops//.renovate/renovate-config/automerge-github-actions",
     "github>GiorgioAresu/home-ops//.renovate/groups.json5",
     "github>GiorgioAresu/home-ops//.renovate/allowedVersions.json5",
     "github>GiorgioAresu/home-ops//.renovate/versioning.json5",
