@@ -69,7 +69,7 @@ spec:
       tls: true
 
     persistence:
-      defaultClassReplicaCount: 1
+      defaultClassReplicaCount: 2
       reclaimPolicy: Delete
       backupTargetName: default
 
