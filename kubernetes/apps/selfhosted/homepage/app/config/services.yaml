@@ -161,17 +161,16 @@
         url: https://truenas.${SECRET_DOMAIN}
         username: {{HOMEPAGE_VAR_TRUENAS_USERNAME}}
         password: {{HOMEPAGE_VAR_TRUENAS_PASSWORD}}
-  - OpenMediaVault:
-      description: Offsite backups on Odroid HC4
-      href: https://10.17.100.50
-      icon: openmediavault.svg
-      ping: https://10.17.100.50
+  - Hoarder:
+      description: Subtitles Management
+      href: https://hoarder.${SECRET_DOMAIN}
+      icon: hoarder.svg
+      namespace: selfhosted
+      app: hoarder
       widget:
-        type: openmediavault
-        url: https://10.17.100.50
-        username: {{HOMEPAGE_VAR_OPENMEDIAVAULT_USERNAME}}
-        password: {{HOMEPAGE_VAR_OPENMEDIAVAULT_PASSWORD}}
-        method: services.getStatus # required
+        type: hoarder
+        url: http://hoarder.selfhosted.svc.cluster.local:3000
+        key: {{HOMEPAGE_VAR_HOARDER_TOKEN}}
   - HomeAssistant:
       description: Home Assistant
       href: https://homeassistant.${SECRET_DOMAIN}
@@ -203,6 +202,17 @@
           - field: numDevices
             label: Devices
             format: number
+  - OpenMediaVault:
+      description: Offsite backups on Odroid HC4
+      href: https://10.17.100.50
+      icon: openmediavault.svg
+      ping: https://10.17.100.50
+      widget:
+        type: openmediavault
+        url: https://10.17.100.50
+        username: {{HOMEPAGE_VAR_OPENMEDIAVAULT_USERNAME}}
+        password: {{HOMEPAGE_VAR_OPENMEDIAVAULT_PASSWORD}}
+        method: services.getStatus # required
 
 - Calendar:
     - Agenda:
