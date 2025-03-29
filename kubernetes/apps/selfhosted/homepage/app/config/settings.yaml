@@ -6,7 +6,7 @@ color: slate
 favicon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/homepage.png
 headerStyle: clean
 # language: it
-showStats: true
+# showStats: true # CPU/Mem for each widget
 statusStyle: dot
 target: _self
 theme: dark
@@ -22,7 +22,7 @@ background:
 
 providers:
   openweathermap: {{HOMEPAGE_VAR_OPENWEATHERMAP_TOKEN}}
-  weatherapi: weatherapiapikey
+  # weatherapi: weatherapiapikey
   longhorn:
     url: http://longhorn-frontend.longhorn.svc.cluster.local
 
