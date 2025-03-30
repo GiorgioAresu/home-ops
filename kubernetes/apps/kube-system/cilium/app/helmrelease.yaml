@@ -19,7 +19,7 @@ spec:
       name: cilium-values
   values:
     envoy:
-      initialFetchTimeoutSeconds: 60 # To try fixing warnings
+      initialFetchTimeoutSeconds: 0 # To try fixing warnings https://github.com/istio/istio/issues/31818#issuecomment-812466679
     hubble:
       enabled: true
       metrics:
