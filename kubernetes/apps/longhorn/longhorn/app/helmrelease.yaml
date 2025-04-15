@@ -35,7 +35,7 @@ spec:
       node-drain-policy: allow-if-replica-is-stopped
       #nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       orphanAutoDeletion: true
-      replicaAutoBalance: true
+      replicaAutoBalance: best-effort
       restoreVolumeRecurringJobs: true # Don´t need this if we create a default one and then use localpath for the ones we don´t want to backup
       # snapshotMaxCount: 10
       storageMinimalAvailablePercentage: 10
