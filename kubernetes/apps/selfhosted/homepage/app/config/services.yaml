@@ -161,16 +161,16 @@
         url: https://truenas.${SECRET_DOMAIN}
         username: {{HOMEPAGE_VAR_TRUENAS_USERNAME}}
         password: {{HOMEPAGE_VAR_TRUENAS_PASSWORD}}
-  - Hoarder:
-      description: Subtitles Management
-      href: https://hoarder.${SECRET_DOMAIN}
+  - Karakeep:
+      description: The Bookmark Everything App
+      href: https://karakeep.${SECRET_DOMAIN}
       icon: hoarder.svg
       namespace: selfhosted
-      app: hoarder
+      app: karakeep
       widget:
         type: hoarder
-        url: http://hoarder.selfhosted.svc.cluster.local:3000
-        key: {{HOMEPAGE_VAR_HOARDER_TOKEN}}
+        url: http://karakeep.selfhosted.svc.cluster.local:3000
+        key: {{HOMEPAGE_VAR_KARAKEEP_TOKEN}}
   - HomeAssistant:
       description: Home Assistant
       href: https://homeassistant.${SECRET_DOMAIN}

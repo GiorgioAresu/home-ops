@@ -7,9 +7,9 @@ resources:
   - ./actual/ks.yaml
   - ./atuin/ks.yaml
   - ./freshrss/ks.yaml
-  - ./hoarder/ks.yaml
   - ./homepage/ks.yaml
   - ./it-tools/ks.yaml
+  - ./karakeep/ks.yaml
   - ./n8n/ks.yaml
   - ./paperless/ks.yaml
 components:
