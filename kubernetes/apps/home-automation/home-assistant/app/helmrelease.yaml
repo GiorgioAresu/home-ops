@@ -159,11 +159,6 @@ spec:
       zigbee:
         type: hostPath
         hostPath: /dev/serial/by-id
-        hostPathType: Directory
-        advancedMounts:
-          home-assistant:
-            app:
-              - path: /tmp
 
     route:
       app:
