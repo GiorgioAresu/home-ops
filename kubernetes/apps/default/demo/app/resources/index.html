@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey, it works!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+            color: #343a40;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .highlight {
+            color: #4263eb;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(66, 99, 235, 0.1);
+            animation: float 15s linear infinite;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(var(--moveX), var(--moveY));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hey, <span class="highlight">it works!</span></h1>
+    </div>
+
+    <script>
+        // Create floating bubbles for background animation
+        function createBubbles() {
+            const body = document.querySelector('body');
+            const bubbleCount = 15;
+
+            for (let i = 0; i < bubbleCount; i++) {
+                const size = Math.random() * 100 + 50;
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+
+                // Random starting position
+                const startX = Math.random() * window.innerWidth;
+                const startY = Math.random() * window.innerHeight;
+
+                // Random movement direction
+                const moveX = (Math.random() - 0.5) * window.innerWidth * 0.7;
+                const moveY = (Math.random() - 0.5) * window.innerHeight * 0.7;
+
+                // Random animation duration
+                const duration = Math.random() * 10 + 10;
+
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${startX}px`;
+                bubble.style.top = `${startY}px`;
+                bubble.style.setProperty('--moveX', `${moveX}px`);
+                bubble.style.setProperty('--moveY', `${moveY}px`);
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = `${i * 0.5}s`;
+
+                body.appendChild(bubble);
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            createBubbles();
+        });
+
+        // Recreate bubbles on window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                // Remove existing bubbles
+                document.querySelectorAll('.bubble').forEach(bubble => bubble.remove());
+                // Create new bubbles
+                createBubbles();
+            }, 300);
+        });
+    </script>
+</body>
+</html>
