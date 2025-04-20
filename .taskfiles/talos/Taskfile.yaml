@@ -100,3 +100,9 @@ tasks:
       - talosctl reset
         --graceful=false
         --reboot
+
+  shutdown:
+    desc: Shutdown all nodes
+    prompt: This will shut down all nodes, and will take a few minutes... Continue?
+    cmds:
+      - talosctl shutdown
