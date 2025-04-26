@@ -1,0 +1,44 @@
+resource "routeros_system_user_group" "homepage" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  name     = "homepage"
+  policy   = ["api", "read", "rest-api"]
+}
+
+resource "routeros_system_user" "homepage" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  name     = "homepage"
+  group    = routeros_system_user_group.homepage.id
+  password = var.mikrotik_user_homepage_password
+}
+
+resource "routeros_system_user_group" "mktxp" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  name     = "mktxp"
+  policy   = ["api", "read"]
+}
+
+resource "routeros_system_user" "mktxp" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  name     = "mktxp"
+  group    = routeros_system_user_group.mktxp.id
+  password = var.mikrotik_user_mktxp_password
+}
+
+resource "routeros_system_user_group" "external_dns" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  name     = "external_dns"
+  policy   = ["api", "read", "rest-api", "write"]
+}
+
+resource "routeros_system_user" "external_dns" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  name     = "external_dns"
+  group    = routeros_system_user_group.external_dns.id
+  password = var.mikrotik_user_externaldns_password
+}
