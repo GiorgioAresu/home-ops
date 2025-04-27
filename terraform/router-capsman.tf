@@ -14,16 +14,18 @@ resource "routeros_wifi_capsman" "settings" {
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/wifi_channel
 # =================================================================================================
 resource "routeros_wifi_channel" "slow" {
-  provider = routeros.rb5009
-  name     = "2ghz"
-  width = "20mhz"
+  provider          = routeros.rb5009
+  comment           = "Managed by Terraform"
+  name              = "2ghz"
+  width             = "20mhz"
   skip_dfs_channels = "all"
   reselect_interval = "45m..1h"
 }
 resource "routeros_wifi_channel" "fast" {
-  provider = routeros.rb5009
-  name     = "5ghz"
-  width = "20mhz"
+  provider          = routeros.rb5009
+  comment           = "Managed by Terraform"
+  name              = "5ghz"
+  width             = "20mhz"
   skip_dfs_channels = "all"
   reselect_interval = "45m..1h"
 }
@@ -39,8 +41,8 @@ resource "routeros_wifi_security" "main_wifi_security" {
   name                 = "GeS"
   authentication_types = ["wpa2-psk"] // Add wpa3 at some point
   passphrase           = var.main_wifi_password
-  ft = true
-  ft_over_ds=true
+  ft                   = true
+  ft_over_ds           = true
 }
 resource "routeros_wifi_security" "guest_wifi_security" {
   provider             = routeros.rb5009
@@ -48,8 +50,8 @@ resource "routeros_wifi_security" "guest_wifi_security" {
   name                 = "Guest"
   authentication_types = ["wpa2-psk"] // Add wpa3 at some point
   passphrase           = var.guest_wifi_password
-  ft = true
-  ft_over_ds=true
+  ft                   = true
+  ft_over_ds           = true
 }
 resource "routeros_wifi_security" "iot_wifi_security" {
   provider             = routeros.rb5009
@@ -57,8 +59,8 @@ resource "routeros_wifi_security" "iot_wifi_security" {
   name                 = "IoT"
   authentication_types = ["wpa2-psk"] // Add wpa3 at some point
   passphrase           = var.iot_wifi_password
-  ft = true
-  ft_over_ds=true
+  ft                   = true
+  ft_over_ds           = true
 }
 resource "routeros_wifi_security" "iottemp_wifi_security" {
   provider             = routeros.rb5009
@@ -66,8 +68,8 @@ resource "routeros_wifi_security" "iottemp_wifi_security" {
   name                 = "IoT-temp"
   authentication_types = ["wpa2-psk"]
   passphrase           = var.iottemp_wifi_password
-  ft = true
-  ft_over_ds=true
+  ft                   = true
+  ft_over_ds           = true
 }
 
 
@@ -77,16 +79,16 @@ resource "routeros_wifi_security" "iottemp_wifi_security" {
 # =================================================================================================
 resource "routeros_wifi_datapath" "lan" {
   provider = routeros.rb5009
-  name     = "LAN"
   comment  = "Managed by Terraform - WiFi -> LAN"
+  name     = "LAN"
   bridge   = "bridge"
 }
 
 resource "routeros_wifi_datapath" "lan_isolated" {
-  provider = routeros.rb5009
-  name     = "LAN-Isolated"
-  comment  = "Managed by Terraform - WiFi -> LAN with client isolation"
-  bridge   = "bridge"
+  provider         = routeros.rb5009
+  comment          = "Managed by Terraform - WiFi -> LAN with client isolation"
+  name             = "LAN-Isolated"
+  bridge           = "bridge"
   client_isolation = true
 }
 
@@ -229,9 +231,9 @@ resource "routeros_wifi_configuration" "iot-temp" {
 # TODO: change to 1 per channel
 resource "routeros_wifi_provisioning" "all_5ghz" {
   provider             = routeros.rb5009
+  comment              = "Managed by Terraform - All 5GHz"
   action               = "create-dynamic-enabled"
-  comment  = "Managed by Terraform - All 5GHz"
-  supported_bands = ["5ghz-n"]
+  supported_bands      = ["5ghz-n"]
   master_configuration = routeros_wifi_configuration.main_5ghz.name
   slave_configurations = [
     routeros_wifi_configuration.guest_5ghz.name
@@ -239,10 +241,10 @@ resource "routeros_wifi_provisioning" "all_5ghz" {
 }
 resource "routeros_wifi_provisioning" "all_2ghz" {
   provider             = routeros.rb5009
+  comment              = "Managed by Terraform - All 2GHz"
   action               = "create-dynamic-enabled"
-  comment  = "Managed by Terraform - All 2GHz"
-  disabled = true
-  supported_bands = ["2ghz-n"]
+  disabled             = true
+  supported_bands      = ["2ghz-n"]
   master_configuration = routeros_wifi_configuration.main_2ghz.name
   slave_configurations = [
     routeros_wifi_configuration.guest_2ghz.name,
@@ -252,10 +254,10 @@ resource "routeros_wifi_provisioning" "all_2ghz" {
 }
 resource "routeros_wifi_provisioning" "hap_ax3_2ghz" {
   provider             = routeros.rb5009
+  comment              = "Managed by Terraform - hAP ax3 2GHz (guests only downstairs, modem will need both)"
   action               = "create-dynamic-enabled"
-  comment  = "Managed by Terraform - hAP ax3 2GHz (guests only downstairs, modem will need both)"
-  disabled = false
-  radio_mac = "D4:01:C3:4E:1E:E6"
+  disabled             = false
+  radio_mac            = "D4:01:C3:4E:1E:E6"
   master_configuration = routeros_wifi_configuration.main_2ghz.name
   slave_configurations = [
     routeros_wifi_configuration.guest_2ghz.name,
@@ -264,10 +266,10 @@ resource "routeros_wifi_provisioning" "hap_ax3_2ghz" {
 }
 resource "routeros_wifi_provisioning" "hap_axlite" {
   provider             = routeros.rb5009
+  comment              = "Managed by Terraform - hAP ax lite LTE"
   action               = "create-dynamic-enabled"
-  comment  = "Managed by Terraform - hAP ax lite LTE"
-  disabled = false
-  radio_mac = "78:9A:18:77:17:1C"
+  disabled             = false
+  radio_mac            = "78:9A:18:77:17:1C"
   master_configuration = routeros_wifi_configuration.main_2ghz.name
   slave_configurations = [
     routeros_wifi_configuration.guest_2ghz.name,
