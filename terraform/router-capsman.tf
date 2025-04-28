@@ -19,6 +19,7 @@ resource "routeros_wifi_channel" "slow" {
   name              = "2ghz"
   width             = "20mhz"
   skip_dfs_channels = "all"
+  frequency         = [2412, 2437, 2462]
   reselect_interval = "45m..1h"
 }
 resource "routeros_wifi_channel" "fast" {
@@ -79,16 +80,31 @@ resource "routeros_wifi_security" "iottemp_wifi_security" {
 # =================================================================================================
 resource "routeros_wifi_datapath" "lan" {
   provider = routeros.rb5009
-  comment  = "Managed by Terraform - WiFi -> LAN"
+  comment  = "Managed by Terraform"
   name     = "LAN"
   bridge   = "bridge"
 }
-
-resource "routeros_wifi_datapath" "lan_isolated" {
-  provider         = routeros.rb5009
-  comment          = "Managed by Terraform - WiFi -> LAN with client isolation"
-  name             = "LAN-Isolated"
-  bridge           = "bridge"
+resource "routeros_wifi_datapath" "guest" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  name     = "Guest"
+  bridge   = "bridge"
+  vlan_id  = 30
+}
+resource "routeros_wifi_datapath" "security" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  name     = "Security"
+  bridge   = "bridge"
+  vlan_id  = 40
+  client_isolation = true
+}
+resource "routeros_wifi_datapath" "iot" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  name     = "IoT"
+  bridge   = "bridge"
+  vlan_id  = 50
   client_isolation = true
 }
 
@@ -144,7 +160,7 @@ resource "routeros_wifi_configuration" "guest_5ghz" {
     config = routeros_wifi_channel.fast.name
   }
   datapath = {
-    config = routeros_wifi_datapath.lan_isolated.name
+    config = routeros_wifi_datapath.lan.name
   }
   security = {
     config = routeros_wifi_security.guest_wifi_security.name
@@ -162,7 +178,7 @@ resource "routeros_wifi_configuration" "guest_2ghz" {
     config = routeros_wifi_channel.slow.name
   }
   datapath = {
-    config = routeros_wifi_datapath.lan_isolated.name
+    config = routeros_wifi_datapath.lan.name
   }
   security = {
     config = routeros_wifi_security.guest_wifi_security.name
@@ -180,7 +196,7 @@ resource "routeros_wifi_configuration" "iot-downstairs" {
     config = routeros_wifi_channel.slow.name
   }
   datapath = {
-    config = routeros_wifi_datapath.lan_isolated.name
+    config = routeros_wifi_datapath.iot.name
   }
   security = {
     config = routeros_wifi_security.iot_wifi_security.name
@@ -198,7 +214,7 @@ resource "routeros_wifi_configuration" "iot-upstairs" {
     config = routeros_wifi_channel.slow.name
   }
   datapath = {
-    config = routeros_wifi_datapath.lan_isolated.name
+    config = routeros_wifi_datapath.iot.name
   }
   security = {
     config = routeros_wifi_security.iot_wifi_security.name
