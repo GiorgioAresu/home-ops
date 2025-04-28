@@ -44,6 +44,10 @@ resource "routeros_wifi_security" "main_wifi_security" {
   passphrase           = var.main_wifi_password
   ft                   = true
   ft_over_ds           = true
+
+  lifecycle {
+    ignore_changes = [ passphrase ]
+  }
 }
 resource "routeros_wifi_security" "guest_wifi_security" {
   provider             = routeros.rb5009
@@ -53,6 +57,10 @@ resource "routeros_wifi_security" "guest_wifi_security" {
   passphrase           = var.guest_wifi_password
   ft                   = true
   ft_over_ds           = true
+
+  lifecycle {
+    ignore_changes = [ passphrase ]
+  }
 }
 resource "routeros_wifi_security" "iot_wifi_security" {
   provider             = routeros.rb5009
@@ -62,6 +70,10 @@ resource "routeros_wifi_security" "iot_wifi_security" {
   passphrase           = var.iot_wifi_password
   ft                   = true
   ft_over_ds           = true
+
+  lifecycle {
+    ignore_changes = [ passphrase ]
+  }
 }
 resource "routeros_wifi_security" "iottemp_wifi_security" {
   provider             = routeros.rb5009
@@ -71,6 +83,10 @@ resource "routeros_wifi_security" "iottemp_wifi_security" {
   passphrase           = var.iottemp_wifi_password
   ft                   = true
   ft_over_ds           = true
+
+  lifecycle {
+    ignore_changes = [ passphrase ]
+  }
 }
 
 
