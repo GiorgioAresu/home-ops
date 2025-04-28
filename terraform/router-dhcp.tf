@@ -19,7 +19,7 @@ resource "routeros_ip_address" "lan" {
   provider     = routeros.rb5009
   comment      = "Managed by Terraform"
   address   = "10.17.1.1/24"
-  interface = "bridge"
+  interface = routeros_interface_bridge.bridge.name
   network   = "10.17.1.0"
 }
 resource "routeros_ip_address" "guest" {
@@ -140,7 +140,7 @@ resource "routeros_ip_dhcp_server" "lan" {
   comment      = "Managed by Terraform"
   name         = "LAN"
   address_pool = routeros_ip_pool.lan.name
-  interface    = "bridge"
+  interface    = routeros_interface_bridge.bridge.name
 }
 resource "routeros_ip_dhcp_server" "guest" {
   provider     = routeros.rb5009

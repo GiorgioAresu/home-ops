@@ -1,23 +1,36 @@
+# =================================================================================================
+# Bridge Interfaces
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/interface_bridge
+# =================================================================================================
+resource "routeros_interface_bridge" "bridge" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  name     = "bridge"
+  # vlan_filtering = true
+}
+
+
 resource "routeros_interface_list" "lan" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
-  name = "LAN"
+  name     = "LAN"
 }
 resource "routeros_interface_list" "wan" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
-  name = "WAN"
+  name     = "WAN"
 }
 
+
 resource "routeros_interface_list_member" "lan_bridge" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
-  interface = "bridge"
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
+  interface = routeros_interface_bridge.bridge.name
   list      = routeros_interface_list.lan.name
 }
 resource "routeros_interface_list_member" "wan_bridgewan" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
   interface = "bridge_wan"
   list      = routeros_interface_list.wan.name
 }
