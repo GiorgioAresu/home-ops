@@ -368,15 +368,15 @@ resource "routeros_ip_dhcp_server_lease" "kube_nuc_01" {
 resource "routeros_ip_dhcp_server_lease" "camera_dome" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - Dome camera"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.128"
+  server      = routeros_ip_dhcp_server.security.name
+  address     = "10.17.50.128"
   mac_address = "00:00:1B:04:FB:E7"
 }
 resource "routeros_ip_dhcp_server_lease" "camera_bullet" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - Bullet camera"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.122"
+  server      = routeros_ip_dhcp_server.security.name
+  address     = "10.17.50.122"
   mac_address = "00:00:1B:0C:C7:8E"
 }
 resource "routeros_ip_dhcp_server_lease" "mikrotik_hap_ax3" {
