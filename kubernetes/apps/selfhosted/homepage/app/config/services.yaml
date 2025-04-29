@@ -112,7 +112,7 @@
         password: {{HOMEPAGE_VAR_TRANSMISSION_PASSWORD}}
 
 - Hardware:
-  - Mikrotik hAP ax³:
+  - Mikrotik RB5009UPr+S+IN:
       href: https://10.17.1.1
       icon: mikrotik.svg
       ping: https://10.17.1.1
@@ -121,15 +121,24 @@
         url: https://10.17.1.1
         username: {{HOMEPAGE_VAR_MIKROTIK_USERNAME}}
         password: {{HOMEPAGE_VAR_MIKROTIK_PASSWORD}}
-  - Mikrotik hAP ax lite LTE6:
+  - Mikrotik hAP ax³:
       href: https://10.17.1.68
       icon: mikrotik.svg
       ping: https://10.17.1.68
-      # widget:
-      #   type: mikrotik
-      #   url: https://10.17.1.68
-      #   username: {{HOMEPAGE_VAR_MIKROTIK_USERNAME}}
-      #   password: {{HOMEPAGE_VAR_MIKROTIK_PASSWORD}}
+      widget:
+        type: mikrotik
+        url: https://10.17.1.68
+        username: {{HOMEPAGE_VAR_MIKROTIK_USERNAME}}
+        password: {{HOMEPAGE_VAR_MIKROTIK_PASSWORD}}
+  - Mikrotik hAP ax lite LTE6:
+      href: https://10.17.1.69
+      icon: mikrotik.svg
+      ping: https://10.17.1.69
+      widget:
+        type: mikrotik
+        url: https://10.17.1.69
+        username: {{HOMEPAGE_VAR_MIKROTIK_USERNAME}}
+        password: {{HOMEPAGE_VAR_MIKROTIK_PASSWORD}}
   - IPMI TV:
       description: ASRockRack E3C226D2I
       href: http://ipmi-asrockrack.${SECRET_DOMAIN}
