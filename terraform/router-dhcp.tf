@@ -155,6 +155,7 @@ resource "routeros_ip_dhcp_server" "security" {
   name         = "Security"
   address_pool = routeros_ip_pool.security.name
   interface    = routeros_interface_vlan.security.name
+  
 }
 resource "routeros_ip_dhcp_server" "iot" {
   provider     = routeros.rb5009
