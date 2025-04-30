@@ -173,11 +173,11 @@
   - Karakeep:
       description: The Bookmark Everything App
       href: https://karakeep.${SECRET_DOMAIN}
-      icon: hoarder.svg
+      icon: karakeep.svg
       namespace: selfhosted
       app: karakeep
       widget:
-        type: hoarder
+        type: karakeep
         url: http://karakeep.selfhosted.svc.cluster.local:3000
         key: {{HOMEPAGE_VAR_KARAKEEP_TOKEN}}
   - HomeAssistant:
