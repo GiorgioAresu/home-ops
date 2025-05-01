@@ -169,6 +169,7 @@ resource "routeros_ip_dhcp_server" "iot" {
 # Static DHCP Leases
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dhcp_server_lease
 # ================================================================================================
+### LAN
 resource "routeros_ip_dhcp_server_lease" "truenas" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - TrueNAS Scale"
@@ -330,54 +331,12 @@ resource "routeros_ip_dhcp_server_lease" "framework" {
   address     = "10.17.1.99"
   mac_address = "9E:3C:2C:78:26:29"
 }
-# resource "routeros_ip_dhcp_server_lease" "this" { *16
-#   provider    = routeros.rb5009
-#   comment     = "Managed by Terraform"
-#   server      = routeros_ip_dhcp_server.lan.name
-#   address     = "10.17.1.109"
-#   mac_address = "EC:DA:3B:9B:26:EC"
-# }
-resource "routeros_ip_dhcp_server_lease" "tplink_hs110" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - TP-Link HS110 (Kasa)"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.113"
-  mac_address = "D8:0D:17:81:0F:4A"
-}
-resource "routeros_ip_dhcp_server_lease" "sonoff_rf_bridge" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Sonoff RF-Bridge"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.120"
-  mac_address = "60:01:94:B2:DC:86"
-}
 resource "routeros_ip_dhcp_server_lease" "camera_bullet" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - Bullet camera"
   server      = routeros_ip_dhcp_server.security.name
   address     = "10.17.50.122"
   mac_address = "00:00:1B:0C:C7:8E"
-}
-resource "routeros_ip_dhcp_server_lease" "dehumidifier" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Dehumidifier"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.124"
-  mac_address = "CC:50:E3:B5:D6:F4"
-}
-resource "routeros_ip_dhcp_server_lease" "teckin" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Rack (Teckin)"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.125"
-  mac_address = "84:0D:8E:5F:66:28"
-}
-resource "routeros_ip_dhcp_server_lease" "stufetta" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Stufetta"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.126"
-  mac_address = "EC:FA:BC:9B:C6:31"
 }
 resource "routeros_ip_dhcp_server_lease" "camera_dome" {
   provider    = routeros.rb5009
@@ -386,10 +345,75 @@ resource "routeros_ip_dhcp_server_lease" "camera_dome" {
   address     = "10.17.50.128"
   mac_address = "00:00:1B:04:FB:E7"
 }
+
+### IoT
+resource "routeros_ip_dhcp_server_lease" "m5stack_atom_echo" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - M5Stack Atom Echo"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.30"
+  mac_address = "14:2B:2F:A0:36:4C"
+}
 resource "routeros_ip_dhcp_server_lease" "bagno_principale" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - Bagno principale"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.131"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.31"
   mac_address = "8C:BF:EA:CC:79:F4"
 }
+resource "routeros_ip_dhcp_server_lease" "dehumidifier" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Dehumidifier"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.32"
+  mac_address = "CC:50:E3:B5:D6:F4"
+}
+resource "routeros_ip_dhcp_server_lease" "teckin" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Rack (Teckin)"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.33"
+  mac_address = "84:0D:8E:5F:66:28"
+}
+resource "routeros_ip_dhcp_server_lease" "tplink_hs110" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - TP-Link HS110 (Kasa)"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.34"
+  mac_address = "D8:0D:17:81:0F:4A"
+}
+resource "routeros_ip_dhcp_server_lease" "sonoff_rf_bridge" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Sonoff RF-Bridge"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.35"
+  mac_address = "60:01:94:B2:DC:86"
+}
+resource "routeros_ip_dhcp_server_lease" "stufetta" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Stufetta"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.36"
+  mac_address = "EC:FA:BC:9B:C6:31"
+}
+resource "routeros_ip_dhcp_server_lease" "ble_tracker" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - BLE Tracker"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.37"
+  mac_address = "CC:50:E3:B5:BE:08"
+}
+resource "routeros_ip_dhcp_server_lease" "persiana" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Persiana"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.38"
+  mac_address = "DC:4F:22:5F:5F:43"
+}
+# resource "routeros_ip_dhcp_server_lease" "this" { *16
+#   provider    = routeros.rb5009
+#   comment     = "Managed by Terraform"
+#   server      = routeros_ip_dhcp_server.iot.name
+#   address     = "10.17.50.109"
+#   mac_address = "EC:DA:3B:9B:26:EC"
+# }
