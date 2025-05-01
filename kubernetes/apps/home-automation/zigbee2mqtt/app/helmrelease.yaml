@@ -85,7 +85,7 @@ spec:
                     key: mqtt_password
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: false
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ember
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://10.17.1.199:6638
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://10.17.1.40:6638
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: false
             resources:

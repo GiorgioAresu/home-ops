@@ -155,7 +155,6 @@ resource "routeros_ip_dhcp_server" "security" {
   name         = "Security"
   address_pool = routeros_ip_pool.security.name
   interface    = routeros_interface_vlan.security.name
-  
 }
 resource "routeros_ip_dhcp_server" "iot" {
   provider     = routeros.rb5009
@@ -198,61 +197,19 @@ resource "routeros_ip_dhcp_server_lease" "nextcloud" {
   address     = "10.17.1.5"
   mac_address = "BE:EE:E1:21:BC:71"
 }
-resource "routeros_ip_dhcp_server_lease" "unraid" {
+resource "routeros_ip_dhcp_server_lease" "pi_0_2w" {
   provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Unraid"
+  comment     = "Managed by Terraform - Pi Zero 2W"
   server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.35"
-  mac_address = "AA:15:AA:E8:C4:CB"
+  address     = "10.17.1.6"
+  mac_address = "E4:5F:01:90:D9:A7"
 }
-resource "routeros_ip_dhcp_server_lease" "unifi_usw_mini" {
+resource "routeros_ip_dhcp_server_lease" "prusa" {
   provider    = routeros.rb5009
-  comment     = "Managed by Terraform - USW_MINI"
+  comment     = "Managed by Terraform - Prusa MK3.5S"
   server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.66"
-  mac_address = "74:83:C2:0F:33:4C"
-}
-resource "routeros_ip_dhcp_server_lease" "unifi_uap_ac_lite" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - UAP_AC_Lite"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.67"
-  mac_address = "FC:EC:DA:89:1E:52"
-}
-resource "routeros_ip_dhcp_server_lease" "ipmi_asrockrack" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - IPMI ASRockRack"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.50"
-  mac_address = "BC:5F:F4:FE:FC:24"
-}
-resource "routeros_ip_dhcp_server_lease" "ipmi_supermicro" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - IPMI SuperMicro"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.51"
-  mac_address = "0C:C4:7A:6D:FE:8F"
-}
-resource "routeros_ip_dhcp_server_lease" "printer_wifi" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - HP M26nw Printer (WiFi)"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.65"
-  mac_address = "54:13:79:0F:09:86"
-}
-resource "routeros_ip_dhcp_server_lease" "printer_eth" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - HP M26nw Printer (ETH)"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.64"
-  mac_address = "F4:30:B9:70:EE:1B"
-}
-resource "routeros_ip_dhcp_server_lease" "mikrotik_hap_ax_lite_lte6" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Mikrotik hAP ax lite LTE6"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.69"
-  mac_address = "78:9A:18:77:17:18"
+  address     = "10.17.1.7"
+  mac_address = "EC:64:C9:F3:C0:F8"
 }
 resource "routeros_ip_dhcp_server_lease" "rpi_4_1" {
   provider    = routeros.rb5009
@@ -261,75 +218,12 @@ resource "routeros_ip_dhcp_server_lease" "rpi_4_1" {
   address     = "10.17.1.30"
   mac_address = "E4:5F:01:48:D7:4F"
 }
-resource "routeros_ip_dhcp_server_lease" "sonoff_rf_bridge" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Sonoff RF-Bridge"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.120"
-  mac_address = "60:01:94:B2:DC:86"
-}
-resource "routeros_ip_dhcp_server_lease" "dehumidifier" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Dehumidifier"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.124"
-  mac_address = "CC:50:E3:B5:D6:F4"
-}
-resource "routeros_ip_dhcp_server_lease" "teckin" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Rack (Teckin)"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.125"
-  mac_address = "84:0D:8E:5F:66:28"
-}
 resource "routeros_ip_dhcp_server_lease" "rpi_4_2" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - kube-rpi-02"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.32"
   mac_address = "E4:5F:01:96:B3:70"
-}
-resource "routeros_ip_dhcp_server_lease" "stufetta" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Stufetta"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.126"
-  mac_address = "EC:FA:BC:9B:C6:31"
-}
-resource "routeros_ip_dhcp_server_lease" "bagno_principale" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Bagno principale"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.131"
-  mac_address = "8C:BF:EA:CC:79:F4"
-}
-resource "routeros_ip_dhcp_server_lease" "tplink_hs110" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - TP-Link HS110 (Kasa)"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.113"
-  mac_address = "D8:0D:17:81:0F:4A"
-}
-resource "routeros_ip_dhcp_server_lease" "pi_0_2w" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Pi Zero 2W"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.6"
-  mac_address = "E4:5F:01:90:D9:A7"
-}
-# resource "routeros_ip_dhcp_server_lease" "this" { *16
-#   provider    = routeros.rb5009
-#   comment     = "Managed by Terraform"
-#   server      = routeros_ip_dhcp_server.lan.name
-#   address     = "10.17.1.109"
-#   mac_address = "EC:DA:3B:9B:26:EC"
-# }
-resource "routeros_ip_dhcp_server_lease" "framework" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Framework Laptop"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.99"
-  mac_address = "9E:3C:2C:78:26:29"
 }
 resource "routeros_ip_dhcp_server_lease" "bmax_b4_plus" {
   provider    = routeros.rb5009
@@ -338,12 +232,12 @@ resource "routeros_ip_dhcp_server_lease" "bmax_b4_plus" {
   address     = "10.17.1.34"
   mac_address = "00:E0:4C:2E:36:08"
 }
-resource "routeros_ip_dhcp_server_lease" "prusa" {
+resource "routeros_ip_dhcp_server_lease" "unraid" {
   provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Prusa MK3.5S"
+  comment     = "Managed by Terraform - Unraid"
   server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.7"
-  mac_address = "EC:64:C9:F3:C0:F8"
+  address     = "10.17.1.35"
+  mac_address = "AA:15:AA:E8:C4:CB"
 }
 resource "routeros_ip_dhcp_server_lease" "kube_proxmox_01" {
   provider    = routeros.rb5009
@@ -366,12 +260,96 @@ resource "routeros_ip_dhcp_server_lease" "kube_nuc_01" {
   address     = "10.17.1.38"
   mac_address = "68:5B:35:A1:01:CA"
 }
-resource "routeros_ip_dhcp_server_lease" "camera_dome" {
+resource "routeros_ip_dhcp_server_lease" "zigbee" {
   provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Dome camera"
-  server      = routeros_ip_dhcp_server.security.name
-  address     = "10.17.50.128"
-  mac_address = "00:00:1B:04:FB:E7"
+  comment     = "Managed by Terraform - SMLIGHT SLZB-06M"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.40"
+  mac_address = "0C:DC:7E:37:4F:7F"
+}
+resource "routeros_ip_dhcp_server_lease" "ipmi_asrockrack" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - IPMI ASRockRack"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.50"
+  mac_address = "BC:5F:F4:FE:FC:24"
+}
+resource "routeros_ip_dhcp_server_lease" "ipmi_supermicro" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - IPMI SuperMicro"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.51"
+  mac_address = "0C:C4:7A:6D:FE:8F"
+}
+resource "routeros_ip_dhcp_server_lease" "printer_eth" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - HP M26nw Printer (ETH)"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.64"
+  mac_address = "F4:30:B9:70:EE:1B"
+}
+resource "routeros_ip_dhcp_server_lease" "printer_wifi" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - HP M26nw Printer (WiFi)"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.65"
+  mac_address = "54:13:79:0F:09:86"
+}
+resource "routeros_ip_dhcp_server_lease" "unifi_usw_mini" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - USW_MINI"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.66"
+  mac_address = "74:83:C2:0F:33:4C"
+}
+resource "routeros_ip_dhcp_server_lease" "unifi_uap_ac_lite" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - UAP_AC_Lite"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.67"
+  mac_address = "FC:EC:DA:89:1E:52"
+}
+resource "routeros_ip_dhcp_server_lease" "mikrotik_hap_ax3" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Mikrotik hAP ax3"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.68"
+  mac_address = "D4:01:C3:4E:1E:E0"
+}
+resource "routeros_ip_dhcp_server_lease" "mikrotik_hap_ax_lite_lte6" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Mikrotik hAP ax lite LTE6"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.69"
+  mac_address = "78:9A:18:77:17:18"
+}
+resource "routeros_ip_dhcp_server_lease" "framework" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Framework Laptop"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.99"
+  mac_address = "9E:3C:2C:78:26:29"
+}
+# resource "routeros_ip_dhcp_server_lease" "this" { *16
+#   provider    = routeros.rb5009
+#   comment     = "Managed by Terraform"
+#   server      = routeros_ip_dhcp_server.lan.name
+#   address     = "10.17.1.109"
+#   mac_address = "EC:DA:3B:9B:26:EC"
+# }
+resource "routeros_ip_dhcp_server_lease" "tplink_hs110" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - TP-Link HS110 (Kasa)"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.113"
+  mac_address = "D8:0D:17:81:0F:4A"
+}
+resource "routeros_ip_dhcp_server_lease" "sonoff_rf_bridge" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Sonoff RF-Bridge"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.120"
+  mac_address = "60:01:94:B2:DC:86"
 }
 resource "routeros_ip_dhcp_server_lease" "camera_bullet" {
   provider    = routeros.rb5009
@@ -380,10 +358,38 @@ resource "routeros_ip_dhcp_server_lease" "camera_bullet" {
   address     = "10.17.50.122"
   mac_address = "00:00:1B:0C:C7:8E"
 }
-resource "routeros_ip_dhcp_server_lease" "mikrotik_hap_ax3" {
+resource "routeros_ip_dhcp_server_lease" "dehumidifier" {
   provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Mikrotik hAP ax3"
+  comment     = "Managed by Terraform - Dehumidifier"
   server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.68"
-  mac_address = "D4:01:C3:4E:1E:E0"
+  address     = "10.17.1.124"
+  mac_address = "CC:50:E3:B5:D6:F4"
+}
+resource "routeros_ip_dhcp_server_lease" "teckin" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Rack (Teckin)"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.125"
+  mac_address = "84:0D:8E:5F:66:28"
+}
+resource "routeros_ip_dhcp_server_lease" "stufetta" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Stufetta"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.126"
+  mac_address = "EC:FA:BC:9B:C6:31"
+}
+resource "routeros_ip_dhcp_server_lease" "camera_dome" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Dome camera"
+  server      = routeros_ip_dhcp_server.security.name
+  address     = "10.17.50.128"
+  mac_address = "00:00:1B:04:FB:E7"
+}
+resource "routeros_ip_dhcp_server_lease" "bagno_principale" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Bagno principale"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.131"
+  mac_address = "8C:BF:EA:CC:79:F4"
 }
