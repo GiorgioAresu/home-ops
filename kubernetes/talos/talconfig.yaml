@@ -24,14 +24,6 @@ nodes:
     installDiskSelector:
       model: UDSS UD2CS1HT100 # M.2 SATA
       # model: TOSHIBA MK2546GS # HDD
-    # Volume config stub, would need re-init to apply at the current state, see https://github.com/siderolabs/talos/issues/8367#issuecomment-2564476691
-    # volumes:
-    #   - name: EPHEMERAL
-    #     provisioning:
-    #       diskSelector:
-    #         match: system_disk
-    #       maxSize: 50GB
-    #       grow: false
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -41,10 +33,6 @@ nodes:
           ip: *talosControlplaneVip
     nodeLabels:
       node.kubernetes.io/virtual: "false"
-    # machineDisks:
-    #   - device: /dev/sda
-    #     partitions:
-    #       - mountpoint: /var/mnt/extra
     schematic:
       customization:
         systemExtensions:
@@ -55,18 +43,14 @@ nodes:
             - siderolabs/i915
             - siderolabs/intel-ucode
             - siderolabs/mei
+    userVolumes:
+      - name: longhorn
+        provisioning:
+          diskSelector:
+             match: disk.size > 500u * GB
+          maxSize: 400GiB
     patches:
       - &longhorn |-
-        machine:
-          kubelet:
-            extraMounts:
-              - destination: /var/lib/longhorn
-                type: bind
-                source: /var/lib/longhorn
-                options:
-                  - bind
-                  - rshared
-                  - rw
         cluster:
           apiServer:
             admissionControl:
@@ -101,6 +85,12 @@ nodes:
             # - siderolabs/i915 # Too old to be useful
             - siderolabs/intel-ucode
             - siderolabs/mei
+    userVolumes:
+      - name: longhorn
+        provisioning:
+          diskSelector:
+             match: disk.size > 200u * GB
+          maxSize: 150GiB
 
   - hostname: kube-proxmox-01
     ipAddress: 10.17.1.36
@@ -121,14 +111,13 @@ nodes:
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
             - siderolabs/qemu-guest-agent
-
-    patches:
-      - &pve_disks |-
-        machine:
-          disks:
-          - device: /dev/sdb
-            partitions:
-              - mountpoint: /var/lib/longhorn
+    userVolumes:
+      - name: longhorn
+        provisioning:
+          diskSelector:
+             match: disk.size > 100u * GB
+          minSize: 300GB
+          grow: true
 
 # Global patches
 patches:
