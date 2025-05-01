@@ -294,6 +294,7 @@ resource "routeros_wifi_provisioning" "hap_ax3_2ghz" {
   slave_configurations = [
     routeros_wifi_configuration.guest_2ghz.name,
     routeros_wifi_configuration.iot-downstairs.name,
+    routeros_wifi_configuration.iot-temp.name,
   ]
 }
 resource "routeros_wifi_provisioning" "hap_axlite" {
