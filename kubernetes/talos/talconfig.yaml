@@ -150,14 +150,18 @@ controlPlane:
   schematic:
     customization:
       extraKernelArgs:
-        - apparmor=0 # Less security, more speed
-        - init_on_alloc=0 # Less security, more speed
-        - init_on_free=0 # Less security, more speed
-        - intel_iommu=on # PCI Passthrough
-        - iommu=pt # PCI Passthrough
-        - mitigations=off # Less security, more speed
-        - security=none # Less security, more speed
-        - net.ifnames=1 # Enable predictable NIC naming
+        - -selinux                             # Less security, more speed
+        - i915.enable_guc=3                    # Meteor Lake CPU / iGPU
+        - apparmor=0                           # Less security, more speed
+        - init_on_alloc=0                      # Less security, more speed
+        - init_on_free=0                       # Less security, more speed
+        - intel_iommu=on                       # PCI Passthrough
+        - iommu=pt                             # PCI Passthrough
+        - mitigations=off                      # Less security, more speed
+        - security=none                        # Less security, more speed
+        - net.ifnames=1                        # Enable predictable NIC naming
+        - sysctl.kernel.kexec_load_disabled=1  # Meteor Lake CPU / iGPU
+        - talos.auditd.disabled=1              # Less security, more speed
       # systemExtensions:
       #   officialExtensions:
       #     # - siderolabs/gasket-driver # Coral
