@@ -38,7 +38,8 @@ spec:
       replicaAutoBalance: best-effort
       restoreVolumeRecurringJobs: true # Don´t need this if we create a default one and then use localpath for the ones we don´t want to backup
       # snapshotMaxCount: 10
-      storageMinimalAvailablePercentage: 10
+      storageReservedPercentageForDefaultDisk: 0
+      storageMinimalAvailablePercentage: 5
       storageOverProvisioningPercentage: 150
 
     defaultBackupStore:
