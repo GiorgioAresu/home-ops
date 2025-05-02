@@ -96,8 +96,12 @@ spec:
           datasource: Prometheus
 
         external-secrets:
-          url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
-          datasource: Prometheus
+          # renovate: depName="External Secrets"
+          gnetId: 21640
+          revision: 4
+          datasource:
+            - name: DS_METRICS
+              value: Prometheus
 
         mikrotik-mktxp-exporter:
           # renovate: dashboardName="Mikrotik MKTXP Exporter"
