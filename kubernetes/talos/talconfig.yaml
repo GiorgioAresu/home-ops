@@ -19,7 +19,7 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: kube-bmax-01
+  - hostname: kube-bmax-01.aresu.eu
     ipAddress: 10.17.1.34
     installDiskSelector:
       model: UDSS UD2CS1HT100 # M.2 SATA
@@ -43,11 +43,18 @@ nodes:
             - siderolabs/i915
             - siderolabs/intel-ucode
             - siderolabs/mei
+    volumes:
+      - name: EPHEMERAL
+        provisioning:
+          diskSelector:
+            match: system_disk
+          maxSize: 50GB
+          grow: false
     userVolumes:
       - name: longhorn
         provisioning:
           diskSelector:
-             match: disk.size > 500u * GB
+             match: system_disk
           maxSize: 400GiB
     patches:
       - &longhorn |-
@@ -62,7 +69,7 @@ nodes:
                     namespaces:
                       - longhorn
 
-  - hostname: kube-nuc-01
+  - hostname: kube-nuc-01.aresu.eu
     ipAddress: 10.17.1.38
     installDiskSelector:
       # model: KINGSTON SMS200S
@@ -85,14 +92,21 @@ nodes:
             # - siderolabs/i915 # Too old to be useful
             - siderolabs/intel-ucode
             - siderolabs/mei
+    volumes:
+      - name: EPHEMERAL
+        provisioning:
+          diskSelector:
+            match: system_disk
+          maxSize: 50GB
+          grow: false
     userVolumes:
       - name: longhorn
         provisioning:
           diskSelector:
-             match: disk.size > 200u * GB
+             match: system_disk
           maxSize: 150GiB
 
-  - hostname: kube-proxmox-01
+  - hostname: kube-proxmox-01.aresu.eu
     ipAddress: 10.17.1.36
     installDisk: /dev/sda
     controlPlane: true
@@ -115,8 +129,8 @@ nodes:
       - name: longhorn
         provisioning:
           diskSelector:
-             match: disk.size > 100u * GB
-          minSize: 300GB
+            match: "!system_disk"
+          minSize: 50GiB
           grow: true
 
 # Global patches
