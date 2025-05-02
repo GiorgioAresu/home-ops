@@ -75,19 +75,6 @@ resource "routeros_wifi_security" "iot_wifi_security" {
     ignore_changes = [ passphrase ]
   }
 }
-resource "routeros_wifi_security" "iottemp_wifi_security" {
-  provider             = routeros.rb5009
-  comment              = "Managed by Terraform"
-  name                 = "IoT-temp"
-  authentication_types = ["wpa2-psk"]
-  passphrase           = var.iottemp_wifi_password
-  ft                   = true
-  ft_over_ds           = true
-
-  lifecycle {
-    ignore_changes = [ passphrase ]
-  }
-}
 
 
 # =================================================================================================
@@ -236,11 +223,11 @@ resource "routeros_wifi_configuration" "iot-upstairs" {
     config = routeros_wifi_security.iot_wifi_security.name
   }
 }
-resource "routeros_wifi_configuration" "iot-temp" {
+resource "routeros_wifi_configuration" "iot" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   country  = "Italy"
-  name     = "IoT-temp"
+  name     = "IoT"
   mode     = "ap"
   ssid     = "GeS-IoT"
 
@@ -248,10 +235,10 @@ resource "routeros_wifi_configuration" "iot-temp" {
     config = routeros_wifi_channel.slow.name
   }
   datapath = {
-    config = routeros_wifi_datapath.lan.name
+    config = routeros_wifi_datapath.iot.name
   }
   security = {
-    config = routeros_wifi_security.iottemp_wifi_security.name
+    config = routeros_wifi_security.iot_wifi_security.name
   }
 }
 
@@ -281,7 +268,7 @@ resource "routeros_wifi_provisioning" "all_2ghz" {
   slave_configurations = [
     routeros_wifi_configuration.guest_2ghz.name,
     routeros_wifi_configuration.iot-downstairs.name,
-    routeros_wifi_configuration.iot-temp.name,
+    routeros_wifi_configuration.iot.name,
   ]
 }
 resource "routeros_wifi_provisioning" "hap_ax3_2ghz" {
@@ -294,7 +281,7 @@ resource "routeros_wifi_provisioning" "hap_ax3_2ghz" {
   slave_configurations = [
     routeros_wifi_configuration.guest_2ghz.name,
     routeros_wifi_configuration.iot-downstairs.name,
-    routeros_wifi_configuration.iot-temp.name,
+    routeros_wifi_configuration.iot.name,
   ]
 }
 resource "routeros_wifi_provisioning" "hap_axlite" {
@@ -307,7 +294,7 @@ resource "routeros_wifi_provisioning" "hap_axlite" {
   slave_configurations = [
     routeros_wifi_configuration.guest_2ghz.name,
     routeros_wifi_configuration.iot-upstairs.name,
-    routeros_wifi_configuration.iot-temp.name,
+    routeros_wifi_configuration.iot.name,
   ]
 }
 
