@@ -6,3 +6,4 @@ resources:
   - ./externalsecret.yaml
   - ./cluster.yaml
   - ./ingress.yaml
+  - ./podmonitor.yaml

@@ -95,6 +95,15 @@ spec:
           revision: 3
           datasource: Prometheus
 
+
+        emqx:
+          # renovate: depName="EMQX"
+          gnetId: 17446
+          revision: 2
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+
         external-secrets:
           # renovate: depName="External Secrets"
           gnetId: 21640
