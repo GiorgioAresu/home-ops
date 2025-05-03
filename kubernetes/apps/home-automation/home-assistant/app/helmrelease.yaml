@@ -16,7 +16,7 @@ spec:
   values:
     controllers:
       home-assistant:
-        replicas: 1
+        replicas: 0
         annotations:
           reloader.stakater.com/auto: "true"
 
