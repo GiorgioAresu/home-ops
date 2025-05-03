@@ -60,4 +60,17 @@ resource "routeros_ip_dns_record" "persiana" {
   type = "A"
   name = "persiana.iot.aresu.eu"
   address = routeros_ip_dhcp_server_lease.persiana.address
+resource "routeros_ip_dns_record" "inverter" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "inverter.iot.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.inverter.address
+}
+resource "routeros_ip_dns_record" "asciugatrice" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "asciugatrice.iot.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.asciugatrice.address
 }

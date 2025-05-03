@@ -410,6 +410,20 @@ resource "routeros_ip_dhcp_server_lease" "persiana" {
   address     = "10.17.50.38"
   mac_address = "DC:4F:22:5F:5F:43"
 }
+resource "routeros_ip_dhcp_server_lease" "inverter" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Huawei SUN2000"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.39"
+  mac_address = "C4:D4:38:DB:94:08"
+}
+resource "routeros_ip_dhcp_server_lease" "asciugatrice" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Miele"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.40"
+  mac_address = "00:1D:63:63:B5:C2"
+}
 # resource "routeros_ip_dhcp_server_lease" "this" { *16
 #   provider    = routeros.rb5009
 #   comment     = "Managed by Terraform"
