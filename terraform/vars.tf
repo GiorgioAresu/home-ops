@@ -73,9 +73,4 @@ variable "iot_wifi_password" {
   sensitive   = true
   description = "The password for the IoT Wi-Fi network."
 }
-variable "iottemp_wifi_password" {
-  type        = string
-  sensitive   = true
-  description = "The password for the IoT temporary Wi-Fi network. Used for the Huawei Inverter"
-}
 
