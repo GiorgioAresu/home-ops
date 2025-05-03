@@ -98,7 +98,7 @@ jobs:
           } >> "${GITHUB_STEP_SUMMARY}"
 
       - name: Generate Token
-        uses: actions/create-github-app-token@30bf6253fa41bdc8d1501d202ad15287582246b4 # v2.0.3
+        uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository && steps.diff.outputs.diff != '' }}
         id: app-token
         with:
