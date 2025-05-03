@@ -262,12 +262,11 @@ resource "routeros_wifi_provisioning" "all_2ghz" {
   provider             = routeros.rb5009
   comment              = "Managed by Terraform - All 2GHz"
   action               = "create-dynamic-enabled"
-  disabled             = true
+  disabled             = false
   supported_bands      = ["2ghz-n"]
   master_configuration = routeros_wifi_configuration.main_2ghz.name
   slave_configurations = [
     routeros_wifi_configuration.guest_2ghz.name,
-    routeros_wifi_configuration.iot-downstairs.name,
     routeros_wifi_configuration.iot.name,
   ]
 }
@@ -275,7 +274,7 @@ resource "routeros_wifi_provisioning" "hap_ax3_2ghz" {
   provider             = routeros.rb5009
   comment              = "Managed by Terraform - hAP ax3 2GHz (guests only downstairs, modem will need both)"
   action               = "create-dynamic-enabled"
-  disabled             = false
+  disabled             = true
   radio_mac            = "D4:01:C3:4E:1E:E6"
   master_configuration = routeros_wifi_configuration.main_2ghz.name
   slave_configurations = [
@@ -288,7 +287,7 @@ resource "routeros_wifi_provisioning" "hap_axlite" {
   provider             = routeros.rb5009
   comment              = "Managed by Terraform - hAP ax lite LTE"
   action               = "create-dynamic-enabled"
-  disabled             = false
+  disabled             = true
   radio_mac            = "78:9A:18:77:17:1C"
   master_configuration = routeros_wifi_configuration.main_2ghz.name
   slave_configurations = [
