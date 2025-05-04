@@ -30,3 +30,4 @@ spec:
     substitute:
       APP: *appname
       VOLSYNC_CLAIM: otbr-data
+      VOLSYNC_CAPACITY: 100Mi
