@@ -6,6 +6,7 @@ namespace: home-automation
 resources:
   - ./esphome/ks.yaml
   - ./home-assistant/ks.yaml
+  - ./open-thread-border-router/ks.yaml
   - ./piper/ks.yaml
   - ./whisper/ks.yaml
   - ./zigbee2mqtt/ks.yaml

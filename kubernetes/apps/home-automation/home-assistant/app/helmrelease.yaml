@@ -48,8 +48,6 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 1Gi
-                squat.ai/thread: 1
-                # squat.ai/zigbee: 1
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
