@@ -103,7 +103,7 @@ spec:
       downloads:
         type: nfs
         server: truenas.aresu.eu
-        path: /mnt/tank/downloads
+        path: /mnt/tank/downloads/complete/books
         globalMounts:
           - path: /downloads
       books:
