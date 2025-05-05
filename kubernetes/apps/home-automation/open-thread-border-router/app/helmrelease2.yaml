@@ -18,7 +18,7 @@ spec:
     # -- The mount path for the thread receiver
     rcpMountPath: /dev/ttyACM0?uart-baudrate=115200
     # -- The physical network interface to use for routing
-    backboneInterface: enp2s0
+    backboneInterface: bond0.50
 
     # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
     service:

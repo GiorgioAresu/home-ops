@@ -25,7 +25,7 @@ spec:
               - --radio-url
               - spinel+hdlc+uart:///dev/ttyACM0?uart-baudrate=115200
               - --backbone-interface
-              - enp2s0
+              - bond0.50
               - --usage
             env:
               HTTP_PORT: 8888

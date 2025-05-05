@@ -25,11 +25,21 @@ nodes:
       model: UDSS UD2CS1HT100 # M.2 SATA
     controlPlane: true
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 00:e0:4c:2e:36:08
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: 00:e0:4c:2e:36:08
         dhcp: true
         vip:
           ip: *talosControlplaneVip
+        vlans:
+          - &vlan50
+            vlanId: 50
+            mtu: 1500
+            dhcp: false
+            dhcpOptions:
+              routeMetric: 4096
     nodeLabels:
       node.kubernetes.io/virtual: "false"
     schematic:
@@ -62,11 +72,16 @@ nodes:
       model: KINGSTON SUV500M # MSATA 200GB
     controlPlane: true
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 68:5b:35:a1:01:ca
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: 68:5b:35:a1:01:ca
         dhcp: true
         vip:
           ip: *talosControlplaneVip
+        vlans:
+          - *vlan50
     nodeLabels:
       node.kubernetes.io/virtual: "false"
     schematic:
@@ -97,11 +112,16 @@ nodes:
     installDisk: /dev/sda
     controlPlane: true
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: bc:24:11:41:5f:39
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: bc:24:11:41:5f:39
         dhcp: true
         vip:
           ip: *talosControlplaneVip
+        vlans:
+          - *vlan50
     nodeLabels:
       node.kubernetes.io/virtual: "true"
     schematic: &pve_schematic
