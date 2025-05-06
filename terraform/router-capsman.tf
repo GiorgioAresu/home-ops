@@ -26,7 +26,7 @@ resource "routeros_wifi_channel" "fast" {
   provider          = routeros.rb5009
   comment           = "Managed by Terraform"
   name              = "5ghz"
-  width             = "20mhz"
+  width             = "20/40mhz"
   skip_dfs_channels = "all"
   reselect_interval = "45m..1h"
 }
