@@ -8,7 +8,7 @@ resource "routeros_ipv6_settings" "settings" {
 resource "routeros_ipv6_neighbor_discovery" "lan" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
-  interface = "iot"
+  interface = routeros_interface_vlan.iot.name
   dns       = "fd26::1"
 }
 
