@@ -14,7 +14,7 @@
       matchDatasources: ["helm", "docker"],
       automerge: true,
       matchUpdateTypes: ["minor", "patch"],
-      matchDepNames: ["ghcr.io/prometheus-community/charts/kube-prometheus-stack", "prometheus-operator", "/.*grafana/"],
+      matchDepNames: ["ghcr.io/prometheus-community"],
       ignoreTests: false,
     },
   ],
