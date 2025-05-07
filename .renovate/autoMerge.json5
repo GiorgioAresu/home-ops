@@ -14,7 +14,7 @@
       matchDatasources: ["helm", "docker"],
       automerge: true,
       matchUpdateTypes: ["minor", "patch"],
-      matchDepNames: ["ghcr.io/prometheus-community"],
+      matchPackagePatterns: ["^ghcr.io/prometheus-community/"],
       ignoreTests: false,
     },
   ],
