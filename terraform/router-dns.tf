@@ -9,7 +9,7 @@ resource "routeros_ip_dns_record" "bagno_principale" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   type     = "A"
-  name     = "bagno-principale.aresu.eu"
+  name     = "bagno-principale.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.bagno_principale.address
 }
 resource "routeros_ip_dns_record" "dehumidifier" {
