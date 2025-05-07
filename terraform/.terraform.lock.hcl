@@ -1,0 +1,24 @@
+# This file is maintained automatically by "terraform init".
+# Manual edits may be lost in future updates.
+
+provider "registry.terraform.io/terraform-routeros/routeros" {
+  version     = "1.84.0"
+  constraints = "1.84.0"
+  hashes = [
+    "h1:IVATKreBX8IS2VCSWs8u9717yheNTTkJwj9AOgjWMV4=",
+    "zh:1f34de645916597c2bc70bf151947343f9998986ecc10834a00fb81a710da4d5",
+    "zh:20218f25e74748b30bb022a8586edde2d99da7e37031951369b752de13ab2b33",
+    "zh:277f4a19def3e201eb00281f2d6140f9946b85860ee574a66568320d1741e3d7",
+    "zh:29247a0c8eedb4cdb27d290074a36cb161d7268a7e92bebe3159d3cc59ad9f69",
+    "zh:2a24f1e5f454723fc9ea728cb98142443e500c78a6695c746ee9f44206d54ae0",
+    "zh:60285e41171d1e6f40ffc99565e683be125bf8fb95b22c7c1d096b21196183dd",
+    "zh:6ce7416ebf76a9033ce5a7ec0d23a62a44685c6fea311e2700288416cc77d721",
+    "zh:9f1fbeb82b8c29d06603e7e2a5679e3ef242b655c3e3550a2df65973272b5893",
+    "zh:c36cb51b75c7e58516c65ea2416748d95ab183c21d17ca269b1315f1a62ff050",
+    "zh:c7bd80bc751cf9d97ce0f2148c5ff4031cf64e5313c0e453628f85809674b4da",
+    "zh:cadfa68c2cac96b877b5e666af731f9bd2ebdb891c4ac276f5f4b3cc648d0e8c",
+    "zh:d084a315bae629bcf03be2f9d2e1dd9e88984ba1808415249db88d279c10f140",
+    "zh:e4729bde5d242c692223bc48d7570f00b2d558b590be579c26b00fe7bd650a41",
+    "zh:f50c71603e561c51a20213d9925181d0f2a5174296f9d1e3dae577492f7614bc",
+  ]
+}
