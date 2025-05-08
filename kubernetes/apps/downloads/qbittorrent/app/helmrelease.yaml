@@ -1,0 +1,107 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn
+  values:
+    controllers:
+      qbittorrent:
+        type: statefulset
+
+        pod:
+          securityContext:
+            fsGroup: 2000
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 65542 # gladius:external-services
+
+        containers:
+          app:
+            nameOverride: qbittorrent
+            image:
+              repository: ghcr.io/home-operations/qbittorrent
+              tag: 5.0.4
+            env:
+              UMASK: "022"
+              QBT_WEBUI_PORT: &port 8080
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 150m
+                memory: 512Mi
+              limits:
+                memory: 2048Mi
+            securityContext:
+              runAsUser: 2000
+              runAsGroup: 2000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    ingress:
+      app:
+        className: "internal-nginx"
+        hosts:
+          - host: qbittorrent.aresu.eu
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    service:
+      app:
+        controller: qbittorrent
+        ports:
+          http:
+            port: *port
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: qbittorrent
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /config
+      downloads:
+        type: nfs
+        server: truenas.aresu.eu
+        path: /mnt/tank/downloads
+        globalMounts:
+          - path: /downloads
+
+    route:
+      app:
+        hostnames:
+          - qbittorrent.aresu.eu
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: qbittorrent
+                port: *port
