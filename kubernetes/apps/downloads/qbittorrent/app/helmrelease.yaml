@@ -74,18 +74,23 @@ spec:
     service:
       app:
         controller: qbittorrent
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${SVC_QBITTORRENT_PEERS_TCP_ADDR}
         ports:
           http:
             port: *port
-      incoming:
-        controller: qbittorrent
-        type: LoadBalancer
-        annotations:
-          io.cilium/lb-ipam-ips: ${SVC_QBITTORRENT_PEERS_ADDR}
-        ports:
+            primary: true
           tcp:
             port: 52015
             protocol: TCP
+      udp: # Mixed mode isn't working
+        enabled: true
+        controller: qbittorrent
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${SVC_QBITTORRENT_PEERS_UDP_ADDR}
+        ports:
           udp:
             port: 52015
             protocol: UDP

@@ -51,7 +51,7 @@ spec:
               - --sites
               - --unregistered
               - --server
-              - &qbittorrent_host qbittorrent.downloads.svc.cluster.local
+              - &qbittorrent_host qbittorrent-app.downloads.svc.cluster.local
               - --port
               - &qbittorrent_port "8080"
               - --config
