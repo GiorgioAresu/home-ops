@@ -100,18 +100,12 @@ spec:
         type: emptyDir
       tmp:
         type: emptyDir
-      downloads:
+      media:
         type: nfs
         server: truenas.aresu.eu
-        path: /mnt/tank/downloads/complete/movies
+        path: /mnt/tank/media
         globalMounts:
-          - path: /downloads
-      movies:
-        type: nfs
-        server: truenas.aresu.eu
-        path: /mnt/tank/media/Movies
-        globalMounts:
-          - path: /movies
+          - path: /data/media
 
     route:
       app:

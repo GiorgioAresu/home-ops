@@ -86,18 +86,12 @@ spec:
     persistence:
       config:
         existingClaim: bazarr-config
-      movies:
+      media:
         type: nfs
         server: truenas.aresu.eu
-        path: /mnt/tank/media/Movies
+        path: /mnt/tank/media
         globalMounts:
-          - path: /movies
-      tv:
-        type: nfs
-        server: truenas.aresu.eu
-        path: /mnt/tank/media/TV Shows
-        globalMounts:
-          - path: /tv
+          - path: /data/media
 
     route:
       app:
