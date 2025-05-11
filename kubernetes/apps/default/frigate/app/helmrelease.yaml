@@ -115,6 +115,6 @@ spec:
       media:
         type: nfs
         server: ${TRUENAS_ADDR}
-        path: /mnt/tank/media/frigate
+        path: /mnt/tank/media/Frigate
         globalMounts:
-          - path: /media
+          - path: /media/frigate
