@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: descheduler
   values:
-    replicas: 1
+    replicas: 0
     kind: Deployment
     deschedulerPolicyAPIVersion: descheduler/v1alpha2
     deschedulerPolicy:
