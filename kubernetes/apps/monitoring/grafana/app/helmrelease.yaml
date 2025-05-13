@@ -104,14 +104,6 @@ spec:
             - name: DS_PROMETHEUS
               value: Prometheus
 
-        external-secrets:
-          # renovate: depName="External Secrets"
-          gnetId: 21640
-          revision: 4
-          datasource:
-            - name: DS_METRICS
-              value: Prometheus
-
         mikrotik-mktxp-exporter:
           # renovate: dashboardName="Mikrotik MKTXP Exporter"
           gnetId: 13679
