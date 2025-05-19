@@ -1,3 +1,11 @@
+resource "routeros_ip_dns_record" "jetkvm" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "jetkvm.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.jetkvm.address
+}
+
 resource "routeros_ip_dns_record" "m5stack_atom_echo" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
@@ -18,6 +26,13 @@ resource "routeros_ip_dns_record" "dehumidifier" {
   type     = "A"
   name     = "dehumidifier.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.dehumidifier.address
+}
+resource "routeros_ip_dns_record" "hass" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "hass.iot.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.hass.address
 }
 resource "routeros_ip_dns_record" "teckin" {
   provider = routeros.rb5009
