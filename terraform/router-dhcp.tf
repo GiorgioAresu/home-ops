@@ -212,6 +212,13 @@ resource "routeros_ip_dhcp_server_lease" "prusa" {
   address     = "10.17.1.7"
   mac_address = "EC:64:C9:F3:C0:F8"
 }
+resource "routeros_ip_dhcp_server_lease" "jetkvm" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - JetKVM"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.9"
+  mac_address = "30:52:53:09:B2:F5"
+}
 resource "routeros_ip_dhcp_server_lease" "rpi_4_1" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - kube-rpi-01"
@@ -347,6 +354,13 @@ resource "routeros_ip_dhcp_server_lease" "camera_dome" {
 }
 
 ### IoT
+resource "routeros_ip_dhcp_server_lease" "hass" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Home Assistant on IoT"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.4"
+  mac_address = "00:1E:06:42:74:6E"
+}
 resource "routeros_ip_dhcp_server_lease" "m5stack_atom_echo" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - M5Stack Atom Echo"
