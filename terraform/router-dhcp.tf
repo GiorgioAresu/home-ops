@@ -219,6 +219,13 @@ resource "routeros_ip_dhcp_server_lease" "jetkvm" {
   address     = "10.17.1.9"
   mac_address = "30:52:53:09:B2:F5"
 }
+resource "routeros_ip_dhcp_server_lease" "minisforum_uh125" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Minisforum UH125 Pro"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.10"
+  mac_address = "58:47:CA:78:51:3F"
+}
 resource "routeros_ip_dhcp_server_lease" "rpi_4_1" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - kube-rpi-01"
