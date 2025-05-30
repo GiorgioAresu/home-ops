@@ -88,6 +88,8 @@ spec:
         storageClass: longhorn
         globalMounts:
           - path: /data
-      tmp:
-        enabled: true
+      tmpfs:
         type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp

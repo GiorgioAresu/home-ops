@@ -81,12 +81,13 @@ spec:
                   - ALL
 
     persistence:
-      config:
+      tmpfs:
         type: emptyDir
         advancedMounts:
           plex-image-cleanup:
             app:
               - path: /config
+                subPath: config
       plex-config:
         existingClaim: plex-config
         advancedMounts:

@@ -64,9 +64,10 @@ spec:
             port: *port
 
     persistence:
-      tmp:
-        type: emptyDir
       tmpfs:
         type: emptyDir
         globalMounts:
           - path: /nonexistent
+            subPath: nonexistent
+          - path: /tmp
+            subPath: tmp

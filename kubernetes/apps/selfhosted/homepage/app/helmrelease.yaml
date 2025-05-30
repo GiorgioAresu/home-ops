@@ -96,10 +96,11 @@ spec:
             path: /app/config/settings.yaml
           - subPath: widgets.yaml
             path: /app/config/widgets.yaml
-      logs:
+      tmpfs:
         type: emptyDir
         globalMounts:
           - path: /app/config/logs
+            subPath: logs
 
     route:
       app:

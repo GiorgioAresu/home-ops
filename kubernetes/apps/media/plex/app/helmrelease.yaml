@@ -108,12 +108,15 @@ spec:
           plex:
             app:
               - path: /config/Library/Application Support/Plex Media Server/Cache
-      logs:
+      tmpfs:
         type: emptyDir
         advancedMounts:
           plex:
             app:
               - path: /config/Library/Application Support/Plex Media Server/Logs
+                subPath: logs
+              - path: /transcode
+                subPath: transcode
       media:
         type: nfs
         server: "${TRUENAS_ADDR}"
@@ -122,12 +125,6 @@ spec:
           plex:
             app:
               - path: /media
-      transcode:
-        type: emptyDir
-        advancedMounts:
-          plex:
-            app:
-              - path: /transcode
 
     route:
       app:
