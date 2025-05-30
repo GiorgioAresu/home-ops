@@ -22,6 +22,8 @@ spec:
     #   snapshotterReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
 
     defaultSettings:
+      autoCleanupSnapshotAfterOnDemandBackupCompleted: true
+      autoCleanupSnapshotWhenDeleteBackup: true
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
       concurrentReplicaRebuildPerNodeLimit: 3
       concurrentVolumeBackupRestorePerNodeLimit: 3
@@ -34,6 +36,7 @@ spec:
       #guaranteedReplicaManagerCPU: 20
       node-drain-policy: allow-if-replica-is-stopped
       #nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+      offlineRelicaRebuilding: true
       orphanAutoDeletion: true
       replicaAutoBalance: best-effort
       restoreVolumeRecurringJobs: true # Don´t need this if we create a default one and then use localpath for the ones we don´t want to backup
