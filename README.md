@@ -16,7 +16,7 @@ _... managed by Flux, Renovate and GitHub Actions_ :robot:
 
 Thanks to all the people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community.
 A lot of inspiration for my cluster comes from the people that have shared their clusters using the [k8s-at-home](https://github.com/topics/k8s-at-home) GitHub topic. Be sure to check out the awesome [Kubesearch](http://kubesearch.dev) tool for ideas on how to deploy applications or get ideas on what you can deploy.
-Special thanks to [onedr0p](https://github.com/onedr0p) and to [bjw-s](https://github.com/bjw-s), main inspirations to start this project (and to come back after a hiatus), and for being the sources for a lot of copy-and-paste. Check out [cluster-template](https://github.com/onedr0p/cluster-template) and [app-template](https://github.com/bjw-s/helm-charts/tree/main/charts/other/app-template).
+Special thanks to [onedr0p](https://github.com/onedr0p) and to [bjw-s](https://github.com/bjw-s), main inspirations to start this project (and to come back after a hiatus), and for being the sources for a lot of copy-and-paste. Check out [cluster-template](https://github.com/onedr0p/cluster-template) and [app-template](https://github.com/bjw-s-labs/helm-charts/tree/main/charts/other/app-template).
 
 
 ## 🔏 License
