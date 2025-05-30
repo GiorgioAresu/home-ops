@@ -1,0 +1,82 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: corosync
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-labs
+        namespace: flux-system
+  values:
+    controllers:
+      corosync:
+        pod:
+          securityContext:
+            runAsUser: 903
+            runAsGroup: 903
+            runAsNonRoot: true
+            fsGroup: 903
+            fsGroupChangePolicy: "OnRootMismatch"
+
+        containers:
+          app:
+            image:
+              repository: modelrockettier/corosync-qnetd
+              tag: latest@sha256:742304c60fbf7b948db99111aa24c0125f820c5339bc1464ee3d7b63547031f6
+            env: {}
+            # probes:
+            #   liveness: &probes
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       httpGet:
+            #         path: /healthz
+            #         port: *port
+            #       initialDelaySeconds: 0
+            #       periodSeconds: 10
+            #       timeoutSeconds: 1
+            #       failureThreshold: 3
+            #   readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 64Mi
+
+    defaultPodOptions:
+      nodeSelector:
+        node.kubernetes.io/virtual: "false"
+
+    service:
+      app:
+        controller: corosync
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "{{ .Release.Name }}.aresu.eu"
+          io.cilium/lb-ipam-ips: ${SVC_COROSYNC_ADDR}
+        ports:
+          http:
+            port: &port 5403
+
+    persistence:
+      data:
+        existingClaim: corosync
+        globalMounts:
+          - path: /etc/corosync
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /var/run
