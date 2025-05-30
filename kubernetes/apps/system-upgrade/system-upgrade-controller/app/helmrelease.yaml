@@ -49,8 +49,28 @@ spec:
               capabilities:
                 drop:
                   - ALL
+
         serviceAccount:
           identifier: system-upgrade-controller
 
     serviceAccount:
       system-upgrade-controller: {}
+
+    rbac:
+      bindings:
+        system-upgrade-controller:
+          type: ClusterRoleBinding
+          roleRef:
+            kind: ClusterRole
+            name: cluster-admin
+          subjects:
+            - identifier: system-upgrade-controller
+
+    rawResources:
+      talosServiceAccount:
+        apiVersion: talos.dev/v1alpha1
+        kind: ServiceAccount
+        spec:
+          spec:
+            roles:
+              - os:admin
