@@ -55,6 +55,61 @@ nodes:
              match: system_disk
           maxSize: 400GiB
 
+  - hostname: kube-proxmox-01.aresu.eu
+    ipAddress: 10.17.1.36
+    installDisk: /dev/sda
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: bc:24:11:41:5f:39
+        dhcp: true
+        vip:
+          ip: *talosControlplaneVip
+    nodeLabels:
+      node.kubernetes.io/virtual: "true"
+    schematic: &pve_schematic
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/iscsi-tools      # Longhorn
+            - siderolabs/qemu-guest-agent
+            - siderolabs/util-linux-tools # Longhorn
+    userVolumes:
+      - name: longhorn
+        provisioning:
+          diskSelector:
+            match: "!system_disk"
+          minSize: 50GiB
+          grow: true
+
+  - hostname: kube-proxmox-02.aresu.eu
+    ipAddress: 10.17.1.37
+    installDisk: /dev/sda
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: bc:24:11:13:e0:a6
+        dhcp: true
+        vip:
+          ip: *talosControlplaneVip
+    nodeLabels:
+      node.kubernetes.io/virtual: "true"
+    schematic: &pve_schematic
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915             # Intel iGPU
+            - siderolabs/iscsi-tools      # Longhorn
+            - siderolabs/qemu-guest-agent
+            - siderolabs/util-linux-tools # Longhorn
+    userVolumes:
+      - name: longhorn
+        provisioning:
+          diskSelector:
+            match: "!system_disk"
+          minSize: 50GiB
+          grow: true
+
   - hostname: kube-nuc-01.aresu.eu
     ipAddress: 10.17.1.38
     installDiskSelector:
@@ -91,33 +146,6 @@ nodes:
           diskSelector:
              match: system_disk
           maxSize: 150GiB
-
-  - hostname: kube-proxmox-01.aresu.eu
-    ipAddress: 10.17.1.36
-    installDisk: /dev/sda
-    controlPlane: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: bc:24:11:41:5f:39
-        dhcp: true
-        vip:
-          ip: *talosControlplaneVip
-    nodeLabels:
-      node.kubernetes.io/virtual: "true"
-    schematic: &pve_schematic
-      customization:
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/iscsi-tools      # Longhorn
-            - siderolabs/qemu-guest-agent
-            - siderolabs/util-linux-tools # Longhorn
-    userVolumes:
-      - name: longhorn
-        provisioning:
-          diskSelector:
-            match: "!system_disk"
-          minSize: 50GiB
-          grow: true
 
 controlPlane:
   nodeLabels:
