@@ -20,6 +20,7 @@ spec:
   values:
     controllers:
       qbittorrent:
+        forceRename: qbittorrent
         type: statefulset
 
         pod:
@@ -77,6 +78,7 @@ spec:
 
     service:
       app:
+        forceRename: qbittorrent
         controller: qbittorrent
         type: LoadBalancer
         annotations:
