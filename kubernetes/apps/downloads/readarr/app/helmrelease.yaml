@@ -100,10 +100,11 @@ spec:
     persistence:
       config:
         existingClaim: readarr-config
-      add-ons:
+      tmpfs:
         type: emptyDir
-      tmp:
-        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
       media:
         type: nfs
         server: truenas.aresu.eu

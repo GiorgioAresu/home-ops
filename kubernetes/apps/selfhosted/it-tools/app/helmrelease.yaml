@@ -68,8 +68,11 @@ spec:
                   port: http
 
     persistence:
-      tmp:
+      tmpfs:
         type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
 
     route:
       app:
