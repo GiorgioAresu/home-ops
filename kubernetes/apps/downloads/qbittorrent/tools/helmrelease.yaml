@@ -43,6 +43,9 @@ spec:
             image:
               repository: ghcr.io/buroa/qbtools
               tag: v0.21.0
+            env:
+              QBITTORRENT_HOST: qbittorrent.downloads.svc.cluster.local
+              QBITTORRENT_PORT: 8080
             args:
               - tagging
               - --added-on
@@ -50,12 +53,7 @@ spec:
               - --last-activity
               - --sites
               - --unregistered
-              - --server
-              - &qbittorrent_host qbittorrent-app.downloads.svc.cluster.local
-              - --port
-              - &qbittorrent_port "8080"
-              - --config
-              - /config/config.yaml
+              - --not-linked
             resources:
               requests:
                 memory: 128Mi
@@ -82,10 +80,6 @@ spec:
               - added:24h
               - --include-tag
               - expired
-              - --server
-              - *qbittorrent_host
-              - --port
-              - *qbittorrent_port
 
           unregistered:
             <<: *container
@@ -99,10 +93,6 @@ spec:
               - added:24h
               - --include-tag
               - unregistered
-              - --server
-              - *qbittorrent_host
-              - --port
-              - *qbittorrent_port
 
       orphaned:
         type: cronjob
@@ -120,10 +110,6 @@ spec:
               - "*/manual/*"
               - --exclude-pattern
               - "*/cross-seed/*"
-              - --server
-              - *qbittorrent_host
-              - --port
-              - *qbittorrent_port
 
       reannounce:
         containers:
@@ -132,10 +118,6 @@ spec:
             args:
               - reannounce
               - --process-seeding
-              - --server
-              - *qbittorrent_host
-              - --port
-              - *qbittorrent_port
 
     persistence:
       config-file:
