@@ -5,6 +5,13 @@ resource "routeros_ip_dns_record" "jetkvm" {
   name     = "jetkvm.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.jetkvm.address
 }
+resource "routeros_ip_dns_record" "minisforum_uh125" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "pve-minisforum.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.minisforum_uh125.address
+}
 
 resource "routeros_ip_dns_record" "m5stack_atom_echo" {
   provider = routeros.rb5009
