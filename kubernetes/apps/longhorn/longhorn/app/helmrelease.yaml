@@ -27,6 +27,7 @@ spec:
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
       concurrentReplicaRebuildPerNodeLimit: 3
       concurrentVolumeBackupRestorePerNodeLimit: 3
+      createDefaultDiskLabeledNodes: true
       defaultDataLocality: best-effort
       defaultDataPath: /var/mnt/longhorn
       defaultLonghornStaticStorageClass: longhorn
