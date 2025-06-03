@@ -266,7 +266,7 @@ resource "routeros_ip_dhcp_server_lease" "kube_proxmox_02" {
   comment     = "Managed by Terraform"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.37"
-  mac_address = "BC:24:11:EF:8F:39"
+  mac_address = "BC:24:11:13:E0:A6"
 }
 resource "routeros_ip_dhcp_server_lease" "kube_nuc_01" {
   provider    = routeros.rb5009
