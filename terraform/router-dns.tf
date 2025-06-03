@@ -12,6 +12,20 @@ resource "routeros_ip_dns_record" "minisforum_uh125" {
   name     = "pve-minisforum.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.minisforum_uh125.address
 }
+resource "routeros_ip_dns_record" "ipmi_asrockrack" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "ipmi-asrockrack.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.ipmi_asrockrack.address
+}
+resource "routeros_ip_dns_record" "ipmi_supermicro" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "ipmi-supermicro.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.ipmi_supermicro.address
+}
 
 resource "routeros_ip_dns_record" "m5stack_atom_echo" {
   provider = routeros.rb5009
