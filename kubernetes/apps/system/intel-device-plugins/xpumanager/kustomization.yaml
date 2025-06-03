@@ -11,6 +11,9 @@ patches:
       - op: add
         path: /spec/template/spec/nodeSelector/intel.feature.node.kubernetes.io~1gpu
         value: "true"
+      - op: add
+        path: /spec/template/spec/nodeSelector/node.kubernetes.io~1virtual
+        value: "false"
     target:
       kind: DaemonSet
   - patch: |
