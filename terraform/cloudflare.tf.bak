@@ -1,0 +1,65 @@
+resource "cloudflare_zone" "home" {
+  account_id = "9f371305181f3a3c29e5b9b8c1a4944f"
+  paused     = false
+  plan       = "free"
+  type       = "full"
+  zone       = "aresu.eu"
+}
+
+resource "cloudflare_record" "MX_route1" {
+  name     = "aresu.eu"
+  priority = 58
+  proxied  = false
+  ttl      = 1
+  type     = "MX"
+  value    = "route1.mx.cloudflare.net"
+  zone_id  = "0cfa45d3544c3ba6093b0a6466f7c4b1"
+}
+
+resource "cloudflare_record" "MX_route2" {
+  name     = "aresu.eu"
+  priority = 69
+  proxied  = false
+  ttl      = 1
+  type     = "MX"
+  value    = "route2.mx.cloudflare.net"
+  zone_id  = "0cfa45d3544c3ba6093b0a6466f7c4b1"
+}
+
+resource "cloudflare_record" "MX_route3" {
+  name     = "aresu.eu"
+  priority = 49
+  proxied  = false
+  ttl      = 1
+  type     = "MX"
+  value    = "route3.mx.cloudflare.net"
+  zone_id  = "0cfa45d3544c3ba6093b0a6466f7c4b1"
+}
+
+resource "cloudflare_record" "TXT_spf1" {
+  name    = "aresu.eu"
+  proxied = false
+  ttl     = 1
+  type    = "TXT"
+  value   = "v=spf1 include:_spf.mx.cloudflare.net ~all"
+  zone_id = "0cfa45d3544c3ba6093b0a6466f7c4b1"
+}
+
+resource "cloudflare_record" "TXT_dmarc" {
+  name    = "_dmarc"
+  proxied = false
+  ttl     = 1
+  type    = "TXT"
+  value   = "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s; rua=mailto:giorgio@aresu.eu"
+  zone_id = "0cfa45d3544c3ba6093b0a6466f7c4b1"
+}
+
+resource "cloudflare_record" "TXT_dkim1" {
+  name    = "*._domainkey"
+  proxied = false
+  ttl     = 1
+  type    = "TXT"
+  value   = "v=DKIM1; p="
+  zone_id = "0cfa45d3544c3ba6093b0a6466f7c4b1"
+}
+

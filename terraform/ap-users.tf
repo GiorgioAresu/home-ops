@@ -57,4 +57,13 @@ resource "routeros_system_user" "hapaxlitelte6_mktxp" {
 }
 
 
+# resource "routeros_bridge" "bridge" {
+#   provider = routeros.hAP_ax3
+#   name = "bridge"
+#   admin_mac ="F4:1E:57:CA:9D:46"
+# }
 
+# resource "routeros_bridge" "bridge_wan" {
+#   provider = routeros.hAP_ax3
+#   name = "bridge_wan"
+# }

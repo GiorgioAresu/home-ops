@@ -1,0 +1,12 @@
+mikrotik_host_url_rb5009 = "https://10.17.1.1"
+mikrotik_host_url_hap_ax3 = "https://10.17.1.68"
+mikrotik_host_url_hap_ax_lite_lte6 = "https://10.17.1.69"
+mikrotik_username = "terraform"
+mikrotik_password = "iMq-PUnFbRz67ACuVvKv"
+mikrotik_insecure = true
+mikrotik_user_homepage_password = "QoHqZxxaZZXrZLjM7jD_"
+mikrotik_user_mktxp_password = "iiLb-KkK8UyiR2XTC!ER"
+mikrotik_user_externaldns_password = "8_UE64cA!w*@bpcpmzZN"
+main_wifi_password = "w65bGacM-Ci5qArg0"
+guest_wifi_password = "Giorgio&Sara"
+iot_wifi_password = "lhKJISfXTFiwYGZbZif1"

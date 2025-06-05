@@ -1,0 +1,43 @@
+resource "proxmox_vm_qemu" "kube-proxmox-01" {
+  name        = "kube-proxmox-01"
+  target_node = var.proxmox_host
+
+  agent                  = 1
+  cores                  = 4
+  define_connection_info = false
+  full_clone             = false
+  memory                 = 2048
+  numa                   = false
+  onboot                 = true
+  oncreate               = false
+  qemu_os                = "l26"
+  scsihw                 = "virtio-scsi-single"
+  tags                   = "k8s;prod"
+
+  disk {
+    backup   = true
+    cache    = "none"
+    discard  = "on"
+    file     = "vm-200-disk-0"
+    format   = "raw"
+    iothread = 1
+    size     = "50G"
+    slot     = 0
+    ssd      = 1
+    storage  = "local-lvm"
+    type     = "scsi"
+    volume   = "local-lvm:vm-200-disk-0"
+  }
+
+  network {
+    bridge    = "vmbr0"
+    firewall  = true
+    link_down = false
+    macaddr   = "A2:72:10:A7:BA:BD"
+    model     = "virtio"
+    mtu       = 0
+    queues    = 0
+    rate      = 0
+    tag       = -1
+  }
+}

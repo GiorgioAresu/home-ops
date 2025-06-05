@@ -74,3 +74,56 @@ variable "iot_wifi_password" {
   description = "The password for the IoT Wi-Fi network."
 }
 
+
+# variable "ssh_key" {
+#   type = string
+#   description = "Shared SSH Key"
+#   sensitive = true
+# }
+# variable "proxmox_api_url" {
+#   type = string
+#   description = "Proxmox API URL"
+# }
+# variable "proxmox_host" {
+#   type = string
+#   description = "Proxmox API Host"
+#   default = "pve-supermicro"
+# }
+# variable "template_name" {
+#   type = string
+#   description = "Proxmox Kube Template Name"
+#   default = "kube-proxmox-01"
+# }
+# variable "pm_user" {
+#   type = string
+#   description = "Proxmox Username"
+#   default = "root@pam"
+# }
+# variable "pm_password" {
+#   type = string
+#   sensitive = true
+#   description = "Proxmox Password"
+#   default = "ALFb!qaEc6V!Xm3ie@@w"
+# }
+
+# # Cloudflare
+# variable "cloudflare_api_token" {
+#   type = string
+#   sensitive = true
+#   description = "Cloudflare API Token"
+# }
+# variable "cloudflare_zone_id" {
+#   type = string
+#   sensitive = true
+#   description = "Cloudflare Zone ID"
+# }
+# variable "cloudflare_account_id" {
+#   type = string
+#   sensitive = true
+#   description = "Cloudflare Account ID"
+# }
+# variable "domain" {
+#   type = string
+#   description = "Domain"
+#   default = "aresu.eu"
+# }
