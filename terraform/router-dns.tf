@@ -1,3 +1,81 @@
+resource "routeros_ip_dns_record" "router" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "router.lan"
+  address  = "10.17.1.1"
+}
+resource "routeros_ip_dns_record" "truenas" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "truenas.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.truenas.address
+}
+resource "routeros_ip_dns_record" "supermicro" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "pve-supermicro.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.supermicro.address
+}
+resource "routeros_ip_dns_record" "proxmox_supermicro" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "proxmox.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.supermicro.address
+}
+resource "routeros_ip_dns_record" "proxmox_minisforum_uh125" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "proxmox.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.minisforum_uh125.address
+}
+resource "routeros_ip_dns_record" "prusa" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "prusa.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.prusa.address
+}
+resource "routeros_ip_dns_record" "unraid" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "unraid.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.unraid.address
+}
+resource "routeros_ip_dns_record" "kube-bmax-01" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "kube-bmax-01.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.bmax_b4_plus.address
+}
+resource "routeros_ip_dns_record" "kube_proxmox_01" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "kube-proxmox-01.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.kube_proxmox_01.address
+}
+resource "routeros_ip_dns_record" "kube_proxmox_02" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "kube-proxmox-02.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.kube_proxmox_02.address
+}
+resource "routeros_ip_dns_record" "kube_nuc_01" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "kube-nuc-01.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.kube_nuc_01.address
+}
+
 resource "routeros_ip_dns_record" "jetkvm" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
@@ -110,4 +188,12 @@ resource "routeros_ip_dns_record" "asciugatrice" {
   type     = "A"
   name     = "asciugatrice.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.asciugatrice.address
+}
+
+resource "routeros_ip_dns_record" "odroidhc4" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - Odroid HC4 offsite backup target"
+  type     = "A"
+  name     = "odroidhc4.aresu.eu"
+  address  = "10.17.100.50"
 }
