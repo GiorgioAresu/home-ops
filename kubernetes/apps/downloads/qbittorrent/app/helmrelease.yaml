@@ -21,7 +21,6 @@ spec:
     controllers:
       qbittorrent:
         forceRename: qbittorrent
-        type: statefulset
 
         pod:
           securityContext:
