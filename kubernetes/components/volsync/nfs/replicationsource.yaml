@@ -25,5 +25,6 @@ spec:
     retain:
       hourly: 24
       daily: 7
-    storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn}"
+      monthly: 6
+    storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn-singlereplica}"
     volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-longhorn-snapshotclass}"
