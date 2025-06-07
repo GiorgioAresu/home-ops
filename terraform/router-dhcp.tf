@@ -16,29 +16,29 @@ resource "routeros_ip_dhcp_client" "wan" {
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_address
 # ================================================================================================
 resource "routeros_ip_address" "lan" {
-  provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
   address   = "10.17.1.1/24"
   interface = routeros_interface_bridge.bridge.name
   network   = "10.17.1.0"
 }
 resource "routeros_ip_address" "guest" {
-  provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
   address   = "10.17.30.1/24"
   interface = routeros_interface_vlan.guest.name
   network   = "10.17.30.0"
 }
 resource "routeros_ip_address" "security" {
-  provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
   address   = "10.17.40.1/24"
   interface = routeros_interface_vlan.security.name
   network   = "10.17.40.0"
 }
 resource "routeros_ip_address" "iot" {
-  provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
   address   = "10.17.50.1/24"
   interface = routeros_interface_vlan.iot.name
   network   = "10.17.50.0"
@@ -103,31 +103,31 @@ resource "routeros_ip_dhcp_server_network" "lan" {
   domain      = "aresu.eu"
 }
 resource "routeros_ip_dhcp_server_network" "guest" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform"
-  address     = "10.17.30.0/24"
-  gateway     = "10.17.30.1"
-  dns_server  = ["10.17.30.1"]
-  ntp_server  = ["10.17.30.1"]
+  provider   = routeros.rb5009
+  comment    = "Managed by Terraform"
+  address    = "10.17.30.0/24"
+  gateway    = "10.17.30.1"
+  dns_server = ["10.17.30.1"]
+  ntp_server = ["10.17.30.1"]
   # domain      = "aresu.eu"
 }
 resource "routeros_ip_dhcp_server_network" "security" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform"
-  address     = "10.17.40.0/24"
-  gateway     = "10.17.40.1"
-  dns_server  = ["10.17.40.1"]
-  ntp_server  = ["10.17.40.1"]
-  domain      = "sec.aresu.eu"
+  provider   = routeros.rb5009
+  comment    = "Managed by Terraform"
+  address    = "10.17.40.0/24"
+  gateway    = "10.17.40.1"
+  dns_server = ["10.17.40.1"]
+  ntp_server = ["10.17.40.1"]
+  domain     = "sec.aresu.eu"
 }
 resource "routeros_ip_dhcp_server_network" "iot" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform"
-  address     = "10.17.50.0/24"
-  gateway     = "10.17.50.1"
-  dns_server  = ["10.17.50.1"]
-  ntp_server  = ["10.17.50.1"]
-  domain      = "iot.aresu.eu"
+  provider   = routeros.rb5009
+  comment    = "Managed by Terraform"
+  address    = "10.17.50.0/24"
+  gateway    = "10.17.50.1"
+  dns_server = ["10.17.50.1"]
+  ntp_server = ["10.17.50.1"]
+  domain     = "iot.aresu.eu"
 }
 
 
@@ -136,32 +136,36 @@ resource "routeros_ip_dhcp_server_network" "iot" {
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dhcp_server
 # ================================================================================================
 resource "routeros_ip_dhcp_server" "lan" {
-  provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
-  name         = "LAN"
-  address_pool = routeros_ip_pool.lan.name
-  interface    = routeros_interface_bridge.bridge.name
+  provider        = routeros.rb5009
+  comment         = "Managed by Terraform"
+  name            = "LAN"
+  address_pool    = routeros_ip_pool.lan.name
+  interface       = routeros_interface_bridge.bridge.name
+  use_reconfigure = true
 }
 resource "routeros_ip_dhcp_server" "guest" {
-  provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
-  name         = "Guest"
-  address_pool = routeros_ip_pool.guest.name
-  interface    = routeros_interface_vlan.guest.name
+  provider        = routeros.rb5009
+  comment         = "Managed by Terraform"
+  name            = "Guest"
+  address_pool    = routeros_ip_pool.guest.name
+  interface       = routeros_interface_vlan.guest.name
+  use_reconfigure = true
 }
 resource "routeros_ip_dhcp_server" "security" {
-  provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
-  name         = "Security"
-  address_pool = routeros_ip_pool.security.name
-  interface    = routeros_interface_vlan.security.name
+  provider        = routeros.rb5009
+  comment         = "Managed by Terraform"
+  name            = "Security"
+  address_pool    = routeros_ip_pool.security.name
+  interface       = routeros_interface_vlan.security.name
+  use_reconfigure = true
 }
 resource "routeros_ip_dhcp_server" "iot" {
-  provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
-  name         = "IoT"
-  address_pool = routeros_ip_pool.iot.name
-  interface    = routeros_interface_vlan.iot.name
+  provider        = routeros.rb5009
+  comment         = "Managed by Terraform"
+  name            = "IoT"
+  address_pool    = routeros_ip_pool.iot.name
+  interface       = routeros_interface_vlan.iot.name
+  use_reconfigure = true
 }
 
 
