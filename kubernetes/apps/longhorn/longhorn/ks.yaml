@@ -69,3 +69,27 @@ spec:
       namespace: longhorn
     - name: snapshot-controller
       namespace: system-controllers
+---
+# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname longhorn-storageclass
+  namespace: &namespace longhorn
+spec:
+  targetNamespace: *namespace
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  interval: 30m
+  timeout: 5m
+  path: "./kubernetes/apps/longhorn/longhorn/storageclass"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn
