@@ -1,0 +1,123 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: syncthing
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-labs
+        namespace: flux-system
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn
+  values:
+    controllers:
+      syncthing:
+        forceRename: syncthing
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          hostNetwork: true
+          securityContext:
+            runAsUser: 2000
+            runAsGroup: 2000
+            fsGroup: 2000
+            fsGroupChangePolicy: "OnRootMismatch"
+
+        containers:
+          app:
+            image:
+              repository: syncthing/syncthing
+              tag: 1.29
+            # probes:
+            #   liveness:
+            #     enabled: true
+            #   readiness:
+            #     enabled: true
+            #   startup:
+            #     enabled: true
+            #     spec:
+            #       failureThreshold: 30
+            #       periodSeconds: 5
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 500Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        forceRename: syncthing
+        primary: true
+        controller: syncthing
+        ports:
+          http:
+            port: &port 8384
+      listen:
+        controller: syncthing
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${SVC_SYNCTHING_ADDR}
+        ports:
+          listen-tcp:
+            port: 22000
+            protocol: TCP
+          listen-udp:
+            port: 22000
+            protocol: UDP
+          discovery:
+            port: 21027
+            protocol: UDP
+
+    ingress:
+      app:
+        className: "internal-nginx"
+        hosts:
+          - host: syncthing.aresu.eu
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      data:
+        existingClaim: syncthing-config
+        globalMounts:
+          - path: /var/syncthing/config
+            subPath: config
+      nas:
+        type: nfs
+        server: truenas.aresu.eu
+        path: /mnt/tank/kubernetes/syncthing
+        globalMounts:
+          - path: /var/syncthing/Sync
+            subPath: Sync
+
+    route:
+      app:
+        hostnames:
+          - syncthing.aresu.eu
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
