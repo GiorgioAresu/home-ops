@@ -34,22 +34,22 @@ spec:
           - name: MIKROTIK_USERNAME
             valueFrom:
               secretKeyRef:
-                name: external-dns-mikrotik-secret
+                name: externaldns-mikrotik-secret
                 key: MIKROTIK_USERNAME
           - name: MIKROTIK_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: external-dns-mikrotik-secret
+                name: externaldns-mikrotik-secret
                 key: MIKROTIK_PASSWORD
           - name: MIKROTIK_BASEURL
             valueFrom:
               secretKeyRef:
-                name: external-dns-mikrotik-secret
+                name: externaldns-mikrotik-secret
                 key: MIKROTIK_BASEURL
           - name: MIKROTIK_SKIP_TLS_VERIFY
             valueFrom:
               secretKeyRef:
-                name: external-dns-mikrotik-secret
+                name: externaldns-mikrotik-secret
                 key: MIKROTIK_SKIP_TLS_VERIFY
           - name: MIKROTIK_DEFAULT_TTL
             value: "1800"
