@@ -75,6 +75,13 @@ resource "routeros_ip_dns_record" "kube_nuc_01" {
   name     = "kube-nuc-01.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.kube_nuc_01.address
 }
+resource "routeros_ip_dns_record" "zigbee" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "zigbee.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.zigbee.address
+}
 
 resource "routeros_ip_dns_record" "jetkvm" {
   provider = routeros.rb5009
