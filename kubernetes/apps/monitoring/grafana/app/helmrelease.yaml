@@ -104,6 +104,11 @@ spec:
             - name: DS_PROMETHEUS
               value: Prometheus
 
+        keda:
+          # renovate: depName="Keda"
+          url: https://raw.githubusercontent.com/kedacore/keda/refs/heads/main/config/grafana/keda-dashboard.json
+          datasource: prometheus
+
         mikrotik-mktxp-exporter:
           # renovate: dashboardName="Mikrotik MKTXP Exporter"
           gnetId: 13679
