@@ -1,27 +1,4 @@
 ### NAT
-resource "routeros_ip_firewall_nat" "transmission_tcp" {
-  provider          = routeros.rb5009
-  comment           = "Managed by Terraform - Transmission TCP"
-  disabled          = false
-  action            = "dst-nat"
-  chain             = "dstnat"
-  protocol          = "tcp"
-  in_interface_list = routeros_interface_list.wan.name
-  dst_port          = 51413
-  to_addresses      = "10.17.1.35"
-}
-resource "routeros_ip_firewall_nat" "transmission_udp" {
-  provider          = routeros.rb5009
-  comment           = "Managed by Terraform - Transmission UDP"
-  disabled          = false
-  action            = "dst-nat"
-  chain             = "dstnat"
-  protocol          = "udp"
-  in_interface_list = routeros_interface_list.wan.name
-  dst_port          = 51413
-  to_addresses      = "10.17.1.35"
-}
-
 resource "routeros_ip_firewall_nat" "syncthing_tcp" {
   provider          = routeros.rb5009
   comment           = "Managed by Terraform - SyncThing TCP"
@@ -31,7 +8,7 @@ resource "routeros_ip_firewall_nat" "syncthing_tcp" {
   protocol          = "tcp"
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 22000
-  to_addresses      = "10.17.1.35"
+  to_addresses      = "10.17.1.212"
 }
 resource "routeros_ip_firewall_nat" "syncthing_udp" {
   provider          = routeros.rb5009
@@ -42,7 +19,7 @@ resource "routeros_ip_firewall_nat" "syncthing_udp" {
   protocol          = "udp"
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 22000
-  to_addresses      = "10.17.1.35"
+  to_addresses      = "10.17.1.212"
 }
 
 resource "routeros_ip_firewall_nat" "ingress" {
