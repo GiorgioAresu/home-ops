@@ -61,8 +61,6 @@ spec:
   dependsOn:
     - name: keda
       namespace: system
-  components:
-    - ../../../../components/keda/nas-nfs-scaler
   postBuild:
     substitute:
       APP: *appname
