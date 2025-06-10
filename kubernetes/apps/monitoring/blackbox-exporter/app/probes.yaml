@@ -12,8 +12,6 @@ spec:
     staticConfig:
       static:
         - truenas.aresu.eu
-        - unraid.aresu.eu
-        - npm.aresu.eu
         - 10.17.1.4
         - 1.1.1.1
 ---
