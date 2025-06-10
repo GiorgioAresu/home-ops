@@ -86,6 +86,9 @@ spec:
 
     ingress:
       app:
+        annotations:
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+          nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
         className: "internal-nginx"
         hosts:
           - host: syncthing.aresu.eu
