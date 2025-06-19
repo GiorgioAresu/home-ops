@@ -80,7 +80,6 @@ spec:
 
     service:
       app:
-        controller: frigate
         ports:
           http:
             port: *port

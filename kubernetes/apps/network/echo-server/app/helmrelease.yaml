@@ -49,7 +49,6 @@ spec:
 
     service:
       app:
-        controller: echo-server
         ports:
           http:
             port: *port
@@ -62,7 +61,3 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
