@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 4.0.1
+      version: 4.1.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-labs
@@ -66,7 +66,6 @@ spec:
 
     service:
       app:
-        controller: vlmcsd
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "{{ .Release.Name }}.aresu.eu"

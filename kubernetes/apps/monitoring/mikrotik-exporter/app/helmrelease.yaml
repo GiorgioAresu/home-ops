@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 4.0.1
+      version: 4.1.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-labs
@@ -67,7 +67,6 @@ spec:
 
     service:
       app:
-        controller: mikrotik-exporter
         ports:
           http:
             port: *port
