@@ -95,15 +95,6 @@ spec:
           revision: 3
           datasource: Prometheus
 
-
-        emqx:
-          # renovate: depName="EMQX"
-          gnetId: 17446
-          revision: 2
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
-
         keda:
           # renovate: depName="Keda"
           url: https://raw.githubusercontent.com/kedacore/keda/refs/heads/main/config/grafana/keda-dashboard.json

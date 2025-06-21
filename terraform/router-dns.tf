@@ -12,6 +12,13 @@ resource "routeros_ip_dns_record" "truenas" {
   name     = "truenas.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.truenas.address
 }
+resource "routeros_ip_dns_record" "mqtt" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "mqtt.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.homeassistant.address
+}
 resource "routeros_ip_dns_record" "supermicro" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
