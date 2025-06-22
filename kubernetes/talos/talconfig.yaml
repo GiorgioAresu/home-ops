@@ -113,43 +113,43 @@ nodes:
           minSize: 50GiB
           grow: true
 
-  - hostname: kube-nuc-01.aresu.eu
-    ipAddress: 10.17.1.38
-    installDiskSelector:
-      # model: KINGSTON SMS200S
-      model: KINGSTON SUV500M # MSATA 200GB
-    controlPlane: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 68:5b:35:a1:01:ca
-        dhcp: true
-        vip:
-          ip: *talosControlplaneVip
-    nodeLabels:
-      node.kubernetes.io/virtual: "false"
-      node.longhorn.io/create-default-disk: "false"
-    schematic:
-      customization:
-        systemExtensions:
-          officialExtensions:
-            # - siderolabs/i915           # Intel iGPU - Too old to be useful
-            - siderolabs/intel-ucode      # Intel
-            - siderolabs/iscsi-tools      # Longhorn
-            - siderolabs/mei              # Intel
-            - siderolabs/util-linux-tools # Longhorn
-    volumes:
-      - name: EPHEMERAL
-        provisioning:
-          diskSelector:
-            match: system_disk
-          maxSize: 50GB
-          grow: false
-    userVolumes:
-      - name: longhorn
-        provisioning:
-          diskSelector:
-             match: system_disk
-          maxSize: 150GiB
+  # - hostname: kube-nuc-01.aresu.eu
+  #   ipAddress: 10.17.1.38
+  #   installDiskSelector:
+  #     # model: KINGSTON SMS200S
+  #     model: KINGSTON SUV500M # MSATA 200GB
+  #   controlPlane: true
+  #   networkInterfaces:
+  #     - deviceSelector:
+  #         hardwareAddr: 68:5b:35:a1:01:ca
+  #       dhcp: true
+  #       vip:
+  #         ip: *talosControlplaneVip
+  #   nodeLabels:
+  #     node.kubernetes.io/virtual: "false"
+  #     node.longhorn.io/create-default-disk: "false"
+  #   schematic:
+  #     customization:
+  #       systemExtensions:
+  #         officialExtensions:
+  #           # - siderolabs/i915           # Intel iGPU - Too old to be useful
+  #           - siderolabs/intel-ucode      # Intel
+  #           - siderolabs/iscsi-tools      # Longhorn
+  #           - siderolabs/mei              # Intel
+  #           - siderolabs/util-linux-tools # Longhorn
+  #   volumes:
+  #     - name: EPHEMERAL
+  #       provisioning:
+  #         diskSelector:
+  #           match: system_disk
+  #         maxSize: 50GB
+  #         grow: false
+  #   userVolumes:
+  #     - name: longhorn
+  #       provisioning:
+  #         diskSelector:
+  #            match: system_disk
+  #         maxSize: 150GiB
 
 controlPlane:
   nodeLabels:
