@@ -20,6 +20,10 @@ Thumbs.db
 *.tfstate
 *.tfstate.*
 
+## Terraform variable definitions
+*.tfvars
+!.example.tfvars
+
 ## terraform plan output
 *tfplan*
 
