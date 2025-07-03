@@ -11,10 +11,10 @@ resource "routeros_interface_bridge" "lte_bridge" {
 
 
 resource "routeros_interface_lte_apn" "vodafone" {
-  provider      = routeros.hAP_ax_lite_LTE6
-  comment       = "Managed by Terraform"
-  apn           = "mobile.vodafone.it"
-  name          = "vodafone"
+  provider = routeros.hAP_ax_lite_LTE6
+  comment  = "Managed by Terraform"
+  apn      = "mobile.vodafone.it"
+  name     = "vodafone"
   # passthrough_interface = ""
 }
 
