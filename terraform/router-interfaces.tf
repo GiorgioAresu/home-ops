@@ -34,4 +34,9 @@ resource "routeros_interface_list_member" "wan_bridgewan" {
   interface = "bridge_wan"
   list      = routeros_interface_list.wan.name
 }
-
+resource "routeros_interface_list_member" "wan_bridgelte" {
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
+  interface = routeros_interface_vlan.router_wan_backup.name
+  list      = routeros_interface_list.wan.name
+}
