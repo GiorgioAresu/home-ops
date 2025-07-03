@@ -6,7 +6,7 @@ resource "routeros_interface_bridge" "lte_bridge" {
   provider = routeros.hAP_ax_lite_LTE6
   comment  = "defconf - Managed by Terraform"
   name     = "bridgeLocal"
-  # vlan_filtering = true
+  vlan_filtering = true
 }
 
 
@@ -15,7 +15,7 @@ resource "routeros_interface_lte_apn" "vodafone" {
   comment  = "Managed by Terraform"
   apn      = "mobile.vodafone.it"
   name     = "vodafone"
-  # passthrough_interface = ""
+  passthrough_interface = routeros_interface_vlan.lte_lte.name
 }
 
 resource "routeros_interface_lte" "lte" {
