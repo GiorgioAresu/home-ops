@@ -6,7 +6,7 @@ resource "routeros_interface_bridge" "bridge" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   name     = "bridge"
-  vlan_filtering = true
+  vlan_filtering = false # Needs to set up routing first
 }
 
 
