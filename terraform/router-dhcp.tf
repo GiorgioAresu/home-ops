@@ -9,6 +9,14 @@ resource "routeros_ip_dhcp_client" "wan" {
   use_peer_dns = false
   use_peer_ntp = false
 }
+resource "routeros_ip_dhcp_client" "wan_backup" {
+  provider               = routeros.rb5009
+  comment                = "Managed by Terraform"
+  interface              = routeros_interface_vlan.router_wan_backup.name
+  use_peer_dns           = false
+  use_peer_ntp           = false
+  default_route_distance = 2
+}
 
 
 # ================================================================================================
