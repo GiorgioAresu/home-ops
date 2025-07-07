@@ -84,12 +84,14 @@ spec:
 
     service:
       app:
+        forceRename: "{{.Release.Name}}"
         ports:
           http:
-            port: 6052
-            primary: true
-          code-server:
-            port: 12321
+            port: &esphome-port 6052
+      code-server:
+        ports:
+          http:
+            port: &code-server-port 12321
 
     ingress:
       app:
@@ -102,11 +104,11 @@ spec:
               - path: /(.*)
                 service:
                   identifier: app
-                  port: http
+                  port: *esphome-port
               - path: /code/(.*)
                 service:
                   identifier: app
-                  port: code-server
+                  port: *code-server-port
 
     persistence:
       config:
@@ -165,8 +167,8 @@ spec:
                     type: ReplacePrefixMatch
                     replacePrefixMatch: /
             backendRefs:
-              - name: esphome
-                port: 12321
+              - identifier: code-server
+                port: *code-server-port
           - backendRefs:
-              - name: esphome
-                port: 6052
+              - identifier: app
+                port: *esphome-port
