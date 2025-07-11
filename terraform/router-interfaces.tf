@@ -31,7 +31,7 @@ resource "routeros_interface_list_member" "lan_bridge" {
 resource "routeros_interface_list_member" "wan_bridgewan" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
-  interface = "bridge_wan"
+  interface = "bridge_wan" # TODO: replace
   list      = routeros_interface_list.wan.name
 }
 resource "routeros_interface_list_member" "wan_bridgelte" {

@@ -1,4 +1,5 @@
 mikrotik_host_url_rb5009 = "https://10.x.x.x"
+mikrotik_host_url_hap_ac_lite = "https://10.x.x.x"
 mikrotik_host_url_hap_ax3 = "https://10.x.x.x"
 mikrotik_host_url_hap_ax_lite_lte6 = "https://10.x.x.x"
 mikrotik_username = "terraform"

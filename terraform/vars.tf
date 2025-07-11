@@ -7,6 +7,12 @@ variable "mikrotik_host_url_rb5009" {
   description = "The URL of the MikroTik device."
 }
 
+variable "mikrotik_host_url_hap_ac_lite" {
+  type        = string
+  sensitive   = false
+  description = "The URL of the MikroTik device."
+}
+
 variable "mikrotik_host_url_hap_ax3" {
   type        = string
   sensitive   = false
