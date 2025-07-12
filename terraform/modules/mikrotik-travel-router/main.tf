@@ -6,3 +6,11 @@ terraform {
     }
   }
 }
+
+provider "routeros" {
+  alias    = "hAP_ac_lite"
+  hosturl  = var.mikrotik_host_url_hap_ac_lite
+  username = var.mikrotik_username
+  password = var.mikrotik_password
+  insecure = var.mikrotik_insecure
+}
