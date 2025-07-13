@@ -30,6 +30,3 @@ Thumbs.db
 # Other files
 kubeconfig
 talosconfig
-
-#temp
-terraform/
