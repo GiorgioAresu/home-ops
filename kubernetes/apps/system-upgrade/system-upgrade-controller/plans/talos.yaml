@@ -8,6 +8,7 @@ spec:
   version: ${TALOS_VERSION}
   concurrency: 1
   exclusive: true
+  jobActiveDeadlineSecs: 900
   nodeSelector:
     matchExpressions:
       - key: kubernetes.io/hostname
