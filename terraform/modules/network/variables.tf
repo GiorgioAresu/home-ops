@@ -52,6 +52,24 @@ variable "mikrotik_user_externaldns_password" {
   description = "externaldns user's password"
 }
 
+variable "unifi_api_url" {
+  type        = string
+  sensitive   = true
+  description = "The URL of the UniFi device."
+}
+
+variable "unifi_username" {
+  type        = string
+  sensitive   = true
+  description = "The username for accessing the UniFi device."
+}
+
+variable "unifi_password" {
+  type        = string
+  sensitive   = true
+  description = "The password for accessing the UniFi device."
+}
+
 ## ================================================================================================
 ## WiFi Variables
 ## ================================================================================================

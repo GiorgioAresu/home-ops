@@ -19,7 +19,12 @@ module "network" {
   mikrotik_user_homepage_password    = var.mikrotik_user_homepage_password
   mikrotik_user_mktxp_password       = var.mikrotik_user_mktxp_password
   mikrotik_user_externaldns_password = var.mikrotik_user_externaldns_password
-  main_wifi_password                 = var.main_wifi_password
-  guest_wifi_password                = var.guest_wifi_password
-  iot_wifi_password                  = var.iot_wifi_password
+
+  unifi_api_url  = var.unifi_api_url
+  unifi_username = var.unifi_username
+  unifi_password = var.unifi_password
+
+  main_wifi_password  = var.main_wifi_password
+  guest_wifi_password = var.guest_wifi_password
+  iot_wifi_password   = var.iot_wifi_password
 }

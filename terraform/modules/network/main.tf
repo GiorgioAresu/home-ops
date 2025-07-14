@@ -4,6 +4,10 @@ terraform {
       source  = "terraform-routeros/routeros"
       version = "1.85.3"
     }
+    unifi = {
+      source  = "paultyng/unifi"
+      version = "0.41.0"
+    }
   }
 }
 
@@ -30,3 +34,11 @@ provider "routeros" {
   password = var.mikrotik_password
   insecure = var.mikrotik_insecure
 }
+
+provider "unifi" {
+  username       = var.unifi_username
+  password       = var.unifi_password
+  api_url        = var.unifi_api_url
+  allow_insecure = false
+}
+
