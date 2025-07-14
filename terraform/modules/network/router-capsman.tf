@@ -46,7 +46,7 @@ resource "routeros_wifi_security" "main_wifi_security" {
   ft_over_ds           = true
 
   lifecycle {
-    ignore_changes = [ passphrase ]
+    ignore_changes = [passphrase]
   }
 }
 resource "routeros_wifi_security" "guest_wifi_security" {
@@ -59,7 +59,7 @@ resource "routeros_wifi_security" "guest_wifi_security" {
   ft_over_ds           = true
 
   lifecycle {
-    ignore_changes = [ passphrase ]
+    ignore_changes = [passphrase]
   }
 }
 resource "routeros_wifi_security" "iot_wifi_security" {
@@ -72,7 +72,7 @@ resource "routeros_wifi_security" "iot_wifi_security" {
   ft_over_ds           = true
 
   lifecycle {
-    ignore_changes = [ passphrase ]
+    ignore_changes = [passphrase]
   }
 }
 
@@ -95,19 +95,19 @@ resource "routeros_wifi_datapath" "guest" {
   vlan_id  = 30
 }
 resource "routeros_wifi_datapath" "security" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
-  name     = "Security"
-  bridge   = routeros_interface_bridge.bridge.name
-  vlan_id  = 40
+  provider         = routeros.rb5009
+  comment          = "Managed by Terraform"
+  name             = "Security"
+  bridge           = routeros_interface_bridge.bridge.name
+  vlan_id          = 40
   client_isolation = true
 }
 resource "routeros_wifi_datapath" "iot" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
-  name     = "IoT"
-  bridge   = routeros_interface_bridge.bridge.name
-  vlan_id  = 50
+  provider         = routeros.rb5009
+  comment          = "Managed by Terraform"
+  name             = "IoT"
+  bridge           = routeros_interface_bridge.bridge.name
+  vlan_id          = 50
   client_isolation = true
 }
 

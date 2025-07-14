@@ -44,20 +44,20 @@ variable "mikrotik_insecure" {
 }
 
 variable "mikrotik_user_homepage_password" {
-  type = string
-  sensitive = true
+  type        = string
+  sensitive   = true
   description = "homepage user's password"
 }
 
 variable "mikrotik_user_mktxp_password" {
-  type = string
-  sensitive = true
+  type        = string
+  sensitive   = true
   description = "mktxp user's password"
 }
 
 variable "mikrotik_user_externaldns_password" {
-  type = string
-  sensitive = true
+  type        = string
+  sensitive   = true
   description = "externaldns user's password"
 }
 

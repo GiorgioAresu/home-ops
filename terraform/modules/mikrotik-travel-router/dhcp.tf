@@ -27,9 +27,9 @@ resource "routeros_ip_address" "travel_lan" {
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_pool
 # ================================================================================================
 resource "routeros_ip_pool" "travel_lan" {
-  comment  = "Managed by Terraform"
-  name     = "LAN"
-  ranges   = ["10.17.4.100-10.17.4.199"]
+  comment = "Managed by Terraform"
+  name    = "LAN"
+  ranges  = ["10.17.4.100-10.17.4.199"]
 }
 
 
@@ -38,12 +38,12 @@ resource "routeros_ip_pool" "travel_lan" {
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dhcp_server_network
 # ================================================================================================
 resource "routeros_ip_dhcp_server_network" "travel_lan" {
-  comment     = "Managed by Terraform"
-  address     = "10.17.4.0/24"
-  gateway     = "10.17.4.1"
-  dns_server  = ["10.17.4.1"]
-  ntp_server  = ["10.17.4.1"]
-  domain      = "travel.aresu.eu"
+  comment    = "Managed by Terraform"
+  address    = "10.17.4.0/24"
+  gateway    = "10.17.4.1"
+  dns_server = ["10.17.4.1"]
+  ntp_server = ["10.17.4.1"]
+  domain     = "travel.aresu.eu"
 }
 
 

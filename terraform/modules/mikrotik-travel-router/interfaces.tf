@@ -1,6 +1,6 @@
 resource "routeros_interface_bridge" "travel_bridge" {
-  comment  = "defconf - Managed by Terraform"
-  name     = "bridge"
+  comment        = "defconf - Managed by Terraform"
+  name           = "bridge"
   vlan_filtering = false
 }
 # =================================================================================================
@@ -10,26 +10,26 @@ resource "routeros_interface_bridge" "travel_bridge" {
 resource "routeros_interface_bridge_port" "ether2" {
   bridge    = routeros_interface_bridge.travel_bridge.name
   interface = "ether2"
-  comment  = "Managed by Terraform"
+  comment   = "Managed by Terraform"
 }
 resource "routeros_interface_bridge_port" "ether3" {
   bridge    = routeros_interface_bridge.travel_bridge.name
   interface = "ether3"
-  comment  = "Managed by Terraform"
+  comment   = "Managed by Terraform"
 }
 resource "routeros_interface_bridge_port" "ether4" {
   bridge    = routeros_interface_bridge.travel_bridge.name
   interface = "ether4"
-  comment  = "Managed by Terraform"
+  comment   = "Managed by Terraform"
 }
 
 resource "routeros_interface_list" "travel_lan" {
-  comment  = "Managed by Terraform"
-  name     = "LAN"
+  comment = "Managed by Terraform"
+  name    = "LAN"
 }
 resource "routeros_interface_list" "travel_wan" {
-  comment  = "Managed by Terraform"
-  name     = "WAN"
+  comment = "Managed by Terraform"
+  name    = "WAN"
 }
 
 resource "routeros_interface_list_member" "travel_lan_bridge" {

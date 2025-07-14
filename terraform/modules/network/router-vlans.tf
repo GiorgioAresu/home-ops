@@ -50,5 +50,5 @@ resource "routeros_interface_bridge_vlan" "router_wan_backup" {
   comment  = "Managed by Terraform"
   bridge   = routeros_interface_bridge.bridge.name
   vlan_ids = [routeros_interface_vlan.router_wan_backup.vlan_id]
-  tagged = [ "ether8" ]
+  tagged   = ["ether8"]
 }

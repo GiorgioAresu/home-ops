@@ -11,5 +11,5 @@ resource "routeros_interface_bridge_vlan" "lte_lte" {
   comment  = "Managed by Terraform"
   bridge   = routeros_interface_bridge.lte_bridge.name
   vlan_ids = [routeros_interface_vlan.lte_lte.vlan_id]
-  tagged = [ "ether1" ]
+  tagged   = ["ether1"]
 }

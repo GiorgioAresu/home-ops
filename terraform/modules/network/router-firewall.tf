@@ -67,8 +67,8 @@ resource "routeros_ip_firewall_nat" "ntp" {
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 123
   to_addresses      = "10.17.1.1"
-  log = false
-  log_prefix = ""
+  log               = false
+  log_prefix        = ""
 }
 resource "routeros_ip_firewall_nat" "dns" {
   provider          = routeros.rb5009
