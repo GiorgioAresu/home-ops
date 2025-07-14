@@ -33,3 +33,40 @@ variable "mikrotik_insecure" {
   default     = true
   description = "Whether to allow insecure connections to the MikroTik device."
 }
+
+variable "mikrotik_user_homepage_password" {
+  type        = string
+  sensitive   = true
+  description = "homepage user's password"
+}
+
+variable "mikrotik_user_mktxp_password" {
+  type        = string
+  sensitive   = true
+  description = "mktxp user's password"
+}
+
+variable "mikrotik_user_externaldns_password" {
+  type        = string
+  sensitive   = true
+  description = "externaldns user's password"
+}
+
+## ================================================================================================
+## WiFi Variables
+## ================================================================================================
+variable "main_wifi_password" {
+  type        = string
+  sensitive   = true
+  description = "The password for the Main Wi-Fi network."
+}
+variable "guest_wifi_password" {
+  type        = string
+  sensitive   = true
+  description = "The password for the Guest Wi-Fi network."
+}
+variable "iot_wifi_password" {
+  type        = string
+  sensitive   = true
+  description = "The password for the IoT Wi-Fi network."
+}

@@ -16,4 +16,10 @@ module "network" {
   mikrotik_username = var.mikrotik_username
   mikrotik_password = var.mikrotik_password
   mikrotik_insecure = var.mikrotik_insecure
+  mikrotik_user_homepage_password    = var.mikrotik_user_homepage_password
+  mikrotik_user_mktxp_password       = var.mikrotik_user_mktxp_password
+  mikrotik_user_externaldns_password = var.mikrotik_user_externaldns_password
+  main_wifi_password                 = var.main_wifi_password
+  guest_wifi_password                = var.guest_wifi_password
+  iot_wifi_password                  = var.iot_wifi_password
 }
