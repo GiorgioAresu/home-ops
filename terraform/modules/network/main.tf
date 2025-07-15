@@ -42,3 +42,9 @@ provider "unifi" {
   allow_insecure = false
 }
 
+locals {
+  vlan_id_wan_backup = 2
+  vlan_id_guest      = 30
+  vlan_id_security   = 40
+  vlan_id_iot        = 50
+}
