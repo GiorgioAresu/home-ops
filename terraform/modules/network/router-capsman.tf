@@ -315,7 +315,7 @@ resource "unifi_wlan" "main" {
 }
 
 resource "unifi_wlan" "guest" {
-  name          = "GeS-Guest-test"
+  name          = "GeS-Guest"
   passphrase    = var.guest_wifi_password
   security      = "wpapsk"
   ap_group_ids  = [data.unifi_ap_group.default.id]
@@ -330,4 +330,22 @@ resource "unifi_wlan" "guest" {
   fast_roaming_enabled = "true"
   # l2_isolation         = "true"
   wlan_band = "both"
+}
+
+resource "unifi_wlan" "iot" {
+  name          = "GeS-IoT"
+  passphrase    = var.iot_wifi_password
+  security      = "wpapsk"
+  ap_group_ids  = [data.unifi_ap_group.default.id]
+  user_group_id = data.unifi_user_group.default.id
+  network_id    = unifi_network.iot.id
+
+  # TODO: enable wpa3 at some point
+  wpa3_support    = false
+  wpa3_transition = false
+  pmf_mode        = "optional"
+
+  fast_roaming_enabled = "true"
+  # l2_isolation         = "true"
+  wlan_band = "2g"
 }
