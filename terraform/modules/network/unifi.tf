@@ -12,33 +12,25 @@ data "unifi_network" "main" {
   name = "Default"
 }
 
-resource "unifi_device" "usw_flex_mini" {
-  mac = "74:83:c2:0f:33:4c"
+resource "unifi_port_profile" "guest" {
+  name                  = "Guest"
+  native_networkconf_id = unifi_network.guest.id
+  forward               = "native"
+  poe_mode              = "off"
+}
 
+resource "unifi_device" "usw_flex_mini" {
+  mac  = "74:83:c2:0f:33:4c"
   name = "USW Flex Mini (Desk)"
 
-  # port_override {
-  #   number          = 1
-  #   name            = "port w/ poe"
-  #   port_profile_id = unifi_port_profile.poe.id
-  # }
-
-  # port_override {
-  #   number          = 2
-  #   name            = "disabled"
-  #   port_profile_id = data.unifi_port_profile.disabled.id
-  # }
-
-  # # port aggregation for ports 11 and 12
-  # port_override {
-  #   number              = 11
-  #   op_mode             = "aggregate"
-  #   aggregate_num_ports = 2
-  # }
+  port_override {
+    number          = 5
+    name            = "Guest"
+    port_profile_id = unifi_port_profile.guest.id
+  }
 }
 
 resource "unifi_device" "uap_ac_lite" {
-  mac = "FC:EC:DA:89:1E:52"
-
+  mac  = "FC:EC:DA:89:1E:52"
   name = "UAP AC Lite"
 }
