@@ -29,31 +29,31 @@ resource "routeros_interface_list_member" "lan_bridge" {
   interface = routeros_interface_bridge.bridge.name
   list      = routeros_interface_list.lan.name
 }
-resource "routeros_interface_list_member" "guest_bridge" {
+resource "routeros_interface_list_member" "lan_guest" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
   interface = routeros_interface_vlan.guest.name
   list      = routeros_interface_list.lan.name
 }
-resource "routeros_interface_list_member" "iot_bridge" {
+resource "routeros_interface_list_member" "lan_iot" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
   interface = routeros_interface_vlan.iot.name
   list      = routeros_interface_list.lan.name
 }
-resource "routeros_interface_list_member" "security_bridge" {
+resource "routeros_interface_list_member" "lan_security" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
   interface = routeros_interface_vlan.security.name
   list      = routeros_interface_list.lan.name
 }
-resource "routeros_interface_list_member" "wan_bridgewan" {
+resource "routeros_interface_list_member" "wan_fttc" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
-  interface = "bridge_wan" # TODO: replace
+  interface = "ether1"
   list      = routeros_interface_list.wan.name
 }
-resource "routeros_interface_list_member" "wan_bridgelte" {
+resource "routeros_interface_list_member" "wan_lte" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
   interface = routeros_interface_vlan.router_wan_backup.name
