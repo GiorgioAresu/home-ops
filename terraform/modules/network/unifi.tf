@@ -1,3 +1,13 @@
+resource "unifi_setting_mgmt" "home" {
+  auto_upgrade = "false"
+}
+
+data "unifi_user_group" "default" {
+}
+
+data "unifi_ap_group" "default" {
+}
+
 resource "unifi_device" "usw_flex_mini" {
   mac = "74:83:c2:0f:33:4c"
 
