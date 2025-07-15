@@ -27,17 +27,17 @@ resource "routeros_interface_vlan" "router_wan_backup" {
   vlan_id   = local.vlan_id_wan_backup
 }
 resource "unifi_network" "guest" {
-  name = "guest"
+  name    = "guest"
   purpose = "vlan-only"
   vlan_id = local.vlan_id_guest
 }
 resource "unifi_network" "security" {
-  name = "security"
+  name    = "security"
   purpose = "vlan-only"
   vlan_id = local.vlan_id_security
 }
 resource "unifi_network" "iot" {
-  name = "iot"
+  name    = "iot"
   purpose = "vlan-only"
   vlan_id = local.vlan_id_iot
 }

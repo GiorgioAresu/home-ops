@@ -297,10 +297,27 @@ resource "routeros_wifi_provisioning" "hap_axlite" {
   ]
 }
 
+resource "unifi_wlan" "main" {
+  name          = "GeS"
+  passphrase    = var.main_wifi_password
+  security      = "wpapsk"
+  ap_group_ids  = [data.unifi_ap_group.default.id]
+  user_group_id = data.unifi_user_group.default.id
+  network_id    = data.unifi_network.main.id
+
+  # TODO: enable wpa3 at some point
+  wpa3_support    = false
+  wpa3_transition = false
+  pmf_mode        = "optional"
+
+  fast_roaming_enabled = "true"
+  wlan_band            = "both"
+}
+
 resource "unifi_wlan" "guest" {
-  name       = "GeS-Guest-test"
-  passphrase = var.guest_wifi_password
-  security   = "wpapsk"
+  name          = "GeS-Guest-test"
+  passphrase    = var.guest_wifi_password
+  security      = "wpapsk"
   ap_group_ids  = [data.unifi_ap_group.default.id]
   user_group_id = data.unifi_user_group.default.id
   network_id    = unifi_network.guest.id
@@ -311,6 +328,6 @@ resource "unifi_wlan" "guest" {
   pmf_mode        = "optional"
 
   fast_roaming_enabled = "true"
-  is_guest = "true"
+  # l2_isolation         = "true"
   wlan_band = "both"
 }
