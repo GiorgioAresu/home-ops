@@ -40,7 +40,7 @@ resource "routeros_wifi_security" "main_wifi_security" {
   provider             = routeros.rb5009
   comment              = "Managed by Terraform"
   name                 = "GeS"
-  authentication_types = ["wpa2-psk"] // Add wpa3 at some point
+  authentication_types = ["wpa2-psk"] # TODO: enable wpa3 at some point
   passphrase           = var.main_wifi_password
   ft                   = true
   ft_over_ds           = true
@@ -53,7 +53,7 @@ resource "routeros_wifi_security" "guest_wifi_security" {
   provider             = routeros.rb5009
   comment              = "Managed by Terraform"
   name                 = "Guest"
-  authentication_types = ["wpa2-psk"] // Add wpa3 at some point
+  authentication_types = ["wpa2-psk"] # TODO: enable wpa3 at some point
   passphrase           = var.guest_wifi_password
   ft                   = true
   ft_over_ds           = true
@@ -66,7 +66,7 @@ resource "routeros_wifi_security" "iot_wifi_security" {
   provider             = routeros.rb5009
   comment              = "Managed by Terraform"
   name                 = "IoT"
-  authentication_types = ["wpa2-psk"] // Add wpa3 at some point
+  authentication_types = ["wpa2-psk"] # TODO: enable wpa3 at some point
   passphrase           = var.iot_wifi_password
   ft                   = true
   ft_over_ds           = true
