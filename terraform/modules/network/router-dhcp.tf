@@ -28,28 +28,24 @@ resource "routeros_ip_address" "lan" {
   comment   = "Managed by Terraform"
   address   = "10.17.1.1/24"
   interface = routeros_interface_bridge.bridge.name
-  network   = "10.17.1.0"
 }
 resource "routeros_ip_address" "guest" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
   address   = "10.17.30.1/24"
   interface = routeros_interface_vlan.guest.name
-  network   = "10.17.30.0"
 }
 resource "routeros_ip_address" "security" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
   address   = "10.17.40.1/24"
   interface = routeros_interface_vlan.security.name
-  network   = "10.17.40.0"
 }
 resource "routeros_ip_address" "iot" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
   address   = "10.17.50.1/24"
   interface = routeros_interface_vlan.iot.name
-  network   = "10.17.50.0"
 }
 
 

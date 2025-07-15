@@ -7,7 +7,6 @@ resource "routeros_interface_bridge" "bridge" {
   comment           = "Managed by Terraform"
   name              = "bridge"
   vlan_filtering    = true
-  ingress_filtering = true
 }
 
 
