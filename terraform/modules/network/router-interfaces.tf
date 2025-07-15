@@ -3,10 +3,11 @@
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/interface_bridge
 # =================================================================================================
 resource "routeros_interface_bridge" "bridge" {
-  provider       = routeros.rb5009
-  comment        = "Managed by Terraform"
-  name           = "bridge"
-  vlan_filtering = false # Needs to set up routing first
+  provider          = routeros.rb5009
+  comment           = "Managed by Terraform"
+  name              = "bridge"
+  vlan_filtering    = true
+  ingress_filtering = false # TODO: Enable this at some point
 }
 
 
@@ -26,6 +27,24 @@ resource "routeros_interface_list_member" "lan_bridge" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
   interface = routeros_interface_bridge.bridge.name
+  list      = routeros_interface_list.lan.name
+}
+resource "routeros_interface_list_member" "guest_bridge" {
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
+  interface = routeros_interface_vlan.guest.name
+  list      = routeros_interface_list.lan.name
+}
+resource "routeros_interface_list_member" "iot_bridge" {
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
+  interface = routeros_interface_vlan.iot.name
+  list      = routeros_interface_list.lan.name
+}
+resource "routeros_interface_list_member" "security_bridge" {
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
+  interface = routeros_interface_vlan.security.name
   list      = routeros_interface_list.lan.name
 }
 resource "routeros_interface_list_member" "wan_bridgewan" {
