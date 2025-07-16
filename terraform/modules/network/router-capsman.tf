@@ -108,7 +108,7 @@ resource "routeros_wifi_datapath" "iot" {
   name             = "IoT"
   bridge           = routeros_interface_bridge.bridge.name
   vlan_id          = 50
-  client_isolation = true
+  client_isolation = false
 }
 
 # =================================================================================================
