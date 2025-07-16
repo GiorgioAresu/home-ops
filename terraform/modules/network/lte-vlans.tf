@@ -3,7 +3,7 @@ resource "routeros_interface_vlan" "lte_lte" {
   comment   = "Managed by Terraform"
   interface = routeros_interface_bridge.lte_bridge.name
   name      = "lte_passthrough"
-  vlan_id   = 2
+  vlan_id   = local.vlan_id_wan_backup
 }
 
 resource "routeros_interface_bridge_vlan" "lte_lte" {
