@@ -92,14 +92,14 @@ resource "routeros_wifi_datapath" "guest" {
   comment  = "Managed by Terraform"
   name     = "Guest"
   bridge   = routeros_interface_bridge.bridge.name
-  vlan_id  = 30
+  vlan_id  = local.vlan_id_guest
 }
 resource "routeros_wifi_datapath" "security" {
   provider         = routeros.rb5009
   comment          = "Managed by Terraform"
   name             = "Security"
   bridge           = routeros_interface_bridge.bridge.name
-  vlan_id          = 40
+  vlan_id          = local.vlan_id_security
   client_isolation = true
 }
 resource "routeros_wifi_datapath" "iot" {
@@ -107,7 +107,7 @@ resource "routeros_wifi_datapath" "iot" {
   comment          = "Managed by Terraform"
   name             = "IoT"
   bridge           = routeros_interface_bridge.bridge.name
-  vlan_id          = 50
+  vlan_id          = local.vlan_id_iot
   client_isolation = false
 }
 
