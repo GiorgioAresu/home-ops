@@ -1,4 +1,7 @@
-### NAT
+# ================================================================================================
+# Firewall: NAT
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_firewall_nat
+# ================================================================================================
 resource "routeros_ip_firewall_nat" "syncthing_tcp" {
   provider          = routeros.rb5009
   comment           = "Managed by Terraform - SyncThing TCP"

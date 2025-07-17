@@ -3,10 +3,10 @@
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/interface_bridge
 # =================================================================================================
 resource "routeros_interface_bridge" "bridge" {
-  provider          = routeros.rb5009
-  comment           = "Managed by Terraform"
-  name              = "bridge"
-  vlan_filtering    = true
+  provider       = routeros.rb5009
+  comment        = "Managed by Terraform"
+  name           = "bridge"
+  vlan_filtering = true
 }
 
 
