@@ -163,7 +163,7 @@ resource "routeros_wifi_configuration" "guest_5ghz" {
     config = routeros_wifi_channel.fast.name
   }
   datapath = {
-    config = routeros_wifi_datapath.lan.name
+    config = routeros_wifi_datapath.guest.name
   }
   security = {
     config = routeros_wifi_security.guest_wifi_security.name
@@ -181,7 +181,7 @@ resource "routeros_wifi_configuration" "guest_2ghz" {
     config = routeros_wifi_channel.slow.name
   }
   datapath = {
-    config = routeros_wifi_datapath.lan.name
+    config = routeros_wifi_datapath.guest.name
   }
   security = {
     config = routeros_wifi_security.guest_wifi_security.name
