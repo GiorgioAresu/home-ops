@@ -346,6 +346,13 @@ resource "routeros_ip_dhcp_server_lease" "mikrotik_hap_ax_lite_lte6" {
   address     = "10.17.1.69"
   mac_address = "78:9A:18:77:17:18"
 }
+resource "routeros_ip_dhcp_server_lease" "tv" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - SmartTV"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.75"
+  mac_address = "FC:03:9F:B1:8D:DD"
+}
 resource "routeros_ip_dhcp_server_lease" "framework" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - Framework Laptop"

@@ -84,3 +84,17 @@ resource "routeros_ip_firewall_nat" "dns" {
   dst_port          = 53
   to_addresses      = "10.17.1.1"
 }
+
+
+# ================================================================================================
+# Firewall: Filter
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_firewall_filter
+# ================================================================================================
+resource "routeros_ip_firewall_filter" "rule" {
+  provider           = routeros.rb5009
+  comment            = "Managed by Terraform - Drop SmartTV to WAN"
+  action             = "drop"
+  chain              = "forward"
+  src_address        = routeros_ip_dhcp_server_lease.tv.address
+  out_interface_list = routeros_interface_list.wan.name
+}
