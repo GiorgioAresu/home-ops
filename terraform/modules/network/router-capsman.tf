@@ -6,6 +6,7 @@ resource "routeros_wifi_capsman" "settings" {
   provider       = routeros.rb5009
   ca_certificate = "auto"
   enabled        = true
+  interfaces     = [routeros_interface_bridge.bridge.name]
 }
 
 
