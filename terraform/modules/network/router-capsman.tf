@@ -36,7 +36,7 @@ resource "routeros_wifi_channel" "fast" {
 # WiFi Security
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/wifi_security
 # =================================================================================================
-resource "routeros_wifi_security" "main_wifi_security" {
+resource "routeros_wifi_security" "main_wifi" {
   provider             = routeros.rb5009
   comment              = "Managed by Terraform"
   name                 = "GeS"
@@ -49,7 +49,7 @@ resource "routeros_wifi_security" "main_wifi_security" {
     ignore_changes = [passphrase]
   }
 }
-resource "routeros_wifi_security" "guest_wifi_security" {
+resource "routeros_wifi_security" "guest_wifi" {
   provider             = routeros.rb5009
   comment              = "Managed by Terraform"
   name                 = "Guest"
@@ -62,7 +62,7 @@ resource "routeros_wifi_security" "guest_wifi_security" {
     ignore_changes = [passphrase]
   }
 }
-resource "routeros_wifi_security" "iot_wifi_security" {
+resource "routeros_wifi_security" "iot_wifi" {
   provider             = routeros.rb5009
   comment              = "Managed by Terraform"
   name                 = "IoT"
@@ -130,7 +130,7 @@ resource "routeros_wifi_configuration" "main_5ghz" {
     config = routeros_wifi_datapath.lan.name
   }
   security = {
-    config = routeros_wifi_security.main_wifi_security.name
+    config = routeros_wifi_security.main_wifi.name
   }
 }
 resource "routeros_wifi_configuration" "main_2ghz" {
@@ -148,7 +148,7 @@ resource "routeros_wifi_configuration" "main_2ghz" {
     config = routeros_wifi_datapath.lan.name
   }
   security = {
-    config = routeros_wifi_security.main_wifi_security.name
+    config = routeros_wifi_security.main_wifi.name
   }
 }
 resource "routeros_wifi_configuration" "guest_5ghz" {
@@ -166,7 +166,7 @@ resource "routeros_wifi_configuration" "guest_5ghz" {
     config = routeros_wifi_datapath.guest.name
   }
   security = {
-    config = routeros_wifi_security.guest_wifi_security.name
+    config = routeros_wifi_security.guest_wifi.name
   }
 }
 resource "routeros_wifi_configuration" "guest_2ghz" {
@@ -184,7 +184,7 @@ resource "routeros_wifi_configuration" "guest_2ghz" {
     config = routeros_wifi_datapath.guest.name
   }
   security = {
-    config = routeros_wifi_security.guest_wifi_security.name
+    config = routeros_wifi_security.guest_wifi.name
   }
 }
 resource "routeros_wifi_configuration" "iot-downstairs" {
@@ -202,7 +202,7 @@ resource "routeros_wifi_configuration" "iot-downstairs" {
     config = routeros_wifi_datapath.iot.name
   }
   security = {
-    config = routeros_wifi_security.iot_wifi_security.name
+    config = routeros_wifi_security.iot_wifi.name
   }
 }
 resource "routeros_wifi_configuration" "iot-upstairs" {
@@ -220,7 +220,7 @@ resource "routeros_wifi_configuration" "iot-upstairs" {
     config = routeros_wifi_datapath.iot.name
   }
   security = {
-    config = routeros_wifi_security.iot_wifi_security.name
+    config = routeros_wifi_security.iot_wifi.name
   }
 }
 resource "routeros_wifi_configuration" "iot" {
@@ -238,7 +238,7 @@ resource "routeros_wifi_configuration" "iot" {
     config = routeros_wifi_datapath.iot.name
   }
   security = {
-    config = routeros_wifi_security.iot_wifi_security.name
+    config = routeros_wifi_security.iot_wifi.name
   }
 }
 
