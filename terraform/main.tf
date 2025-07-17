@@ -1,3 +1,16 @@
+terraform {
+  required_providers {
+    routeros = {
+      source  = "terraform-routeros/routeros"
+      version = "1.85.3"
+    }
+    unifi = {
+      source  = "paultyng/unifi"
+      version = "0.41.0"
+    }
+  }
+}
+
 module "mikrotik_travel_router" {
   source = "./modules/mikrotik-travel-router"
 
