@@ -9,3 +9,10 @@ resource "routeros_interface_bridge" "hAP_ax_lite_LTE6_bridge" {
   vlan_filtering = true
 }
 
+resource "routeros_interface_bridge" "hAP_ax3_bridge" {
+  provider       = routeros.hAP_ax3
+  comment        = "defconf - Managed by Terraform"
+  name           = "bridgeLocal"
+  vlan_filtering = true
+}
+
