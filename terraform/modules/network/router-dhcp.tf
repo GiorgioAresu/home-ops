@@ -111,7 +111,7 @@ resource "routeros_ip_dhcp_server_network" "guest" {
   comment    = "Managed by Terraform"
   address    = "10.17.30.0/24"
   gateway    = "10.17.30.1"
-  dns_server = ["10.17.30.1"]
+  dns_server = ["1.1.1.1", "1.0.0.1"]
   ntp_server = ["10.17.30.1"]
   # domain      = "aresu.eu"
 }

@@ -1,3 +1,18 @@
+# =================================================================================================
+# DNS AdList
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dns_adlist
+# =================================================================================================
+resource "routeros_ip_dns_adlist" "test" {
+  provider   = routeros.rb5009
+  url        = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+  ssl_verify = false
+}
+
+
+# =================================================================================================
+# DNS Record
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dns_record
+# =================================================================================================
 resource "routeros_ip_dns_record" "router" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
