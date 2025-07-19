@@ -71,7 +71,7 @@ set api disabled=yes
 set api-ssl certificate=AresuCA tls-version=only-1.2
 
 /user/group
-add name=terraform policy=read,write,policy,api,rest-api,!local,!telnet,!ssh,!ftp,!reboot,!test,!winbox,!password,!web,!sniff,!sensitive,!romon
+add name=terraform policy=read,write,policy,api,rest-api,!local,!telnet,!ssh,!ftp,!reboot,test,!winbox,!password,!web,!sniff,!sensitive,!romon
 
 /user
 add group=full name=mikro password=${mikro_pw}
