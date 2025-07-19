@@ -34,6 +34,7 @@ module "network" {
   mikrotik_user_externaldns_password = var.mikrotik_user_externaldns_password
 
   unifi_api_url  = var.unifi_api_url
+  unifi_insecure = var.unifi_insecure
   unifi_username = var.unifi_username
   unifi_password = var.unifi_password
 

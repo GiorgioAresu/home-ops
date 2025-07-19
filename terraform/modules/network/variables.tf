@@ -58,6 +58,12 @@ variable "unifi_api_url" {
   description = "The URL of the UniFi device."
 }
 
+variable "unifi_insecure" {
+  type        = bool
+  default     = true
+  description = "Whether to allow insecure connections to the UniFi controller."
+}
+
 variable "unifi_username" {
   type        = string
   sensitive   = true

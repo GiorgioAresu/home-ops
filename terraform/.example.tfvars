@@ -9,6 +9,7 @@ mikrotik_user_homepage_password    = ""
 mikrotik_user_mktxp_password       = ""
 mikrotik_user_externaldns_password = ""
 unifi_api_url                      = "https://10.x.x.x"
+unifi_insecure                     = false
 unifi_username                     = "terraform"
 unifi_password                     = ""
 main_wifi_password                 = ""
