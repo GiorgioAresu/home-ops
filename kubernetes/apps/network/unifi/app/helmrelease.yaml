@@ -56,7 +56,7 @@ spec:
               - path: /
                 service:
                   identifier: app
-                  port: controller
+                  port: https
 
     service:
       app:
