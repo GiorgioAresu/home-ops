@@ -1,8 +1,22 @@
 # =================================================================================================
+# DNS
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dns
+# =================================================================================================
+resource "routeros_ip_dns" "dns-server" {
+  provider              = routeros.rb5009
+  allow_remote_requests = true
+  cache_size            = 20480
+  servers = [
+    "1.1.1.1",
+    "1.0.0.1",
+  ]
+}
+
+# =================================================================================================
 # DNS AdList
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dns_adlist
 # =================================================================================================
-resource "routeros_ip_dns_adlist" "test" {
+resource "routeros_ip_dns_adlist" "stevenblack" {
   provider   = routeros.rb5009
   url        = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
   ssl_verify = false
