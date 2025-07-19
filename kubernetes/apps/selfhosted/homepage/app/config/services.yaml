@@ -1,5 +1,15 @@
 ---
 - Media:
+  - Jellyfin:
+      href: https://jellyfin.${SECRET_DOMAIN}
+      icon: jellyfin.svg
+      namespace: media
+      app: jellyfin
+      widget:
+        type: jellyfin
+        url: http://jellyfin.media.svc.cluster.local:32400
+        key: {{HOMEPAGE_VAR_JELLYFIN_APIKEY}}
+        enableNowPlaying: true
   - Plex:
       href: https://plex.${SECRET_DOMAIN}
       icon: plex.svg
