@@ -11,6 +11,7 @@ resource "routeros_system_script" "wan_failover" {
   name     = "wan_failover"
   source   = <<-EOF
     :local mainInterface "ether1"
+    :local backupInterface "lte"
 
     :local blink do={
       :local led [/system/leds find leds="sfp-sfpplus1-led"]
@@ -30,11 +31,13 @@ resource "routeros_system_script" "wan_failover" {
       :log info "On main link, switching to backup"
       $blink
       /system/leds enable [find leds="user-led"]
+      /ip/dhcp-client enable [find interface=$backupInterface]
       /ip/dhcp-client disable [find interface=$mainInterface]
     } else={
       :put "On backup link, switching to main"
       :log info "On backup link, switching to main"
       /ip/dhcp-client enable [find interface=$mainInterface]
+      /ip/dhcp-client disable [find interface=$backupInterface]
       $blink
       /system/leds disable [find leds="user-led"]
     }
