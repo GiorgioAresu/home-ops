@@ -48,13 +48,14 @@ resource "routeros_interface_bridge_vlan" "guest" {
   bridge   = routeros_interface_bridge.bridge.name
   vlan_ids = [routeros_interface_vlan.guest.vlan_id]
   tagged   = [routeros_interface_bridge.bridge.name, "ether2", "ether7", "ether8"]
+  untagged = ["ether4"] # SA A
 }
 resource "routeros_interface_bridge_vlan" "security" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   bridge   = routeros_interface_bridge.bridge.name
   vlan_ids = [routeros_interface_vlan.security.vlan_id]
-  tagged   = [routeros_interface_bridge.bridge.name, "ether2", "ether5", "ether7", "ether8"] # 2 hap ax3, 5 hass, 7-8 unmanaged switches
+  tagged   = [routeros_interface_bridge.bridge.name, "ether2", "ether5", "ether7", "ether8"] # 2 hap ax3, 3 hap ax lite LTE, 5 hass, 7-8 unmanaged switches
 }
 resource "routeros_interface_bridge_vlan" "iot" {
   provider = routeros.rb5009
