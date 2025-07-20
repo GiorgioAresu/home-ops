@@ -1,5 +1,65 @@
 # =================================================================================================
-# Bridge Interfaces
+# INTERFACE Ethernet
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/interface_ethernet
+# =================================================================================================
+resource "routeros_interface_ethernet" "rb5009_ether1" {
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform"
+  factory_name = "ether1"
+  name         = "ether1"
+}
+resource "routeros_interface_ethernet" "rb5009_ether2" {
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform"
+  factory_name = "ether2"
+  name         = "ether2"
+}
+resource "routeros_interface_ethernet" "rb5009_ether3" {
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform"
+  factory_name = "ether3"
+  name         = "ether3"
+}
+resource "routeros_interface_ethernet" "rb5009_ether4" {
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform"
+  factory_name = "ether4"
+  name         = "ether4"
+}
+resource "routeros_interface_ethernet" "rb5009_ether5" {
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform"
+  factory_name = "ether5"
+  name         = "ether5"
+}
+resource "routeros_interface_ethernet" "rb5009_ether6" {
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform"
+  factory_name = "ether6"
+  name         = "ether6"
+}
+resource "routeros_interface_ethernet" "rb5009_ether7" {
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform"
+  factory_name = "ether7"
+  name         = "ether7"
+}
+resource "routeros_interface_ethernet" "rb5009_ether8" {
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform"
+  factory_name = "ether8"
+  name         = "ether8"
+}
+resource "routeros_interface_ethernet" "rb5009_sfp_sfpplus1" {
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform"
+  factory_name = "sfp-sfpplus1"
+  name         = "sfp-sfpplus1"
+}
+
+
+# =================================================================================================
+# INTERFACE Bridge
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/interface_bridge
 # =================================================================================================
 resource "routeros_interface_bridge" "bridge" {
@@ -10,6 +70,71 @@ resource "routeros_interface_bridge" "bridge" {
 }
 
 
+# =================================================================================================
+# INTERFACE Bridge Ports
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/interface_bridge_port
+# =================================================================================================
+resource "routeros_interface_bridge_port" "rb5009_ether2" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform"
+  bridge      = routeros_interface_bridge.bridge.name
+  interface   = routeros_interface_ethernet.rb5009_ether2.name
+  pvid        = "1"
+  frame_types = "admit-all"
+}
+resource "routeros_interface_bridge_port" "rb5009_ether3" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform"
+  bridge      = routeros_interface_bridge.bridge.name
+  interface   = routeros_interface_ethernet.rb5009_ether3.name
+  pvid        = "1"
+  frame_types = "admit-all"
+}
+resource "routeros_interface_bridge_port" "rb5009_ether4" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform"
+  bridge      = routeros_interface_bridge.bridge.name
+  interface   = routeros_interface_ethernet.rb5009_ether4.name
+  pvid        = routeros_interface_vlan.guest.vlan_id
+  frame_types = "admit-only-untagged-and-priority-tagged"
+}
+resource "routeros_interface_bridge_port" "rb5009_ether5" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform"
+  bridge      = routeros_interface_bridge.bridge.name
+  interface   = routeros_interface_ethernet.rb5009_ether5.name
+  pvid        = "1"
+  frame_types = "admit-all"
+}
+resource "routeros_interface_bridge_port" "rb5009_ether6" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform"
+  bridge      = routeros_interface_bridge.bridge.name
+  interface   = routeros_interface_ethernet.rb5009_ether6.name
+  pvid        = "1"
+  frame_types = "admit-all"
+}
+resource "routeros_interface_bridge_port" "rb5009_ether7" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform"
+  bridge      = routeros_interface_bridge.bridge.name
+  interface   = routeros_interface_ethernet.rb5009_ether7.name
+  pvid        = "1"
+  frame_types = "admit-all"
+}
+resource "routeros_interface_bridge_port" "rb5009_ether8" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform"
+  bridge      = routeros_interface_bridge.bridge.name
+  interface   = routeros_interface_ethernet.rb5009_ether8.name
+  pvid        = "1"
+  frame_types = "admit-all"
+}
+
+# =================================================================================================
+# INTERFACE List
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/interface_list
+# =================================================================================================
 resource "routeros_interface_list" "lan" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
@@ -22,6 +147,10 @@ resource "routeros_interface_list" "wan" {
 }
 
 
+# =================================================================================================
+# INTERFACE List Member
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/interface_list_member
+# =================================================================================================
 resource "routeros_interface_list_member" "lan_bridge" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
@@ -49,7 +178,7 @@ resource "routeros_interface_list_member" "lan_security" {
 resource "routeros_interface_list_member" "wan_fttc" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
-  interface = "ether1"
+  interface = routeros_interface_ethernet.rb5009_ether1.name
   list      = routeros_interface_list.wan.name
 }
 resource "routeros_interface_list_member" "wan_lte" {

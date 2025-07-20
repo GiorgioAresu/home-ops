@@ -5,7 +5,7 @@
 resource "routeros_ip_dhcp_client" "wan" {
   provider     = routeros.rb5009
   comment      = "Managed by Terraform"
-  interface    = "ether1"
+  interface    = routeros_interface_ethernet.rb5009_ether1.name
   use_peer_dns = false
   use_peer_ntp = false
 }
