@@ -85,6 +85,7 @@ variable "unifi_password" {
   description = "The password for accessing the UniFi device."
 }
 
+
 ## ================================================================================================
 ## WiFi Variables
 ## ================================================================================================
@@ -93,14 +94,122 @@ variable "main_wifi_password" {
   sensitive   = true
   description = "The password for the Main Wi-Fi network."
 }
+
 variable "guest_wifi_password" {
   type        = string
   sensitive   = true
   description = "The password for the Guest Wi-Fi network."
 }
+
 variable "iot_wifi_password" {
   type        = string
   sensitive   = true
   description = "The password for the IoT Wi-Fi network."
+}
+
+
+## ================================================================================================
+## Wireguard Variables
+## ================================================================================================
+variable "wireguard_endpoint" {
+  type        = string
+  sensitive   = false
+  description = "Public endpoint for wireguard server"
+}
+
+variable "wireguard_private_key" {
+  type        = string
+  sensitive   = true
+  description = "Private key for wireguard server"
+}
+
+variable "wireguard_odroidhc4_preshared_key" {
+  type        = string
+  sensitive   = true
+  description = "Preshared key for OdroidHC4 wireguard client"
+}
+
+variable "wireguard_odroidhc4_private_key" {
+  type        = string
+  sensitive   = true
+  description = "Private key for OdroidHC4 wireguard client"
+}
+
+variable "wireguard_odroidhc4_public_key" {
+  type        = string
+  sensitive   = false
+  description = "Public key for OdroidHC4 wireguard client"
+}
+
+variable "wireguard_phone_giorgio_preshared_key" {
+  type        = string
+  sensitive   = true
+  description = "Preshared key for Giorgio's phone wireguard client"
+}
+
+variable "wireguard_phone_giorgio_private_key" {
+  type        = string
+  sensitive   = true
+  description = "Private key for Giorgio's phone wireguard client"
+}
+
+variable "wireguard_phone_giorgio_public_key" {
+  type        = string
+  sensitive   = false
+  description = "Public key for Giorgio's phone wireguard client"
+}
+
+variable "wireguard_laptop_giorgio_preshared_key" {
+  type        = string
+  sensitive   = true
+  description = "Preshared key for Giorgio's laptop wireguard client"
+}
+
+variable "wireguard_laptop_giorgio_private_key" {
+  type        = string
+  sensitive   = true
+  description = "Private key for Giorgio's laptop wireguard client"
+}
+
+variable "wireguard_laptop_giorgio_public_key" {
+  type        = string
+  sensitive   = false
+  description = "Public key for Giorgio's laptop wireguard client"
+}
+
+variable "wireguard_phone_sara_preshared_key" {
+  type        = string
+  sensitive   = true
+  description = "Preshared key for Sara's phone wireguard client"
+}
+
+variable "wireguard_phone_sara_private_key" {
+  type        = string
+  sensitive   = true
+  description = "Private key for Sara's phone wireguard client"
+}
+
+variable "wireguard_phone_sara_public_key" {
+  type        = string
+  sensitive   = false
+  description = "Public key for Sara's phone wireguard client"
+}
+
+variable "wireguard_travel_router_preshared_key" {
+  type        = string
+  sensitive   = true
+  description = "Preshared key for travel router wireguard client"
+}
+
+variable "wireguard_travel_router_private_key" {
+  type        = string
+  sensitive   = true
+  description = "Private key for travel router wireguard client"
+}
+
+variable "wireguard_travel_router_public_key" {
+  type        = string
+  sensitive   = false
+  description = "Public key for travel router wireguard client"
 }
 

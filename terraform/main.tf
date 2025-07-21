@@ -41,4 +41,23 @@ module "network" {
   main_wifi_password  = var.main_wifi_password
   guest_wifi_password = var.guest_wifi_password
   iot_wifi_password   = var.iot_wifi_password
+
+  wireguard_endpoint                     = var.wireguard_endpoint
+  wireguard_private_key                  = var.wireguard_private_key
+  wireguard_odroidhc4_preshared_key      = var.wireguard_odroidhc4_preshared_key
+  wireguard_odroidhc4_private_key        = var.wireguard_odroidhc4_private_key
+  wireguard_odroidhc4_public_key         = var.wireguard_odroidhc4_public_key
+  wireguard_phone_giorgio_preshared_key  = var.wireguard_phone_giorgio_preshared_key
+  wireguard_phone_giorgio_private_key    = var.wireguard_phone_giorgio_private_key
+  wireguard_phone_giorgio_public_key     = var.wireguard_phone_giorgio_public_key
+  wireguard_laptop_giorgio_preshared_key = var.wireguard_laptop_giorgio_preshared_key
+  wireguard_laptop_giorgio_private_key   = var.wireguard_laptop_giorgio_private_key
+  wireguard_laptop_giorgio_public_key    = var.wireguard_laptop_giorgio_public_key
+  wireguard_phone_sara_preshared_key     = var.wireguard_phone_sara_preshared_key
+  wireguard_phone_sara_private_key       = var.wireguard_phone_sara_private_key
+  wireguard_phone_sara_public_key        = var.wireguard_phone_sara_public_key
+  wireguard_travel_router_preshared_key  = var.wireguard_travel_router_preshared_key
+  wireguard_travel_router_private_key    = var.wireguard_travel_router_private_key
+  wireguard_travel_router_public_key     = var.wireguard_travel_router_public_key
 }
+
