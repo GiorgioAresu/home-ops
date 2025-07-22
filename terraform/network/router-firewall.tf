@@ -3,7 +3,7 @@
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_firewall_nat
 # ================================================================================================
 resource "routeros_ip_firewall_nat" "wan" {
-  provider          = routeros.rb5009
+  provider           = routeros.rb5009
   comment            = "Managed by Terraform - WAN masquerade"
   chain              = "srcnat"
   action             = "masquerade"
@@ -102,21 +102,21 @@ resource "routeros_ip_firewall_nat" "dns" {
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_firewall_filter
 # ================================================================================================
 resource "routeros_ip_firewall_filter" "input_accept_from_wireguard" {
-  provider     = routeros.rb5009
-  comment      = "Managed by Terraform - allow WireGuard traffic (already allowed by adding it to LAN list)"
-  action       = "accept"
-  chain        = "input"
-  disabled     = true
-  src_address  = "10.17.100.0/24"
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - allow WireGuard traffic (already allowed by adding it to LAN list)"
+  action      = "accept"
+  chain       = "input"
+  disabled    = true
+  src_address = "10.17.100.0/24"
 }
 
 resource "routeros_ip_firewall_filter" "input_accept_wireguard" {
-  provider     = routeros.rb5009
-  comment      = "Managed by Terraform - allow WireGuard"
-  action       = "accept"
-  chain        = "input"
-  dst_port     = "13231"
-  protocol     = "udp"
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - allow WireGuard"
+  action   = "accept"
+  chain    = "input"
+  dst_port = "13231"
+  protocol = "udp"
 }
 
 resource "routeros_ip_firewall_filter" "input_accept_established" {
@@ -136,19 +136,19 @@ resource "routeros_ip_firewall_filter" "input_drop_invalid" {
 }
 
 resource "routeros_ip_firewall_filter" "input_accept_icmp" {
-  provider     = routeros.rb5009
-  comment      = "defconf - Managed by Terraform - accept ICMP"
-  action       = "accept"
-  chain        = "input"
-  protocol     = "icmp"
+  provider = routeros.rb5009
+  comment  = "defconf - Managed by Terraform - accept ICMP"
+  action   = "accept"
+  chain    = "input"
+  protocol = "icmp"
 }
 
 resource "routeros_ip_firewall_filter" "input_accept_to_loopback" {
-  provider     = routeros.rb5009
-  comment      = "defconf - Managed by Terraform - accept to local loopback (for CAPsMAN)"
-  action       = "accept"
-  chain        = "input"
-  dst_address  = "127.0.0.1"
+  provider    = routeros.rb5009
+  comment     = "defconf - Managed by Terraform - accept to local loopback (for CAPsMAN)"
+  action      = "accept"
+  chain       = "input"
+  dst_address = "127.0.0.1"
 }
 
 resource "routeros_ip_firewall_filter" "input_drop_not_lan" {

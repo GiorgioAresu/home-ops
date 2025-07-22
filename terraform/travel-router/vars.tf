@@ -1,0 +1,76 @@
+## ================================================================================================
+## Mikrotik Variables
+## ================================================================================================
+variable "mikrotik_host_url" {
+  type        = string
+  sensitive   = false
+  description = "The URL of the MikroTik device."
+}
+
+variable "mikrotik_username" {
+  type        = string
+  sensitive   = true
+  description = "The username for accessing the MikroTik device."
+}
+
+variable "mikrotik_password" {
+  type        = string
+  sensitive   = true
+  description = "The password for accessing the MikroTik device."
+}
+
+variable "mikrotik_insecure" {
+  type        = bool
+  default     = true
+  description = "Whether to allow insecure connections to the MikroTik device."
+}
+
+
+## ================================================================================================
+## WiFi Variables
+## ================================================================================================
+variable "main_wifi_password" {
+  type        = string
+  sensitive   = true
+  description = "The password for the Main Wi-Fi network."
+}
+
+variable "guest_wifi_password" {
+  type        = string
+  sensitive   = true
+  description = "The password for the Guest Wi-Fi network."
+}
+
+
+## ================================================================================================
+## Wireguard Variables
+## ================================================================================================
+variable "wireguard_endpoint" {
+  type        = string
+  sensitive   = false
+  description = "Public endpoint for wireguard server"
+}
+
+variable "wireguard_public_key" {
+  type        = string
+  sensitive   = false
+  description = "Public key for wireguard server"
+}
+
+variable "wireguard_travel_router_preshared_key" {
+  type        = string
+  sensitive   = true
+  description = "Preshared key for travel router wireguard client"
+}
+
+variable "wireguard_travel_router_private_key" {
+  type        = string
+  sensitive   = true
+  description = "Private key for travel router wireguard client"
+}
+
+variable "wireguard_travel_router_public_key" {
+  type        = string
+  sensitive   = false
+  description = "Public key for travel router wireguard client"
+}

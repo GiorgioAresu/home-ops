@@ -1,0 +1,11 @@
+mikrotik_host_url                      = "https://10.x.x.x"
+mikrotik_username                      = "terraform"
+mikrotik_password                      = ""
+mikrotik_insecure                      = true
+main_wifi_password                     = ""
+guest_wifi_password                    = ""
+wireguard_endpoint                     = "example.com"
+wireguard_public_key                   = "base64"
+wireguard_travel_router_preshared_key  = "base64"
+wireguard_travel_router_private_key    = "base64"
+wireguard_travel_router_public_key     = "base64"
