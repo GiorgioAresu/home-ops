@@ -47,4 +47,5 @@ locals {
   vlan_id_guest      = 30
   vlan_id_security   = 40
   vlan_id_iot        = 50
+  addr_list_bad_ipv6 = "bad_ipv6"
 }
