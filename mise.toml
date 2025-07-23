@@ -8,7 +8,7 @@ TALOSCONFIG = '{{config_root}}/kubernetes/talos/clusterconfig/talosconfig'
 
 [tools]
 "aqua:astral-sh/uv" = ["latest"]
-"pipx:flux-local" = ["7.5.6"]
+"pipx:flux-local" = ["7.6.0"]
 "aqua:go-task/task" = "3.44.1"
 "aqua:siderolabs/talos" = "1.10.5"
 "aqua:budimanjojo/talhelper" = "3.0.31"
