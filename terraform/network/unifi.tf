@@ -12,6 +12,13 @@ data "unifi_network" "main" {
   name = "Default"
 }
 
+resource "unifi_port_profile" "desk" {
+  name                  = "Desk"
+  native_networkconf_id = unifi_network.guest.id
+  forward               = "customize"
+  poe_mode              = "off"
+}
+
 resource "unifi_port_profile" "guest" {
   name                  = "Guest"
   native_networkconf_id = unifi_network.guest.id
@@ -31,9 +38,33 @@ resource "unifi_device" "usw_flex_mini" {
   name = "USW Flex Mini (Desk)"
 
   port_override {
+    number          = 1
+    name            = "Upstream"
+  }
+
+  port_override {
+    number          = 2
+    name            = "Desk"
+    port_profile_id = unifi_port_profile.desk.id
+
+  }
+
+  port_override {
+    number          = 3
+  }
+
+  port_override {
+    number          = 4
+  }
+
+  port_override {
     number          = 5
     name            = "IoT"
     port_profile_id = unifi_port_profile.iot.id
+  }
+
+  lifecycle {
+    ignore_changes = [ port_override ] # The switch doesn't properly support VLANs, so I'm just keeping the config but needs changes in the UI
   }
 }
 
