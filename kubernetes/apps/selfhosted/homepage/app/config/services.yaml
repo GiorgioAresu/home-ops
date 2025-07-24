@@ -111,15 +111,16 @@
         type: prowlarr
         url: http://prowlarr.downloads.svc.cluster.local:9696
         key: {{HOMEPAGE_VAR_PROWLARR_TOKEN}}
-  - Transmission:
-      href: https://transmission.${SECRET_DOMAIN}
-      icon: transmission.svg
-      ping: https://transmission.${SECRET_DOMAIN}
+  - QBittorrent:
+      href: https://qbittorrent.${SECRET_DOMAIN}
+      icon: qbittorrent.svg
+      ping: https://qbittorrent.${SECRET_DOMAIN}
       widget:
-        type: transmission
-        url: https://transmission.${SECRET_DOMAIN}
-        username: {{HOMEPAGE_VAR_TRANSMISSION_USERNAME}}
-        password: {{HOMEPAGE_VAR_TRANSMISSION_PASSWORD}}
+        type: qbittorrent
+        url: https://qbittorrent.${SECRET_DOMAIN}
+        username: {{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}
+        password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
+        enableLeechProgress: true
 
 - Hardware:
   - Mikrotik RB5009UPr+S+IN:
