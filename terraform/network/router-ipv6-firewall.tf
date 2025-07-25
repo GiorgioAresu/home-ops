@@ -88,7 +88,7 @@ resource "routeros_ipv6_firewall_filter" "forward_fasttrack" {
   action           = "fasttrack-connection"
   chain            = "forward"
   connection_state = "established,related"
-  place_before = routeros_ipv6_firewall_filter.forward_accept_established.id
+  place_before     = routeros_ipv6_firewall_filter.forward_accept_established.id
 }
 
 resource "routeros_ipv6_firewall_filter" "forward_accept_established" {

@@ -38,8 +38,8 @@ resource "unifi_device" "usw_flex_mini" {
   name = "USW Flex Mini (Desk)"
 
   port_override {
-    number          = 1
-    name            = "Upstream"
+    number = 1
+    name   = "Upstream"
   }
 
   port_override {
@@ -50,11 +50,11 @@ resource "unifi_device" "usw_flex_mini" {
   }
 
   port_override {
-    number          = 3
+    number = 3
   }
 
   port_override {
-    number          = 4
+    number = 4
   }
 
   port_override {
@@ -64,7 +64,7 @@ resource "unifi_device" "usw_flex_mini" {
   }
 
   lifecycle {
-    ignore_changes = [ port_override ] # The switch doesn't properly support VLANs, so I'm just keeping the config but needs changes in the UI
+    ignore_changes = [port_override] # The switch doesn't properly support VLANs, so I'm just keeping the config but needs changes in the UI
   }
 }
 

@@ -25,6 +25,18 @@ variable "mikrotik_insecure" {
   description = "Whether to allow insecure connections to the MikroTik device."
 }
 
+variable "mikrotik_user_admin" {
+  type        = string
+  sensitive   = false
+  description = "The admin user for accessing the MikroTik device."
+}
+
+variable "mikrotik_user_admin_publickey" {
+  type        = string
+  sensitive   = false
+  description = "The SSH public key for accessing the MikroTik device with the admin user."
+}
+
 
 ## ================================================================================================
 ## WiFi Variables
