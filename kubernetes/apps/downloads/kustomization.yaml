@@ -13,6 +13,7 @@ resources:
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
   - ./sonarr/ks.yaml
+  - ./tqm/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/flux/alerts
