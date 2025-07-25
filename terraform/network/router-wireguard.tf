@@ -9,7 +9,7 @@ resource "routeros_interface_wireguard" "home" {
   listen_port = 13231
   mtu         = "1420"
   name        = "wireguard"
-  # private_key = var.wireguard_private_key
+  private_key = var.wireguard_private_key
 }
 
 
