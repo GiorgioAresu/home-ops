@@ -43,7 +43,7 @@ spec:
                     port: &port 49090
                   initialDelaySeconds: 15
                   periodSeconds: 20
-                  timeoutSeconds: 1
+                  timeoutSeconds: 5
                   failureThreshold: 3
               readiness:
                 enabled: false
