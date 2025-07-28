@@ -69,19 +69,19 @@ variable "wireguard_public_key" {
   description = "Public key for wireguard server"
 }
 
-variable "wireguard_travel_router_preshared_key" {
+variable "wireguard_client_preshared_key" {
   type        = string
   sensitive   = true
   description = "Preshared key for travel router wireguard client"
 }
 
-variable "wireguard_travel_router_private_key" {
+variable "wireguard_client_private_key" {
   type        = string
   sensitive   = true
   description = "Private key for travel router wireguard client"
 }
 
-variable "wireguard_travel_router_public_key" {
+variable "wireguard_client_public_key" {
   type        = string
   sensitive   = false
   description = "Public key for travel router wireguard client"
