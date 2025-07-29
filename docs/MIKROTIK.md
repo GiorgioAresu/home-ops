@@ -38,7 +38,8 @@ do
     echo "-> Waiting for the device to come back online..."
     sleep 1
 done
-echo "-> Done."
+echo "-> Done. Checking LTE firmware. Ignore the error if this device doesn't have a modem."
+ssh $HOST /interface/lte/firmware-upgrade lte1
 ```
 
 ## Base configs
