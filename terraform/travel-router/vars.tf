@@ -57,32 +57,26 @@ variable "guest_wifi_password" {
 ## ================================================================================================
 ## Wireguard Variables
 ## ================================================================================================
-variable "wireguard_endpoint" {
-  type        = string
-  sensitive   = false
-  description = "Public endpoint for wireguard server"
-}
-
-variable "wireguard_public_key" {
-  type        = string
-  sensitive   = false
-  description = "Public key for wireguard server"
-}
-
-variable "wireguard_client_preshared_key" {
+variable "wireguard_private_key" {
   type        = string
   sensitive   = true
-  description = "Preshared key for travel router wireguard client"
+  description = "Private key for wireguard server"
 }
 
-variable "wireguard_client_private_key" {
-  type        = string
-  sensitive   = true
-  description = "Private key for travel router wireguard client"
-}
-
-variable "wireguard_client_public_key" {
+variable "wireguard_home_endpoint" {
   type        = string
   sensitive   = false
-  description = "Public key for travel router wireguard client"
+  description = "Public endpoint for home wireguard server"
+}
+
+variable "wireguard_home_preshared_key" {
+  type        = string
+  sensitive   = true
+  description = "Preshared key for home wireguard server"
+}
+
+variable "wireguard_home_public_key" {
+  type        = string
+  sensitive   = false
+  description = "Public key for home wireguard server"
 }
