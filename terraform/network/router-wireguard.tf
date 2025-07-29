@@ -12,6 +12,18 @@ resource "routeros_interface_wireguard" "home" {
   private_key = var.wireguard_private_key
 }
 
+output "wireguard_public_key" {
+  value = routeros_interface_wireguard.home.public_key
+}
+
+resource "routeros_ip_address" "wireguard" {
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
+  address   = "10.17.100.1/24"
+  interface = routeros_interface_wireguard.home.name
+  network   = "10.17.100.0"
+}
+
 
 # =================================================================================================
 # Wireguard Peer
