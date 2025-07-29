@@ -10,36 +10,18 @@ Manual set up of all the VLANs on each CAPs is required. See [wiki](https://help
 
 > :memo: **Note:** The current situation (as of `7.19.3`) with devices using the `wifi-qcom` is that `local_processing=no` (the property itself, thus its effect) is not supported, which means traffic is handled on the CAPs, not CAPsMAN. There's a `traffic-processing=on-capsman` setting that doesn't work. Will keep an eye on changelogs to monitor progress.
 
-## Bulk updates
+## Updates
 
-To update a device from an external host, make sure ssh is set up with certs, then run:
+To update the devices to the latest versions (packages, firmware, modem), run:
 
 ```shell
-export HOST=10.17.1.x
+task terraform:upgrade-all
+```
 
-echo "-> Updating software..."
-ssh $HOST /system/package/update/check-for-updates
-ssh $HOST /system/package/update/download
-echo "-> Rebooting..."
-ssh $HOST reboot
-sleep 1
-until nc -z $HOST 22
-do
-    echo "-> Waiting for the device to come back online..."
-    sleep 1
-done
-echo "-> Done. Updating firmware..."
-ssh $HOST /system/routerboard/upgrade
-echo "-> Rebooting..."
-ssh $HOST reboot
-sleep 1
-until nc -z $HOST 22
-do
-    echo "-> Waiting for the device to come back online..."
-    sleep 1
-done
-echo "-> Done. Checking LTE firmware. Ignore the error if this device doesn't have a modem."
-ssh $HOST /interface/lte/firmware-upgrade lte1
+To do the same for the travel router, run:
+
+```shell
+task terraform:upgrade-travel
 ```
 
 ## Base configs
