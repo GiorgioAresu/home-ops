@@ -14,6 +14,7 @@ includes:
   # postgres: .taskfiles/postgres/Taskfile.yaml
   sops: .taskfiles/sops/Taskfile.yaml
   talos: .taskfiles/talos/Taskfile.yaml
+  terraform: .taskfiles/terraform/Taskfile.yaml
   volsync: .taskfiles/volsync/Taskfile.yaml
 
 vars:
