@@ -12,4 +12,6 @@ provider "routeros" {
   username = var.mikrotik_username
   password = var.mikrotik_password
   insecure = var.mikrotik_insecure
+  rest_timeout = 120 # Increased due to sloooow CPU
 }
+
