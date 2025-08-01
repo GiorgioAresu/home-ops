@@ -308,7 +308,7 @@ resource "unifi_wlan" "main" {
 }
 
 resource "unifi_wlan" "guest" {
-  name          = "GeS-Guest-test"
+  name          = "GeS-Guest"
   passphrase    = var.guest_wifi_password
   security      = "wpapsk"
   ap_group_ids  = [data.unifi_ap_group.default.id]
@@ -318,7 +318,7 @@ resource "unifi_wlan" "guest" {
   # TODO: enable wpa3 at some point
   wpa3_support    = false
   wpa3_transition = false
-  pmf_mode        = "optional"
+  pmf_mode        = "disabled"
 
   fast_roaming_enabled = "true"
   # l2_isolation         = "true"

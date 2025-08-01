@@ -47,7 +47,7 @@ resource "routeros_interface_bridge_vlan" "guest" {
   comment  = "Managed by Terraform"
   bridge   = routeros_interface_bridge.bridge.name
   vlan_ids = [routeros_interface_vlan.guest.vlan_id]
-  tagged   = [routeros_interface_bridge.bridge.name, routeros_interface_ethernet.rb5009_ether2.name, routeros_interface_ethernet.rb5009_ether7.name, routeros_interface_ethernet.rb5009_ether8.name]
+  tagged   = [routeros_interface_bridge.bridge.name, routeros_interface_ethernet.rb5009_ether2.name, routeros_interface_ethernet.rb5009_ether3.name, routeros_interface_ethernet.rb5009_ether7.name, routeros_interface_ethernet.rb5009_ether8.name]
   untagged = [routeros_interface_ethernet.rb5009_ether4.name] # SA A
 }
 resource "routeros_interface_bridge_vlan" "security" {
