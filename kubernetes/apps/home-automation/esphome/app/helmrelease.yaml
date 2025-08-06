@@ -25,7 +25,7 @@ spec:
           #     [{
           #       "name":"multus-iot",
           #       "namespace": "network",
-          #       "ips": ["10.1.3.152/24"],
+          #       "ips": ["10.1.50.5/24"],
           #       "mac": "92:cf:d7:05:70:84"
           #     }]
           securityContext:
@@ -107,7 +107,7 @@ spec:
                   port: *esphome-port
               - path: /code/(.*)
                 service:
-                  identifier: app
+                  identifier: code-server
                   port: *code-server-port
 
     persistence:
