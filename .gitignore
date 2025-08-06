@@ -22,7 +22,7 @@ Thumbs.db
 
 ## Terraform variable definitions
 *.tfvars
-!.example.tfvars
+!*.tfvars.example
 
 ## terraform plan output
 *tfplan*
