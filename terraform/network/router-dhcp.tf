@@ -460,6 +460,13 @@ resource "routeros_ip_dhcp_server_lease" "asciugatrice" {
   address     = "10.17.50.40"
   mac_address = "00:1D:63:63:B5:C2"
 }
+resource "routeros_ip_dhcp_server_lease" "plate" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Plate"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.41"
+  mac_address = "EC:DA:3B:9B:26:EC"
+}
 # resource "routeros_ip_dhcp_server_lease" "this" { *16
 #   provider    = routeros.rb5009
 #   comment     = "Managed by Terraform"

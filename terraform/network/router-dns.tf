@@ -232,6 +232,13 @@ resource "routeros_ip_dns_record" "asciugatrice" {
   name     = "asciugatrice.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.asciugatrice.address
 }
+resource "routeros_ip_dns_record" "plate" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "plate.iot.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.plate.address
+}
 
 resource "routeros_ip_dns_record" "odroidhc4" {
   provider = routeros.rb5009
