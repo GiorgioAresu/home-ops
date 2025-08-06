@@ -28,9 +28,15 @@ resource "routeros_interface_ethernet" "ether4" {
 # INTERFACE Bridge
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/interface_bridge
 # =================================================================================================
-resource "routeros_interface_bridge" "bridge" {
+resource "routeros_interface_bridge" "bridge_lan" {
   comment        = "defconf - Managed by Terraform"
-  name           = "bridge"
+  name           = "bridge-lan"
+  vlan_filtering = true
+}
+
+resource "routeros_interface_bridge" "bridge_wan" {
+  comment        = "Managed by Terraform"
+  name           = "bridge-wan"
   vlan_filtering = false
 }
 
@@ -39,21 +45,41 @@ resource "routeros_interface_bridge" "bridge" {
 # INTERFACE Bridge Ports
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/interface_bridge_port
 # =================================================================================================
-resource "routeros_interface_bridge_port" "ether2" {
-  bridge    = routeros_interface_bridge.bridge.name
-  interface = routeros_interface_ethernet.ether2.name
+resource "routeros_interface_bridge_port" "ether1" {
   comment   = "Managed by Terraform"
+  bridge    = routeros_interface_bridge.bridge_wan.name
+  interface = routeros_interface_ethernet.ether1.name
+}
+resource "routeros_interface_bridge_port" "ether2" {
+  comment   = "Managed by Terraform"
+  bridge    = routeros_interface_bridge.bridge_lan.name
+  interface = routeros_interface_ethernet.ether2.name
 }
 resource "routeros_interface_bridge_port" "ether3" {
-  bridge    = routeros_interface_bridge.bridge.name
-  interface = routeros_interface_ethernet.ether3.name
   comment   = "Managed by Terraform"
+  bridge    = routeros_interface_bridge.bridge_lan.name
+  interface = routeros_interface_ethernet.ether3.name
 }
 resource "routeros_interface_bridge_port" "ether4" {
-  bridge    = routeros_interface_bridge.bridge.name
-  interface = routeros_interface_ethernet.ether4.name
   comment   = "Managed by Terraform"
+  bridge    = routeros_interface_bridge.bridge_lan.name
+  interface = routeros_interface_ethernet.ether4.name
 }
+resource "routeros_interface_bridge_port" "wifi_station" {
+  comment   = "Managed by Terraform"
+  bridge    = routeros_interface_bridge.bridge_wan.name
+  interface = routeros_interface_wireless.station.name
+}
+resource "routeros_interface_bridge_port" "wifi_travel" {
+  comment   = "Managed by Terraform"
+  bridge    = routeros_interface_bridge.bridge_lan.name
+  interface = routeros_interface_wireless.travel.name
+}
+# resource "routeros_interface_bridge_port" "wifi_home" {
+#   comment   = "Managed by Terraform"
+#   bridge    = routeros_interface_bridge.bridge_lan.name
+#   interface = routeros_interface_wireless.home.name
+# }
 
 
 # =================================================================================================
@@ -62,11 +88,11 @@ resource "routeros_interface_bridge_port" "ether4" {
 # =================================================================================================
 resource "routeros_interface_list" "lan" {
   comment = "Managed by Terraform"
-  name    = "LAN"
+  name    = "list-lan"
 }
 resource "routeros_interface_list" "wan" {
   comment = "Managed by Terraform"
-  name    = "WAN"
+  name    = "list-wan"
 }
 
 
@@ -76,11 +102,16 @@ resource "routeros_interface_list" "wan" {
 # =================================================================================================
 resource "routeros_interface_list_member" "lan_bridge" {
   comment   = "Managed by Terraform"
-  interface = routeros_interface_bridge.bridge.name
+  interface = routeros_interface_bridge.bridge_lan.name
   list      = routeros_interface_list.lan.name
 }
 resource "routeros_interface_list_member" "wan_ether1" {
   comment   = "Managed by Terraform"
-  interface = routeros_interface_ethernet.ether1.name
+  interface = routeros_interface_bridge.bridge_wan.name
+  list      = routeros_interface_list.wan.name
+}
+resource "routeros_interface_list_member" "wan_wlan_bridge" {
+  comment   = "Managed by Terraform"
+  interface = routeros_interface_wireless.bridge.name
   list      = routeros_interface_list.wan.name
 }

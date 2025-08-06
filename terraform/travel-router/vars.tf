@@ -47,10 +47,16 @@ variable "main_wifi_password" {
   description = "The password for the Main Wi-Fi network."
 }
 
-variable "guest_wifi_password" {
+variable "bridge_wifi_password" {
   type        = string
   sensitive   = true
-  description = "The password for the Guest Wi-Fi network."
+  description = "The password for the bridge Wi-Fi network."
+}
+
+variable "travel_wifi_password" {
+  type        = string
+  sensitive   = true
+  description = "The password for the Travel Wi-Fi network."
 }
 
 
@@ -79,4 +85,13 @@ variable "wireguard_home_public_key" {
   type        = string
   sensitive   = false
   description = "Public key for home wireguard server"
+}
+
+variable "known_wifis" {
+  description = "List of known WiFi networks with passwords. Leave password empty for open networks"
+  type = list(object({
+    comment  = string
+    ssid     = string
+    password = string
+  }))
 }

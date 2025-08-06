@@ -8,10 +8,13 @@ terraform {
 }
 
 provider "routeros" {
-  hosturl  = var.mikrotik_host_url
-  username = var.mikrotik_username
-  password = var.mikrotik_password
-  insecure = var.mikrotik_insecure
+  hosturl      = var.mikrotik_host_url
+  username     = var.mikrotik_username
+  password     = var.mikrotik_password
+  insecure     = var.mikrotik_insecure
   rest_timeout = 120 # Increased due to sloooow CPU
 }
 
+locals {
+  vlan_id_home = 10
+}
