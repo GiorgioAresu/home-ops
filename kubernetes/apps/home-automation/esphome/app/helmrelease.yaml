@@ -130,13 +130,24 @@ spec:
         globalMounts:
           - path: /config/secrets.yaml
             subPath: secrets.yaml
-      tmpfs:
-        type: emptyDir
+      # Keep cache in a non-backed up volume to save on continuous re-downloads
+      cache:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        storageClass: longhorn-singlereplica
         advancedMounts:
           esphome:
             app:
               - path: /cache
                 subPath: cache
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          esphome:
+            # app:
+            #   - path: /cache
+            #     subPath: cache
             code-server:
               - path: /tmp
                 subPath: code-server-tmp
