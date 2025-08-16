@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: syncthing/syncthing
-              tag: 1.30.0
+              tag: 2.0.2
             # probes:
             #   liveness:
             #     enabled: true
