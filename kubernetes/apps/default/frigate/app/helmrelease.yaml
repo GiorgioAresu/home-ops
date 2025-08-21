@@ -46,6 +46,9 @@ spec:
               readiness: *probes
             securityContext:
               privileged: true # Required for intel_gpu_top to work
+              capabilities:
+                add:
+                  - CAP_PERFMON
             resources:
               requests:
                 cpu: 100m
