@@ -3,14 +3,12 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: coredns
+  name: externaldns-cloudflare
 spec:
   interval: 10m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
-  url: oci://ghcr.io/coredns/charts/coredns
   ref:
-    tag: 1.43.2
-  verify:
-    provider: cosign
+    tag: 1.18.0
+  url: oci://ghcr.io/home-operations/charts-mirror/external-dns
