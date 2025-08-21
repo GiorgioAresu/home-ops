@@ -39,12 +39,13 @@ detectors:
   ov:
     type: openvino
     device: GPU
-    model_path: /openvino-model/ssdlite_mobilenet_v2.xml
+
 model:
   width: 300
   height: 300
   input_tensor: nhwc
   input_pixel_format: bgr
+  path: /openvino-model/ssdlite_mobilenet_v2.xml
   labelmap_path: /openvino-model/coco_91cl_bkgr.txt
 
 ffmpeg:
@@ -52,7 +53,7 @@ ffmpeg:
   hwaccel_args: preset-vaapi
   # hwaccel_args: ["-hwaccel", "vaapi", "-hwaccel_device", "/dev/dri/renderD128", "-hwaccel_output_format", "yuv420p"]
   output_args:
-    record: preset-record-generic-audio-copy
+    record: preset-record-generic-audio-aac
 
 snapshots:
   enabled: true
