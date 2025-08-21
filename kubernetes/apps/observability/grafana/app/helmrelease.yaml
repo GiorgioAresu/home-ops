@@ -76,7 +76,7 @@ spec:
     dashboards:
       default:
         cert-manager:
-          # renovate: depName="Cert-manager-Kubernetes"
+          # renovate: dashboardName="Cert-manager-Kubernetes"
           gnetId: 20842
           revision: 3
           datasource: Prometheus
@@ -96,7 +96,7 @@ spec:
           datasource: Prometheus
 
         keda:
-          # renovate: depName="Keda"
+          # renovate: dashboardName="Keda"
           url: https://raw.githubusercontent.com/kedacore/keda/refs/heads/main/config/grafana/keda-dashboard.json
           datasource: prometheus
 
@@ -117,9 +117,9 @@ spec:
               value: Prometheus
 
         smartctl-exporter:
-          # renovate: depName="SMARTctl Exporter Dashboard"
+          # renovate: dashboardName="SMARTctl Exporter Dashboard"
           gnetId: 22604
-          revision: 1
+          revision: 2
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
@@ -133,9 +133,9 @@ spec:
               value: Prometheus
 
         volsync:
-          # removate: dashboardName="VolSync Dashboard"
+          # renovate: dashboardName="VolSync Dashboard"
           gnetId: 21356
-          revision: 2
+          revision: 3
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
