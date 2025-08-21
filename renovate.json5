@@ -1,21 +1,27 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "github>GiorgioAresu/home-ops//.renovate/renovate-config/default.json",
-    "github>GiorgioAresu/home-ops//.renovate/renovate-config/automerge-github-actions",
+    "github>bjw-s/renovate-config",
+    "github>GiorgioAresu/home-ops//.renovate/overrides.json5",
     "github>GiorgioAresu/home-ops//.renovate/groups.json5",
-    "github>GiorgioAresu/home-ops//.renovate/allowedVersions.json5",
-    "github>GiorgioAresu/home-ops//.renovate/versioning.json5",
     "github>GiorgioAresu/home-ops//.renovate/autoMerge.json5",
     "github>GiorgioAresu/home-ops//.renovate/grafanaDashboards.json5",
   ],
   flux: {
-    managerFilePatterns: ["/^kubernetes/.+\\.ya?ml$/"],
+    managerFilePatterns: ["/^kubernetes/.+\\.yaml(?:\\.j2)?$/"],
   },
   "helm-values": {
-    managerFilePatterns: ["/^kubernetes/.+\\.ya?ml$/"],
+    managerFilePatterns: ["/^kubernetes/.+\\.yaml(?:\\.j2)?$/"],
   },
   kubernetes: {
-    managerFilePatterns: ["/^kubernetes/.+\\.ya?ml$/"],
+    managerFilePatterns: ["/^kubernetes/.+\\.yaml(?:\\.j2)?$/"],
   },
+  packageRules: [
+    {
+      description: "Configure prompp versioning",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["docker.io/prompp/prompp"],
+      versioning: "regex:^(?<build>.*)-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
+    },
+  ],
 }

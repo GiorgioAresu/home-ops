@@ -3,19 +3,20 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname flux-operator
-  namespace: &namespace flux-system
+  name: &appname gateway-api-crds
+  namespace: &namespace kube-system
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  interval: 30m
-  timeout: 5m
-  path: ./kubernetes/apps/flux-system/flux-operator/app
-  prune: false # Never delete this
+  interval: 1h
+  path: ./kubernetes/apps/kube-system/gateway-api-crds/app
+  prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
   wait: false

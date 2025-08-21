@@ -5,10 +5,10 @@ kind: OCIRepository
 metadata:
   name: reloader
 spec:
-  interval: 1h
+  interval: 10m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 2.1.5
+    tag: 2.2.0
   url: oci://ghcr.io/stakater/charts/reloader

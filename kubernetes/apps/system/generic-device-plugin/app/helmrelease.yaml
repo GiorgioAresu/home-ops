@@ -19,10 +19,10 @@ spec:
 
     controllers:
       generic-device-plugin:
-        annotations:
-          reloader.stakater.com/auto: "true"
         type: daemonset
         strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
