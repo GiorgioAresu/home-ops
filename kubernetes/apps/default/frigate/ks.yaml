@@ -15,8 +15,6 @@ spec:
       namespace: external-secrets
     - name: volsync
       namespace: system
-    - name: keda
-      namespace: system
   path: ./kubernetes/apps/default/frigate/app
   prune: true
   sourceRef:

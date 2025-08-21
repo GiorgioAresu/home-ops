@@ -37,7 +37,8 @@ tasks:
       vars:
         - APP
     vars:
-      NS: '{{.NS | default "default"}}'
+      NS: >-
+        {{.NS | default "default"}}
       JOB: "list-snapshots-{{ .APP }}"
     env:
       NS: "{{.NS}}"
@@ -58,15 +59,13 @@ tasks:
       vars:
         - APP
     vars:
-      WAIT: '{{.WAIT | default "true"}}'
-      NS: '{{.NS | default "default"}}'
+      NS: >-
+        {{.NS | default "default"}}
       JOB: volsync-src-{{.APP}}
     cmds:
       - kubectl --namespace {{.NS}} patch replicationsources {{.APP}} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
-      - |-
-        {{ if eq "true" .WAIT }}until kubectl --namespace {{.NS}} get job/{{.JOB}} &>/dev/null; do sleep 5; done{{ end }}
-      - |-
-        {{ if eq "true" .WAIT }}kubectl --namespace {{.NS}} wait job/{{.JOB}} --for=condition=complete --timeout=120m{{ end }}
+      - until kubectl --namespace {{.NS}} get job/{{.JOB}} &>/dev/null; do sleep 5; done
+      - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for=condition=complete --timeout=120m
 
   snapshot-all:
     desc: Snapshot all apps across all namespaces without waiting
@@ -74,8 +73,8 @@ tasks:
       - which kubectl
     vars:
       ALL_APPS:
-        sh: |
-          kubectl get replicationsources -A --no-headers -o jsonpath='{range .items[*]}{.metadata.namespace},{.metadata.name}{"\n"}{end}' | grep -v '\-r2'
+        sh: >-
+          kubectl get replicationsources -A --no-headers -o jsonpath='{range .items[*]}{.metadata.namespace},{.metadata.name}{"\n"}{end}'
     cmds:
       - for:
           var: ALL_APPS
@@ -83,8 +82,10 @@ tasks:
         task: snapshot
         vars:
           WAIT: "false"
-          NS: '{{splitList "," .ITEM | first}}'
-          APP: '{{splitList "," .ITEM | last}}'
+          NS: >-
+            {{splitList "," .ITEM | first}}
+          APP: >-
+            {{splitList "," .ITEM | last}}
 
   restore:
     desc: Restore an app [NS=default] [APP=required] [PREVIOUS=required]
@@ -96,7 +97,8 @@ tasks:
         - APP
         - PREVIOUS
     vars:
-      NS: '{{.NS | default "default"}}'
+      NS: >-
+        {{.NS | default "default"}}
       CONTROLLER:
         sh: kubectl --namespace {{.NS}} get deployment {{.APP}} &>/dev/null && echo deployment || echo statefulset
     env:
@@ -115,9 +117,9 @@ tasks:
         sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
     cmds:
       # Suspend
-      - flux --namespace flux-system suspend kustomization {{.APP}}
+      - flux --namespace {{.NS}} suspend kustomization {{.APP}}
       - flux --namespace {{.NS}} suspend helmrelease {{.APP}}
-      - kubectl --namespace {{.NS}} scale {{.CONTROLLER}}/{{.APP}} --replicas 0
+      - kubectl --namespace {{.NS}} patch scaledobject {{.APP}} --type=merge -p '{"metadata":{"annotations":{"autoscaling.keda.sh/paused-replicas":"0","autoscaling.keda.sh/paused":"true"}}}' || kubectl --namespace {{.NS}} scale {{.CONTROLLER}}/{{.APP}} --replicas 0
       - kubectl --namespace {{.NS}} wait pod --for=delete --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m
       # Restore
       - minijinja-cli {{.VOLSYNC_TASK_RESOURCES_DIR}}/replicationdestination.yaml.j2 | kubectl apply --server-side --filename -
@@ -125,7 +127,8 @@ tasks:
       - kubectl --namespace {{.NS}} wait job/volsync-dst-{{.APP}}-manual --for=condition=complete --timeout=120m
       - kubectl --namespace {{.NS}} delete replicationdestination {{.APP}}-manual
       # Resume
-      - flux --namespace flux-system resume kustomization {{.APP}}
+      - flux --namespace {{.NS}} resume kustomization {{.APP}}
       - flux --namespace {{.NS}} resume helmrelease {{.APP}}
+      - flux --namespace {{.NS}} reconcile kustomization {{.APP}} --with-source
       - flux --namespace {{.NS}} reconcile helmrelease {{.APP}} --force
       - kubectl --namespace {{.NS}} wait pod --for=condition=ready --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m

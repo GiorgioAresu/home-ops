@@ -22,8 +22,6 @@ spec:
   dependsOn:
     - name: volsync
       namespace: system
-    - name: keda
-      namespace: system
   components:
     - ../../../../components/volsync
     - ../../../../components/keda/nas-nfs-scaler
