@@ -13,6 +13,7 @@ resources:
   - ./n8n/ks.yaml
   - ./paperless/ks.yaml
   - ./syncthing/ks.yaml
+  - ./unifi/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/flux/alerts
