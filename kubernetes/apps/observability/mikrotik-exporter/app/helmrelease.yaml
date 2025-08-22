@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/akpw/mktxp
-              tag: main@sha256:52836367caaf346eefd8a6a66e1a5836ec061791319cb311c91f0c28afb8af4d
+              tag: main@sha256:12a5ce0c57d6c75a66627cc2ae9f01bfa85b375d3169ffb530682fe0ec7860d2
             args:
               - --cfg-dir
               - /mktxp_config
