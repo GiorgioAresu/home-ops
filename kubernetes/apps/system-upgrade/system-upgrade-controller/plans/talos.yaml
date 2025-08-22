@@ -5,10 +5,10 @@ kind: Plan
 metadata:
   name: talos
 spec:
-  version: ${TALOS_VERSION}
+  # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+  version: v1.10.5
   concurrency: 1
   exclusive: true
-  jobActiveDeadlineSecs: 900
   nodeSelector:
     matchExpressions:
       - key: kubernetes.io/hostname
