@@ -82,7 +82,7 @@ resource "routeros_interface_wireguard_peer" "laptop_giorgio" {
 }
 resource "routeros_interface_wireguard_peer" "phone_sara" {
   provider             = routeros.rb5009
-  comment              = "Managed by Terraform - Pixel 6A"
+  comment              = "Managed by Terraform - Pixel 9A"
   allowed_address      = ["10.17.100.3/32"]
   client_address       = "10.17.100.3/32"
   client_dns           = "10.17.100.1"
@@ -91,7 +91,7 @@ resource "routeros_interface_wireguard_peer" "phone_sara" {
   client_listen_port   = null
   disabled             = false
   interface            = routeros_interface_wireguard.home.name
-  name                 = "Pixel6A"
+  name                 = "Pixel9A"
   persistent_keepalive = null
   preshared_key        = var.wireguard_phone_sara_preshared_key
   private_key          = var.wireguard_phone_sara_private_key
