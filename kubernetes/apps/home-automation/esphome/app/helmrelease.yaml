@@ -29,9 +29,9 @@ spec:
           #       "mac": "92:cf:d7:05:70:84"
           #     }]
           securityContext:
-            runAsUser: 2000
-            runAsGroup: 2000
-            fsGroup: 2000
+            runAsUser: 65534
+            runAsGroup: 65534
+            fsGroup: 65534
             fsGroupChangePolicy: OnRootMismatch
 
         containers:
@@ -41,6 +41,7 @@ spec:
               tag: 2025.8.0@sha256:8ef95f40bc978ae59220dd2054c2d6e274935c3f016fc6ed47fd0aa627584a7b
             env:
               ESPHOME_DASHBOARD_USE_PING: "true"
+              GIT_AUTHOR_NAME: Giorgio Aresu
             probes:
               liveness:
                 enabled: false
