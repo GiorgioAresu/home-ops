@@ -26,13 +26,6 @@ spec:
     ### Component values
     ###
     alertmanager:
-      ingress:
-        enabled: true
-        ingressClassName: internal-nginx
-        hosts:
-          - alertmanager.aresu.eu
-        paths:
-          - /
       route:
         main:
           enabled: true
@@ -134,13 +127,6 @@ spec:
     ### Prometheus instance values
     ###
     prometheus:
-      ingress:
-        enabled: true
-        ingressClassName: internal-nginx
-        hosts:
-          - prometheus.aresu.eu
-        pathType: Prefix
-
       prometheusSpec:
         image:
           registry: docker.io

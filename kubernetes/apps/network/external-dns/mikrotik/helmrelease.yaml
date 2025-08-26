@@ -19,8 +19,6 @@ spec:
     fullnameOverride: &name externaldns-mikrotik
     domainFilters:
       - aresu.eu
-    extraArgs:
-      - --ignore-ingress-tls-spec
     podAnnotations:
       secret.reloader.stakater.com/reload: externaldns-mikrotik-secret
     policy: sync
@@ -56,7 +54,6 @@ spec:
           - name: MIKROTIK_DEFAULT_COMMENT
             value: Managed by ExternalDNS
         extraArgs:
-          - --ignore-ingress-tls-spec
           - --managed-record-types=A
           # - --managed-record-types=AAAA
           - --managed-record-types=CNAME
@@ -85,9 +82,7 @@ spec:
     serviceMonitor:
       enabled: true
     sources:
-      # - gateway-httproute # TODO: Replace with this when GatewayRoutes work
-      - ingress
-
+      - gateway-httproute
       - service
     triggerLoopOnEvent: true
     txtOwnerId: main

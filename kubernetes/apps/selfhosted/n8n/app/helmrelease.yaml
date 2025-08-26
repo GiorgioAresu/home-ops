@@ -18,14 +18,12 @@ spec:
       n8n:
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
             fsGroup: 1000
             fsGroupChangePolicy: "OnRootMismatch"
-
         containers:
           app:
             image:
@@ -54,33 +52,11 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 2Gi
-
     service:
       app:
         ports:
           http:
             port: *port
-
-    ingress:
-      app:
-        className: "internal-nginx"
-        hosts:
-          - host: *hostName
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-      webhook:
-        className: "external-nginx"
-        hosts:
-          - host: n8n-webhook.aresu.eu
-            paths:
-              - path: /webhook
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       data:
         existingClaim: n8n
@@ -88,7 +64,6 @@ spec:
           n8n:
             app:
               - path: /home/node/.n8n
-
     route:
       app:
         hostnames:
@@ -99,7 +74,7 @@ spec:
             sectionName: https
       webhooks:
         hostnames:
-          - n8n-webhook.aresu.eu
+          - n8n-webhook.bjw-s.dev
         parentRefs:
           - name: external
             namespace: kube-system
@@ -108,6 +83,4 @@ spec:
           - matches:
               - path:
                   value: /webhook
-            backendRefs:
-              - name: n8n
-                port: *port
+            backendRefs: [{}]

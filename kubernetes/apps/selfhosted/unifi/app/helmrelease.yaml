@@ -13,13 +13,11 @@ spec:
   dependsOn:
     - name: longhorn
       namespace: longhorn
-
   values:
     controllers:
       unifi:
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           securityContext:
             runAsUser: 999
@@ -27,7 +25,6 @@ spec:
             runAsNonRoot: true
             fsGroup: 999
             fsGroupChangePolicy: "OnRootMismatch"
-
         containers:
           app:
             image:
@@ -44,20 +41,6 @@ spec:
               requests:
                 memory: 1Gi
                 cpu: 50m
-
-    ingress:
-      app:
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-        className: "internal-nginx"
-        hosts:
-          - host: unifi.aresu.eu
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: https
-
     service:
       app:
         type: LoadBalancer
@@ -89,13 +72,11 @@ spec:
           discovery:
             port: 10001
             protocol: UDP
-
     persistence:
       config:
         existingClaim: unifi
         globalMounts:
           - path: /unifi
-
     route:
       app:
         hostnames:
@@ -103,4 +84,4 @@ spec:
         parentRefs:
           - name: internal
             namespace: kube-system
-            sectionName: controller
+            sectionName: https

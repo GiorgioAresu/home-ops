@@ -16,17 +16,14 @@ spec:
       it-tools:
         replicas: 1
         strategy: RollingUpdate
-
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
             fsGroup: 1000
             fsGroupChangePolicy: "OnRootMismatch"
-
         containers:
           app:
             image:
@@ -44,31 +41,17 @@ spec:
                 drop:
                   - ALL
               readOnlyRootFilesystem: true
-
     service:
       app:
         ports:
           http:
             port: &port 8080
-
-    ingress:
-      app:
-        className: "internal-nginx"
-        hosts:
-          - host: it-tools.aresu.eu
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       tmpfs:
         type: emptyDir
         globalMounts:
           - path: /tmp
             subPath: tmp
-
     route:
       app:
         hostnames:

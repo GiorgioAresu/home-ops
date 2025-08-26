@@ -55,23 +55,24 @@ spec:
     annotations:
       configmap.reloader.stakater.com/reload: longhorn-default-setting
 
-    ingress:
-      enabled: true
-      ingressClassName: internal-nginx
-      annotations:
-        hajimari.io/appName: "longhorn"
-        hajimari.io/enable: "true"
-        hajimari.io/group: "admin"
-        hajimari.io/icon: "harddisk"
-        nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-        nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-        # prevent the controller from redirecting (308) to HTTPS
-        nginx.ingress.kubernetes.io/ssl-redirect: 'false'
-        # custom max body size for file uploading like backing image uploading
-        nginx.ingress.kubernetes.io/proxy-body-size: 10000m
-      host: "longhorn.${SECRET_DOMAIN}"
-      path: /
-      tls: true
+    # TODO: Add internal separate route to replace this
+    # ingress:
+    #   enabled: true
+    #   ingressClassName: internal-nginx
+    #   annotations:
+    #     hajimari.io/appName: "longhorn"
+    #     hajimari.io/enable: "true"
+    #     hajimari.io/group: "admin"
+    #     hajimari.io/icon: "harddisk"
+    #     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    #     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    #     # prevent the controller from redirecting (308) to HTTPS
+    #     nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+    #     # custom max body size for file uploading like backing image uploading
+    #     nginx.ingress.kubernetes.io/proxy-body-size: 10000m
+    #   host: "longhorn.${SECRET_DOMAIN}"
+    #   path: /
+    #   tls: true
 
     persistence:
       defaultClassReplicaCount: 2

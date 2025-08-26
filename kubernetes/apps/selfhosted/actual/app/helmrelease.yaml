@@ -60,17 +60,6 @@ spec:
           http:
             port: *httpPort
 
-    ingress:
-      app:
-        className: "internal-nginx"
-        hosts:
-          - host: actual.aresu.eu
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       data:
         existingClaim: actual-data

@@ -71,17 +71,6 @@ spec:
           http:
             port: *port
 
-    ingress:
-      app:
-        className: "internal-nginx"
-        hosts:
-          - host: bazarr.aresu.eu
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       config:
         existingClaim: bazarr-config

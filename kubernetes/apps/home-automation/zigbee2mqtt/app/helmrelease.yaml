@@ -136,23 +136,6 @@ spec:
           code-server:
             port: 12321
 
-    ingress:
-      app:
-        className: "internal-nginx"
-        annotations:
-          nginx.ingress.kubernetes.io/rewrite-target: /$1
-        hosts:
-          - host: zigbee2mqtt.${SECRET_DOMAIN}
-            paths:
-              - path: /(.*)
-                service:
-                  identifier: app
-                  port: http
-              - path: /code/(.*)
-                service:
-                  identifier: app
-                  port: code-server
-
     persistence:
       data:
         existingClaim: zigbee2mqtt-data

@@ -96,26 +96,6 @@ spec:
           http:
             port: &code-server-port 12321
 
-    ingress:
-      app:
-        className: "internal-nginx"
-        hosts:
-          - host: esphome.aresu.eu
-            paths:
-              - path: "/"
-                service:
-                  identifier: app
-                  port: *esphome-port
-      code-server:
-        className: "internal-nginx"
-        hosts:
-          - host: esphome-code.aresu.eu
-            paths:
-              - path: "/"
-                service:
-                  identifier: code-server
-                  port: *code-server-port
-
     persistence:
       config:
         existingClaim: esphome-config

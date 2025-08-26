@@ -60,17 +60,6 @@ spec:
                 drop:
                   - ALL
 
-    ingress:
-      app:
-        className: "internal-nginx"
-        hosts:
-          - host: qbittorrent.aresu.eu
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     service:
       app:
         forceRename: qbittorrent

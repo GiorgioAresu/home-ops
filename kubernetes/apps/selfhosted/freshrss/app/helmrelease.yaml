@@ -18,10 +18,8 @@ spec:
       freshrss:
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           hostUsers: false
-
         containers:
           app:
             image:
@@ -42,24 +40,11 @@ spec:
                 memory: 128M
               limits:
                 memory: 256Mi
-
     service:
       app:
         ports:
           http:
             port: &port 8080
-
-    ingress:
-      app:
-        className: "internal-nginx"
-        hosts:
-          - host: rss.aresu.eu
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       data:
         existingClaim: freshrss
@@ -72,7 +57,6 @@ spec:
               - path: /var/www/FreshRSS/extensions
                 subPath: extensions
                 readOnly: false
-
     route:
       app:
         hostnames:

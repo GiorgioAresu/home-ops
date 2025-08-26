@@ -71,17 +71,6 @@ spec:
           http:
             port: *port
 
-    ingress:
-      app:
-        className: external-nginx
-        hosts:
-          - host: "{{ .Release.Name }}.aresu.eu"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       config:
         existingClaim: jellyfin-config

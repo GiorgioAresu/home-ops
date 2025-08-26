@@ -28,10 +28,7 @@ spec:
       - --cloudflare-proxied
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
-      - --ignore-ingress-tls-spec
-
-      # - --gateway-label-filter=gateway==external # TODO: Replace with this when GatewayRoutes work
-      - --ingress-class=external-nginx
+      - --gateway-name=external
     podAnnotations:
       secret.reloader.stakater.com/reload: externaldns-cloudflare-secrets
     policy: sync
@@ -46,9 +43,7 @@ spec:
     serviceMonitor:
       enabled: true
     sources:
-      # - gateway-httproute # TODO: Replace with this when GatewayRoutes work
-      - ingress
-
+      - gateway-httproute
       - crd
     triggerLoopOnEvent: true
     txtOwnerId: main

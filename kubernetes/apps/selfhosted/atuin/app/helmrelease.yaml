@@ -18,7 +18,6 @@ spec:
       atuin:
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           securityContext:
             runAsNonRoot: true
@@ -26,7 +25,6 @@ spec:
             runAsGroup: 2000
             fsGroup: 2000
             fsGroupChangePolicy: OnRootMismatch
-
         containers:
           app:
             image:
@@ -73,18 +71,15 @@ spec:
           http:
             port: *port
 
-    ingress:
-      app:
-        enabled: true
-        className: "internal-nginx"
-        hosts:
-          - host: atuin.aresu.eu
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       config:
         existingClaim: atuin
+        
+    route:
+      app:
+        hostnames:
+          - atuin.aresu.eu
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https

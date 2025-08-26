@@ -80,20 +80,6 @@ spec:
             port: 21027
             protocol: UDP
 
-    ingress:
-      app:
-        annotations:
-          nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
-          nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
-        className: "internal-nginx"
-        hosts:
-          - host: syncthing.aresu.eu
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       data:
         existingClaim: syncthing-config
@@ -120,3 +106,7 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
+            timeouts:
+              request: 2m
+              backendRequest: 2m
+

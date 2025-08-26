@@ -300,14 +300,6 @@ spec:
     imageRenderer:
       enabled: true
 
-    ingress:
-      enabled: true
-      ingressClassName: internal-nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: ingress-int.aresu.eu
-      hosts:
-        - grafana.aresu.eu
-
     persistence:
       enabled: false
 

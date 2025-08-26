@@ -21,7 +21,6 @@ spec:
         runAsNonRoot: true
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-
     controllers:
       karakeep:
         forceRename: karakeep
@@ -63,7 +62,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
-
       chrome:
         annotations:
           reloader.stakater.com/auto: "true"
@@ -91,7 +89,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
-
       meilisearch:
         annotations:
           reloader.stakater.com/auto: "true"
@@ -130,7 +127,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 2Gi
-
     service:
       app:
         forceRename: karakeep
@@ -149,18 +145,6 @@ spec:
         ports:
           http:
             port: 7700
-
-    ingress:
-      app:
-        className: "internal-nginx"
-        hosts:
-          - host: karakeep.aresu.eu
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       data:
         existingClaim: karakeep-data
@@ -173,7 +157,6 @@ spec:
             app:
               - path: /meili_data
                 subPath: meilisearch
-
     route:
       app:
         hostnames:

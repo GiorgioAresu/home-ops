@@ -77,19 +77,6 @@ spec:
           http:
             port: *port
 
-    ingress:
-      app:
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-        className: external-nginx
-        hosts:
-          - host: "{{ .Release.Name }}.aresu.eu"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       config:
         existingClaim: plex-config

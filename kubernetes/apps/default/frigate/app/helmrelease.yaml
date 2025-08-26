@@ -85,17 +85,6 @@ spec:
           rtsp:
             port: 8554
 
-    ingress:
-      app:
-        className: internal-nginx
-        hosts:
-          - host: "{{ .Release.Name }}.aresu.eu"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       config:
         existingClaim: frigate
@@ -123,3 +112,16 @@ spec:
         path: /mnt/tank/media/Frigate
         globalMounts:
           - path: /media/frigate
+
+    route:
+      app:
+        hostnames:
+          - frigate.aresu.eu
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port

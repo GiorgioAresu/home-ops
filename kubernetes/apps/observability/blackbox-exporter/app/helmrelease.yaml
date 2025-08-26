@@ -38,18 +38,6 @@ spec:
           timeout: 5s
           tcp:
             preferred_ip_protocol: ip4
-
-    ingress:
-      enabled: true
-      className: internal-nginx
-      annotations:
-        external-dns.alpha.kubernetes.io/target: &hostname "ingress-int.aresu.eu"
-      hosts:
-        - host: "{{ .Release.Name }}.aresu.eu"
-          paths:
-            - path: /
-              pathType: Prefix
-
     prometheusRule:
       enabled: true
       rules:

@@ -16,17 +16,14 @@ spec:
       homepage:
         replicas: 1
         strategy: RollingUpdate
-
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
             fsGroup: 1000
             fsGroupChangePolicy: "OnRootMismatch"
-
         containers:
           app:
             image:
@@ -49,27 +46,13 @@ spec:
                 drop:
                   - ALL
               # readOnlyRootFilesystem: true
-
         serviceAccount:
           identifier: homepage
-
     service:
       app:
         ports:
           http:
             port: &port 3000
-
-    ingress:
-      app:
-        className: "internal-nginx"
-        hosts:
-          - host: home.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       config:
         type: configMap
@@ -98,7 +81,6 @@ spec:
         globalMounts:
           - path: /app/config/logs
             subPath: logs
-
     route:
       app:
         hostnames:
@@ -107,6 +89,5 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-
     serviceAccount:
       homepage: {}
