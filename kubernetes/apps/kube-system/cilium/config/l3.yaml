@@ -43,10 +43,10 @@ spec:
       kubernetes.io/os: linux
   bgpInstances:
     - name: cilium
-      localASN: 64501
+      localASN: 64514
       peers:
-        - name: hap-ax3
-          peerASN: 64501
+        - name: mikrotik
+          peerASN: 64513
           peerAddress: 10.17.1.1
           # peerAddress: 10.1.0.1
           peerConfigRef:
