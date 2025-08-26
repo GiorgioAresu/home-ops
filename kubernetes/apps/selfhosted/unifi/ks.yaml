@@ -15,7 +15,7 @@ spec:
   dependsOn:
     - name: volsync
       namespace: system
-  path: "./kubernetes/apps/network/unifi/app"
+  path: "./kubernetes/apps/selfhosted/unifi/app"
   prune: true
   sourceRef:
     kind: GitRepository
