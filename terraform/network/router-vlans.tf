@@ -62,7 +62,7 @@ resource "routeros_interface_bridge_vlan" "iot" {
   comment  = "Managed by Terraform"
   bridge   = routeros_interface_bridge.bridge.name
   vlan_ids = [routeros_interface_vlan.iot.vlan_id]
-  tagged   = [routeros_interface_bridge.bridge.name, routeros_interface_ethernet.rb5009_ether2.name, routeros_interface_ethernet.rb5009_ether5.name, routeros_interface_ethernet.rb5009_ether7.name, routeros_interface_ethernet.rb5009_ether8.name]
+  tagged   = [routeros_interface_bridge.bridge.name, routeros_interface_ethernet.rb5009_ether2.name, routeros_interface_ethernet.rb5009_ether3.name, routeros_interface_ethernet.rb5009_ether5.name, routeros_interface_ethernet.rb5009_ether7.name, routeros_interface_ethernet.rb5009_ether8.name]
 }
 resource "routeros_interface_bridge_vlan" "router_wan_backup" {
   provider = routeros.rb5009
