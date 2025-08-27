@@ -7,18 +7,15 @@ tasks:
     desc: Bootstrap Talos
     prompt: Bootstrap Talos ...?
     vars:
-      TALOS_CONTROLLER:
+      RANDOM_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
-      - which jq minijinja-cli sops talosctl
-      - test -f "${TALOSCONFIG}"
       - talosctl config info
+      - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
+      - which jq talosctl
     cmds:
-      - task: :talos:apply-clusterconfig
-        vars:
-          INSECURE: "true"
-      - until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 5; done
-      - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name "home-ops" "${KUBECONFIG}"
+      - until talosctl --nodes {{.RANDOM_CONTROLLER}} bootstrap; do sleep 5; done
+      - talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
 
   apps:
     desc: Bootstrap Kubernetes Apps
