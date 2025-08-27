@@ -145,7 +145,9 @@ resource "routeros_ip_dhcp_server" "lan" {
   name            = "LAN"
   address_pool    = routeros_ip_pool.lan.name
   interface       = routeros_interface_bridge.bridge.name
+  lease_time      = "1d"
   use_reconfigure = true
+
 }
 resource "routeros_ip_dhcp_server" "guest" {
   provider        = routeros.rb5009
@@ -153,7 +155,9 @@ resource "routeros_ip_dhcp_server" "guest" {
   name            = "Guest"
   address_pool    = routeros_ip_pool.guest.name
   interface       = routeros_interface_vlan.guest.name
+  lease_time      = "1d"
   use_reconfigure = true
+
 }
 resource "routeros_ip_dhcp_server" "security" {
   provider        = routeros.rb5009
@@ -161,7 +165,9 @@ resource "routeros_ip_dhcp_server" "security" {
   name            = "Security"
   address_pool    = routeros_ip_pool.security.name
   interface       = routeros_interface_vlan.security.name
+  lease_time      = "1d"
   use_reconfigure = true
+
 }
 resource "routeros_ip_dhcp_server" "iot" {
   provider        = routeros.rb5009
@@ -169,7 +175,9 @@ resource "routeros_ip_dhcp_server" "iot" {
   name            = "IoT"
   address_pool    = routeros_ip_pool.iot.name
   interface       = routeros_interface_vlan.iot.name
+  lease_time      = "1d"
   use_reconfigure = true
+
 }
 
 
