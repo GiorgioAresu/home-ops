@@ -68,7 +68,7 @@ tasks:
       FILE:
         sh: ls {{.K8S_DIR}}/talos/clusterconfig/home-ops-{{.NODE}}*.yaml
       TALOS_IMAGE:
-        sh: yq '.machine.install.image' < "{{.FILE}}"
+        sh: yq ea '.machine.install.image | select(document_index == 0)' < "{{.FILE}}"
     cmds:
       - talosctl --nodes {{.NODE}} upgrade --image="{{.TALOS_IMAGE}}" --timeout=10m
       - talosctl --nodes {{.NODE}} health
