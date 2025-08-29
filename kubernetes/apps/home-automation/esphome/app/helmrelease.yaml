@@ -17,6 +17,7 @@ spec:
     controllers:
       esphome:
         annotations:
+          configmap.reloader.stakater.com/reload: esphome-coder-entrypoint.d
           secret.reloader.stakater.com/reload: esphome-secrets,esphome-deploykey
 
         pod:
@@ -78,6 +79,7 @@ spec:
               - "12321"
               - /config
             env:
+              ESPHOME_VERSION: '{{ (split "@" .Values.controllers.esphome.containers.app.image.tag)._0 }}'
               GIT_AUTHOR_NAME: Giorgio Aresu
             resources:
               requests:
@@ -143,6 +145,15 @@ spec:
             code-server:
               - path: /home/coder/.ssh/id_ed25519
                 subPath: id_ed25519
+      entrypoint-d:
+        type: configMap
+        name: esphome-coder-entrypoint.d
+        defaultMode: 0777
+        advancedMounts:
+          esphome:
+            code-server:
+              - path: /entrypoint.d
+                readOnly: true
 
     route:
       app:

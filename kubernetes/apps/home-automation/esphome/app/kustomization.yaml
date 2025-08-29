@@ -5,3 +5,12 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
+configMapGenerator:
+  - name: esphome-coder-entrypoint.d
+    files:
+      - 01_install-brew.sh=./resources/01_install-brew.sh
+      - 02_install-esphome.sh=./resources/02_install-esphome.sh
+generatorOptions:
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+  disableNameSuffixHash: true
