@@ -11,3 +11,4 @@ spec:
     - name: http
       port: 8123
       targetPort: 8123
+      appProtocol: kubernetes.io/wss
