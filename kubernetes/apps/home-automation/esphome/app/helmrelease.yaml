@@ -165,17 +165,30 @@ spec:
             namespace: kube-system
             sectionName: https
         rules:
+          - matches:
+              - path:
+                  type: Exact
+                  value: /code
+            filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /code/
+                  statusCode: 301
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /code/
+            filters:
+              - type: URLRewrite
+                urlRewrite:
+                  path:
+                    type: ReplacePrefixMatch
+                    replacePrefixMatch: /
+            backendRefs:
+              - identifier: code-server
+                port: *code-server-port
           - backendRefs:
               - identifier: app
                 port: *esphome-port
-      code-server:
-        hostnames:
-          - esphome-code.aresu.eu
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: code-server
-                port: *code-server-port
