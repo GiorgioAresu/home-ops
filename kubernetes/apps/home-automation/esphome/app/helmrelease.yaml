@@ -128,9 +128,9 @@ spec:
         type: emptyDir
         advancedMounts:
           esphome:
-            # app:
-            #   - path: /cache
-            #     subPath: cache
+            app:
+              - path: /cache
+                subPath: cache
             code-server:
               - path: /tmp
                 subPath: code-server-tmp
