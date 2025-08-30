@@ -1,0 +1,50 @@
+---
+machine:
+  install:
+    disk: /dev/sda
+    image: factory.talos.dev/metal-installer/583560d413df7502f15f3c274c36fc23ce1af48cef89e98b1e563fb49127606e:v1.11.0-rc.0
+  network:
+    hostname: kube-proxmox-02.aresu.eu
+    interfaces:
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: bc:24:11:13:e0:a6
+              # driver: igc
+          mode: active-backup
+        dhcp: true
+        vip:
+          ip: 10.1.1.8
+        vlans:
+          - vlanId: 50
+            dhcp: false
+            mtu: 1500
+  nodeLabels:
+    node.kubernetes.io/virtual: "false"
+    node.longhorn.io/create-default-disk: "true"
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: system_disk
+  grow: false
+  maxSize: 10GB
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+provisioning:
+  diskSelector:
+    match: system_disk
+  grow: true
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: longhorn
+provisioning:
+  diskSelector:
+    match: '!system_disk'
+  grow: true
+  minSize: 50GiB

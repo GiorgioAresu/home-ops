@@ -1,0 +1,51 @@
+---
+machine:
+  install:
+    diskSelector:
+      model: UDSS UD2CS1HT100
+    image: factory.talos.dev/metal-installer/8d37fcc01bb9173406853e7fd97ad9eda40732043f88e09dafe55e53fcf4b510:v1.11.0-rc.0
+  network:
+    hostname: kube-bmax-01.aresu.eu
+    interfaces:
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: 00:e0:4c:2e:36:08
+              # driver: igc
+          mode: active-backup
+        dhcp: true
+        vip:
+          ip: 10.1.1.8
+        vlans:
+          - vlanId: 50
+            dhcp: false
+            mtu: 1500
+  nodeLabels:
+    node.kubernetes.io/virtual: "false"
+    node.longhorn.io/create-default-disk: "true"
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: system_disk
+  grow: false
+  maxSize: 10GB
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+provisioning:
+  diskSelector:
+    match: system_disk
+  grow: false
+  maxSize: 40GB
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: longhorn
+provisioning:
+  diskSelector:
+    match: system_disk
+  maxSize: 400GiB

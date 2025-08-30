@@ -1,0 +1,11 @@
+---
+customization:
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/i915             # Intel iGPU
+      - siderolabs/intel-ucode      # Intel
+      - siderolabs/iscsi-tools      # Longhorn
+      - siderolabs/mei              # Intel
+      - siderolabs/qemu-guest-agent # Proxmox
+      - siderolabs/thunderbolt      # Thunderbolt
+      - siderolabs/util-linux-tools # Longhorn
