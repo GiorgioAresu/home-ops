@@ -46,7 +46,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: unifi-controller.aresu.eu
-          io.cilium/lb-ipam-ips: ${SVC_UNIFIDIRECT_ADDR}
+          lbipam.cilium.io/ips: ${SVC_UNIFIDIRECT_ADDR}
         ports:
           https:
             port: 443
