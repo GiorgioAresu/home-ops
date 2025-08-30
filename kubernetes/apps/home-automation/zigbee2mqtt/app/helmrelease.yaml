@@ -157,6 +157,17 @@ spec:
         rules:
           - matches:
               - path:
+                  type: Exact
+                  value: /code
+            filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /code/
+                  statusCode: 301
+          - matches:
+              - path:
                   type: PathPrefix
                   value: /code/
             filters:
