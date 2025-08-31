@@ -5,7 +5,8 @@
 resource "routeros_ip_dns" "dns-server" {
   provider              = routeros.rb5009
   allow_remote_requests = true
-  cache_size            = 20480
+  cache_size            = 30720
+  cache_max_ttl         = "1w"
   servers = [
     "1.1.1.1", "2606:4700:4700::1111",
     "1.0.0.1", "2606:4700:4700::1001",
