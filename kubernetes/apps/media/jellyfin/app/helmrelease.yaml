@@ -70,6 +70,7 @@ spec:
         ports:
           http:
             port: *port
+            appProtocol: kubernetes.io/wss
 
     persistence:
       config:
