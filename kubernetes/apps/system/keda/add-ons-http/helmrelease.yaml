@@ -13,3 +13,7 @@ spec:
     - name: keda
       namespace: system
   values:
+    interceptor:
+      tcpConnectTimeout: 5000ms # default: 500ms
+      keepAlive: 10s # default: 1s
+      responseHeaderTimeout: 5000ms # default: 500ms

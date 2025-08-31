@@ -1,0 +1,104 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: ${APP}
+  labels:
+    name: ${APP}
+spec:
+  hostnames:
+    - esphome.aresu.eu
+  parentRefs:
+    - name: internal
+      namespace: kube-system
+      sectionName: http
+  rules:
+    # - backendRefs:
+    #     - name: ${APP}
+    #       namespace: home-automation
+    #       port: 6052
+    - backendRefs:
+        - name: ${APP}-interceptor-proxy
+          namespace: home-automation
+          port: 8080
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: ${APP}
+  namespace: system
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    namespace: home-automation
+  to:
+  - group: ""
+    kind: Service
+    name: keda-add-ons-http-interceptor-proxy
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${APP}-interceptor-proxy
+spec:
+  type: ExternalName
+  externalName: keda-add-ons-http-interceptor-proxy.system.svc.cluster.local
+---
+apiVersion: http.keda.sh/v1alpha1
+kind: HTTPScaledObject
+metadata:
+  name: ${APP}
+  annotations:
+    httpscaledobject.keda.sh/skip-scaledobject-creation: true
+spec:
+  hosts:
+    - esphome.aresu.eu
+  scalingMetric:
+    requestRate:
+      granularity: 1s
+      targetValue: 2
+      window: 1m
+  scaledownPeriod: 300
+  scaleTargetRef:
+      name: esphome
+      service: esphome
+      port: 6052
+  replicas:
+      min: 0
+      max: 1
+  targetPendingRequests: 1
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/keda.sh/scaledobject_v1alpha1.json
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: ${APP} # Must not have the same name as the HTTPScaledObject
+  annotations:
+    autoscaling.keda.sh/paused: true
+spec:
+  initialCooldownPeriod: 120
+  cooldownPeriod: 30
+  minReplicaCount: 0
+  maxReplicaCount: 1
+  pollingInterval: 5
+  fallback:
+    failureThreshold: 5
+    replicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ${APP}
+  advanced:
+    horizontalPodAutoscalerConfig:
+      name: esphome
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 300
+  triggers:
+    - type: external-push
+      name: http_trig
+      metadata:
+        httpScaledObject: ${APP}
+        scalerAddress: keda-add-ons-http-external-scaler.system:9090
