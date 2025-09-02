@@ -3,7 +3,18 @@
 apiVersion: cilium.io/v2
 kind: CiliumLoadBalancerIPPool
 metadata:
-  name: pool
+  name: pool-bgp
+spec:
+  allowFirstLastIPs: "Yes"
+  blocks:
+    - start: 10.1.1.200
+      stop: 10.1.1.230
+---
+# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/cilium.io/ciliumloadbalancerippool_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: pool-lan
 spec:
   allowFirstLastIPs: "Yes"
   blocks:
