@@ -87,8 +87,8 @@ resource "routeros_ip_dhcp_server_option" "unifi" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   code     = 43
-  name     = "unifi-10.17.1.218"
-  value    = "0x01040a1101da" # https://tcpip.wtf/en/unifi-l3-adoption-with-dhcp-option-43-on-pfsense-mikrotik-and-others.htm
+  name     = "unifi-10.1.1.218"
+  value    = "0x01040a0101da" # https://tcpip.wtf/en/unifi-l3-adoption-with-dhcp-option-43-on-pfsense-mikrotik-and-others.htm
 }
 
 

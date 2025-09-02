@@ -35,7 +35,7 @@ spec:
               repository: ghcr.io/home-operations/plex
               tag: 1.42.1.10060
             env:
-              PLEX_ADVERTISE_URL: https://10.17.1.210:32400,https://{{ .Release.Name }}.aresu.eu:443
+              PLEX_ADVERTISE_URL: https://10.1.1.210:32400,https://{{ .Release.Name }}.aresu.eu:443
               PLEX_NO_AUTH_NETWORKS: 10.244.0.0/16
             probes:
               liveness: &probes
@@ -72,7 +72,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 10.17.1.210
+          lbipam.cilium.io/ips: 10.1.1.210
         ports:
           http:
             port: *port

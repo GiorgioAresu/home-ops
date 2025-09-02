@@ -19,7 +19,7 @@ resource "routeros_ip_firewall_nat" "syncthing_tcp" {
   protocol          = "tcp"
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 22000
-  to_addresses      = "10.17.1.212"
+  to_addresses      = "10.1.1.212"
 }
 
 resource "routeros_ip_firewall_nat" "syncthing_udp" {
@@ -31,7 +31,7 @@ resource "routeros_ip_firewall_nat" "syncthing_udp" {
   protocol          = "udp"
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 22000
-  to_addresses      = "10.17.1.212"
+  to_addresses      = "10.1.1.212"
 }
 
 resource "routeros_ip_firewall_nat" "ingress" {
@@ -43,7 +43,7 @@ resource "routeros_ip_firewall_nat" "ingress" {
   protocol          = "tcp"
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 443
-  to_addresses      = "10.17.1.201"
+  to_addresses      = "10.1.1.201"
 }
 
 resource "routeros_ip_firewall_nat" "qbittorrent_tcp" {
@@ -55,7 +55,7 @@ resource "routeros_ip_firewall_nat" "qbittorrent_tcp" {
   protocol          = "tcp"
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 52015
-  to_addresses      = "10.17.1.215"
+  to_addresses      = "10.1.1.215"
 }
 
 resource "routeros_ip_firewall_nat" "qbittorrent_udp" {
@@ -67,7 +67,7 @@ resource "routeros_ip_firewall_nat" "qbittorrent_udp" {
   protocol          = "udp"
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 52015
-  to_addresses      = "10.17.1.216"
+  to_addresses      = "10.1.1.216"
 }
 
 resource "routeros_ip_firewall_nat" "ntp" {
