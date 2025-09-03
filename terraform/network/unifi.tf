@@ -26,6 +26,13 @@ resource "unifi_port_profile" "guest" {
   poe_mode              = "off"
 }
 
+resource "unifi_port_profile" "security" {
+  name                  = "Security"
+  native_networkconf_id = unifi_network.security.id
+  forward               = "native"
+  poe_mode              = "off"
+}
+
 resource "unifi_port_profile" "iot" {
   name                  = "IoT"
   native_networkconf_id = unifi_network.iot.id
@@ -51,10 +58,14 @@ resource "unifi_device" "usw_flex_mini" {
 
   port_override {
     number = 3
+    name            = "Camera-Dome"
+    port_profile_id = unifi_port_profile.security.id
   }
 
   port_override {
     number = 4
+    name            = "Camera-Bullet"
+    port_profile_id = unifi_port_profile.security.id
   }
 
   port_override {

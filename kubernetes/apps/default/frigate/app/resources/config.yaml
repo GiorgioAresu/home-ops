@@ -7,16 +7,16 @@ go2rtc:
   #   password: "pass"
   streams:
     bullet:
-      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.40.122/0
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.40.100/0
       - "ffmpeg:bullet#audio=opus" # <- copy of the stream which transcodes audio to opus
     bullet_sub:
-      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.40.122/1
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.40.100/1
       - "ffmpeg:bullet_sub#audio=opus" # <- copy of the stream which transcodes audio to opus
     dome:
-      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.40.128/0
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.40.101/0
       - "ffmpeg:dome#audio=opus" # <- copy of the stream which transcodes audio to opus
     dome_sub:
-      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.40.128/1
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.40.101/1
       - "ffmpeg:dome_sub#audio=opus" # <- copy of the stream which transcodes audio to opus
     DCS-935L:
       - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@10.17.50.199:554/play1.sdp # <- stream which supports video & aac audio. This is only supported for rtsp streams, http must use ffmpeg
@@ -113,7 +113,7 @@ cameras:
           input_args: preset-rtsp-restream
           roles:
             - record
-    webui_url: http://10.17.40.122
+    webui_url: http://10.17.40.100
   dome:
     ffmpeg:
       output_args:
@@ -127,4 +127,4 @@ cameras:
           input_args: preset-rtsp-restream
           roles:
             - record
-    webui_url: http://10.17.40.128
+    webui_url: http://10.17.40.101

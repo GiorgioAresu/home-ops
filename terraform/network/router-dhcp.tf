@@ -368,18 +368,20 @@ resource "routeros_ip_dhcp_server_lease" "framework" {
   address     = "10.17.1.99"
   mac_address = "9E:3C:2C:78:26:29"
 }
+
+### Security
 resource "routeros_ip_dhcp_server_lease" "camera_bullet" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - Bullet camera"
   server      = routeros_ip_dhcp_server.security.name
-  address     = "10.17.50.122"
+  address     = "10.17.40.100"
   mac_address = "00:00:1B:0C:C7:8E"
 }
 resource "routeros_ip_dhcp_server_lease" "camera_dome" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - Dome camera"
   server      = routeros_ip_dhcp_server.security.name
-  address     = "10.17.50.128"
+  address     = "10.17.40.101"
   mac_address = "00:00:1B:04:FB:E7"
 }
 
