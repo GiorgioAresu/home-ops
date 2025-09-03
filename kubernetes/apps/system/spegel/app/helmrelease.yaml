@@ -10,9 +10,9 @@ spec:
     kind: OCIRepository
     name: spegel
   values:
-    spegel:
-      appendMirrors: true
-      containerdSock: /run/containerd/containerd.sock
-      containerdRegistryConfigPath: /etc/cri/conf.d/hosts
     serviceMonitor:
       enabled: true
+    spegel:
+      appendMirrors: true
+      containerdRegistryConfigPath: /etc/cri/conf.d/hosts
+      containerdSock: /run/containerd/containerd.sock
