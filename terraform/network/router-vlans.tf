@@ -32,14 +32,16 @@ resource "unifi_network" "guest" {
   vlan_id = local.vlan_id_guest
 }
 resource "unifi_network" "security" {
-  name    = "security"
-  purpose = "vlan-only"
-  vlan_id = local.vlan_id_security
+  name          = "security"
+  multicast_dns = true
+  purpose       = "vlan-only"
+  vlan_id       = local.vlan_id_security
 }
 resource "unifi_network" "iot" {
-  name    = "iot"
-  purpose = "vlan-only"
-  vlan_id = local.vlan_id_iot
+  name          = "iot"
+  multicast_dns = true
+  purpose       = "vlan-only"
+  vlan_id       = local.vlan_id_iot
 }
 
 resource "routeros_interface_bridge_vlan" "guest" {
