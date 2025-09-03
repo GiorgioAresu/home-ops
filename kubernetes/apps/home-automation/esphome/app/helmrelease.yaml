@@ -94,6 +94,7 @@ spec:
         ports:
           http:
             port: &esphome-port 6052
+            appProtocol: kubernetes.io/wss
       code-server:
         ports:
           http:
