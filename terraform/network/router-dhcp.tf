@@ -475,6 +475,14 @@ resource "routeros_ip_dhcp_server_lease" "plate" {
   address     = "10.17.50.41"
   mac_address = "EC:DA:3B:9B:26:EC"
 }
+resource "routeros_ip_dhcp_server_lease" "sonoff_s60" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Sonoff S60"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.42"
+  mac_address = "9C:9E:6E:DA:77:B0"
+}
+
 # resource "routeros_ip_dhcp_server_lease" "this" { *16
 #   provider    = routeros.rb5009
 #   comment     = "Managed by Terraform"

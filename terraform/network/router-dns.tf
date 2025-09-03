@@ -240,6 +240,13 @@ resource "routeros_ip_dns_record" "plate" {
   name     = "plate.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.plate.address
 }
+resource "routeros_ip_dns_record" "sonoff_s60" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "sonoff_s60.iot.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.sonoff_s60.address
+}
 
 resource "routeros_ip_dns_record" "odroidhc4" {
   provider = routeros.rb5009
