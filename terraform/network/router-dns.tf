@@ -244,14 +244,14 @@ resource "routeros_ip_dns_record" "sonoff_s60" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   type     = "A"
-  name     = "sonoff_s60.iot.aresu.eu"
+  name     = "sonoff-s60.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.sonoff_s60.address
 }
 resource "routeros_ip_dns_record" "irrigation_small" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   type     = "A"
-  name     = "irrigation_small.iot.aresu.eu"
+  name     = "irrigation-small.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.irrigation_small.address
 }
 resource "routeros_ip_dns_record" "alarm" {
