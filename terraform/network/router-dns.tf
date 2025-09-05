@@ -254,6 +254,13 @@ resource "routeros_ip_dns_record" "irrigation_small" {
   name     = "irrigation_small.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.irrigation_small.address
 }
+resource "routeros_ip_dns_record" "alarm" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "alarm.iot.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.alarm.address
+}
 
 resource "routeros_ip_dns_record" "odroidhc4" {
   provider = routeros.rb5009

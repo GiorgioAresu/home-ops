@@ -491,6 +491,13 @@ resource "routeros_ip_dhcp_server_lease" "irrigation_small" {
   address     = "10.17.50.43"
   mac_address = "DC:4F:22:5F:0B:0D"
 }
+resource "routeros_ip_dhcp_server_lease" "alarm" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Alarm System"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.44"
+  mac_address = "cc:50:e3:b6:1e:e0"
+}
 
 # resource "routeros_ip_dhcp_server_lease" "this" { *16
 #   provider    = routeros.rb5009
