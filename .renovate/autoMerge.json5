@@ -29,6 +29,7 @@
         "ghcr.io/home-operations/radarr",
         "ghcr.io/home-operations/readarr",
         "ghcr.io/home-operations/sonarr",
+        "/external-dns-provider-mikrotik/"
       ],
       ignoreTests: false,
     },
