@@ -1,6 +1,7 @@
 ---
 ignore: |
   *.sops.*
+  .history/
 
 extends: default
 
