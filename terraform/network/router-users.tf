@@ -26,7 +26,7 @@ resource "routeros_system_user" "mktxp" {
   name     = "mktxp"
   group    = routeros_system_user_group.mktxp.name
   password = var.mikrotik_user_mktxp_password
-  address  = "10.17.1.34/32,10.17.1.36/32,10.17.1.37/32,10.17.1.38/32" # TODO: Refactor this
+  address  = "10.17.1.36/32,10.17.1.37/32,10.17.1.38/32" # TODO: Refactor this
 }
 
 resource "routeros_system_user_group" "external_dns" {
