@@ -1,14 +1,15 @@
 ---
 machine:
   install:
-    disk: /dev/sda
+    diskSelector:
+      model: KINGSTON OM8PGP41024Q-A0
   network:
-    hostname: kube-proxmox-02.aresu.eu
+    hostname: kube-minisforum-01.aresu.eu
     interfaces:
       - interface: bond0
         bond:
           deviceSelectors:
-            - hardwareAddr: bc:24:11:13:e0:a6
+            - hardwareAddr: 58:47:ca:78:51:3f
               # driver: igc
           mode: active-backup
         dhcp: true
@@ -37,13 +38,14 @@ name: local-hostpath
 provisioning:
   diskSelector:
     match: system_disk
-  grow: true
+  grow: false
+  maxSize: 40GB
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
 name: longhorn
 provisioning:
   diskSelector:
-    match: '!system_disk'
+    match: 'system_disk'
   grow: true
   minSize: 50GiB
