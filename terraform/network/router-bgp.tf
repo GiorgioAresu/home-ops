@@ -50,9 +50,9 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_proxmox_01" {
   }
 }
 
-resource "routeros_routing_bgp_connection" "home_ops_kube_proxmox_02" {
+resource "routeros_routing_bgp_connection" "home_ops_kube_minisforum_01" {
   provider       = routeros.rb5009
-  comment        = "Managed by Terraform - kube-proxmox-02"
+  comment        = "Managed by Terraform - kube-minisforum-01"
   name           = "cilium-bgp"
   as             = local.bgp_as_local
   listen         = true
@@ -71,7 +71,7 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_proxmox_02" {
     role = "ebgp"
   }
   remote {
-    address = routeros_ip_dhcp_server_lease.kube_proxmox_02.address
+    address = routeros_ip_dhcp_server_lease.minisforum_uh125_pro.address
     as      = local.bgp_as_remote_kubernetes
   }
 }

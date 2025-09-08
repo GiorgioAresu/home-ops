@@ -56,20 +56,6 @@ resource "routeros_ip_dns_record" "supermicro" {
   name     = "pve-supermicro.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.supermicro.address
 }
-resource "routeros_ip_dns_record" "proxmox_supermicro" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
-  type     = "A"
-  name     = "proxmox.aresu.eu"
-  address  = routeros_ip_dhcp_server_lease.supermicro.address
-}
-resource "routeros_ip_dns_record" "proxmox_minisforum_uh125" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
-  type     = "A"
-  name     = "proxmox.aresu.eu"
-  address  = routeros_ip_dhcp_server_lease.minisforum_uh125.address
-}
 resource "routeros_ip_dns_record" "prusa" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
@@ -77,12 +63,26 @@ resource "routeros_ip_dns_record" "prusa" {
   name     = "prusa.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.prusa.address
 }
+resource "routeros_ip_dns_record" "kube_nuc_01" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "kube-nuc-01.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.kube_nuc_01.address
+}
 resource "routeros_ip_dns_record" "unraid" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   type     = "A"
   name     = "unraid.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.unraid.address
+}
+resource "routeros_ip_dns_record" "minisforum_uh125_pro" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "kube-minisforum-01.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.minisforum_uh125_pro.address
 }
 resource "routeros_ip_dns_record" "kube-bmax-01" {
   provider = routeros.rb5009
@@ -98,20 +98,6 @@ resource "routeros_ip_dns_record" "kube_proxmox_01" {
   name     = "kube-proxmox-01.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.kube_proxmox_01.address
 }
-resource "routeros_ip_dns_record" "kube_proxmox_02" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
-  type     = "A"
-  name     = "kube-proxmox-02.aresu.eu"
-  address  = routeros_ip_dhcp_server_lease.kube_proxmox_02.address
-}
-resource "routeros_ip_dns_record" "kube_nuc_01" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
-  type     = "A"
-  name     = "kube-nuc-01.aresu.eu"
-  address  = routeros_ip_dhcp_server_lease.kube_nuc_01.address
-}
 resource "routeros_ip_dns_record" "zigbee" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
@@ -119,20 +105,12 @@ resource "routeros_ip_dns_record" "zigbee" {
   name     = "zigbee.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.zigbee.address
 }
-
 resource "routeros_ip_dns_record" "jetkvm" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   type     = "A"
   name     = "jetkvm.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.jetkvm.address
-}
-resource "routeros_ip_dns_record" "minisforum_uh125" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
-  type     = "A"
-  name     = "pve-minisforum.aresu.eu"
-  address  = routeros_ip_dhcp_server_lease.minisforum_uh125.address
 }
 resource "routeros_ip_dns_record" "ipmi_asrockrack" {
   provider = routeros.rb5009

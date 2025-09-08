@@ -235,13 +235,6 @@ resource "routeros_ip_dhcp_server_lease" "jetkvm" {
   address     = "10.17.1.9"
   mac_address = "30:52:53:09:B2:F5"
 }
-resource "routeros_ip_dhcp_server_lease" "minisforum_uh125" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Minisforum UH125 Pro"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.10"
-  mac_address = "58:47:CA:78:51:3F"
-}
 resource "routeros_ip_dhcp_server_lease" "rpi_4_1" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - kube-rpi-01"
@@ -256,12 +249,12 @@ resource "routeros_ip_dhcp_server_lease" "rpi_4_2" {
   address     = "10.17.1.32"
   mac_address = "E4:5F:01:96:B3:70"
 }
-resource "routeros_ip_dhcp_server_lease" "bmax_b4_plus" {
+resource "routeros_ip_dhcp_server_lease" "kube_nuc_01" {
   provider    = routeros.rb5009
-  comment     = "Managed by Terraform - BMAX B4 Plus"
+  comment     = "Managed by Terraform - kube-nuc-01"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.34"
-  mac_address = "00:E0:4C:2E:36:08"
+  mac_address = "68:5B:35:A1:01:CA"
 }
 resource "routeros_ip_dhcp_server_lease" "unraid" {
   provider    = routeros.rb5009
@@ -270,26 +263,26 @@ resource "routeros_ip_dhcp_server_lease" "unraid" {
   address     = "10.17.1.35"
   mac_address = "AA:15:AA:E8:C4:CB"
 }
+resource "routeros_ip_dhcp_server_lease" "minisforum_uh125_pro" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Minisforum UH125 Pro"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.36"
+  mac_address = "58:47:CA:78:51:3F"
+}
+resource "routeros_ip_dhcp_server_lease" "bmax_b4_plus" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - BMAX B4 Plus"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.37"
+  mac_address = "00:E0:4C:2E:36:08"
+}
 resource "routeros_ip_dhcp_server_lease" "kube_proxmox_01" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform"
   server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.36"
-  mac_address = "BC:24:11:41:5F:39"
-}
-resource "routeros_ip_dhcp_server_lease" "kube_proxmox_02" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.37"
-  mac_address = "BC:24:11:13:E0:A6"
-}
-resource "routeros_ip_dhcp_server_lease" "kube_nuc_01" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - kube-nuc-01"
-  server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.38"
-  mac_address = "68:5B:35:A1:01:CA"
+  mac_address = "BC:24:11:41:5F:39"
 }
 resource "routeros_ip_dhcp_server_lease" "zigbee" {
   provider    = routeros.rb5009
