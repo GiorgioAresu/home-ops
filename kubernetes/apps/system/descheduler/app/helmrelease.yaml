@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: descheduler
   values:
-    replicas: 0
+    replicas: 1
     kind: Deployment
     deschedulerPolicyAPIVersion: descheduler/v1alpha2
     deschedulerPolicy:
