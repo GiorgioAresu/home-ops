@@ -1,17 +1,15 @@
 ---
 machine:
   install:
-    diskSelector:
-      model: KINGSTON OM8PGP41024Q-A0
+    disk: /dev/sda
   network:
-    hostname: kube-minisforum-01.aresu.eu
+    hostname: kube-proxmox-01.aresu.eu
     interfaces:
       - interface: bond0
         bond:
           deviceSelectors:
-            - hardwareAddr: 58:47:ca:78:51:3f
+            - hardwareAddr: bc:24:11:41:5f:39
               # driver: igc
-            - hardwareAddr: 00:E0:4C:68:01:10 # temporary usb interface for install
           mode: active-backup
         dhcp: true
         vip:
@@ -21,8 +19,9 @@ machine:
             dhcp: false
             mtu: 1500
   nodeLabels:
-    node.kubernetes.io/virtual: "false"
+    node.kubernetes.io/virtual: "true"
     node.longhorn.io/create-default-disk: "true"
+  type: controlplane
 ---
 apiVersion: v1alpha1
 kind: VolumeConfig
@@ -39,14 +38,14 @@ name: local-hostpath
 provisioning:
   diskSelector:
     match: system_disk
-  grow: false
-  maxSize: 40GB
+  grow: true
+  minSize: 30GB
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
 name: longhorn
 provisioning:
   diskSelector:
-    match: 'system_disk'
+    match: '!system_disk'
   grow: true
   minSize: 50GiB
