@@ -63,11 +63,11 @@ devices:
   #         - path: /dev/snd/pcmC3D0c
   #           mountPath: /dev/snd/pcmC0D0c
 
-  # - name: tun
-  #   groups:
-  #     - count: 1000
-  #       paths:
-  #         - path: /dev/net/tun
+  - name: tun
+    groups:
+      - count: 1000
+        paths:
+          - path: /dev/net/tun
 
   # - name: coral
   #   groups:

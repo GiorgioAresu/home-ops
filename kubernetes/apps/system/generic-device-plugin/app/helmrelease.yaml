@@ -37,17 +37,17 @@ spec:
               limits:
                 memory: 64Mi
             securityContext:
-              privileged: true
-              # allowPrivilegeEscalation: false
-              # readOnlyRootFilesystem: true
-              # capabilities:
-              #   drop:
-              #     - ALL
+              # privileged: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
 
     persistence:
       config:
         type: configMap
-        name: generic-device-plugin-config
+        name: generic-device-plugin
         globalMounts:
           - path: /config/config.yaml
             subPath: config.yaml
@@ -55,8 +55,8 @@ spec:
       dev:
         type: hostPath
         hostPath: /dev
-        # globalMounts:
-        #   - readOnly: true
+        globalMounts:
+          - readOnly: true
       sys:
         type: hostPath
         hostPath: /sys
