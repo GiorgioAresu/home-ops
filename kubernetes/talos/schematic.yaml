@@ -9,3 +9,32 @@ customization:
       - siderolabs/qemu-guest-agent # Proxmox
       - siderolabs/thunderbolt      # Thunderbolt
       - siderolabs/util-linux-tools # Longhorn
+# ---
+# # kube-bmax-01
+# customization:
+#   systemExtensions:
+#     officialExtensions:
+#       - siderolabs/i915             # Intel iGPU
+#       - siderolabs/intel-ucode      # Intel
+#       - siderolabs/iscsi-tools      # Longhorn
+#       - siderolabs/mei              # Intel
+#       - siderolabs/util-linux-tools # Longhorn
+# ---
+# # kube-minisforum-01
+# customization:
+#   systemExtensions:
+#     officialExtensions:
+#       - siderolabs/i915             # Intel iGPU
+#       - siderolabs/intel-ucode      # Intel
+#       - siderolabs/iscsi-tools      # Longhorn
+#       - siderolabs/mei              # Intel
+#       - siderolabs/thunderbolt      # Thunderbolt
+#       - siderolabs/util-linux-tools # Longhorn
+# ---
+# # kube-proxmox-01
+# customization:
+#   systemExtensions:
+#     officialExtensions:
+#       - siderolabs/iscsi-tools      # Longhorn
+#       - siderolabs/qemu-guest-agent # Proxmox
+#       - siderolabs/util-linux-tools # Longhorn
