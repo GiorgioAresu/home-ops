@@ -2,7 +2,6 @@
 machine:
   install:
     disk: /dev/sda
-    image: factory.talos.dev/metal-installer/583560d413df7502f15f3c274c36fc23ce1af48cef89e98b1e563fb49127606e:v1.11.0-rc.0
   network:
     hostname: kube-proxmox-02.aresu.eu
     interfaces:
