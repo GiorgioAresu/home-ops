@@ -22,6 +22,16 @@ prune-pods:
     kubectl delete pods -A --field-selector status.phase="$phase" --ignore-not-found=true; \
   done
 
+[doc('Apply local Flux Kustomization')]
+apply-ks dir ks="*":
+  just k8s render-local-ks "{{ dir }}" "{{ ks }}" \
+  | kubectl apply --server-side --field-manager=kustomize-controller -f /dev/stdin
+
+[doc('Delete local Flux Kustomization')]
+delete-ks dir ks="*":
+  just k8s render-local-ks "{{ dir }}" "{{ ks }}" \
+  | kubectl delete -f /dev/stdin
+
 [doc('Sync single Flux HelmRelease')]
 sync-hr ns name:
   kubectl -n "{{ ns }}" annotate --field-manager flux-client-side-apply --overwrite hr "{{ name }}" reconcile.fluxcd.io/requestedAt="$(date +%s)" reconcile.fluxcd.io/forceAt="$(date +%s)"; \
@@ -51,3 +61,7 @@ sync-all-es:
   kubectl get es --no-headers -A | while read -r ns name _; do \
     just k8s sync-es "$ns" "$name"; \
   done
+
+[private]
+render-local-ks dir ks="*":
+  flux-local build ks --all-namespaces --path "{{ kubernetes_dir }}/apps/{{ dir }}" {{ if ks != "*" { ks } else { "" } }}
