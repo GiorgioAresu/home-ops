@@ -34,9 +34,7 @@ spec:
       enabled: true
       annotations:
         grafana_folder: Cilium
-    # NOTE: devices might need to be set if you have more than one active NIC on your hosts
-    devices: enp2s0,ens18
-    # devices: bond+
+    devices: bond+
     endpointRoutes:
       enabled: true
     envoy:
