@@ -73,6 +73,6 @@ crds:
 [doc('Apply Helmfile Apps')]
 apps:
   just log info "Running stage..." "stage" "$0"
-  if ! helmfile -f "{{ bootstrap_dir }}/helmfile.d/01-apps.yaml" sync --hide-notes; then \
+  if ! KUBERNETES_DIR="{{ kubernetes_dir}}" helmfile -f "{{ bootstrap_dir }}/helmfile.d/01-apps.yaml" sync --hide-notes; then \
     just log fatal "Failed to sync helmfile" "stage" "$0"; \
   fi
