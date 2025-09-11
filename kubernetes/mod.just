@@ -65,18 +65,3 @@ sync-all-es:
 [private]
 render-local-ks dir ks="*":
   flux-local build ks --all-namespaces --path "{{ kubernetes_dir }}/apps/{{ dir }}" {{ if ks != "*" { ks } else { "" } }}
-
-[doc('Unlock Restic source repo')]
-restic-unlock $NAMESPACE $APP $JOB="volsync-unlock-$APP":
-  if ! just template "{{ kubernetes_dir }}/templates/restic-unlock.yaml.j2" | kubectl apply --server-side -f -; then \
-    just log fatal "Failed to apply templates" "stage" "$0"; \
-  fi;
-  until kubectl -n {{ NAMESPACE }} get job/{{ JOB }} >/dev/null 2>&1; do \
-    just log info "Waiting for job to start..."; \
-    sleep 2; \
-  done
-  just log info "Waiting for job to complete..."
-
-  kubectl --namespace {{ NAMESPACE }} wait job/{{ JOB }} --for=condition=complete --timeout=5m
-  stern --namespace {{ NAMESPACE }} job/{{ JOB }} --no-follow
-  kubectl --namespace {{ NAMESPACE }} delete job/{{ JOB }}
