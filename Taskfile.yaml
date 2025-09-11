@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+set:
+  - pipefail
+shopt:
+  - globstar
+
+includes:
+  terraform: .taskfiles/terraform/Taskfile.yaml
+  volsync: .taskfiles/volsync/Taskfile.yaml
+
+vars:
+  K8S_DIR: "{{.ROOT_DIR}}/kubernetes"
+  MINIJINJA_CONFIG_FILE: "{{.ROOT_DIR}}/.minijinja.toml"
+  TALOS_DIR: "{{.K8S_DIR}}/talos"
+
+env:
+  KUBECONFIG: "{{.K8S_DIR}}/kubeconfig"
+  MINIJINJA_CONFIG_FILE: "{{.ROOT_DIR}}/.minijinja.toml"
+  TALOSCONFIG: "{{.TALOS_DIR}}/talosconfig"
+
+tasks:
+  default:
+    silent: true
+    cmd: task --list
