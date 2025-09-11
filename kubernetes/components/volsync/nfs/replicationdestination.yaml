@@ -19,7 +19,7 @@ spec:
     capacity: "${VOLSYNC_CAPACITY:=1Gi}"
     cleanupCachePVC: true
     cleanupTempPVC: true
-    copyMethod: Snapshot
+    copyMethod: Direct
     enableFileDeletion: true
     moverSecurityContext:
       runAsUser: ${APP_UID:=2000}
@@ -28,5 +28,4 @@ spec:
     repository: ${APP}-volsync-nfs
     # sourceIdentity:
     #   sourceName: ${APP}
-    storageClassName: "${VOLSYNC_STORAGECLASS:=openebs-hostpath}"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=longhorn-snapshotclass}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:=longhorn}"
