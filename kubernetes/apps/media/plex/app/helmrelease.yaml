@@ -16,6 +16,7 @@ spec:
   values:
     controllers:
       plex:
+        replicas: 0
         pod:
           securityContext:
             runAsUser: 2000
