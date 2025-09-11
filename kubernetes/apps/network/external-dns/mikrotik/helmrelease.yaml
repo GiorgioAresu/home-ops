@@ -50,7 +50,7 @@ spec:
                 name: externaldns-mikrotik-secret
                 key: MIKROTIK_SKIP_TLS_VERIFY
           - name: MIKROTIK_DEFAULT_TTL
-            value: "1800"
+            value: "86400" # 1d
           - name: MIKROTIK_DEFAULT_COMMENT
             value: Managed by ExternalDNS
         extraArgs:
