@@ -29,7 +29,7 @@ spec:
       concurrentVolumeBackupRestorePerNodeLimit: 3
       createDefaultDiskLabeledNodes: true
       defaultDataLocality: best-effort
-      defaultDataPath: /var/mnt/longhorn
+      defaultDataPath: /var/mnt/u-longhorn
       defaultLonghornStaticStorageClass: longhorn
       defaultReplicaCount: 2 # TODO: Increase this to 2-3 when adding nodes
       detachManuallyAttachedVolumesWhenCordoned: true

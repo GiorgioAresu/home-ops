@@ -16,7 +16,7 @@ spec:
       localpv:
         image:
           registry: quay.io/
-        basePath: &hostPath /var/mnt/local-hostpath
+        basePath: &hostPath /var/mnt/u-local-hostpath
       hostpathClass:
         enabled: true
         name: openebs-hostpath
