@@ -28,5 +28,5 @@ spec:
     repository: ${APP}-volsync-nfs
     # sourceIdentity:
     #   sourceName: ${APP}
-    storageClassName: "${VOLSYNC_STORAGECLASS:=longhorn}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:=longhorn-singlereplica}"
     volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=longhorn-snapshotclass}"
