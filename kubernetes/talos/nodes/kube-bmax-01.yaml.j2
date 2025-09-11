@@ -32,7 +32,7 @@ provisioning:
   diskSelector:
     match: system_disk
   grow: false
-  maxSize: 10GB
+  maxSize: 50GB
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
@@ -41,7 +41,7 @@ provisioning:
   diskSelector:
     match: system_disk
   grow: false
-  maxSize: 40GB
+  maxSize: 50GB
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
@@ -49,4 +49,4 @@ name: longhorn
 provisioning:
   diskSelector:
     match: system_disk
-  maxSize: 400GiB
+  minSize: 400GiB
