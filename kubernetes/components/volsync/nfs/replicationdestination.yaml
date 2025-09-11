@@ -28,4 +28,5 @@ spec:
     repository: ${APP}-volsync-nfs
     # sourceIdentity:
     #   sourceName: ${APP}
+    destinationPVC: "${VOLSYNC_CLAIM:-${APP}}"
     storageClassName: "${VOLSYNC_STORAGECLASS:=longhorn}"
