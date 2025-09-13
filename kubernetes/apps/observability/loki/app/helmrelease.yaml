@@ -71,7 +71,7 @@ spec:
       persistence:
         enabled: true
         storageClass: longhorn
-        size: 25Gi
+        size: 10Gi
     test:
       enabled: false
     write:
