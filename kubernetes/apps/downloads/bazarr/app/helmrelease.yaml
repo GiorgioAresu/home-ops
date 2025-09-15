@@ -89,3 +89,8 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+            timeouts:
+              backendRequest: 30s
