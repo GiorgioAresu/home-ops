@@ -21,14 +21,14 @@ spec:
           secret.reloader.stakater.com/reload: esphome-secrets,esphome-deploykey
 
         pod:
-          # annotations:
-          #   k8s.v1.cni.cncf.io/networks: |
-          #     [{
-          #       "name":"multus-iot",
-          #       "namespace": "network",
-          #       "ips": ["10.1.50.5/24"],
-          #       "mac": "92:cf:d7:05:70:84"
-          #     }]
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "network",
+                "ips": ["10.17.50.5/24"],
+                "mac": "92:cf:d7:05:70:84"
+              }]
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
@@ -41,7 +41,6 @@ spec:
               repository: ghcr.io/home-operations/esphome
               tag: 2025.8.4@sha256:902f8ad9b52e9ce9efc72d260cb8ed16ebde404c7a142e80584e0a85a394dfa3
             env:
-              ESPHOME_DASHBOARD_USE_PING: "true"
               GIT_AUTHOR_NAME: Giorgio Aresu
             probes:
               liveness:
