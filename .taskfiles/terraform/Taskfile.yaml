@@ -4,7 +4,7 @@ version: "3"
 
 vars:
   # Define your MikroTik device IPs here
-  DEVICES: ['10.17.1.1', '10.17.1.68', '10.17.1.69']
+  DEVICES: ["10.17.1.1", "10.17.1.68", "10.17.1.69"]
   TRAVEL_ROUTER: 10.17.4.1
 
 tasks:
@@ -15,63 +15,63 @@ tasks:
           var: DEVICES
         task: _upgrade-device
         vars:
-          HOST: '{{ .ITEM }}'
+          HOST: "{{ .ITEM }}"
 
   upgrade-travel:
     desc: Upgrade travel router
     cmds:
       - task: _upgrade-device
         vars:
-          HOST: '{{ .TRAVEL_ROUTER }}'
+          HOST: "{{ .TRAVEL_ROUTER }}"
 
   _upgrade-device:
     desc: Fully upgrade a MikroTik device
     internal: true
     vars:
-      HOST: '{{ .HOST }}'
+      HOST: "{{ .HOST }}"
     cmds:
       - task: _upgrade-packages
         vars:
-          HOST: '{{ .HOST }}'
-      - until nc -z {{.HOST}} 22; do sleep 1; done
+          HOST: "{{ .HOST }}"
+      - until nc -z {{.HOST}} 22; do sleep 5; done
       - task: _upgrade-firmware
         vars:
-          HOST: '{{ .HOST }}'
-      - until nc -z {{.HOST}} 22; do sleep 1; done
+          HOST: "{{ .HOST }}"
+      - until nc -z {{.HOST}} 22; do sleep 5; done
       - task: _upgrade-modem
         vars:
-          HOST: '{{ .HOST }}'
+          HOST: "{{ .HOST }}"
 
   _upgrade-packages:
     desc: Update packages on a device
     internal: true
     vars:
-      HOST: '{{ .HOST }}'
+      HOST: "{{ .HOST }}"
     status:
-      - ssh {{.HOST}} '/system/package/update/check-for-updates' | grep -c 'up to date'
+      - ssh {{.HOST}} "/system/package/update/check-for-updates" | grep -c "up to date"
     cmds:
-      - ssh {{.HOST}} '/system/package/update/download'
-      - cmd: ssh {{.HOST}} '/system/reboot'
+      - ssh {{.HOST}} "/system/package/update/download"
+      - cmd: ssh {{.HOST}} "/system/reboot"
         ignore_error: true
 
   _upgrade-firmware:
     desc: Update firmware on a MikroTik device
     internal: true
     vars:
-      HOST: '{{ .HOST }}'
+      HOST: "{{ .HOST }}"
     status:
-      - ssh {{.HOST}} ':put ([/system/routerboard/get current-firmware]=[/system/routerboard/get upgrade-firmware])' | grep -q 'true'
+      - ssh {{.HOST}} ":put ([/system/routerboard/get current-firmware]=[/system/routerboard/get upgrade-firmware])" | grep -q "true"
     cmds:
-      - ssh {{.HOST}} '/system/routerboard/upgrade'
-      - cmd: ssh {{.HOST}} '/system/reboot'
+      - ssh {{.HOST}} "/system/routerboard/upgrade"
+      - cmd: ssh {{.HOST}} "/system/reboot"
         ignore_error: true
 
   _upgrade-modem:
     desc: Update modem firmware on a MikroTik device, if present
     internal: true
     vars:
-      HOST: '{{ .HOST }}'
+      HOST: "{{ .HOST }}"
     status:
-      - ssh {{.HOST}} '/interface/lte/print count-only' | grep -qE '(error|0)'
+      - ssh {{.HOST}} "/interface/lte/print count-only" | grep -qE "(error|0)"
     cmds:
-      - ssh {{.HOST}} ':foreach i in [/interface/lte/find] do={ /interface/lte/firmware-upgrade $i }'
+      - ssh {{.HOST}} ":foreach i in [/interface/lte/find] do={ /interface/lte/firmware-upgrade $i }"
