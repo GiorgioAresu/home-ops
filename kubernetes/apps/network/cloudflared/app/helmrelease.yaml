@@ -14,20 +14,28 @@ spec:
     - name: externaldns-cloudflare
       namespace: network
   values:
+    configMaps:
+      config:
+        data:
+          config.yaml: |-
+            originRequest:
+              originServerName: ingress-ext.aresu.eu
+
+            ingress:
+              - hostname: aresu.eu
+                service: https://cilium-gateway-external.{{ .Release.Namespace }}.svc.cluster.local
+              - hostname: "*.aresu.eu"
+                service: https://cilium-gateway-external.{{ .Release.Namespace }}.svc.cluster.local
+              - service: http_status:404
     controllers:
       cloudflared:
         replicas: 2 # TODO: Increase this to 2-3 when adding nodes
         strategy: RollingUpdate
-
-        annotations:
-          reloader.stakater.com/auto: "true"
-
         pod:
           securityContext:
             runAsNonRoot: true
             runAsUser: 2000
             runAsGroup: 2000
-
         containers:
           app:
             image:
@@ -69,22 +77,19 @@ spec:
               capabilities:
                 drop:
                   - ALL
-
     persistence:
       config:
         type: configMap
-        name: cloudflared
+        identifier: config
         globalMounts:
           - path: /etc/cloudflared/config.yaml
             subPath: config.yaml
             readOnly: true
-
     service:
       app:
         ports:
           http:
             port: *port
-
     serviceMonitor:
       app:
         endpoints:
