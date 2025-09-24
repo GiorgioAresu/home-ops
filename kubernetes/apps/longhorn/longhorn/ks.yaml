@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  interval: 30m
+  interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/app"
   prune: true
@@ -31,7 +31,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  interval: 30m
+  interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/recurringjobs"
   prune: true
@@ -55,7 +55,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  interval: 30m
+  interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/volumesnapshotclass"
   prune: true
@@ -81,7 +81,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  interval: 30m
+  interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/storageclass"
   prune: true

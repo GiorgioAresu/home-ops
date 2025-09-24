@@ -15,7 +15,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  interval: 30m
+  interval: 1h
   timeout: 5m
   prune: true
   wait: false
@@ -36,7 +36,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  interval: 30m
+  interval: 1h
   timeout: 5m
   prune: true
   wait: false
@@ -57,7 +57,7 @@ spec:
 #     kind: GitRepository
 #     name: flux-system
 #     namespace: flux-system
-#   interval: 30m
+#   interval: 1h
 #   timeout: 5m
 #   prune: true
 #   wait: false

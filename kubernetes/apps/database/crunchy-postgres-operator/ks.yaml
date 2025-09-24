@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  interval: 30m
+  interval: 1h
   timeout: 5m
   path: ./kubernetes/apps/database/crunchy-postgres-operator/operator
   prune: true
@@ -34,7 +34,7 @@ spec:
 #   commonMetadata:
 #     labels:
 #       app.kubernetes.io/name: *appname
-#   interval: 30m
+#   interval: 1h
 #   timeout: 5m
 #   path: ./kubernetes/apps/database/crunchy-postgres-operator/cluster
 #   prune: true
@@ -65,7 +65,7 @@ spec:
 #   commonMetadata:
 #     labels:
 #       app.kubernetes.io/name: *appname
-#   interval: 30m
+#   interval: 1h
 #   timeout: 5m
 #   path: ./kubernetes/apps/database/crunchy-postgres-operator/clustersecretstore
 #   prune: true
@@ -91,7 +91,7 @@ spec:
 #   commonMetadata:
 #     labels:
 #       app.kubernetes.io/name: *appname
-#   interval: 30m
+#   interval: 1h
 #   timeout: 5m
 #   path: ./kubernetes/apps/database/crunchy-postgres-operator/userinit-controller
 #   prune: true
