@@ -33,8 +33,13 @@ kubernetes:
 [doc('Fetch kubeconfig for the Talos cluster')]
 kubeconfig:
   just log info "Running stage..." "stage" "$0"
-  if ! just talos gen-kubeconfig; then \
+  if ! talosctl kubeconfig -n "{{ controller }}" -f --force-context-name home-ops {{ justfile_dir() }}; then \
     just log fatal "Failed to fetch kubeconfig" "stage" "$0"; \
+  fi
+  if [[ "{{ lb }}" != "cilium" ]]; then \
+    if ! kubectl config set-cluster home-ops --server "https://{{ controller }}:6443"; then \
+      just log fatal "Failed to set kubectl cluster server address" "stage" "$0"; \
+    fi; \
   fi
 
 [doc('Wait for nodes to be not-ready')]
