@@ -50,3 +50,8 @@ provisioning:
   diskSelector:
     match: system_disk
   minSize: 300GiB
+---
+apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 5m
