@@ -174,3 +174,8 @@ cluster:
       - 10.96.0.0/12
   secret: op://automation/talos/CLUSTER_SECRET
   token: op://automation/talos/CLUSTER_TOKEN
+---
+apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 5m
