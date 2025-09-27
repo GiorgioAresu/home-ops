@@ -9,6 +9,7 @@
         "signageos.signageos-vscode-sops",
         "EditorConfig.editorconfig",
         "PKief.material-icon-theme",
-        "Gruntfuggly.todo-tree"
+        "Gruntfuggly.todo-tree",
+        "nefrob.vscode-just-syntax"
     ]
 }
