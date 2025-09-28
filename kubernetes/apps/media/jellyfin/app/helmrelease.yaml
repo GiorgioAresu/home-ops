@@ -91,12 +91,10 @@ spec:
                 subPath: tmp
       media:
         type: nfs
-        server: "${TRUENAS_ADDR}"
+        server: truenas.aresu.eu
         path: /mnt/tank/media
-        advancedMounts:
-          jellyfin:
-            app:
-              - path: /media
+        globalMounts:
+          - path: /data/media
 
     route:
       app:
