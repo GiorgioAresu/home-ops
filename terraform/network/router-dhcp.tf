@@ -279,7 +279,7 @@ resource "routeros_ip_dhcp_server_lease" "bmax_b4_plus" {
 }
 resource "routeros_ip_dhcp_server_lease" "kube_proxmox_01" {
   provider    = routeros.rb5009
-  comment     = "Managed by Terraform"
+  comment     = "Managed by Terraform - Proxmox VM"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.38"
   mac_address = "BC:24:11:41:5F:39"

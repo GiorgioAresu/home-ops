@@ -15,7 +15,7 @@ data "unifi_network" "main" {
 resource "unifi_port_profile" "desk" {
   name                  = "Desk"
   native_networkconf_id = unifi_network.guest.id
-  # forward               = "customize"
+  forward               = "customize"
   poe_mode              = "off"
 }
 
@@ -29,7 +29,7 @@ resource "unifi_port_profile" "guest" {
 resource "unifi_port_profile" "security" {
   name                  = "Security"
   native_networkconf_id = unifi_network.security.id
-  forward               = "native"
+  forward               = "customize"
   poe_mode              = "off"
 }
 
