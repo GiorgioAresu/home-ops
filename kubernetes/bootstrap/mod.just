@@ -7,7 +7,7 @@ controller := `talosctl config info --output json | jq --raw-output '.endpoints[
 nodes := `talosctl config info -o yaml | yq -e '.nodes | join (" ")'`
 
 [private]
-default: talos kubernetes kubeconfig wait namespaces resources crds apps
+default: talos kubernetes (kubeconfig "node") wait namespaces resources crds apps kubeconfig
 
 [doc('Install Talos')]
 talos:
@@ -30,8 +30,8 @@ kubernetes:
     sleep 5; \
   done
 
-[doc('Fetch kubeconfig for the Talos cluster')]
-kubeconfig:
+[doc('Fetch kubeconfig')]
+kubeconfig lb="cilium":
   just log info "Running stage..." "stage" "$0"
   if ! talosctl kubeconfig -n "{{ controller }}" -f --force-context-name home-ops {{ justfile_dir() }}; then \
     just log fatal "Failed to fetch kubeconfig" "stage" "$0"; \
@@ -78,6 +78,6 @@ crds:
 [doc('Apply Helmfile Apps')]
 apps:
   just log info "Running stage..." "stage" "$0"
-  if ! KUBERNETES_DIR="{{ kubernetes_dir}}" helmfile -f "{{ bootstrap_dir }}/helmfile.d/01-apps.yaml" sync --hide-notes; then \
+  if ! helmfile -f "{{ bootstrap_dir }}/helmfile.d/01-apps.yaml" sync --hide-notes; then \
     just log fatal "Failed to sync helmfile" "stage" "$0"; \
   fi
