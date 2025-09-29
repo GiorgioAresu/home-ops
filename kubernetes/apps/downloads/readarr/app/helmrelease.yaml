@@ -33,8 +33,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/nklmilojevic/readarr-develop
-              tag: 0.4.8.2726@sha256:14b189e72497510689273a864a21c5e43da87e1002eee24f7969733a7cdb746f
+              repository: ghcr.io/home-operations/readarr
+              tag: 0.4.8.2726
             env:
               READARR__APP__INSTANCENAME: Readarr
               READARR__AUTH__APIKEY:
