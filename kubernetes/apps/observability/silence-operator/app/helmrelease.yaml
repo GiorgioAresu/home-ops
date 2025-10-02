@@ -5,14 +5,10 @@ kind: HelmRelease
 metadata:
   name: silence-operator
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: silence-operator
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
+  interval: 30m
   values:
     alertmanagerAddress: http://alertmanager-operated.observability.svc.cluster.local:9093
     image:

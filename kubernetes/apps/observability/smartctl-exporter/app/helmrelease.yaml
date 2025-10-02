@@ -5,16 +5,14 @@ kind: HelmRelease
 metadata:
   name: smartctl-exporter
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: smartctl-exporter
+  interval: 30m
   values:
     fullnameOverride: smartctl-exporter
-
     image:
       registry: quay.io
-
     config:
       devices:
         - /dev/sda
@@ -31,9 +29,7 @@ spec:
           sourceLabels:
             - __meta_kubernetes_endpoint_node_name
           targetLabel: instance
-
     prometheusRules:
       enabled: false
-
     nodeSelector:
       node.kubernetes.io/virtual: "false"

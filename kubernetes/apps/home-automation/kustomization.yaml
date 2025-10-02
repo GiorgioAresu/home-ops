@@ -11,5 +11,4 @@ resources:
   # - ./zigbee2mqtt/ks.yaml
 components:
   - ../../components/namespace
-  - ../../components/flux/alerts
   - ../../components/flux/cluster-settings

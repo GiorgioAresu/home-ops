@@ -5,18 +5,14 @@ kind: HelmRelease
 metadata:
   name: blackbox-exporter
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: blackbox-exporter
+  interval: 30m
   values:
     fullnameOverride: blackbox-exporter
     image:
       registry: quay.io
-    # podSecurityContext:
-    #   sysctls:
-    #     - name: net.ipv4.ping_group_range
-    #       value: "0 2147483647"
     config:
       modules:
         http_2xx:

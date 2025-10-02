@@ -5,17 +5,15 @@ kind: HelmRelease
 metadata:
   name: node-exporter
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: node-exporter
+  interval: 30m
   values:
     fullnameOverride: node-exporter
-
     image:
       registry: quay.io
       repository: prometheus/node-exporter
-
     prometheus:
       monitor:
         enabled: true
@@ -40,12 +38,10 @@ spec:
             sourceLabels:
               - kubernetes_node
             targetLabel: instance
-
     resources:
       requests:
         cpu: 23m
         memory: 64M
       limits:
         memory: 64M
-
     hostNetwork: false

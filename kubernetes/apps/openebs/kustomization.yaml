@@ -7,5 +7,3 @@ resources:
   - ./openebs/ks.yaml
 components:
   - ../../components/namespace
-  - ../../components/flux/alerts
-  - ../../components/flux/sops
