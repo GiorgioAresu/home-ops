@@ -5,13 +5,10 @@ kind: HelmRelease
 metadata:
   name: keda-add-ons-http
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: keda-add-ons-http
-  dependsOn:
-    - name: keda
-      namespace: system
+  interval: 30m
   values:
     interceptor:
       tcpConnectTimeout: 5000ms # default: 500ms

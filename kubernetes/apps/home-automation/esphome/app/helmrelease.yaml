@@ -5,13 +5,10 @@ kind: HelmRelease
 metadata:
   name: esphome
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: esphome
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn
+  interval: 30m
   values:
     controllers:
       esphome:

@@ -5,13 +5,10 @@ kind: HelmRelease
 metadata:
   name: unifi
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: unifi
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn
+  interval: 30m
   values:
     controllers:
       unifi:

@@ -5,13 +5,10 @@ kind: HelmRelease
 metadata:
   name: n8n
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: n8n
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn
+  interval: 30m
   values:
     controllers:
       n8n:

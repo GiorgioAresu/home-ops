@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: frigate
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: frigate
+  interval: 30m
   install:
     remediation:
       retries: 3

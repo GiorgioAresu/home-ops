@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: kopia
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: kopia
+  interval: 30m
   values:
     configMaps:
       config:

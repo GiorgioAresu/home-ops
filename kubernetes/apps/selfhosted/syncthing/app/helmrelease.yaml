@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: syncthing
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: syncthing
+  interval: 30m
   dependsOn:
     - name: longhorn
       namespace: longhorn

@@ -31,6 +31,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: keda
+      namespace: system
   interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/system/keda/add-ons-http"
