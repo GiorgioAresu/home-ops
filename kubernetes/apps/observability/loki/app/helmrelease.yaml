@@ -5,17 +5,13 @@ kind: HelmRelease
 metadata:
   name: loki
 spec:
-  interval: 30m
-  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: loki
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn
+  interval: 30m
+  timeout: 15m
   values:
     deploymentMode: SingleBinary
-
     loki:
       analytics:
         reporting_enabled: false
@@ -45,7 +41,6 @@ spec:
         grpc_server_max_send_msg_size: 10485760 # 10 MiB
       storage:
         type: filesystem
-
     backend:
       replicas: 0
     chunksCache:

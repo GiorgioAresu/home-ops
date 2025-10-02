@@ -12,8 +12,8 @@ spec:
   values:
     autoDirectNodeRoutes: true
     bandwidthManager:
-      bbr: true
       enabled: true
+      bbr: true
     bgpControlPlane:
       enabled: true
     bpf:
@@ -72,6 +72,8 @@ spec:
           enabled: true
       replicas: 2 # TODO: Increase this to 2-3 when adding nodes
       rollOutPods: true
+    pmtuDiscovery:
+      enabled: true
     prometheus:
       enabled: true
       serviceMonitor:
