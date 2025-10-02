@@ -5,13 +5,10 @@ kind: HelmRelease
 metadata:
   name: paperless
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: paperless
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn
+  interval: 30m
   values:
     controllers:
       paperless:

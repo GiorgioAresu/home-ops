@@ -5,15 +5,10 @@ kind: HelmRelease
 metadata:
   name: intel-device-plugins-gpu
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: intel-device-plugins-gpu
-  dependsOn:
-    - name: intel-device-plugins-operator
-      namespace: system
-    - name: node-feature-discovery
-      namespace: system
+  interval: 30m
   values:
     name: i915
     sharedDevNum: 3

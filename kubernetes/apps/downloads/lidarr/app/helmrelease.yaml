@@ -5,13 +5,10 @@ kind: HelmRelease
 metadata:
   name: lidarr
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: lidarr
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn
+  interval: 30m
   values:
     controllers:
       lidarr:

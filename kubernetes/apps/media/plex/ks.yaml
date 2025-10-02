@@ -20,6 +20,8 @@ spec:
     namespace: flux-system
   wait: false
   dependsOn:
+    - name: longhorn
+      namespace: longhorn
     - name: onepassword-store
       namespace: external-secrets
     - name: volsync
@@ -57,6 +59,8 @@ spec:
   dependsOn:
     - name: onepassword-store
       namespace: external-secrets
+    - name: plex
+      namespace: media
   postBuild:
     substitute:
       APP: *appname

@@ -13,6 +13,8 @@ spec:
   interval: 1h
   timeout: 5m
   dependsOn:
+    - name: longhorn
+      namespace: longhorn
     - name: volsync
       namespace: system
   path: "./kubernetes/apps/selfhosted/unifi/app"

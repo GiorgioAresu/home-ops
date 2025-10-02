@@ -18,12 +18,14 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false
   dependsOn:
+    - name: longhorn
+      namespace: longhorn
     - name: onepassword-store
       namespace: external-secrets
     - name: volsync
       namespace: system
+  wait: false
   components:
     - ../../../../components/volsync
     - ../../../../components/keda/nas-nfs-scaler

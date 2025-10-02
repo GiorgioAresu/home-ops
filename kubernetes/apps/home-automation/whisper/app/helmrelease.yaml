@@ -5,13 +5,10 @@ kind: HelmRelease
 metadata:
   name: whisper
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: whisper
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn
+  interval: 30m
   values:
     controllers:
       whisper:

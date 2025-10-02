@@ -5,17 +5,14 @@ kind: HelmRelease
 metadata:
   name: intel-device-plugins-operator
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: intel-device-plugins-operator
+  interval: 30m
   install:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
-  dependsOn:
-    - name: cert-manager
-      namespace: cert-manager
   values:
     manager:
       devices:
