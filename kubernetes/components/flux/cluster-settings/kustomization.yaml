@@ -5,5 +5,4 @@ kind: Component
 components:
   - ../sops
 resources:
-  - ../../../flux/settings/cluster-secrets.sops.yaml
   - ../../../flux/settings/cluster-settings.yaml
