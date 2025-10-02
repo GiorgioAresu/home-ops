@@ -16,4 +16,3 @@ resources:
   - ./smartctl-exporter/ks.yaml
 components:
   - ../../components/namespace
-  - ../../components/flux/cluster-settings

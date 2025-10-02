@@ -7,4 +7,3 @@ resources:
   - ./longhorn/ks.yaml
 components:
   - ../../components/namespace
-  - ../../components/flux/cluster-settings

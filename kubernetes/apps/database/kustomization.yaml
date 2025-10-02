@@ -7,4 +7,3 @@ resources: []
   # - ./crunchy-postgres-operator/ks.yaml
 components:
   - ../../components/namespace
-  - ../../components/flux/cluster-settings
