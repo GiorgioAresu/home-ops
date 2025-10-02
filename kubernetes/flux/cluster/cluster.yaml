@@ -3,22 +3,6 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: flux-repositories
-  namespace: flux-system
-spec:
-  targetNamespace: flux-system
-  interval: 30m
-  path: ./kubernetes/flux/repositories
-  prune: true
-  wait: false
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
----
-# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: cluster-settings
   namespace: flux-system
 spec:
@@ -31,10 +15,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
 ---
 # yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -43,25 +23,15 @@ metadata:
   name: cluster-apps
   namespace: flux-system
 spec:
-  interval: 10m
-  path: ./kubernetes/apps
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
   decryption:
     provider: sops
-    secretRef:
-      name: sops-age
-  dependsOn:
-    - name: flux-repositories
+  interval: 1h
+  path: ./kubernetes/apps
+  prune: true
   postBuild:
     substituteFrom:
       - name: cluster-settings
         kind: ConfigMap
-        optional: true
-      - name: cluster-secrets
-        kind: Secret
         optional: true
   patches:
     - # Add Sops decryption and postBuild substitutions to child Kustomizations
@@ -73,17 +43,51 @@ spec:
         spec:
           decryption:
             provider: sops
-            secretRef:
-              name: sops-age
           postBuild:
             substituteFrom:
               - name: cluster-settings
                 kind: ConfigMap
                 optional: true
-              - name: cluster-secrets
-                kind: Secret
-                optional: true
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
-        labelSelector: substitution.flux.home.arpa/disabled notin (true)
+    - # Add HelmRelease defaults to all Kustomizations
+      patch: |-
+        apiVersion: kustomize.toolkit.fluxcd.io/v1
+        kind: Kustomization
+        metadata:
+          name: not-used
+        spec:
+          patches:
+            - patch: |-
+                apiVersion: helm.toolkit.fluxcd.io/v2
+                kind: HelmRelease
+                metadata:
+                  name: not-used
+                spec:
+                  install:
+                    crds: CreateReplace
+                    strategy:
+                      name: RetryOnFailure
+                  rollback:
+                    cleanupOnFail: true
+                    recreate: true
+                  timeout: 10m
+                  upgrade:
+                    cleanupOnFail: true
+                    crds: CreateReplace
+                    strategy:
+                      name: RemediateOnFailure
+                    remediation:
+                      remediateLastFailure: true
+                      retries: 2
+              target:
+                group: helm.toolkit.fluxcd.io
+                kind: HelmRelease
+      target:
+        group: kustomize.toolkit.fluxcd.io
+        kind: Kustomization
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
