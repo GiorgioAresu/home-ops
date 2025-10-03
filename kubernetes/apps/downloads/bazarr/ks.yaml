@@ -13,12 +13,18 @@ spec:
     - ../../../../components/volsync
     - ../../../../components/keda/nas-nfs-scaler
   dependsOn:
+    - name: longhorn
+      namespace: longhorn
     - name: onepassword-store
       namespace: external-secrets
     - name: volsync
       namespace: system
   interval: 1h
   path: "./kubernetes/apps/downloads/bazarr/app"
+  postBuild:
+    substitute:
+      APP: *appname
+      VOLSYNC_CLAIM: bazarr-config
   prune: true
   sourceRef:
     kind: GitRepository
@@ -27,7 +33,3 @@ spec:
   targetNamespace: *namespace
   timeout: 5m
   wait: false
-  postBuild:
-    substitute:
-      APP: *appname
-      VOLSYNC_CLAIM: bazarr-config

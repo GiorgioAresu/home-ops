@@ -21,6 +21,12 @@ spec:
       namespace: system
   interval: 1h
   path: "./kubernetes/apps/media/plex/app"
+  postBuild:
+    substitute:
+      APP: *appname
+      VOLSYNC_CLAIM: plex-config
+      VOLSYNC_CAPACITY: 10Gi
+      VOLSYNC_CACHE_CAPACITY: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository
@@ -29,12 +35,6 @@ spec:
   targetNamespace: *namespace
   timeout: 5m
   wait: false
-  postBuild:
-    substitute:
-      APP: *appname
-      VOLSYNC_CLAIM: plex-config
-      VOLSYNC_CAPACITY: 10Gi
-      VOLSYNC_CACHE_CAPACITY: 5Gi
 ---
 # yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1

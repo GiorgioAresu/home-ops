@@ -21,6 +21,11 @@ spec:
       namespace: system
   interval: 1h
   path: "./kubernetes/apps/downloads/lidarr/app"
+  postBuild:
+    substitute:
+      APP: *appname
+      VOLSYNC_CLAIM: lidarr-config
+      VOLSYNC_CAPACITY: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository
@@ -29,8 +34,3 @@ spec:
   targetNamespace: *namespace
   timeout: 5m
   wait: false
-  postBuild:
-    substitute:
-      APP: *appname
-      VOLSYNC_CLAIM: lidarr-config
-      VOLSYNC_CAPACITY: 5Gi
