@@ -20,6 +20,8 @@ spec:
     namespace: flux-system
   wait: false
   dependsOn:
+    - name: longhorn
+      namespace: longhorn
     - name: volsync
       namespace: system
   components:
