@@ -19,7 +19,6 @@ spec:
             runAsNonRoot: true
             fsGroup: 1000
             fsGroupChangePolicy: "OnRootMismatch"
-
         containers:
           app:
             image:
@@ -50,13 +49,11 @@ spec:
               capabilities:
                 drop:
                   - ALL
-
     service:
       app:
         ports:
           http:
             port: *port
-
     persistence:
       tmpfs:
         type: emptyDir

@@ -14,7 +14,6 @@ spec:
       lidarr:
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           securityContext:
             runAsUser: 2000
@@ -26,7 +25,6 @@ spec:
               - 100 # NAS: users
               - 1000
               - 1003 # NAS: nfs-user
-
         containers:
           app:
             image:
@@ -70,13 +68,11 @@ spec:
               capabilities:
                 drop:
                   - ALL
-
     service:
       app:
         ports:
           http:
             port: *port
-
     persistence:
       config:
         existingClaim: lidarr-config
@@ -91,7 +87,6 @@ spec:
         path: /mnt/tank/media
         globalMounts:
           - path: /data/media
-
     route:
       app:
         hostnames:

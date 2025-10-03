@@ -14,7 +14,6 @@ spec:
       whisper:
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           # annotations:
           #   k8s.v1.cni.cncf.io/networks: |
@@ -34,7 +33,6 @@ spec:
             #   - 109
             #   - 65542 # gladius:external-services
           terminationGracePeriodSeconds: 1
-
         containers:
           app:
             image:
@@ -72,13 +70,11 @@ spec:
               capabilities:
                 drop:
                   - ALL
-
     service:
       app:
         ports:
           wyoming:
             port: *port
-
     persistence:
       tmpfs:
         type: emptyDir

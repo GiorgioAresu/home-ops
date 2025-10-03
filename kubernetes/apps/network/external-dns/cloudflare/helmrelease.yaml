@@ -45,7 +45,6 @@ spec:
     triggerLoopOnEvent: true
     txtOwnerId: main
     txtPrefix: "k8s."
-
   postRenderers:
     - kustomize:
         patches:

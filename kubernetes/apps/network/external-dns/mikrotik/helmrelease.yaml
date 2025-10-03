@@ -14,7 +14,6 @@ spec:
         kind: HelmRepository
         name: external-dns-mikrotik
       interval: 30m
-
   values:
     fullnameOverride: &name externaldns-mikrotik
     domainFilters:
@@ -87,7 +86,6 @@ spec:
     triggerLoopOnEvent: true
     txtOwnerId: main
     txtPrefix: "k8s."
-
   postRenderers:
     - kustomize:
         patches:

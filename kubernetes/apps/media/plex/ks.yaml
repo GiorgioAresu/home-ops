@@ -6,19 +6,12 @@ metadata:
   name: &appname plex
   namespace: &namespace media
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  interval: 1h
-  timeout: 5m
-  path: "./kubernetes/apps/media/plex/app"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  wait: false
+  components:
+    - ../../../../components/volsync
+    - ../../../../components/keda/nas-nfs-scaler
   dependsOn:
     - name: longhorn
       namespace: longhorn
@@ -26,9 +19,16 @@ spec:
       namespace: external-secrets
     - name: volsync
       namespace: system
-  components:
-    - ../../../../components/volsync
-    - ../../../../components/keda/nas-nfs-scaler
+  interval: 1h
+  path: "./kubernetes/apps/media/plex/app"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
   postBuild:
     substitute:
       APP: *appname
@@ -43,24 +43,24 @@ metadata:
   name: &appname plex-image-cleanup
   namespace: &namespace media
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: onepassword-store
+      namespace: external-secrets
+    - name: plex
+      namespace: media
   interval: 1h
-  timeout: 5m
   path: "./kubernetes/apps/media/plex/plex-image-cleanup"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
   wait: false
-  dependsOn:
-    - name: onepassword-store
-      namespace: external-secrets
-    - name: plex
-      namespace: media
   postBuild:
     substitute:
       APP: *appname

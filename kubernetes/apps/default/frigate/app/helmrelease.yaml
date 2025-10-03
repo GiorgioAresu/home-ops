@@ -61,7 +61,6 @@ spec:
               tag: *imageTag
             command: ["cp"]
             args: ["-v", "/tmp/config.yml", "/config/config.yaml"]
-
     defaultPodOptions:
       # affinity:
       #   podAntiAffinity:
@@ -75,7 +74,6 @@ spec:
       nodeSelector:
         # google.feature.node.kubernetes.io/coral: "true"
         intel.feature.node.kubernetes.io/gpu: "true"
-
     service:
       app:
         ports:
@@ -83,7 +81,6 @@ spec:
             port: *port
           rtsp:
             port: 8554
-
     persistence:
       config:
         existingClaim: frigate
@@ -107,11 +104,10 @@ spec:
                 subPath: shm
       media:
         type: nfs
-        server: ${TRUENAS_ADDR}
+        server: truenas.aresu.eu
         path: /mnt/tank/media/Frigate
         globalMounts:
           - path: /media/frigate
-
     route:
       app:
         hostnames:

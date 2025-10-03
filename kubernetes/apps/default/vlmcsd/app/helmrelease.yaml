@@ -51,14 +51,12 @@ spec:
                 cpu: 10m
               limits:
                 memory: 64Mi
-
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534
         runAsGroup: 65534
         seccompProfile: { type: RuntimeDefault }
-
     service:
       app:
         type: LoadBalancer

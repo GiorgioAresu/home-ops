@@ -27,7 +27,6 @@ spec:
               - 100 # NAS: users
               - 1000
               - 1003 # NAS: nfs-user
-
         containers:
           app:
             image:
@@ -63,14 +62,12 @@ spec:
               limits:
                 gpu.intel.com/i915: 1
                 memory: 3Gi
-
     service:
       app:
         ports:
           http:
             port: *port
             appProtocol: kubernetes.io/wss
-
     persistence:
       config:
         existingClaim: jellyfin-config
@@ -95,7 +92,6 @@ spec:
         path: /mnt/tank/media
         globalMounts:
           - path: /data/media
-
     route:
       app:
         hostnames:

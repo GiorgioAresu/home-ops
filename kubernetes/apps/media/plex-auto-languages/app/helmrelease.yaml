@@ -23,7 +23,6 @@ spec:
             runAsGroup: 2000
             fsGroup: 2000
             fsGroupChangePolicy: "OnRootMismatch"
-
         containers:
           app:
             image:
@@ -41,7 +40,6 @@ spec:
                 cpu: 5m
               limits:
                 memory: 192Mi
-
     persistence:
       config:
         existingClaim: plex-auto-languages-config

@@ -6,12 +6,12 @@ metadata:
   name: &appname lidarr
   namespace: &namespace downloads
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  interval: 1h
-  timeout: 5m
+  components:
+    - ../../../../components/volsync
+    - ../../../../components/keda/nas-nfs-scaler
   dependsOn:
     - name: longhorn
       namespace: longhorn
@@ -19,16 +19,16 @@ spec:
       namespace: external-secrets
     - name: volsync
       namespace: system
+  interval: 1h
   path: "./kubernetes/apps/downloads/lidarr/app"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
   wait: false
-  components:
-    - ../../../../components/volsync
-    - ../../../../components/keda/nas-nfs-scaler
   postBuild:
     substitute:
       APP: *appname

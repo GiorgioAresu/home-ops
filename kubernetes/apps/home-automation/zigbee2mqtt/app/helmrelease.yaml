@@ -17,14 +17,12 @@ spec:
       zigbee2mqtt:
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           securityContext:
             runAsUser: 2000
             runAsGroup: 2000
             fsGroup: 2000
             fsGroupChangePolicy: OnRootMismatch
-
         containers:
           app:
             image:
@@ -61,7 +59,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: true
               ZIGBEE2MQTT_CONFIG_FRONTEND_ENABLED: true
               ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &httpPort 8080
-              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee2mqtt.${SECRET_DOMAIN}
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee2mqtt.aresu.eu
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_ENABLED: true
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_EXPERIMENTAL_EVENT_ENTITIES: true
@@ -73,7 +71,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: true
               ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
               ZIGBEE2MQTT_CONFIG_MQTT_REJECT_UNAUTHORIZED: true
-              ZIGBEE2MQTT_CONFIG_MQTT_SERVER: "mqtt://mqtt.${SECRET_DOMAIN}:1883"
+              ZIGBEE2MQTT_CONFIG_MQTT_SERVER: "mqtt://mqtt.aresu.eu:1883"
               ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
               ZIGBEE2MQTT_CONFIG_MQTT_USER:
                 valueFrom:
@@ -123,7 +121,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-
     service:
       app:
         ports:
@@ -134,7 +131,6 @@ spec:
             port: 9000
           code-server:
             port: 12321
-
     persistence:
       data:
         existingClaim: zigbee2mqtt-data
@@ -144,11 +140,10 @@ spec:
               - path: /data
             code-server:
               - path: /data
-
     route:
       app:
         hostnames:
-          - zigbee2mqtt.${SECRET_DOMAIN}
+          - zigbee2mqtt.aresu.eu
         parentRefs:
           - name: internal
             namespace: kube-system

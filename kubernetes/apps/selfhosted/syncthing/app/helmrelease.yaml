@@ -18,7 +18,6 @@ spec:
         forceRename: syncthing
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           hostNetwork: true
           securityContext:
@@ -26,7 +25,6 @@ spec:
             runAsGroup: 2000
             fsGroup: 2000
             fsGroupChangePolicy: "OnRootMismatch"
-
         containers:
           app:
             image:
@@ -54,7 +52,6 @@ spec:
               capabilities:
                 drop:
                   - ALL
-
     service:
       app:
         forceRename: syncthing
@@ -67,7 +64,7 @@ spec:
         controller: syncthing
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: ${SVC_SYNCTHING_ADDR}
+          lbipam.cilium.io/ips: 10.1.1.212
         ports:
           listen-tcp:
             port: 22000
@@ -78,7 +75,6 @@ spec:
           discovery:
             port: 21027
             protocol: UDP
-
     persistence:
       data:
         existingClaim: syncthing-config
@@ -92,7 +88,6 @@ spec:
         globalMounts:
           - path: /var/syncthing/Sync
             subPath: Sync
-
     route:
       app:
         hostnames:
@@ -108,4 +103,3 @@ spec:
             timeouts:
               request: 2m
               backendRequest: 2m
-

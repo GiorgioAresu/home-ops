@@ -15,7 +15,6 @@ spec:
         forceRename: paperless
         annotations:
           reloader.stakater.com/auto: "true"
-
         containers:
           app:
             image:
@@ -76,7 +75,6 @@ spec:
                 memory: 512Mi
               limits:
                 memory: 3Gi
-
       redis:
         containers:
           redis:
@@ -89,7 +87,6 @@ spec:
                 memory: 32Mi
               limits:
                 memory: 128Mi
-
     service:
       app:
         forceRename: paperless
@@ -103,7 +100,6 @@ spec:
         ports:
           http:
             port: 6379
-
     persistence:
       data:
         existingClaim: paperless-data
@@ -119,7 +115,6 @@ spec:
           paperless:
             app:
               - path: /data/nas
-
     route:
       app:
         hostnames:

@@ -20,7 +20,6 @@ spec:
     #   provisionerReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
     #   resizerReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
     #   snapshotterReplicaCount: 1 # TODO: Increase this to 2-3 when adding nodes
-
     defaultSettings:
       autoCleanupSnapshotAfterOnDemandBackupCompleted: true
       autoCleanupSnapshotWhenDeleteBackup: true
@@ -45,16 +44,12 @@ spec:
       storageReservedPercentageForDefaultDisk: "0"
       storageMinimalAvailablePercentage: "5"
       storageOverProvisioningPercentage: "150"
-
-    defaultBackupStore:
-      backupTarget: nfs://${TRUENAS_ADDR}:/mnt/tank/longhorn-backups
-
+    # defaultBackupStore:
+    #   backupTarget: nfs://truenas.aresu.eu:/mnt/tank/longhorn-backups
     longhornUI:
       replicas: 1
-
     annotations:
       configmap.reloader.stakater.com/reload: longhorn-default-setting
-
     # TODO: Add internal separate route to replace this
     # ingress:
     #   enabled: true
@@ -73,12 +68,10 @@ spec:
     #   host: "longhorn.${SECRET_DOMAIN}"
     #   path: /
     #   tls: true
-
     persistence:
       defaultClassReplicaCount: 2
       reclaimPolicy: Delete
       backupTargetName: default
-
     metrics:
       serviceMonitor:
         enabled: true

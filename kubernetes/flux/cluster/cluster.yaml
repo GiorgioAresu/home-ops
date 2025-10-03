@@ -15,6 +15,10 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
 ---
 # yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -33,6 +37,9 @@ spec:
       - name: cluster-settings
         kind: ConfigMap
         optional: true
+      - name: cluster-secrets
+        kind: Secret
+        optional: true
   patches:
     - # Add Sops decryption and postBuild substitutions to child Kustomizations
       patch: |-
@@ -47,6 +54,9 @@ spec:
             substituteFrom:
               - name: cluster-settings
                 kind: ConfigMap
+                optional: true
+              - name: cluster-secrets
+                kind: Secret
                 optional: true
       target:
         group: kustomize.toolkit.fluxcd.io

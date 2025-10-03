@@ -16,7 +16,6 @@ spec:
           config.yaml: |-
             originRequest:
               originServerName: ingress-ext.aresu.eu
-
             ingress:
               - hostname: aresu.eu
                 service: https://cilium-gateway-external.kube-system.svc.cluster.local
