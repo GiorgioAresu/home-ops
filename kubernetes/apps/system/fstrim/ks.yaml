@@ -6,16 +6,16 @@ metadata:
   name: &appname fstrim
   namespace: &namespace system
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  interval: 1h
   path: "./kubernetes/apps/system/fstrim/app"
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  interval: 1h
+  targetNamespace: *namespace
   timeout: 5m
-  prune: true
   wait: false

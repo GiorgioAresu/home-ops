@@ -17,9 +17,7 @@ spec:
       jellyfin-sync:
         annotations:
           reloader.stakater.com/auto: "true"
-
         type: cronjob
-
         cronjob:
           schedule: 0 * * * *
           backoffLimit: 0
@@ -27,11 +25,9 @@ spec:
           successfulJobsHistory: 1
           failedJobsHistory: 1
           ttlSecondsAfterFinished: 3600
-
         pod:
           hostUsers: false
           restartPolicy: Never
-
         containers:
           app:
             image:
@@ -57,10 +53,8 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-
     persistence:
       tmpfs:
         type: emptyDir
         globalMounts:
           - path: /tmp
-

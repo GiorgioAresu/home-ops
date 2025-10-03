@@ -13,14 +13,12 @@ spec:
     controllers:
       fstrim:
         type: cronjob
-
         cronjob:
           schedule: "0 0 * * 1"
           parallelism: 3 # TODO: Set this to your number of nodes
           backoffLimit: 0
           failedJobsHistory: 1
           successfulJobsHistory: 0
-
         pod:
           hostNetwork: true
           hostPID: true
@@ -31,7 +29,6 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: fstrim
-
         containers:
           app:
             image:
@@ -59,7 +56,6 @@ spec:
                 memory: 128Mi
             securityContext:
               privileged: true
-
     persistence:
       procfs:
         type: hostPath

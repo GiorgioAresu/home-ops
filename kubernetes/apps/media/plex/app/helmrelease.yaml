@@ -25,7 +25,6 @@ spec:
               - 100 # NAS: users
               - 1000
               - 1003 # NAS: nfs-user
-
         containers:
           app:
             image:
@@ -64,7 +63,6 @@ spec:
               limits:
                 gpu.intel.com/i915: 1
                 memory: 2Gi
-
     service:
       app:
         type: LoadBalancer
@@ -74,7 +72,6 @@ spec:
         ports:
           http:
             port: *port
-
     persistence:
       config:
         existingClaim: plex-config
@@ -99,13 +96,12 @@ spec:
                 subPath: transcode
       media:
         type: nfs
-        server: "${TRUENAS_ADDR}"
+        server: "truenas.aresu.eu"
         path: /mnt/tank/media
         advancedMounts:
           plex:
             app:
               - path: /media
-
     route:
       app:
         hostnames:

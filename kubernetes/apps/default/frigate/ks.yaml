@@ -6,27 +6,27 @@ metadata:
   name: &app frigate
   namespace: flux-system
 spec:
-  targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
+    - ../../../../components/keda/nas-nfs-scaler
   dependsOn:
     - name: onepassword-store
       namespace: external-secrets
     - name: volsync
       namespace: system
+  interval: 1h
   path: ./kubernetes/apps/default/frigate/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false
-  interval: 1h
+  targetNamespace: default
   timeout: 5m
-  components:
-    - ../../../../components/volsync
-    - ../../../../components/keda/nas-nfs-scaler
+  wait: false
   postBuild:
     substitute:
       APP: *app

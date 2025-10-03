@@ -9,7 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: it-tools
-
   values:
     controllers:
       it-tools:

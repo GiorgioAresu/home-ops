@@ -11,11 +11,9 @@ spec:
     name: generic-device-plugin
   driftDetection:
     mode: enabled
-
   values:
     defaultPodOptions:
       priorityClassName: system-node-critical
-
     controllers:
       generic-device-plugin:
         type: daemonset
@@ -42,7 +40,6 @@ spec:
               capabilities:
                 drop:
                   - ALL
-
     persistence:
       config:
         type: configMap

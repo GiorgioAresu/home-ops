@@ -69,11 +69,9 @@ spec:
         ports:
           http:
             port: *port
-
     persistence:
       config:
         existingClaim: atuin
-
     route:
       app:
         hostnames:
