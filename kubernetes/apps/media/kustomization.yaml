@@ -10,3 +10,5 @@ resources:
   - ./tautulli/ks.yaml
 components:
   - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
