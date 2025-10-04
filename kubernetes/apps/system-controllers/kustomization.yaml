@@ -8,6 +8,8 @@ resources:
   - ./snapshot-controller/ks.yaml
 components:
   - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
 patches:
   - patch: |
       - op: add
