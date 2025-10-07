@@ -82,7 +82,7 @@ spec:
     route:
       app:
         hostnames:
-          - home.${SECRET_DOMAIN}
+          - home.aresu.eu
         parentRefs:
           - name: internal
             namespace: kube-system
