@@ -4,11 +4,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname externaldns-cloudflare
-  namespace: &namespace network
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: network
   interval: 1h
   path: "./kubernetes/apps/network/external-dns/cloudflare"
   prune: true
@@ -16,7 +20,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
   timeout: 5m
   wait: false
 ---
@@ -25,11 +28,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname externaldns-mikrotik
-  namespace: &namespace network
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: network
   interval: 1h
   path: "./kubernetes/apps/network/external-dns/mikrotik"
   prune: true
@@ -37,6 +44,5 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
   timeout: 5m
   wait: false

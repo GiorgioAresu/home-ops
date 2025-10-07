@@ -4,12 +4,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname crunchy-postgres-operator
-  namespace: &namespace database
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: database
   interval: 1h
   timeout: 5m
   path: ./kubernetes/apps/database/crunchy-postgres-operator/operator
@@ -25,9 +28,7 @@ spec:
 # kind: Kustomization
 # metadata:
 #   name: &appname crunchy-postgres-operator-cluster
-#   namespace: &namespace database
 # spec:
-#   targetNamespace: *namespace
 #   commonMetadata:
 #     labels:
 #       app.kubernetes.io/name: *appname
@@ -56,9 +57,7 @@ spec:
 # kind: Kustomization
 # metadata:
 #   name: &appname crunchy-postgres-operator-secretstore
-#   namespace: &namespace database
 # spec:
-#   targetNamespace: *namespace
 #   commonMetadata:
 #     labels:
 #       app.kubernetes.io/name: *appname
@@ -82,9 +81,7 @@ spec:
 # kind: Kustomization
 # metadata:
 #   name: &appname crunchy-postgres-userinit-controller
-#   namespace: &namespace database
 # spec:
-#   targetNamespace: *namespace
 #   commonMetadata:
 #     labels:
 #       app.kubernetes.io/name: *appname

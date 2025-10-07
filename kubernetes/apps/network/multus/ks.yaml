@@ -4,11 +4,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname multus
-  namespace: &namespace network
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: network
   interval: 1h
   path: "./kubernetes/apps/network/multus/app"
   prune: true
@@ -16,7 +20,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
   timeout: 5m
   wait: true
 ---
@@ -25,13 +28,17 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname multus-networks
-  namespace: &namespace network
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: multus
+      namespace: network
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
       namespace: network
   interval: 1h
   path: "./kubernetes/apps/network/multus/networks"
@@ -40,6 +47,5 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
   timeout: 5m
   wait: true

@@ -4,12 +4,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname longhorn
-  namespace: &namespace longhorn
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: longhorn
   interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/app"
@@ -25,12 +28,18 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname longhorn-recurringjobs
-  namespace: &namespace longhorn
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: longhorn
   interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/recurringjobs"
@@ -40,21 +49,26 @@ spec:
     name: flux-system
     namespace: flux-system
   wait: true
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn
 ---
 # yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname longhorn-volumesnapshotclass
-  namespace: &namespace longhorn
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn
+    - name: snapshot-controller
+      namespace: system-controllers
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: longhorn
   interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/volumesnapshotclass"
@@ -64,23 +78,21 @@ spec:
     name: flux-system
     namespace: flux-system
   wait: true
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn
-    - name: snapshot-controller
-      namespace: system-controllers
 ---
 # yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname longhorn-storageclass
-  namespace: &namespace longhorn
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: longhorn
   interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/storageclass"

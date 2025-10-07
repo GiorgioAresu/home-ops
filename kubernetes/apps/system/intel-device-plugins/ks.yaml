@@ -4,7 +4,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname intel-device-plugins-operator
-  namespace: &namespace system
 spec:
   commonMetadata:
     labels:
@@ -19,7 +18,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
   timeout: 5m
   wait: false
 ---
@@ -28,9 +26,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname intel-device-plugins-gpu
-  namespace: &namespace system
 spec:
-  targetNamespace: *namespace
   dependsOn:
     - name: intel-device-plugins-operator
       namespace: system
@@ -54,9 +50,7 @@ spec:
 # kind: Kustomization
 # metadata:
 #   name: &appname intel-device-plugins-xpumanager
-#   namespace: &namespace system
 # spec:
-#   targetNamespace: *namespace
 #   commonMetadata:
 #     labels:
 #       app.kubernetes.io/name: *appname
