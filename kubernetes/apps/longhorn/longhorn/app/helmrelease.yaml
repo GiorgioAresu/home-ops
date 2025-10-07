@@ -32,10 +32,10 @@ spec:
       defaultLonghornStaticStorageClass: longhorn
       defaultReplicaCount: "2" # TODO: Increase this to 2-3 when adding nodes
       detachManuallyAttachedVolumesWhenCordoned: true
-      #guaranteedEngineManagerCPU: 20
-      #guaranteedReplicaManagerCPU: 20
+      # guaranteedEngineManagerCPU: 20
+      # guaranteedReplicaManagerCPU: 20
       node-drain-policy: allow-if-replica-is-stopped
-      #nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+      # nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       offlineRelicaRebuilding: true
       orphanAutoDeletion: true
       replicaAutoBalance: best-effort
