@@ -15,8 +15,6 @@ spec:
   dependsOn:
     - name: longhorn
       namespace: longhorn
-    - name: onepassword-store
-      namespace: external-secrets
     - name: volsync
       namespace: system
   interval: 1h
@@ -47,8 +45,6 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: onepassword-store
-      namespace: external-secrets
     - name: plex
       namespace: media
   interval: 1h
