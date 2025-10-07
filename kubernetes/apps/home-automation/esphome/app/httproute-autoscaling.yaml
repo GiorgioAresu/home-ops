@@ -62,12 +62,12 @@ spec:
       window: 1m
   scaledownPeriod: 300
   scaleTargetRef:
-      name: esphome
-      service: esphome
-      port: 6052
+    name: esphome
+    service: esphome
+    port: 6052
   replicas:
-      min: 0
-      max: 1
+    min: 0
+    max: 1
   targetPendingRequests: 1
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/keda.sh/scaledobject_v1alpha1.json

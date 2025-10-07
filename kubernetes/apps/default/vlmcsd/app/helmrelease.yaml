@@ -65,4 +65,4 @@ spec:
           lbipam.cilium.io/ips: ${SVC_VLMCSD_ADDR}
         ports:
           http:
-            port: &port 1688
+            port: 1688
