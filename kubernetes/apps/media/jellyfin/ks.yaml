@@ -4,29 +4,32 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname jellyfin
-  namespace: &namespace media
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  components:
+    - ../../../../components/volsync
+    - ../../../../components/keda/nas-nfs-scaler
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn
+    - name: volsync
+      namespace: system
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: media
   interval: 1h
-  timeout: 5m
   path: "./kubernetes/apps/media/jellyfin/app"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  timeout: 5m
   wait: false
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn
-    - name: volsync
-      namespace: system
-  components:
-    - ../../../../components/volsync
-    - ../../../../components/keda/nas-nfs-scaler
   postBuild:
     substitute:
       APP: *appname
@@ -39,20 +42,23 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname jellyplex-watched
-  namespace: &namespace media
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: media
   interval: 1h
-  timeout: 5m
   path: "./kubernetes/apps/media/jellyfin/jellyplex-watched"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  timeout: 5m
   wait: false
   postBuild:
     substitute:

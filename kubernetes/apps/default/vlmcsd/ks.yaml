@@ -6,10 +6,15 @@ metadata:
   name: &app vlmcsd
   namespace: flux-system
 spec:
-  targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: default
+  interval: 1h
   path: ./kubernetes/apps/default/vlmcsd/app
   prune: true
   sourceRef:
@@ -17,5 +22,4 @@ spec:
     name: flux-system
     namespace: flux-system
   wait: false
-  interval: 1h
   timeout: 5m
