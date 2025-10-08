@@ -7,7 +7,7 @@ resource "routeros_routing_bgp_template" "home_ops" {
   comment   = "Managed by Terraform - Kubernetes cluster"
   name      = "home-ops"
   as        = local.bgp_as_local
-  router_id = "10.17.1.1"
+  hold_time = "1h30m"
 }
 
 resource "routeros_routing_filter_rule" "home_ops_in" {
@@ -21,7 +21,7 @@ resource "routeros_routing_filter_rule" "home_ops_out" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   chain    = "bgp-out"
-  rule     = "if (dst in 10.17.1.0/24) { accept } else { reject }"
+  rule     = "if (dst in 10.17.1.0/24 or dst in 10.1.1.0/24) { accept } else { reject }"
 }
 
 resource "routeros_routing_bgp_connection" "home_ops_kube_proxmox_01" {
