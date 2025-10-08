@@ -3,30 +3,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname jellyfin
+  name: &appname jellyplex-watched
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  components:
-    - ../../../../components/volsync
-    - ../../../../components/keda/nas-nfs-scaler
-  dependsOn:
-    - name: longhorn-volumesnapshotclass
-      namespace: longhorn
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: *appname
       namespace: media
   interval: 1h
-  path: "./kubernetes/apps/media/jellyfin/app"
+  path: "./kubernetes/apps/media/jellyfin/jellyplex-watched"
   postBuild:
     substitute:
       APP: *appname
-      VOLSYNC_CLAIM: jellyfin-config
-      VOLSYNC_CAPACITY: 10Gi
-      VOLSYNC_CACHE_CAPACITY: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository

@@ -34,13 +34,17 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: keda
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
       namespace: system
   interval: 1h
-  timeout: 5m
   path: "./kubernetes/apps/system/keda/add-ons-http"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  timeout: 5m
   wait: true

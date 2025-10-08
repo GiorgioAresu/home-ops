@@ -8,21 +8,26 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: longhorn-volumesnapshotclass
+      namespace: longhorn
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: selfhosted
   interval: 1h
-  timeout: 5m
   path: "./kubernetes/apps/selfhosted/karakeep/app"
+  postBuild:
+    substitute:
+      APP: *appname
+      VOLSYNC_CLAIM: karakeep-data
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  timeout: 5m
   wait: false
-  dependsOn:
-    - name: volsync
-      namespace: system
-  components:
-    - ../../../../components/volsync
-  postBuild:
-    substitute:
-      APP: *appname
-      VOLSYNC_CLAIM: karakeep-data

@@ -12,9 +12,7 @@ spec:
     - ../../../../components/volsync
     - ../../../../components/keda/nas-nfs-scaler
   dependsOn:
-    - name: volsync
-      namespace: system
-    - name: longhorn
+    - name: longhorn-volumesnapshotclass
       namespace: longhorn
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
