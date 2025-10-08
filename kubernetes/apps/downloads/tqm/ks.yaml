@@ -9,6 +9,11 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   interval: 1h
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: downloads
   path: "./kubernetes/apps/downloads/tqm/app"
   prune: true
   sourceRef:

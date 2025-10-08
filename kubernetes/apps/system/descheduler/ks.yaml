@@ -8,12 +8,17 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: system
+  interval: 1h
   path: "./kubernetes/apps/system/descheduler/app"
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  interval: 1h
   timeout: 5m
-  prune: true
   wait: false
