@@ -31,6 +31,9 @@ spec:
       advertisements:
         matchLabels:
           advertise: bgp
+      # timers:
+      #   holdTimeSeconds: 180
+      #   keepAliveTimeSeconds: 60
 ---
 # yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/cilium.io/ciliumbgpclusterconfig_v2.json
 apiVersion: cilium.io/v2
