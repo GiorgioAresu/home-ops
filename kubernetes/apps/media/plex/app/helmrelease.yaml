@@ -107,6 +107,6 @@ spec:
         hostnames:
           - plex.aresu.eu
         parentRefs:
-          - name: external
+          - name: envoy-external
             namespace: kube-system
             sectionName: https

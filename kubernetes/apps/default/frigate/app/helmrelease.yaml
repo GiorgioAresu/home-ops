@@ -113,7 +113,7 @@ spec:
         hostnames:
           - frigate.aresu.eu
         parentRefs:
-          - name: internal
+          - name: envoy-internal
             namespace: kube-system
             sectionName: https
         rules:

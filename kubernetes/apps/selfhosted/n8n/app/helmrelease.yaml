@@ -65,14 +65,14 @@ spec:
         hostnames:
           - *hostName
         parentRefs:
-          - name: internal
+          - name: envoy-internal
             namespace: kube-system
             sectionName: https
       webhooks:
         hostnames:
           - n8n-webhook.aresu.eu
         parentRefs:
-          - name: external
+          - name: envoy-external
             namespace: kube-system
             sectionName: https
         rules:

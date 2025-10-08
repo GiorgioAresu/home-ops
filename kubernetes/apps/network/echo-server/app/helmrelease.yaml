@@ -49,6 +49,6 @@ spec:
         hostnames:
           - echo-server.aresu.eu
         parentRefs:
-          - name: internal
+          - name: envoy-internal
             namespace: kube-system
             sectionName: https
