@@ -96,8 +96,8 @@ spec:
         hostnames:
           - qbittorrent.aresu.eu
         parentRefs:
-          - name: internal
-            namespace: kube-system
+          - name: envoy-internal
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

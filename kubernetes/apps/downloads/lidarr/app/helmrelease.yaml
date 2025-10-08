@@ -92,6 +92,6 @@ spec:
         hostnames:
           - lidarr.aresu.eu
         parentRefs:
-          - name: internal
-            namespace: kube-system
+          - name: envoy-internal
+            namespace: network
             sectionName: https
