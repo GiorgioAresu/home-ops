@@ -9,9 +9,6 @@ spec:
     kind: OCIRepository
     name: jellyplex-watched
   interval: 30m
-  dependsOn:
-    - name: plex
-      namespace: media
   values:
     controllers:
       jellyfin-sync:

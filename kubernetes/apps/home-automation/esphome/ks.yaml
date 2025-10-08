@@ -8,26 +8,27 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: longhorn-volumesnapshotclass
+      namespace: longhorn
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: home-automation
   interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/home-automation/esphome/app"
+  postBuild:
+    substitute:
+      APP: *appname
+      VOLSYNC_CLAIM: esphome-config
+      VOLSYNC_CAPACITY: 1Gi
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   wait: false
-  dependsOn:
-    # - name: multus-networks
-    #   namespace: network
-    - name: longhorn
-      namespace: longhorn
-    - name: volsync
-      namespace: system
-  components:
-    - ../../../../components/volsync
-  postBuild:
-    substitute:
-      APP: *appname
-      VOLSYNC_CLAIM: esphome-config
-      VOLSYNC_CAPACITY: 1Gi

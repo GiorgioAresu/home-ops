@@ -8,23 +8,19 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  interval: 1h
-  timeout: 5m
-  path: "./kubernetes/apps/selfhosted/syncthing/app"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  wait: false
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn
-    - name: volsync
-      namespace: system
   components:
     - ../../../../components/volsync
     - ../../../../components/keda/nas-nfs-scaler
+  dependsOn:
+    - name: longhorn-volumesnapshotclass
+      namespace: longhorn
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: selfhosted
+  interval: 1h
+  path: "./kubernetes/apps/selfhosted/syncthing/app"
   postBuild:
     substitute:
       APP: *appname
@@ -32,3 +28,10 @@ spec:
       APP_GID: "2000"
       VOLSYNC_CLAIM: syncthing-config
       VOLSYNC_CAPACITY: 100Mi
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  timeout: 5m
+  wait: false

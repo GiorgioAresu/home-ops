@@ -8,21 +8,26 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  components:
+    - ../../../../components/volsync
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: media
+  dependsOn:
+    - name: longhorn-volumesnapshotclass
+      namespace: longhorn
   interval: 1h
-  timeout: 5m
   path: "./kubernetes/apps/media/tautulli/app"
+  postBuild:
+    substitute:
+      APP: *appname
+      VOLSYNC_CLAIM: tautulli-config
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  timeout: 5m
   wait: false
-  dependsOn:
-    - name: volsync
-      namespace: system
-  components:
-    - ../../../../components/volsync
-  postBuild:
-    substitute:
-      APP: *appname
-      VOLSYNC_CLAIM: tautulli-config

@@ -32,12 +32,14 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: node-feature-discovery
   interval: 1h
-  timeout: 5m
   path: "./kubernetes/apps/system/node-feature-discovery/rules"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  timeout: 5m
   wait: false
