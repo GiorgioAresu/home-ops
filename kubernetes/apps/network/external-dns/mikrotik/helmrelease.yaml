@@ -86,14 +86,3 @@ spec:
     triggerLoopOnEvent: true
     txtOwnerId: main
     txtPrefix: "k8s."
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              version: v1
-              kind: Deployment
-              name: *name
-            patch: |
-              - op: add
-                path: /spec/template/spec/enableServiceLinks
-                value: false
