@@ -25,8 +25,8 @@ spec:
           hostnames:
             - alertmanager.aresu.eu
           parentRefs:
-            - name: internal
-              namespace: kube-system
+            - name: envoy-internal
+              namespace: network
               sectionName: https
       alertmanagerSpec:
         alertmanagerConfiguration:
@@ -159,6 +159,6 @@ spec:
           hostnames:
             - prometheus.aresu.eu
           parentRefs:
-            - name: internal
-              namespace: kube-system
+            - name: envoy-internal
+              namespace: network
               sectionName: https
