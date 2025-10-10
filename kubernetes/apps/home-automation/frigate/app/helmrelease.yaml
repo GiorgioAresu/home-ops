@@ -20,6 +20,10 @@ spec:
   values:
     controllers:
       frigate:
+        pod:
+          resourceClaims:
+            - name: gpu
+              resourceClaimTemplateName: frigate-gpu
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -49,10 +53,11 @@ spec:
                 add:
                   - CAP_PERFMON
             resources:
+              claims:
+                - name: gpu
               requests:
                 cpu: 100m
               limits:
-                gpu.intel.com/i915: "1"
                 memory: 3Gi
         initContainers:
           copyconfig:

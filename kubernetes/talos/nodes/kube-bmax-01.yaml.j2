@@ -21,6 +21,7 @@ machine:
             dhcp: false
             mtu: 1500
   nodeLabels:
+    node.kubernetes.io/gpu: "true"
     node.kubernetes.io/virtual: "false"
     node.longhorn.io/create-default-disk: "true"
   type: controlplane
