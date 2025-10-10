@@ -10,9 +10,12 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   components:
+    - ../../../../components/gpu
     - ../../../../components/volsync
     - ../../../../components/keda/nas-nfs-scaler
   dependsOn:
+    - name: intel-gpu-resource-driver
+      namespace: kube-system
     - name: longhorn-volumesnapshotclass
       namespace: longhorn
   healthChecks:

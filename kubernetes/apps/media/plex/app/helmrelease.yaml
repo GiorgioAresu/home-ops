@@ -12,8 +12,10 @@ spec:
   values:
     controllers:
       plex:
-        replicas: 1
         pod:
+          resourceClaims:
+            - name: gpu
+              resourceClaimTemplateName: plex-gpu
           securityContext:
             runAsUser: 2000
             runAsGroup: 2000
@@ -58,10 +60,11 @@ spec:
                 drop:
                   - ALL
             resources:
+              claims:
+                - name: gpu
               requests:
                 cpu: 100m
               limits:
-                gpu.intel.com/i915: 1
                 memory: 2Gi
     service:
       app:

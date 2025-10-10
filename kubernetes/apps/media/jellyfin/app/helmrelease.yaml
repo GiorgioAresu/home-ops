@@ -13,6 +13,9 @@ spec:
     controllers:
       jellyfin:
         pod:
+          resourceClaims:
+            - name: gpu
+              resourceClaimTemplateName: jellyfin-gpu
           securityContext:
             fsGroup: 2000
             fsGroupChangePolicy: "OnRootMismatch"
@@ -55,10 +58,11 @@ spec:
                 drop:
                   - ALL
             resources:
+              claims:
+                - name: gpu
               requests:
                 cpu: 100m
               limits:
-                gpu.intel.com/i915: 1
                 memory: 3Gi
     service:
       app:
