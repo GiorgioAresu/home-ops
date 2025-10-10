@@ -19,9 +19,9 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: *appname
-      namespace: default
+      namespace: home-automation
   interval: 1h
-  path: ./kubernetes/apps/default/frigate/app
+  path: ./kubernetes/apps/home-automation/frigate/app
   postBuild:
     substitute:
       APP: *appname
@@ -31,6 +31,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: home-automation
   timeout: 5m
   wait: false
