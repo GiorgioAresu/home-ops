@@ -8,5 +8,4 @@ components:
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
-  - ./frigate/ks.yaml
   - ./vlmcsd/ks.yaml
