@@ -18,9 +18,9 @@ spec:
               originServerName: ingress-ext.aresu.eu
             ingress:
               - hostname: aresu.eu
-                service: https://cilium-gateway-external.kube-system.svc.cluster.local
+                service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local
               - hostname: "*.aresu.eu"
-                service: https://cilium-gateway-external.kube-system.svc.cluster.local
+                service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local
               - service: http_status:404
     controllers:
       cloudflared:
