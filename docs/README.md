@@ -12,11 +12,11 @@ The end result is currently an *amd64* cluster¹, with every node running [Talos
 
 ## 🛠️ Hardware
 
-| #  | Device             | Cores (Threads) | Memory | Disk           |
-|----|--------------------|-----------------|--------|----------------|
-| 1x | BMAX B4+ N100      | 4               | 16GB   | 512GB SSD      |
-| 1x | Intel NUC DC3217BY | 2 (4)           | 8GB    | 240GB SSD      |
-| 1x | Proxmox VM         | 4               | 16GB   | 32GB+100GB SSD |
+| #  | Device               | Cores (Threads) | Memory | Disk      |
+|----|----------------------|-----------------|--------|-----------|
+| 1x | BMAX B4+ N100        | 4               | 16GB   | 512GB SSD |
+| 1x | MINISFORUM UH125 Pro | 14 (18)         | 32GB   | 1TB SSD   |
+| 1x | Proxmox VM           | 4               | 24GB   | 300GB SSD |
 
 ## 🖥️ Node setup
 
