@@ -85,3 +85,8 @@ spec:
       enabled: true
     serviceMonitor:
       enabled: true
+    readinessProbe:
+      httpGet:
+        path: /api/v1/health
+        port: http
+      timeoutSeconds: 3
