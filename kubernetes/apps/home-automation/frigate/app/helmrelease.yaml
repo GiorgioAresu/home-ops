@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -9,14 +9,6 @@ spec:
     kind: OCIRepository
     name: frigate
   interval: 30m
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
   values:
     controllers:
       frigate:
@@ -36,22 +28,17 @@ spec:
                   name: frigate-secret
             probes:
               liveness: &probes
-                enabled: true
+                enabled: false
                 custom: true
                 spec:
                   httpGet:
                     path: /api/version
-                    port: &port 5000
+                    port: &portHttp 5000
                   initialDelaySeconds: 10
                   periodSeconds: 10
                   timeoutSeconds: 5
                   failureThreshold: 3
               readiness: *probes
-            securityContext:
-              privileged: true # Required for intel_gpu_top to work
-              capabilities:
-                add:
-                  - CAP_PERFMON
             resources:
               claims:
                 - name: gpu
@@ -66,26 +53,26 @@ spec:
               tag: *imageTag
             command: ["cp"]
             args: ["-v", "/tmp/config.yml", "/config/config.yaml"]
-    defaultPodOptions:
-      # affinity:
-      #   podAntiAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       - labelSelector:
-      #           matchExpressions:
-      #             - key: app.kubernetes.io/name
-      #               operator: In
-      #               values: ["plex"]
-      #         topologyKey: kubernetes.io/hostname
-      nodeSelector:
-        # google.feature.node.kubernetes.io/coral: "true"
-        intel.feature.node.kubernetes.io/gpu: "true"
     service:
-      app:
+      frigate:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: ${SVC_FRIGATE_ADDR}
         ports:
           http:
-            port: *port
+            appProtocol: kubernetes.io/wss
+            port: *portHttp
+          go2rtc:
+            primary: true
+            port: &portGo2rtc 1984
           rtsp:
             port: 8554
+          webrtc-tcp:
+            port: 8555
+            protocol: TCP
+          webrtc-udp:
+            port: 8555
+            protocol: UDP
     persistence:
       config:
         existingClaim: frigate
@@ -114,7 +101,7 @@ spec:
         globalMounts:
           - path: /media/frigate
     route:
-      app:
+      frigate:
         hostnames:
           - frigate.aresu.eu
         parentRefs:
@@ -123,5 +110,16 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: app
-                port: *port
+              - identifier: frigate
+                port: *portHttp
+      go2rtc:
+        hostnames:
+          - frigate-go2rtc.aresu.eu
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: frigate
+                port: *portGo2rtc
