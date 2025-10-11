@@ -51,26 +51,6 @@
       minimumGroupSize: 5,
     },
     {
-      description: "Longhorn Group",
-      groupName: "Longhorn",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/longhorn/", "/rook-ceph-cluster/"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-      minimumGroupSize: 2,
-    },
-    {
-      description: "Silence-Operator Group",
-      groupName: "Silence-Operator",
-      matchDatasources: ["docker", "github-releases"],
-      matchPackageNames: ["/silence-operator/"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-      minimumGroupSize: 2,
-    },
-    {
       description: "Talos Group",
       groupName: "Talos",
       matchDatasources: ["docker"],
