@@ -12,10 +12,10 @@ spec:
   values:
     controllers:
       frigate:
-        pod:
-          resourceClaims:
-            - name: gpu
-              resourceClaimTemplateName: frigate-gpu
+        # pod:
+        #   resourceClaims:
+        #     - name: gpu
+        #       resourceClaimTemplateName: frigate-gpu
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -40,8 +40,8 @@ spec:
                   failureThreshold: 3
               readiness: *probes
             resources:
-              claims:
-                - name: gpu
+              # claims:
+              #   - name: gpu
               requests:
                 cpu: 100m
               limits:
