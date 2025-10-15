@@ -12,10 +12,10 @@ spec:
   values:
     controllers:
       frigate:
-        pod:
-          resourceClaims:
-            - name: gpu
-              resourceClaimTemplateName: frigate-gpu
+        # pod:
+        #   resourceClaims:
+        #     - name: gpu
+        #       resourceClaimTemplateName: frigate-gpu
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -40,19 +40,19 @@ spec:
                   failureThreshold: 3
               readiness: *probes
             resources:
-              claims:
-                - name: gpu
+              # claims:
+              #   - name: gpu
               requests:
                 cpu: 100m
               limits:
                 memory: 3Gi
-        initContainers:
-          copyconfig:
-            image:
-              repository: *imageRepo
-              tag: *imageTag
-            command: ["cp"]
-            args: ["-v", "/tmp/config.yml", "/config/config.yaml"]
+        # initContainers:
+        #   copyconfig:
+        #     image:
+        #       repository: *imageRepo
+        #       tag: *imageTag
+        #     command: ["cp"]
+        #     args: ["-v", "/tmp/config.yml", "/config/config.yaml"]
     service:
       frigate:
         type: LoadBalancer
@@ -78,13 +78,13 @@ spec:
         existingClaim: frigate
         globalMounts:
           - path: /config
-      config-file:
-        type: configMap
-        name: frigate-configmap
-        globalMounts:
-          - path: /tmp/config.yml # Let the initContainer copy it
-            subPath: config.yml
-            readOnly: true
+      # config-file:
+      #   type: configMap
+      #   name: frigate-configmap
+      #   globalMounts:
+      #     - path: /tmp/config.yml # Let the initContainer copy it
+      #       subPath: config.yml
+      #       readOnly: true
       tmpfs:
         type: emptyDir
         medium: Memory
