@@ -8,11 +8,5 @@
       "kubernetes/*.yml",
       "kubernetes/*.yaml"
     ]
-  },
-  "vs-kubernetes": {
-    "vs-kubernetes.kubeconfig": "./kubernetes/kubeconfig",
-    "vs-kubernetes.knownKubeconfigs": [
-      "./kubernetes/kubeconfig"
-    ]
   }
 }
