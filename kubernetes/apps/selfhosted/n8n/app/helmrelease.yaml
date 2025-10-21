@@ -42,6 +42,8 @@ spec:
                   secretKeyRef:
                     name: n8n-secret
                     key: N8N_ENCRYPTION_KEY
+              N8N_PROXY_HOPS: 1
+              WEBHOOK_URL: https://n8n.aresu.eu/
             resources:
               requests:
                 cpu: 5m
@@ -79,4 +81,7 @@ spec:
           - matches:
               - path:
                   value: /webhook
-            backendRefs: [{}]
+              - path:
+                  value: /webhook-test
+            backendRefs:
+              - {}
