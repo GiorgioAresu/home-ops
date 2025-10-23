@@ -258,7 +258,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-            sectionName: https
 
     serviceAccount:
       create: true
