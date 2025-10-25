@@ -4,49 +4,49 @@
 # =================================================================================================
 resource "routeros_interface_ethernet" "rb5009_ether1" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  comment      = "Managed by Terraform - WAN DSL Uplink"
   factory_name = "ether1"
   name         = "ether1"
 }
 resource "routeros_interface_ethernet" "rb5009_ether2" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  comment      = "Managed by Terraform - [PRAN] hAP ax3"
   factory_name = "ether2"
   name         = "ether2"
 }
 resource "routeros_interface_ethernet" "rb5009_ether3" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  comment      = "Managed by Terraform - [GI A] Unifi UAP AC Lite"
   factory_name = "ether3"
   name         = "ether3"
 }
 resource "routeros_interface_ethernet" "rb5009_ether4" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  comment      = "Managed by Terraform - [SA B] hAP ax lite LTE"
   factory_name = "ether4"
   name         = "ether4"
 }
 resource "routeros_interface_ethernet" "rb5009_ether5" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  comment      = "Managed by Terraform - HomeAssistant Blue"
   factory_name = "ether5"
   name         = "ether5"
 }
 resource "routeros_interface_ethernet" "rb5009_ether6" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  comment      = "Managed by Terraform - JetKVM"
   factory_name = "ether6"
   name         = "ether6"
 }
 resource "routeros_interface_ethernet" "rb5009_ether7" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  comment      = "Managed by Terraform - Unmanaged TP-Link"
   factory_name = "ether7"
   name         = "ether7"
 }
 resource "routeros_interface_ethernet" "rb5009_ether8" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  comment      = "Managed by Terraform - Unmanaged Netgear"
   factory_name = "ether8"
   name         = "ether8"
 }
