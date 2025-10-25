@@ -21,6 +21,7 @@ spec:
       name: *appname
       namespace: media
   interval: 1h
+  targetNamespace: media
   timeout: 5m
   path: "./kubernetes/apps/media/plex-auto-languages/app"
   postBuild:

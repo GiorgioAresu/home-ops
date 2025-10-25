@@ -14,6 +14,7 @@ spec:
       name: *appname
       namespace: observability
   interval: 1h
+  targetNamespace: observability
   timeout: 5m
   path: "./kubernetes/apps/observability/mikrotik-exporter/app"
   prune: true

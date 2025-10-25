@@ -19,6 +19,7 @@ spec:
       name: *appname
       namespace: selfhosted
   interval: 1h
+  targetNamespace: selfhosted
   timeout: 5m
   path: "./kubernetes/apps/selfhosted/n8n/app"
   postBuild:

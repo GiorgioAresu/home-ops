@@ -10,14 +10,13 @@ spec:
     provider: sops
   interval: 1h
   path: ./kubernetes/apps
-  prune: true
   patches:
-    - # Add Sops decryption and postBuild substitutions to child Kustomizations
+    - # Add Sops decryption and postBuild to all Kustomizations
       patch: |-
         apiVersion: kustomize.toolkit.fluxcd.io/v1
         kind: Kustomization
         metadata:
-          name: not-used
+          name: _
         spec:
           decryption:
             provider: sops
@@ -37,14 +36,14 @@ spec:
         apiVersion: kustomize.toolkit.fluxcd.io/v1
         kind: Kustomization
         metadata:
-          name: not-used
+          name: _
         spec:
           patches:
             - patch: |-
                 apiVersion: helm.toolkit.fluxcd.io/v2
                 kind: HelmRelease
                 metadata:
-                  name: not-used
+                  name: _
                 spec:
                   install:
                     crds: CreateReplace
@@ -68,6 +67,7 @@ spec:
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
