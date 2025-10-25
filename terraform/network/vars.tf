@@ -112,13 +112,13 @@ variable "iot_wifi_password" {
 ## ================================================================================================
 ## Wireguard Variables
 ## ================================================================================================
-variable "wireguard_endpoint" {
+variable "wireguard_home_endpoint" {
   type        = string
   sensitive   = false
   description = "Public endpoint for wireguard server"
 }
 
-variable "wireguard_private_key" {
+variable "wireguard_home_private_key" {
   type        = string
   sensitive   = true
   description = "Private key for wireguard server"

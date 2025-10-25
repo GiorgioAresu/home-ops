@@ -8,8 +8,8 @@ resource "routeros_interface_wireguard" "home" {
   disabled    = false
   listen_port = 13231
   mtu         = "1420"
-  name        = "wireguard"
-  private_key = var.wireguard_private_key
+  name        = "wg-home"
+  private_key = var.wireguard_home_private_key
 }
 
 output "wireguard_public_key" {
@@ -35,7 +35,7 @@ resource "routeros_interface_wireguard_peer" "odroidhc4" {
   allowed_address      = ["10.17.100.50/32"]
   client_address       = "10.17.100.50/32"
   client_dns           = "10.17.100.1"
-  client_endpoint      = var.wireguard_endpoint
+  client_endpoint      = var.wireguard_home_endpoint
   client_keepalive     = "30s"
   client_listen_port   = null
   disabled             = false
@@ -52,7 +52,7 @@ resource "routeros_interface_wireguard_peer" "phone_giorgio" {
   allowed_address      = ["10.17.100.2/32"]
   client_address       = "10.17.100.2/32"
   client_dns           = "10.17.100.1"
-  client_endpoint      = var.wireguard_endpoint
+  client_endpoint      = var.wireguard_home_endpoint
   client_keepalive     = null
   client_listen_port   = null
   disabled             = false
@@ -69,7 +69,7 @@ resource "routeros_interface_wireguard_peer" "laptop_giorgio" {
   allowed_address      = ["10.17.100.4/32"]
   client_address       = "10.17.100.4/32"
   client_dns           = "10.17.100.1"
-  client_endpoint      = var.wireguard_endpoint
+  client_endpoint      = var.wireguard_home_endpoint
   client_keepalive     = null
   client_listen_port   = null
   disabled             = false
@@ -86,7 +86,7 @@ resource "routeros_interface_wireguard_peer" "phone_sara" {
   allowed_address      = ["10.17.100.3/32"]
   client_address       = "10.17.100.3/32"
   client_dns           = "10.17.100.1"
-  client_endpoint      = var.wireguard_endpoint
+  client_endpoint      = var.wireguard_home_endpoint
   client_keepalive     = null
   client_listen_port   = null
   disabled             = false
@@ -103,7 +103,7 @@ resource "routeros_interface_wireguard_peer" "travel_router" {
   allowed_address      = ["10.17.100.5/32"]
   client_address       = "10.17.100.5/32"
   client_dns           = "10.17.100.1"
-  client_endpoint      = var.wireguard_endpoint
+  client_endpoint      = var.wireguard_home_endpoint
   client_keepalive     = null
   client_listen_port   = null
   disabled             = false

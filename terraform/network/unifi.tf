@@ -57,13 +57,13 @@ resource "unifi_device" "usw_flex_mini" {
   }
 
   port_override {
-    number = 3
+    number          = 3
     name            = "Camera-Dome"
     port_profile_id = unifi_port_profile.security.id
   }
 
   port_override {
-    number = 4
+    number          = 4
     name            = "Camera-Bullet"
     port_profile_id = unifi_port_profile.security.id
   }

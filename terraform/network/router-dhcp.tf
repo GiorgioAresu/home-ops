@@ -25,25 +25,25 @@ resource "routeros_ip_dhcp_client" "wan_backup" {
 # ================================================================================================
 resource "routeros_ip_address" "lan" {
   provider  = routeros.rb5009
-  comment   = "Managed by Terraform"
+  comment   = "Managed by Terraform - LAN"
   address   = "10.17.1.1/24"
   interface = routeros_interface_bridge.bridge.name
 }
 resource "routeros_ip_address" "guest" {
   provider  = routeros.rb5009
-  comment   = "Managed by Terraform"
+  comment   = "Managed by Terraform - Guest"
   address   = "10.17.30.1/24"
   interface = routeros_interface_vlan.guest.name
 }
 resource "routeros_ip_address" "security" {
   provider  = routeros.rb5009
-  comment   = "Managed by Terraform"
+  comment   = "Managed by Terraform - Security"
   address   = "10.17.40.1/24"
   interface = routeros_interface_vlan.security.name
 }
 resource "routeros_ip_address" "iot" {
   provider  = routeros.rb5009
-  comment   = "Managed by Terraform"
+  comment   = "Managed by Terraform - IoT"
   address   = "10.17.50.1/24"
   interface = routeros_interface_vlan.iot.name
 }
@@ -147,7 +147,6 @@ resource "routeros_ip_dhcp_server" "lan" {
   interface       = routeros_interface_bridge.bridge.name
   lease_time      = "1d"
   use_reconfigure = true
-
 }
 resource "routeros_ip_dhcp_server" "guest" {
   provider        = routeros.rb5009
@@ -157,7 +156,6 @@ resource "routeros_ip_dhcp_server" "guest" {
   interface       = routeros_interface_vlan.guest.name
   lease_time      = "1d"
   use_reconfigure = true
-
 }
 resource "routeros_ip_dhcp_server" "security" {
   provider        = routeros.rb5009
@@ -167,7 +165,6 @@ resource "routeros_ip_dhcp_server" "security" {
   interface       = routeros_interface_vlan.security.name
   lease_time      = "1d"
   use_reconfigure = true
-
 }
 resource "routeros_ip_dhcp_server" "iot" {
   provider        = routeros.rb5009
@@ -177,7 +174,6 @@ resource "routeros_ip_dhcp_server" "iot" {
   interface       = routeros_interface_vlan.iot.name
   lease_time      = "1d"
   use_reconfigure = true
-
 }
 
 
