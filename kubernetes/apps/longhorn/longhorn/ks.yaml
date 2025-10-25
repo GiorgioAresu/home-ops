@@ -14,6 +14,7 @@ spec:
       name: *appname
       namespace: longhorn
   interval: 1h
+  targetNamespace: longhorn
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/app"
   prune: true
@@ -35,6 +36,7 @@ spec:
   dependsOn:
     - name: longhorn
   interval: 1h
+  targetNamespace: longhorn
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/recurringjobs"
   prune: true
@@ -54,6 +56,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   interval: 1h
+  targetNamespace: longhorn
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/storageclass"
   prune: true
@@ -81,6 +84,7 @@ spec:
     - name: volsync
       namespace: system
   interval: 1h
+  targetNamespace: longhorn
   timeout: 5m
   path: "./kubernetes/apps/longhorn/longhorn/volumesnapshotclass"
   prune: true

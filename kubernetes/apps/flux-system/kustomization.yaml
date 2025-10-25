@@ -4,10 +4,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: flux-system
 components:
-  - ../../components/namespace
-replacements:
-  - path: ../../components/replacements/ks.yaml
+  - ../../components/cluster-settings
+  - ../../components/flux-alerts
 resources:
+  - ./namespace.yaml
   # Flux-Kustomizations
   - ./flux-operator/ks.yaml
   - ./flux-instance/ks.yaml
