@@ -101,3 +101,34 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_bmax_b4_plus" {
     as      = local.bgp_as_remote_kubernetes
   }
 }
+
+resource "routeros_routing_table" "vpn_exit_table" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - Routing via VPN Exit"
+  name     = "vpn_exit"
+  fib      = true
+}
+
+resource "routeros_routing_rule" "vpn_exit" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform"
+  dst_address = "0.0.0.0/0"
+  action      = "lookup-only-in-table"
+  interface   = routeros_interface_vlan.vpn_exit.name
+  table       = routeros_routing_table.vpn_exit_table.name
+}
+resource "routeros_ip_route" "vpn_exit_wg_endpoint" {
+  provider      = routeros.rb5009
+  comment       = "Managed by Terraform - Force wireguard server endpoint through WAN"
+  dst_address   = "${var.wireguard_proton_endpoint}/32"
+  gateway       = routeros_interface_ethernet.rb5009_ether1.name
+  routing_table = routeros_routing_table.vpn_exit_table.name
+}
+resource "routeros_ip_route" "vpn_exit_default_route" {
+  provider      = routeros.rb5009
+  comment       = "Managed by Terraform - Everything else through the VPN Exit interface"
+  dst_address   = "0.0.0.0/0"
+  gateway       = routeros_interface_wireguard.vpn_exit.name
+  routing_table = routeros_routing_table.vpn_exit_table.name
+}
+

@@ -26,6 +26,13 @@ resource "routeros_interface_vlan" "router_wan_backup" {
   name      = "lte"
   vlan_id   = local.vlan_id_wan_backup
 }
+resource "routeros_interface_vlan" "vpn_exit" {
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform - VPN Exit"
+  interface = routeros_interface_bridge.bridge.name
+  name      = "vpn-exit"
+  vlan_id   = local.vlan_id_vpn_exit
+}
 resource "unifi_network" "guest" {
   name    = "guest"
   purpose = "vlan-only"
@@ -72,4 +79,11 @@ resource "routeros_interface_bridge_vlan" "router_wan_backup" {
   bridge   = routeros_interface_bridge.bridge.name
   vlan_ids = [routeros_interface_vlan.router_wan_backup.vlan_id]
   tagged   = [routeros_interface_bridge.bridge.name, routeros_interface_ethernet.rb5009_ether8.name]
+}
+resource "routeros_interface_bridge_vlan" "vpn_exit" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  bridge   = routeros_interface_bridge.bridge.name
+  vlan_ids = [routeros_interface_vlan.vpn_exit.vlan_id]
+  tagged   = [routeros_interface_bridge.bridge.name, routeros_interface_ethernet.rb5009_ether7.name, routeros_interface_ethernet.rb5009_ether8.name]
 }

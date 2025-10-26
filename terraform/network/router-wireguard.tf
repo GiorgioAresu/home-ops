@@ -11,6 +11,15 @@ resource "routeros_interface_wireguard" "home" {
   name        = "wg-home"
   private_key = var.wireguard_home_private_key
 }
+resource "routeros_interface_wireguard" "vpn_exit" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Proton VPN"
+  disabled    = false
+  listen_port = 12345
+  mtu         = "1420"
+  name        = "wg-proton"
+  private_key = var.wireguard_proton_private_key
+}
 
 output "wireguard_public_key" {
   value = routeros_interface_wireguard.home.public_key
@@ -113,4 +122,16 @@ resource "routeros_interface_wireguard_peer" "travel_router" {
   preshared_key        = var.wireguard_travel_router_preshared_key
   private_key          = var.wireguard_travel_router_private_key
   public_key           = var.wireguard_travel_router_public_key
+}
+resource "routeros_interface_wireguard_peer" "proton_vpn" {
+  provider             = routeros.rb5009
+  comment              = "Managed by Terraform - Proton VPN"
+  allowed_address      = ["0.0.0.0/0"]
+  endpoint_address     = var.wireguard_proton_endpoint
+  endpoint_port        = var.wireguard_proton_port
+  disabled             = false
+  interface            = routeros_interface_wireguard.vpn_exit.name
+  name                 = "ProtonVPN"
+  persistent_keepalive = "25s"
+  public_key           = var.wireguard_proton_public_key
 }
