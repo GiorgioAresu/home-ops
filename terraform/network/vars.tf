@@ -117,8 +117,23 @@ variable "wireguard_home_endpoint" {
   sensitive   = false
   description = "Public endpoint for wireguard server"
 }
+variable "wireguard_proton_endpoint" {
+  type        = string
+  sensitive   = false
+  description = "Public endpoint for wireguard server"
+}
+variable "wireguard_proton_port" {
+  type        = string
+  sensitive   = false
+  description = "Public port for wireguard server"
+}
 
 variable "wireguard_home_private_key" {
+  type        = string
+  sensitive   = true
+  description = "Private key for wireguard server"
+}
+variable "wireguard_proton_private_key" {
   type        = string
   sensitive   = true
   description = "Private key for wireguard server"
@@ -198,4 +213,9 @@ variable "wireguard_travel_router_public_key" {
   type        = string
   sensitive   = false
   description = "Public key for travel router wireguard client"
+}
+variable "wireguard_proton_public_key" {
+  type        = string
+  sensitive   = true
+  description = "Public key for Proton VPN wireguard server"
 }

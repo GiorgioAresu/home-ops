@@ -47,6 +47,18 @@ resource "routeros_ip_address" "iot" {
   address   = "10.17.50.1/24"
   interface = routeros_interface_vlan.iot.name
 }
+resource "routeros_ip_address" "wireguard_vpn_exit" {
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform - VPN Exit"
+  address   = "10.2.0.2/30"
+  interface = routeros_interface_wireguard.vpn_exit.name
+}
+resource "routeros_ip_address" "vlan_vpn_exit" {
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform - VPN Exit"
+  address   = "10.17.90.1/24"
+  interface = routeros_interface_vlan.vpn_exit.name
+}
 
 
 # ================================================================================================
@@ -76,6 +88,12 @@ resource "routeros_ip_pool" "iot" {
   comment  = "Managed by Terraform"
   name     = "IoT"
   ranges   = ["10.17.50.100-10.17.50.199"]
+}
+resource "routeros_ip_pool" "vpn_exit" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  name     = "VPN Exit"
+  ranges   = ["10.17.90.100-10.17.90.199"]
 }
 
 
@@ -133,6 +151,15 @@ resource "routeros_ip_dhcp_server_network" "iot" {
   ntp_server = ["10.17.50.1"]
   domain     = "iot.aresu.eu"
 }
+resource "routeros_ip_dhcp_server_network" "vpn_exit" {
+  provider   = routeros.rb5009
+  comment    = "Managed by Terraform"
+  address    = "10.17.90.0/24"
+  gateway    = "10.17.90.1"
+  dns_server = ["10.2.0.1"]
+  # ntp_server = ["10.17.50.1"]
+  domain = "vpn_exit.aresu.eu"
+}
 
 
 # ================================================================================================
@@ -172,6 +199,15 @@ resource "routeros_ip_dhcp_server" "iot" {
   name            = "IoT"
   address_pool    = routeros_ip_pool.iot.name
   interface       = routeros_interface_vlan.iot.name
+  lease_time      = "1d"
+  use_reconfigure = true
+}
+resource "routeros_ip_dhcp_server" "vpn_exit" {
+  provider        = routeros.rb5009
+  comment         = "Managed by Terraform"
+  name            = "VPN Exit"
+  address_pool    = routeros_ip_pool.vpn_exit.name
+  interface       = routeros_interface_vlan.vpn_exit.name
   lease_time      = "1d"
   use_reconfigure = true
 }
