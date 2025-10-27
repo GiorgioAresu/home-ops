@@ -10,7 +10,7 @@ machine:
         bond:
           deviceSelectors:
             - hardwareAddr: bc:24:11:41:5f:39
-              # driver: igc
+              driver: virtio_net
           mode: active-backup
         dhcp: true
         vip:
