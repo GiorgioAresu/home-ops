@@ -267,10 +267,6 @@ spec:
       enabled: true
 
     sidecar:
-      image:
-        registry: ghcr.io
-        repository: home-operations/k8s-sidecar
-        tag: 1.30.11
       dashboards:
         enabled: true
         searchNamespace: ALL
