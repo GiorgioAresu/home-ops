@@ -175,6 +175,12 @@ resource "routeros_interface_list_member" "lan_security" {
   interface = routeros_interface_vlan.security.name
   list      = routeros_interface_list.lan.name
 }
+resource "routeros_interface_list_member" "lan_wg_home" {
+  provider  = routeros.rb5009
+  comment   = "Managed by Terraform"
+  interface = routeros_interface_wireguard.home.name
+  list      = routeros_interface_list.lan.name
+}
 resource "routeros_interface_list_member" "wan_fttc" {
   provider  = routeros.rb5009
   comment   = "Managed by Terraform"
