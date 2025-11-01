@@ -31,7 +31,6 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_proxmox_01" {
   as             = local.bgp_as_local
   listen         = true
   nexthop_choice = "force-self"
-  router_id      = "10.17.1.1"
   routing_table  = "main"
   templates      = [routeros_routing_bgp_template.home_ops.name]
 
@@ -57,7 +56,6 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_minisforum_01" {
   as             = local.bgp_as_local
   listen         = true
   nexthop_choice = "force-self"
-  router_id      = "10.17.1.1"
   routing_table  = "main"
   templates      = [routeros_routing_bgp_template.home_ops.name]
 
@@ -83,7 +81,6 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_bmax_b4_plus" {
   as             = local.bgp_as_local
   listen         = true
   nexthop_choice = "force-self"
-  router_id      = "10.17.1.1"
   routing_table  = "main"
   templates      = [routeros_routing_bgp_template.home_ops.name]
 
