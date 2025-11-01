@@ -43,6 +43,10 @@ spec:
               - base-int8
               - --language
               - it
+              - --data-dir
+              - /data
+              - --download-dir
+              - /data
             ports:
               - name: wyoming
                 containerPort: &port 10300
