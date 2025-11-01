@@ -238,26 +238,3 @@ resource "routeros_ip_firewall_filter" "allow_vpn_exit_vlan_forward" {
 }
 
 
-# # ================================================================================================
-# # FIREWALL Mangle
-# # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_firewall_mangle
-# # ================================================================================================
-# resource "routeros_ip_firewall_mangle" "mark_vpn_exit_conn" {
-#   provider            = routeros.rb5009
-#   comment             = "Managed by Terraform - Mark connections from VPN VLAN"
-#   chain               = "prerouting"
-#   src_address         = "10.17.90.0/24"
-#   action              = "mark-connection"
-#   new_connection_mark = "vpn-conn"
-#   passthrough         = true
-# }
-
-# resource "routeros_ip_firewall_mangle" "mark_vpn_exit_routing" {
-#   provider         = routeros.rb5009
-#   comment          = "Managed by Terraform - Mark routing for VPN connections"
-#   chain            = "prerouting"
-#   connection_mark  = "vpn-conn"
-#   action           = "mark-routing"
-#   new_routing_mark = routeros_routing_table.vpn_exit_table.name
-#   passthrough      = true
-# }
