@@ -238,3 +238,25 @@ resource "routeros_ip_firewall_filter" "allow_vpn_exit_vlan_forward" {
 }
 
 
+# ================================================================================================
+# NAT-PMP
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_nat_pmp
+# ================================================================================================
+resource "routeros_ip_nat_pmp" "nat_pmp" {
+  provider = routeros.rb5009
+  enabled  = true
+}
+# ================================================================================================
+# NAT-PMP Interfaces
+# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_nat_pmp_interfaces
+# ================================================================================================
+resource "routeros_ip_nat_pmp_interfaces" "wireguard_vpn_exit" {
+  provider  = routeros.rb5009
+  interface = routeros_interface_wireguard.vpn_exit.name
+  type      = "external"
+}
+resource "routeros_ip_nat_pmp_interfaces" "vlan_vpn_exit" {
+  provider  = routeros.rb5009
+  interface = routeros_interface_vlan.vpn_exit.name
+  type      = "internal"
+}
