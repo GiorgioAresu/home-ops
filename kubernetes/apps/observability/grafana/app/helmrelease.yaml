@@ -37,14 +37,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/openebs
-          - name: flux
-            orgId: 1
-            folder: Flux
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/flux
           - name: kubernetes
             orgId: 1
             folder: Kubernetes
@@ -56,128 +48,71 @@ spec:
 
     dashboards:
       default:
+        blackbox-exporter:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/7587/revisions/3/download
         cert-manager:
-          # renovate: dashboardName="Cert-manager-Kubernetes"
-          gnetId: 20842
-          revision: 3
           datasource: Prometheus
-
+          url: https://grafana.com/api/dashboards/20842/revisions/3/download
         cloudflared:
-          # renovate: dashboardName="Cloudflare Tunnels (cloudflared)"
-          gnetId: 17457
-          revision: 6
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-
-        external-dns:
-          # renovate: dashboardName="External-DNS"
-          gnetId: 15038
-          revision: 3
-          datasource: Prometheus
-
-        keda:
-          # renovate: dashboardName="Keda"
-          url: https://raw.githubusercontent.com/kedacore/keda/refs/heads/main/config/grafana/keda-dashboard.json
-          datasource: prometheus
-
+          url: https://grafana.com/api/dashboards/17457/revisions/6/download
+        envoy:
+          datasource:
+            - name: DS_AFRANET_PROMETHEUS
+              value: Prometheus
+          url: https://grafana.com/api/dashboards/23239/revisions/1/download
         mikrotik-mktxp-exporter:
-          # renovate: dashboardName="Mikrotik MKTXP Exporter"
-          gnetId: 13679
-          revision: 23
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-
+          url: https://grafana.com/api/dashboards/13679/revisions/23/download
         node-exporter-full:
-          # renovate: dashboardName="Node Exporter Full"
-          gnetId: 1860
-          revision: 42
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-
+          url: https://grafana.com/api/dashboards/1860/revisions/42/download
+        openebs-cluster:
+          url: https://grafana.com/api/dashboards/12171/revisions/2/download
+        prometheus:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/19105/revisions/7/download
         smartctl-exporter:
-          # renovate: dashboardName="SMARTctl Exporter Dashboard"
-          gnetId: 22604
-          revision: 2
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-
-        spegel:
-          # renovate: dashboardName="Spegel"
-          gnetId: 18089
-          revision: 1
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
-
+          url: https://grafana.com/api/dashboards/22604/revisions/2/download
         volsync:
-          # renovate: dashboardName="VolSync Dashboard"
-          gnetId: 21356
-          revision: 3
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
             - name: VAR_REPLICATIONDESTNAME
               value: ".*-bootstrap"
-
-        zfs:
-          # renovate: dashboardName="ZFS"
-          gnetId: 7845
-          revision: 4
-          datasource: Prometheus
-
-      openebs:
-        openebs-cluster:
-          # renovate: dashboardName="1 OpenEBS Dashboard"
-          gnetId: 12171
-          revision: 2
-          datasource: Prometheus
-
-      flux:
-        flux-cluster:
-          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/cluster.json
-          datasource: Prometheus
-        flux-control-plane:
-          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
-          datasource: Prometheus
-        flux-logs:
-          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/logs.json
-          datasource: Prometheus
-
+          url: https://grafana.com/api/dashboards/21356/revisions/3/download
       kubernetes:
-        k8s-system-api-server:
-          # renovate: dashboardName="Kubernetes / System / API Server"
-          gnetId: 15761
-          revision: 20
+        kubernetes-api-server:
           datasource: Prometheus
-        k8s-views-global:
-          # renovate: dashboardName="Kubernetes / Views / Global"
-          gnetId: 15757
-          revision: 43
+          url: https://grafana.com/api/dashboards/15761/revisions/19/download
+        kubernetes-coredns:
           datasource: Prometheus
-        k8s-views-nodes:
-          # renovate: dashboardName="Kubernetes / Views / Nodes"
-          gnetId: 15759
-          revision: 40
+          url: https://grafana.com/api/dashboards/15762/revisions/21/download
+        kubernetes-global:
           datasource: Prometheus
-        k8s-views-namespaces:
-          # renovate: dashboardName="Kubernetes / Views / Namespaces"
-          gnetId: 15758
-          revision: 44
+          url: https://grafana.com/api/dashboards/15757/revisions/43/download
+        kubernetes-namespaces:
           datasource: Prometheus
-        k8s-views-pods:
-          # renovate: dashboardName="Kubernetes / Views / Pods"
-          gnetId: 15760
-          revision: 37
+          url: https://grafana.com/api/dashboards/15758/revisions/42/download
+        kubernetes-nodes:
           datasource: Prometheus
-        k8s-volumes:
-          # renovate: dashboardName="K8s / Storage / Volumes / Cluster"
-          gnetId: 11454
-          revision: 14
+          url: https://grafana.com/api/dashboards/15759/revisions/37/download
+        kubernetes-pods:
           datasource: Prometheus
+          url: https://grafana.com/api/dashboards/15760/revisions/36/download
+        kubernetes-volumes:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/11454/revisions/14/download
 
     datasources:
       datasources.yaml:
