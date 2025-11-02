@@ -62,6 +62,16 @@ sync-all-es:
     just k8s sync-es "$ns" "$name"; \
   done
 
+[doc('Snapshot all VolSync ReplicationSource')]
+snapshot ns name:
+  kubectl -n "{{ ns }}" patch replicationsources "{{ name }}" --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'; \
+
+[doc('Snapshot all VolSync ReplicationSources')]
+snapshot-all:
+  kubectl get replicationsources --no-headers -A | while read -r ns name _; do \
+    just k8s snapshot "$ns" "$name"; \
+  done
+
 [private]
 render-local-ks ns ks:
   flux-local build ks --namespace "{{ ns }}" --path "{{ kubernetes_dir }}/flux/cluster" "{{ ks }}"
