@@ -74,4 +74,5 @@ tasks:
     status:
       - ssh {{.HOST}} "/interface/lte/print count-only" | grep -qE "(error|0)"
     cmds:
-      - ssh {{.HOST}} ":foreach i in [/interface/lte/find] do={ /interface/lte/firmware-upgrade $i }"
+      - ssh {{.HOST}} ":foreach i in [/interface/lte/find] do={[/interface/lte/firmware-upgrade \$i]}"
+      # - ssh {{.HOST}} "for i from=([/interface/lte/print count-only as-value] - 1) to=0 do={[/interface/lte/firmware-upgrade \$i]}"
