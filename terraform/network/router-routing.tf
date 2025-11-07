@@ -3,11 +3,12 @@
 ###
 # A BGP template allows the MikroTik router to redistribute connected routes and advertise the default route (0.0.0.0/0) to Kubernetes nodes.
 resource "routeros_routing_bgp_template" "home_ops" {
-  provider  = routeros.rb5009
-  comment   = "Managed by Terraform - Kubernetes cluster"
-  name      = "home-ops"
-  as        = local.bgp_as_local
-  hold_time = "1h30m"
+  provider       = routeros.rb5009
+  comment        = "Managed by Terraform - Kubernetes cluster"
+  name           = "home-ops"
+  as             = local.bgp_as_local
+  hold_time      = "9m"
+  keepalive_time = "3m"
 }
 
 resource "routeros_routing_filter_rule" "home_ops_in" {
@@ -27,7 +28,7 @@ resource "routeros_routing_filter_rule" "home_ops_out" {
 resource "routeros_routing_bgp_connection" "home_ops_kube_proxmox_01" {
   provider       = routeros.rb5009
   comment        = "Managed by Terraform - kube-proxmox-01"
-  name           = "cilium-bgp"
+  name           = "cilium-bgp-proxmox-01"
   as             = local.bgp_as_local
   listen         = true
   nexthop_choice = "force-self"
@@ -52,7 +53,7 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_proxmox_01" {
 resource "routeros_routing_bgp_connection" "home_ops_kube_minisforum_01" {
   provider       = routeros.rb5009
   comment        = "Managed by Terraform - kube-minisforum-01"
-  name           = "cilium-bgp"
+  name           = "cilium-bgp-minisforum-01"
   as             = local.bgp_as_local
   listen         = true
   nexthop_choice = "force-self"
@@ -77,7 +78,7 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_minisforum_01" {
 resource "routeros_routing_bgp_connection" "home_ops_kube_bmax_b4_plus" {
   provider       = routeros.rb5009
   comment        = "Managed by Terraform - kube-bmax-b4-plus"
-  name           = "cilium-bgp"
+  name           = "cilium-bgp-bmax-b4-plus"
   as             = local.bgp_as_local
   listen         = true
   nexthop_choice = "force-self"
