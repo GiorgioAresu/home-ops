@@ -523,6 +523,13 @@ resource "routeros_ip_dhcp_server_lease" "alarm" {
   address     = "10.17.50.44"
   mac_address = "cc:50:e3:b6:1e:e0"
 }
+resource "routeros_ip_dhcp_server_lease" "mailbox" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Mailbox"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.45"
+  mac_address = "8c:bf:ea:cc:7c:e4"
+}
 
 # resource "routeros_ip_dhcp_server_lease" "this" { *16
 #   provider    = routeros.rb5009

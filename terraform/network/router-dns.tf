@@ -239,6 +239,13 @@ resource "routeros_ip_dns_record" "alarm" {
   name     = "alarm.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.alarm.address
 }
+resource "routeros_ip_dns_record" "mailbox" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "mailbox.iot.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.mailbox.address
+}
 
 resource "routeros_ip_dns_record" "odroidhc4" {
   provider = routeros.rb5009
