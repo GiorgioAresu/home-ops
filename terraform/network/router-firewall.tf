@@ -203,10 +203,11 @@ resource "routeros_ip_firewall_filter" "forward_accept_established" {
 
 resource "routeros_ip_firewall_filter" "forward_drop_invalid" {
   provider         = routeros.rb5009
-  comment          = "defconf - Managed by Terraform - drop invalid"
+  comment          = "defconf - Managed by Terraform - drop invalid except returning from BGP network"
   action           = "drop"
   chain            = "forward"
   connection_state = "invalid"
+  dst_address      = "!10.1.1.0/24"
 }
 
 resource "routeros_ip_firewall_filter" "forward_drop_wan_not_dstnatted" {
