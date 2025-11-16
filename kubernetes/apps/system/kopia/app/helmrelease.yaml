@@ -28,6 +28,8 @@ spec:
             }
     controllers:
       kopia:
+        annotations:
+          reloader.stakater.com/auto: "true"
         pod:
           securityContext:
             runAsUser: 2000
