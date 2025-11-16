@@ -64,7 +64,7 @@ sync-all-es:
 
 [doc('Snapshot all VolSync ReplicationSource')]
 snapshot ns name:
-  kubectl -n "{{ ns }}" patch replicationsources "{{ name }}" --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'; \
+  kubectl -n "{{ ns }}" patch replicationsources "{{ name }}" --type merge -p "{\"spec\":{\"trigger\":{\"manual\":\"$(date +%s)\"}}}"; \
 
 [doc('Snapshot all VolSync ReplicationSources')]
 snapshot-all:
