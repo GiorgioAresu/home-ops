@@ -57,7 +57,7 @@ spec:
                 name: "repository",
                 nfs: Object.spec.template.spec.volumes.nfs{
                   server: "truenas.aresu.eu",
-                  path: "/mnt/tank/backups/volsync-kopia"
+                  path: "/mnt/tank/backups/volsync"
                 }
               }
             },
