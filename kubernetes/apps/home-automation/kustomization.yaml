@@ -13,4 +13,4 @@ resources:
   - ./home-assistant/ks.yaml
   - ./piper/ks.yaml
   - ./whisper/ks.yaml
-  # - ./zigbee2mqtt/ks.yaml
+  - ./zigbee2mqtt/ks.yaml
