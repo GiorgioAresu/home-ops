@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cloudnative-pg
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: cloudnative-pg
+  values:
+    # replicaCount: 2
+    # nodeSelector:
+    #   kubernetes.io/arch: amd64
+    # crds:
+    #   create: true
+    # resources:
+    #   requests:
+    #     cpu: 15m
+    #     memory: 128Mi
+    #   limits:
+    #     cpu: 125m
+    #     memory: 128Mi
+    monitoring:
+      podMonitorEnabled: true
+      grafanaDashboard:
+        create: true
