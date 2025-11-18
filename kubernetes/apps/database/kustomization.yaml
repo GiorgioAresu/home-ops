@@ -8,4 +8,4 @@ components:
   - ../../components/flux-alerts
 resources:
   - ./namespace.yaml
-  # - ./crunchy-postgres-operator/ks.yaml
+  - ./cloudnative-pg/ks.yaml
