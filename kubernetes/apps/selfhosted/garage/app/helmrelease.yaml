@@ -1,0 +1,140 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: garage
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: garage
+  interval: 30m
+  values:
+    configMaps:
+      config:
+        data:
+          garage.toml: |-
+            metadata_dir = "/meta"
+            data_dir = "/data"
+            db_engine = "lmdb"
+            metadata_auto_snapshot_interval = "6h"
+
+            replication_factor = 1
+            compression_level = 2
+
+            rpc_bind_addr = "[::]:3901"
+            rpc_public_addr = "127.0.0.1:3901"
+
+            [s3_api]
+            s3_region = "eu-west-1"
+            api_bind_addr = "[::]:3900"
+            root_domain = ".s3.aresu.eu"
+
+            [admin]
+            api_bind_addr = "[::]:3903"
+    controllers:
+      garage:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            fsGroup: 2000
+            fsGroupChangePolicy: "OnRootMismatch"
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
+        containers:
+          app:
+            image:
+              repository: dxflrs/garage
+              tag: v2.1.0@sha256:4c9b34c113e61358466e83fd6e7d66e6d18657ede14b776eb78a93ee8da7cf6a
+            envFrom:
+              - secretRef:
+                  name: garage-secret
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 500Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+          webui:
+            image:
+              repository: khairul169/garage-webui
+              tag: 1.1.0@sha256:17c793551873155065bf9a022dabcde874de808a1f26e648d4b82e168806439c
+            env:
+              API_BASE_URL: http://localhost:3903
+              S3_ENDPOINT_URL: http://localhost:3900
+              API_ADMIN_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: garage-secret
+                    key: GARAGE_ADMIN_TOKEN
+            envFrom:
+              - secretRef:
+                  name: garage-secret
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 125Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+    service:
+      app:
+        ports:
+          s3:
+            port: &app-port 3900
+          api:
+            port: 3903
+      webui:
+        ports:
+          http:
+            port: &webui-port 3909
+    persistence:
+      config:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /etc/garage.toml
+            subPath: garage.toml
+      nas:
+        type: nfs
+        server: truenas.aresu.eu
+        path: /mnt/tank/kubernetes/garage
+        advancedMounts:
+          garage:
+            app:
+              - path: /data
+                subPath: data
+              - path: /meta
+                subPath: meta
+    route:
+      app:
+        hostnames:
+          - s3.aresu.eu
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *app-port
+      webui:
+        hostnames:
+          - garage.aresu.eu
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: webui
+                port: *webui-port
