@@ -7,7 +7,7 @@ metadata:
 spec:
   configuration:
     destinationPath: s3://postgres/
-    endpointURL: http://s3.selfhosted.svc.cluster.local:3900
+    endpointURL: http://garage-app.selfhosted.svc.cluster.local:3900
     s3Credentials:
       accessKeyId:
         name: cnpg-backups-secret
