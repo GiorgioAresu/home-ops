@@ -64,11 +64,6 @@ spec:
   dependsOn:
     - name: cloudnative-pg
       namespace: database
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *appname
-      namespace: database
   interval: 1h
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
   prune: true
