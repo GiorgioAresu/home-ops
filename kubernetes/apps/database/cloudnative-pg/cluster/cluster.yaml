@@ -72,3 +72,30 @@ spec:
     #       - /usr/lib/postgresql/18/lib
     #     extension_control_path:
     #       - /usr/share/postgresql/18/
+
+  managed:
+    services:
+      additional:
+        - selectorType: rw
+          serviceTemplate:
+            metadata:
+              name: *name
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: postgres.aresu.eu
+                lbipam.cilium.io/ips: ${SVC_POSTGRESQL_ADDR}
+                # gatus.home-operations.com/enabled: "true"
+                # gatus.home-operations.com/endpoint: |
+                #   name: postgres
+                #   conditions:
+                #     - "[CONNECTED] == true"
+                #   group: Services
+                #   ui:
+                #     hide-hostname: true
+                #     hide-url: true
+                #   alerts:
+                #     - type: pushover
+                #       send-on-resolved: true
+            spec:
+              type: LoadBalancer
+          updateStrategy: patch
+      disabledDefaultServices: ["r", "ro"]
