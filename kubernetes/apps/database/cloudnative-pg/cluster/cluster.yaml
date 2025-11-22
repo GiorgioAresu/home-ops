@@ -13,7 +13,7 @@ spec:
   enableSuperuserAccess: true
 
   superuserSecret:
-    name: pg-secret
+    name: cloudnative-pg-secret
 
   storage:
     size: 5Gi
@@ -34,7 +34,7 @@ spec:
     - name: &plugin barman-cloud.cloudnative-pg.io
       isWALArchiver: true
       parameters:
-        barmanObjectName: &store cnpg-backups-store
+        barmanObjectName: &store cloudnative-pg-backups-store
 
   externalClusters:
     - name: *src
