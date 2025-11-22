@@ -176,12 +176,12 @@ resource "routeros_ip_dns_record" "sonoff_rf_bridge" {
   name     = "rf-bridge.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.sonoff_rf_bridge.address
 }
-resource "routeros_ip_dns_record" "stufetta" {
+resource "routeros_ip_dns_record" "sonoff_s20" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   type     = "A"
-  name     = "stufetta.iot.aresu.eu"
-  address  = routeros_ip_dhcp_server_lease.stufetta.address
+  name     = "sonoff-s20.iot.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.sonoff_s20.address
 }
 resource "routeros_ip_dns_record" "ble_tracker" {
   provider = routeros.rb5009
