@@ -3,20 +3,20 @@
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
-  name: cnpg-backups-store
+  name: cloudnative-pg-backups-store
 spec:
   configuration:
     destinationPath: s3://postgres/
     endpointURL: http://garage-app.selfhosted.svc.cluster.local:3900
     s3Credentials:
       accessKeyId:
-        name: cnpg-backups-secret
+        name: cloudnative-pg-backups-secret
         key: ACCESS_KEY_ID
       secretAccessKey:
-        name: cnpg-backups-secret
+        name: cloudnative-pg-backups-secret
         key: ACCESS_SECRET_KEY
       region:
-        name: cnpg-backups-secret
+        name: cloudnative-pg-backups-secret
         key: REGION
     wal:
       compression: zstd
