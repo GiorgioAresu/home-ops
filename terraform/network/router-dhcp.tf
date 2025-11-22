@@ -460,9 +460,9 @@ resource "routeros_ip_dhcp_server_lease" "sonoff_rf_bridge" {
   address     = "10.17.50.35"
   mac_address = "60:01:94:B2:DC:86"
 }
-resource "routeros_ip_dhcp_server_lease" "stufetta" {
+resource "routeros_ip_dhcp_server_lease" "sonoff_s20" {
   provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Stufetta"
+  comment     = "Managed by Terraform - Sonoff S20"
   server      = routeros_ip_dhcp_server.iot.name
   address     = "10.17.50.36"
   mac_address = "EC:FA:BC:9B:C6:31"
