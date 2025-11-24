@@ -1,0 +1,173 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: immich
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: immich
+  interval: 30m
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn
+  values:
+    configMaps:
+      config:
+        data:
+          DB_PORT: "5432"
+          DISABLE_REVERSE_GEOCODING: "true"
+          ENABLE_MAPBOX: "false"
+          LOG_LEVEL: verbose
+          NODE_ENV: "production"
+          REDIS_HOSTNAME: immich-redis.media.svc.cluster.local
+          REDIS_PORT: "6379"
+    controllers:
+      server:
+        annotations:
+          secret.reloader.stakater.com/reload: immich-secret
+          configmap.reloader.stakater.com/reload: immich-configmap
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 2000
+            runAsGroup: 2000
+            runAsNonRoot: true
+            fsGroup: 2000
+            fsGroupChangePolicy: OnRootMismatch
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17.6@sha256:86a1992d46273c58fd4ad95b626081dfaabfe16bd56944675169e406d1a660dd
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: immich-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v2.3.1@sha256:f8d06a32b1b2a81053d78e40bf8e35236b9faefb5c3903ce9ca8712c9ed78445
+            envFrom:
+              - secretRef:
+                  name: immich-secret
+              - configMapRef:
+                  identifier: config
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+      machine-learning:
+        annotations:
+          secret.reloader.stakater.com/reload: immich-secret
+          configmap.reloader.stakater.com/reload: immich-configmap
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 2000
+            runAsGroup: 2000
+            runAsNonRoot: true
+            fsGroup: 2000
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-machine-learning
+              tag: v2.3.1@sha256:379e31b8c75107b0af8141904baa8cc933d7454b88fdb204265ef11749d7d908
+            envFrom:
+              - secretRef:
+                  name: immich-secret
+              - configMapRef:
+                  identifier: config
+            env:
+              MPLCONFIGDIR: "/cache/matplotlib"
+      redis:
+        containers:
+          main:
+            image:
+              repository: public.ecr.aws/docker/library/redis
+              tag: 8.2.3@sha256:66e31e0cae26a8d291c9a4991eec0a12af4ec2185d01fdaabbed027472f1f42b
+            env:
+              REDIS_REPLICATION_MODE: master
+            command: ["redis-server"]
+    service:
+      server:
+        controller: server
+        ports:
+          http:
+            port: &port 2283
+      machine-learning:
+        controller: machine-learning
+        ports:
+          http:
+            port: 3003
+      redis:
+        controller: redis
+        ports:
+          http:
+            port: 6379
+    persistence:
+      matplotlib:
+        type: emptyDir
+        advancedMounts:
+          server:
+            main:
+              - path: /config/matplotlib
+      library:
+        type: nfs
+        server: "truenas.aresu.eu"
+        path: /mnt/tank/kubernetes/immich
+        advancedMounts:
+          server:
+            main:
+              - path: /usr/src/app/upload
+      machine-learning-cache:
+        existingClaim: immich-machine-learning-cache
+        advancedMounts:
+          machine-learning:
+            main:
+              - path: /cache
+                subPath: cache
+              - path: /.cache
+                subPath: dotCache
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          server:
+            main:
+              - path: /usr/src/app/.reverse-geocoding-dump
+                subPath: geocoding
+              - path: /usr/src/app/.transformers_cache
+                subPath: transformers
+    serviceMonitor:
+      server:
+        enabled: true
+        serviceName: server
+        endpoints:
+          - port: metrics-api
+            scheme: http
+            path: /metrics
+          - port: metrics-ms
+            scheme: http
+            path: /metrics
+    route:
+      app:
+        hostnames:
+          - immich.aresu.eu
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: server
+                port: *port
