@@ -1,0 +1,37 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname immich
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  components:
+    - ../../../../components/gpu
+    - ../../../../components/keda/nas-nfs-scaler
+    - ../../../../components/volsync
+  dependsOn:
+    - name: cloudnative-pg-cluster
+      namespace: database
+    - name: longhorn-volumesnapshotclass
+      namespace: longhorn
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *appname
+      namespace: media
+  interval: 1h
+  path: "./kubernetes/apps/media/immich/app"
+  postBuild:
+    substitute:
+      APP: *appname
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: media
+  timeout: 5m
+  wait: false
