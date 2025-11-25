@@ -26,9 +26,9 @@ spec:
   #     cpu: 50m
 
   bootstrap:
-    # initdb: {}
-    recovery:
-      source: &src source
+    initdb: {}
+    # recovery:
+    #   source: &src source
 
   plugins:
     - name: &plugin barman-cloud.cloudnative-pg.io
@@ -36,13 +36,13 @@ spec:
       parameters:
         barmanObjectName: &store cloudnative-pg-backups-store
 
-  externalClusters:
-    - name: *src
-      plugin:
-        name: *plugin
-        parameters:
-          barmanObjectName: *store
-          serverName: postgres
+  # externalClusters:
+  #   - name: *src
+  #     plugin:
+  #       name: *plugin
+  #       parameters:
+  #         barmanObjectName: *store
+  #         serverName: postgres
 
   monitoring:
     enablePodMonitor: true
