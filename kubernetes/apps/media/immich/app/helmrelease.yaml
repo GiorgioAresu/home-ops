@@ -23,6 +23,10 @@ spec:
           NODE_ENV: "production"
           REDIS_HOSTNAME: immich-redis.media.svc.cluster.local
           REDIS_PORT: "6379"
+      initdb:
+        data:
+          immich.sql: |-
+            CREATE EXTENSION IF NOT EXISTS vector CASCADE;
     controllers:
       server:
         annotations:
@@ -149,6 +153,13 @@ spec:
                 subPath: geocoding
               - path: /usr/src/app/.transformers_cache
                 subPath: transformers
+      initdb:
+        type: configMap
+        identifier: initdb
+        advancedMounts:
+          server:
+            init-db:
+              - path: /initdb
     serviceMonitor:
       server:
         enabled: true
