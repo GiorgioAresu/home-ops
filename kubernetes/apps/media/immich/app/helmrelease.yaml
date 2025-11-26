@@ -26,6 +26,7 @@ spec:
       initdb:
         data:
           immich.sql: |-
+            CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
             CREATE EXTENSION IF NOT EXISTS vector CASCADE;
     controllers:
       server:
