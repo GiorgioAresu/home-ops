@@ -65,8 +65,7 @@ spec:
             port: &port 11434
     persistence:
       data:
-        size: 10Gi
-        accessMode: ReadWriteOnce
+        existingClaim: ollama
         globalMounts:
           - path: /.ollama
     route:
