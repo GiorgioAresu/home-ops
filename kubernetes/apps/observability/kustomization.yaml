@@ -11,6 +11,7 @@ resources:
   - ./blackbox-exporter/ks.yaml
   - ./fluent-bit/ks.yaml
   - ./grafana/ks.yaml
+  - ./headlamp/ks.yaml
   - ./kube-state-metrics/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./mikrotik-exporter/ks.yaml
