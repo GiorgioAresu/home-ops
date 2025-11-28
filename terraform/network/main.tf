@@ -2,7 +2,7 @@ terraform {
   required_providers {
     routeros = {
       source  = "terraform-routeros/routeros"
-      version = "1.93.0"
+      version = "1.94.0"
     }
     unifi = {
       source  = "paultyng/unifi"
