@@ -1,0 +1,51 @@
+---
+# This file is not managed by doco-cd because it can't manage itself
+# Instead it is deployed manually (GUI or CLI)
+
+configs:
+  poll-config.yml:
+    content: |
+      - run_once: true
+        url: https://github.com/GiorgioAresu/home-ops.git
+secrets:
+  sops_age_key:
+    file: /home/odroid/.sops/sops_age_key.txt
+  webhook_secret:
+    file: /home/odroid/.config/doco-cd/webhook_secret
+services:
+  app:
+    configs:
+      - source: poll-config.yml
+        target: /poll-config.yml
+    container_name: doco-cd
+    environment:
+      HTTP_PORT: 8080
+      LOG_LEVEL: info
+      POLL_CONFIG_FILE: /poll-config.yml
+      SOPS_AGE_KEY_FILE: /run/secrets/sops_age_key
+      WEBHOOK_SECRET_FILE: /run/secrets/webhook_secret
+      DEPLOY_CONFIG_BASE_DIR: ./docker/odroidhc4/
+    healthcheck:
+      interval: 30s
+      retries: 3
+      start_period: 15s
+      test:
+        - CMD
+        - wget
+        - '--no-verbose'
+        - '--tries=1'
+        - '--spider'
+        - http://localhost:8080/v1/health
+      timeout: 5s
+    image: ghcr.io/bjw-s/doco-cd:v0.51.1-dev
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    secrets:
+      - sops_age_key
+      - webhook_secret
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - data:/data
+volumes:
+  data: {}

@@ -1,8 +1,15 @@
 ---
 keys:
   - &user_giorgio age19ufzusf8ls394p4kl5498myl24w7x6ggc5w9grq4tk8dcyh709ls6ku97r
+  - &user_odroidhc4 age1nk7e8gjqeesegq87mp49verrhyfdmtlmxwfvl9x0kggsuqw4542qjkdl59
 
 creation_rules:
+  - path_regex: docker/odroidhc4/.*\.sops\.env$
+    key_groups:
+      - age:
+          - *user_giorgio
+          - *user_odroidhc4
+
   - path_regex: kubernetes/.*/talos/.*\.sops\.ya?ml$
     key_groups:
       - age:
