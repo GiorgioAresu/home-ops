@@ -1,0 +1,41 @@
+---
+# This file is not managed by doco-cd because it can't manage itself
+# Instead it is deployed manually (GUI or CLI)
+
+configs:
+  poll-config.yml:
+    content: |
+      - target: truenas
+        # run_once: # Stop the poll job after the first run. Useful if you only want to do the first initial deployment via the poll job but do all future deployments via webhooks
+        url: https://github.com/GiorgioAresu/home-ops.git
+services:
+  app:
+    configs:
+      - source: poll-config.yml
+        target: /poll-config.yml
+    container_name: doco-cd
+    environment:
+      HTTP_PORT: 8080
+      LOG_LEVEL: info
+      POLL_CONFIG_FILE: /poll-config.yml
+    healthcheck:
+      interval: 30s
+      retries: 3
+      start_period: 15s
+      test:
+        - CMD
+        - wget
+        - '--no-verbose'
+        - '--tries=1'
+        - '--spider'
+        - http://localhost:8080/v1/health
+      timeout: 5s
+    image: ghcr.io/kimdre/doco-cd:0.54.0
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - data:/data
+volumes:
+  data: {}
