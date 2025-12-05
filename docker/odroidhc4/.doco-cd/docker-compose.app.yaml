@@ -37,7 +37,7 @@ services:
         - '--spider'
         - http://localhost:8080/v1/health
       timeout: 5s
-    image: ghcr.io/bjw-s/doco-cd:v0.51.1-dev
+    image: ghcr.io/kimdre/doco-cd:0.53.0
     ports:
       - 8080:8080
     restart: unless-stopped
