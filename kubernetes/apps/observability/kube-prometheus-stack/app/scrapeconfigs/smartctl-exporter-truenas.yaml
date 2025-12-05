@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.aresu.eu/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name smartctl-exporter-truenas
+spec:
+  staticConfigs:
+    - targets:
+        - truenas.aresu.eu:9633
+  metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: smartctl-exporter
