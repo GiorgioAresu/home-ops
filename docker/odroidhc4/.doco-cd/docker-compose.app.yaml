@@ -5,7 +5,8 @@
 configs:
   poll-config.yml:
     content: |
-      - run_once: true
+      - target: odroidhc4
+        # run_once: # Stop the poll job after the first run. Useful if you only want to do the first initial deployment via the poll job but do all future deployments via webhooks
         url: https://github.com/GiorgioAresu/home-ops.git
 secrets:
   sops_age_key:
@@ -24,7 +25,6 @@ services:
       POLL_CONFIG_FILE: /poll-config.yml
       SOPS_AGE_KEY_FILE: /run/secrets/sops_age_key
       WEBHOOK_SECRET_FILE: /run/secrets/webhook_secret
-      DEPLOY_CONFIG_BASE_DIR: ./docker/odroidhc4/
     healthcheck:
       interval: 30s
       retries: 3
