@@ -4,24 +4,6 @@ machine:
     diskSelector:
       model: UDSS UD2CS1HT100
     image: factory.talos.dev/metal-installer/8d37fcc01bb9173406853e7fd97ad9eda40732043f88e09dafe55e53fcf4b510:v1.12.0
-  network:
-    interfaces:
-      - interface: bond0
-        bond:
-          deviceSelectors:
-            - hardwareAddr: 00:e0:4c:2e:36:08
-              driver: r8169
-          mode: active-backup
-        dhcp: true
-        vip:
-          ip: 10.17.1.8
-        vlans:
-          - vlanId: 50
-            dhcp: false
-            mtu: 1500
-          - vlanId: 90
-            dhcp: false
-            mtu: 1500
   nodeLabels:
     node.kubernetes.io/gpu: "true"
     node.kubernetes.io/virtual: "false"
@@ -57,3 +39,9 @@ provisioning:
 apiVersion: v1alpha1
 kind: HostnameConfig
 hostname: kube-bmax-01
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+    match: link.driver == "r8169" && mac(link.permanent_addr).startsWith("00:e0:4c:2e:")
