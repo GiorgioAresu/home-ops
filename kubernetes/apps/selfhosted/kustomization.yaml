@@ -20,3 +20,4 @@ resources:
   - ./paperless/ks.yaml
   - ./syncthing/ks.yaml
   - ./unifi/ks.yaml
+  - ./webhook/ks.yaml
