@@ -530,6 +530,13 @@ resource "routeros_ip_dhcp_server_lease" "mailbox" {
   address     = "10.17.50.45"
   mac_address = "8c:bf:ea:cc:7c:e4"
 }
+resource "routeros_ip_dhcp_server_lease" "nuc_power_control" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - NUC Power Control (for 3217CK's issues with booting)"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.46"
+  mac_address = "3c:71:bf:29:13:bd"
+}
 
 # resource "routeros_ip_dhcp_server_lease" "this" { *16
 #   provider    = routeros.rb5009
