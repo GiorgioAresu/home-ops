@@ -5,7 +5,6 @@ machine:
       model: UDSS UD2CS1HT100
     image: factory.talos.dev/metal-installer/8d37fcc01bb9173406853e7fd97ad9eda40732043f88e09dafe55e53fcf4b510:v1.12.0
   network:
-    hostname: kube-bmax-01.aresu.eu
     interfaces:
       - interface: bond0
         bond:
@@ -54,3 +53,7 @@ provisioning:
   diskSelector:
     match: system_disk
   minSize: 300GiB
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: kube-bmax-01
