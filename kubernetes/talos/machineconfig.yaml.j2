@@ -60,12 +60,6 @@ machine:
     nodeIP:
       validSubnets:
         - 10.17.1.0/24
-  network:
-    disableSearchDomain: true
-    extraHostEntries:
-      - ip: 10.17.1.8
-        aliases:
-          - k8s.aresu.eu
   sysctls:
     fs.inotify.max_user_instances: "8192"
     fs.inotify.max_user_watches: "1048576"
@@ -76,10 +70,6 @@ machine:
     net.ipv4.neigh.default.gc_thresh3: "16384"
     net.ipv4.tcp_fastopen: "3"
     user.max_user_namespaces: "11255"
-  time:
-    disabled: false
-    servers:
-      - 10.17.1.1
   token: op://automation/talos/MACHINE_TOKEN
 cluster:
   {% if ENV.IS_CONTROLPLANE %}
@@ -102,8 +92,9 @@ cluster:
               - longhorn
           kind: PodSecurityConfiguration
     certSANs:
-      - k8s.aresu.eu
       - 127.0.0.1 # KubePrism
+      - 10.17.1.8
+      - k8s.aresu.eu
     disablePodSecurityPolicy: true
   controllerManager:
     image: registry.k8s.io/kube-controller-manager:v1.35.0
@@ -153,7 +144,7 @@ cluster:
     key: op://automation/talos/CLUSTER_CA_KEY
     {% endif %}
   controlPlane:
-    endpoint: https://k8s.aresu.eu:6443
+    endpoint: https://10.17.1.8:6443
   clusterName: home-ops
   discovery:
     enabled: true
@@ -175,6 +166,47 @@ cluster:
   token: op://automation/talos/CLUSTER_TOKEN
 ---
 apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - net0
+bondMode: active-backup
+mtu: 1500 # Change to 9000 at some point
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: bond0
+clientIdentifier: mac
+---
+# IOT
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.50
+vlanID: 50
+parent: bond0
+mtu: 1500 # Change to 9000 at some point
+---
+# VPN
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.90
+vlanID: 90
+parent: bond0
+mtu: 1500 # Change to 9000 at some point
+---
+apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
 timeout: 5m
+---
+apiVersion: v1alpha1
+kind: TimeSyncConfig
+ntp:
+  servers:
+    - 10.17.1.1
+---
+# TODO: Should really move this outside the cluster
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: 10.17.1.8
+link: bond0
