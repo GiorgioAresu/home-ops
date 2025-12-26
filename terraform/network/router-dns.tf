@@ -246,6 +246,13 @@ resource "routeros_ip_dns_record" "mailbox" {
   name     = "mailbox.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.mailbox.address
 }
+resource "routeros_ip_dns_record" "nuc_power_control" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "nuc-power-control.iot.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.nuc_power_control.address
+}
 
 resource "routeros_ip_dns_record" "odroidhc4" {
   provider = routeros.rb5009
