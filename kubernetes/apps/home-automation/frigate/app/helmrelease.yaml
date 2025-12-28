@@ -82,7 +82,7 @@ spec:
         type: configMap
         name: frigate-configmap
         globalMounts:
-          - path: /tmp/config.yml Let the initContainer copy it
+          - path: /tmp/config.yml # Let the initContainer copy it
             subPath: config.yml
             readOnly: true
       tmpfs:
