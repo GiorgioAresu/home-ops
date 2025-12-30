@@ -1,0 +1,16 @@
+---
+services:
+  forgejo:
+    container_name: forgejo
+    environment:
+      - USER_UID=568
+      - USER_GID=568
+    image: codeberg.org/forgejo/forgejo:13
+    ports:
+      - 3000:3000
+      - 222:22
+    restart: unless-stopped
+    volumes:
+      - /mnt/tank/apps/forgejo:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
