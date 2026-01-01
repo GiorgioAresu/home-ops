@@ -17,5 +17,10 @@ spec:
       namespace: network
   rules:
     - backendRefs:
-        - name: homeassistant
-          port: 8123
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: home-assistant
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
