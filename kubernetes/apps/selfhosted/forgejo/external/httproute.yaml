@@ -17,5 +17,10 @@ spec:
       namespace: network
   rules:
     - backendRefs:
-        - name: forgejo
-          port: 3000
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: forgejo
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

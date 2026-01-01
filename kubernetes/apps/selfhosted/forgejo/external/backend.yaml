@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://datreeio.github.io/CRDs-catalog/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  labels:
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/name: forgejo
+  name: forgejo
+spec:
+  appProtocols:
+    - gateway.envoyproxy.io/wss
+  endpoints:
+    - fqdn:
+        hostname: truenas.aresu.eu
+        port: 3000
