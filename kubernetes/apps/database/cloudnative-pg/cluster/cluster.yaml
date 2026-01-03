@@ -16,7 +16,7 @@ spec:
     name: cloudnative-pg-secret
 
   storage:
-    size: 5Gi
+    size: 20Gi
 
   # resources:
   #   limits:
