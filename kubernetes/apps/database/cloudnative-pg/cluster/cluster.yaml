@@ -59,6 +59,9 @@ spec:
     #   - hostnossl all all 2001:cafe:42::/56 scram-sha-256
     #   - hostssl   all all all               cert clientcert=verify-full
 
+    shared_preload_libraries:
+      - vchord
+
     extensions:
       - name: vchord
         image:
