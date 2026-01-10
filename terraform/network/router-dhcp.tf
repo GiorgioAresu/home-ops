@@ -109,20 +109,57 @@ resource "routeros_ip_dhcp_server_option" "unifi" {
   value    = "0x01040a0101da" # https://tcpip.wtf/en/unifi-l3-adoption-with-dhcp-option-43-on-pfsense-mikrotik-and-others.htm
 }
 
+resource "routeros_ip_dhcp_server_option" "netboot_xyz_bios" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - netboot.xyz BIOS"
+  code     = 67
+  name     = "pxe-bios-netboot.xyz"
+  value    = "'${routeros_file.netboot_xyz_bios.name}'"
+}
+
+resource "routeros_ip_dhcp_server_option" "netboot_xyz_uefi" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - netboot.xyz UEFI"
+  code     = 67
+  name     = "pxe-uefi-netboot.xyz"
+  value    = "'${routeros_file.netboot_xyz_uefi.name}'"
+}
+
+resource "routeros_ip_dhcp_server_option_sets" "netboot_xyz_uefi" {
+  provider = routeros.rb5009
+  name     = "netboot-xyz"
+  options  = routeros_ip_dhcp_server_option.netboot_xyz_uefi.name
+}
+
+resource "routeros_ip_dhcp_server_option_matcher" "pxe_uefi_matcher" {
+  provider      = routeros.rb5009
+  comment       = "Managed by Terraform - Override PXE BIOS with PXE UEFI on x86-64 UEFI"
+  name          = "pxe-uefi-matcher"
+  server        = routeros_ip_dhcp_server.lan.name
+  address_pool  = routeros_ip_pool.lan.name
+  code          = 93 # Vendor Class Identifier
+  value         = "0x0007"
+  matching_type = "exact"
+  option_set    = routeros_ip_dhcp_server_option_sets.netboot_xyz_uefi.name
+}
 
 # ================================================================================================
 # DHCP Network Configuration
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dhcp_server_network
 # ================================================================================================
 resource "routeros_ip_dhcp_server_network" "lan" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform"
-  address     = "10.17.1.0/24"
-  gateway     = "10.17.1.1"
-  dhcp_option = [routeros_ip_dhcp_server_option.unifi.name]
-  dns_server  = ["10.17.1.1"]
-  ntp_server  = ["10.17.1.1"]
-  domain      = "aresu.eu"
+  provider   = routeros.rb5009
+  comment    = "Managed by Terraform"
+  address    = "10.17.1.0/24"
+  gateway    = "10.17.1.1"
+  dns_server = ["10.17.1.1"]
+  ntp_server = ["10.17.1.1"]
+  domain     = "aresu.eu"
+  dhcp_option = [
+    routeros_ip_dhcp_server_option.unifi.name,
+    routeros_ip_dhcp_server_option.netboot_xyz_bios.name,
+    routeros_ip_dhcp_server_option.netboot_xyz_uefi.name
+  ]
 }
 resource "routeros_ip_dhcp_server_network" "guest" {
   provider   = routeros.rb5009
@@ -174,6 +211,7 @@ resource "routeros_ip_dhcp_server" "lan" {
   interface       = routeros_interface_bridge.bridge.name
   lease_time      = "1d"
   use_reconfigure = true
+  bootp_support   = "none"
 }
 resource "routeros_ip_dhcp_server" "guest" {
   provider        = routeros.rb5009
@@ -183,6 +221,7 @@ resource "routeros_ip_dhcp_server" "guest" {
   interface       = routeros_interface_vlan.guest.name
   lease_time      = "1d"
   use_reconfigure = true
+  bootp_support   = "none"
 }
 resource "routeros_ip_dhcp_server" "security" {
   provider        = routeros.rb5009
@@ -192,6 +231,7 @@ resource "routeros_ip_dhcp_server" "security" {
   interface       = routeros_interface_vlan.security.name
   lease_time      = "1d"
   use_reconfigure = true
+  bootp_support   = "none"
 }
 resource "routeros_ip_dhcp_server" "iot" {
   provider        = routeros.rb5009
@@ -201,6 +241,7 @@ resource "routeros_ip_dhcp_server" "iot" {
   interface       = routeros_interface_vlan.iot.name
   lease_time      = "1d"
   use_reconfigure = true
+  bootp_support   = "none"
 }
 resource "routeros_ip_dhcp_server" "vpn_exit" {
   provider        = routeros.rb5009
@@ -210,6 +251,7 @@ resource "routeros_ip_dhcp_server" "vpn_exit" {
   interface       = routeros_interface_vlan.vpn_exit.name
   lease_time      = "1d"
   use_reconfigure = true
+  bootp_support   = "none"
 }
 
 
@@ -259,6 +301,13 @@ resource "routeros_ip_dhcp_server_lease" "prusa" {
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.7"
   mac_address = "EC:64:C9:F3:C0:F8"
+}
+resource "routeros_ip_dhcp_server_lease" "freepbx" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - FreePBX"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.8"
+  mac_address = "BC:24:11:66:21:79"
 }
 resource "routeros_ip_dhcp_server_lease" "jetkvm" {
   provider    = routeros.rb5009

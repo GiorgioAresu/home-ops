@@ -42,6 +42,20 @@ resource "routeros_ip_dns_record" "truenas" {
   name     = "truenas.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.truenas.address
 }
+resource "routeros_ip_dns_record" "git" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - ForgeJo on TrueNAS"
+  type     = "CNAME"
+  name     = "git.aresu.eu"
+  cname    = routeros_ip_dns_record.truenas.name
+}
+resource "routeros_ip_dns_record" "npm" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - NginxProxyManager on TrueNAS"
+  type     = "CNAME"
+  name     = "npm.aresu.eu"
+  cname    = routeros_ip_dns_record.truenas.name
+}
 resource "routeros_ip_dns_record" "mqtt" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
@@ -62,6 +76,13 @@ resource "routeros_ip_dns_record" "prusa" {
   type     = "A"
   name     = "prusa.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.prusa.address
+}
+resource "routeros_ip_dns_record" "sip" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "sip.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.freepbx.address
 }
 resource "routeros_ip_dns_record" "kube_nuc_01" {
   provider = routeros.rb5009
