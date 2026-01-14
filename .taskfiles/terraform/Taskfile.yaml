@@ -50,9 +50,7 @@ tasks:
     status:
       - ssh {{.HOST}} "/system/package/update/check-for-updates" | grep -c "up to date"
     cmds:
-      - ssh {{.HOST}} "/system/package/update/download"
-      - cmd: ssh {{.HOST}} "/system/reboot"
-        ignore_error: true
+      - ssh {{.HOST}} "/system/package/update/install"
 
   _upgrade-firmware:
     desc: Update firmware on a MikroTik device
