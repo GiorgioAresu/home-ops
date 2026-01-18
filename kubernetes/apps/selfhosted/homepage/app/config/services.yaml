@@ -7,7 +7,7 @@
       app: jellyfin
       widget:
         type: jellyfin
-        url: http://jellyfin.media.svc.cluster.local:32400
+        url: http://jellyfin.media.svc.cluster.local:8096
         key: {{HOMEPAGE_VAR_JELLYFIN_APIKEY}}
         enableNowPlaying: true
   - Plex:
