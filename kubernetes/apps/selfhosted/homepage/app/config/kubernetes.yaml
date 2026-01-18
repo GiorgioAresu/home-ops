@@ -1,4 +1,4 @@
 ---
 mode: cluster
 # ingress: true
-# gateway: true # enable gateway-api
+gateway: true # enable gateway-api
