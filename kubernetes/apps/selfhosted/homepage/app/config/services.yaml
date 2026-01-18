@@ -114,7 +114,8 @@
   - QBittorrent:
       href: https://qbittorrent.aresu.eu
       icon: qbittorrent.svg
-      ping: https://qbittorrent.aresu.eu
+      namespace: downloads
+      app: qbittorrent
       widget:
         type: qbittorrent
         url: https://qbittorrent.aresu.eu
@@ -203,7 +204,8 @@
   - SyncThing:
       href: https://syncthing.aresu.eu
       icon: syncthing.svg
-      ping: https://syncthing.aresu.eu
+      namespace: selfhosted
+      app: syncthing
       widget:
         type: customapi
         url: https://syncthing.aresu.eu/rest/svc/report
