@@ -204,54 +204,59 @@ resource "routeros_ip_dhcp_server_network" "vpn_exit" {
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dhcp_server
 # ================================================================================================
 resource "routeros_ip_dhcp_server" "lan" {
-  provider        = routeros.rb5009
-  comment         = "Managed by Terraform"
-  name            = "LAN"
-  address_pool    = routeros_ip_pool.lan.name
-  interface       = routeros_interface_bridge.bridge.name
-  lease_time      = "1d"
-  use_reconfigure = true
-  bootp_support   = "none"
+  provider                  = routeros.rb5009
+  comment                   = "Managed by Terraform"
+  name                      = "LAN"
+  address_pool              = routeros_ip_pool.lan.name
+  interface                 = routeros_interface_bridge.bridge.name
+  lease_time                = "1d"
+  use_reconfigure           = true
+  bootp_support             = "none"
+  dynamic_lease_identifiers = "client-mac,client-id"
 }
 resource "routeros_ip_dhcp_server" "guest" {
-  provider        = routeros.rb5009
-  comment         = "Managed by Terraform"
-  name            = "Guest"
-  address_pool    = routeros_ip_pool.guest.name
-  interface       = routeros_interface_vlan.guest.name
-  lease_time      = "1d"
-  use_reconfigure = true
-  bootp_support   = "none"
+  provider                  = routeros.rb5009
+  comment                   = "Managed by Terraform"
+  name                      = "Guest"
+  address_pool              = routeros_ip_pool.guest.name
+  interface                 = routeros_interface_vlan.guest.name
+  lease_time                = "1d"
+  use_reconfigure           = true
+  bootp_support             = "none"
+  dynamic_lease_identifiers = "client-mac,client-id"
 }
 resource "routeros_ip_dhcp_server" "security" {
-  provider        = routeros.rb5009
-  comment         = "Managed by Terraform"
-  name            = "Security"
-  address_pool    = routeros_ip_pool.security.name
-  interface       = routeros_interface_vlan.security.name
-  lease_time      = "1d"
-  use_reconfigure = true
-  bootp_support   = "none"
+  provider                  = routeros.rb5009
+  comment                   = "Managed by Terraform"
+  name                      = "Security"
+  address_pool              = routeros_ip_pool.security.name
+  interface                 = routeros_interface_vlan.security.name
+  lease_time                = "1d"
+  use_reconfigure           = true
+  bootp_support             = "none"
+  dynamic_lease_identifiers = "client-mac,client-id"
 }
 resource "routeros_ip_dhcp_server" "iot" {
-  provider        = routeros.rb5009
-  comment         = "Managed by Terraform"
-  name            = "IoT"
-  address_pool    = routeros_ip_pool.iot.name
-  interface       = routeros_interface_vlan.iot.name
-  lease_time      = "1d"
-  use_reconfigure = true
-  bootp_support   = "none"
+  provider                  = routeros.rb5009
+  comment                   = "Managed by Terraform"
+  name                      = "IoT"
+  address_pool              = routeros_ip_pool.iot.name
+  interface                 = routeros_interface_vlan.iot.name
+  lease_time                = "1d"
+  use_reconfigure           = true
+  bootp_support             = "none"
+  dynamic_lease_identifiers = "client-mac,client-id"
 }
 resource "routeros_ip_dhcp_server" "vpn_exit" {
-  provider        = routeros.rb5009
-  comment         = "Managed by Terraform"
-  name            = "VPN Exit"
-  address_pool    = routeros_ip_pool.vpn_exit.name
-  interface       = routeros_interface_vlan.vpn_exit.name
-  lease_time      = "1d"
-  use_reconfigure = true
-  bootp_support   = "none"
+  provider                  = routeros.rb5009
+  comment                   = "Managed by Terraform"
+  name                      = "VPN Exit"
+  address_pool              = routeros_ip_pool.vpn_exit.name
+  interface                 = routeros_interface_vlan.vpn_exit.name
+  lease_time                = "1d"
+  use_reconfigure           = true
+  bootp_support             = "none"
+  dynamic_lease_identifiers = "client-mac,client-id"
 }
 
 

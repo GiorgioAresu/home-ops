@@ -70,11 +70,12 @@ resource "routeros_ip_dhcp_server_network" "lan" {
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dhcp_server
 # ================================================================================================
 resource "routeros_ip_dhcp_server" "lan" {
-  comment         = "Managed by Terraform"
-  name            = "lan"
-  address_pool    = routeros_ip_pool.lan.name
-  interface       = routeros_interface_bridge.bridge_lan.name
-  use_reconfigure = true
+  comment                   = "Managed by Terraform"
+  name                      = "lan"
+  address_pool              = routeros_ip_pool.lan.name
+  interface                 = routeros_interface_bridge.bridge_lan.name
+  use_reconfigure           = true
+  dynamic_lease_identifiers = "client-mac,client-id"
 }
 # resource "routeros_ip_dhcp_server" "tunnel" {
 #   comment         = "Managed by Terraform"
@@ -82,6 +83,7 @@ resource "routeros_ip_dhcp_server" "lan" {
 #   address_pool    = routeros_ip_pool.tunnel.name
 #   interface       = routeros_interface_vlan.home.name
 #   use_reconfigure = true
+#   dynamic_lease_identifiers = "client-mac,client-id"
 # }
 
 
