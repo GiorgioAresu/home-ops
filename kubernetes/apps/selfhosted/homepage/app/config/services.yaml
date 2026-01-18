@@ -1,7 +1,7 @@
 ---
 - Media:
   - Jellyfin:
-      href: https://jellyfin.${SECRET_DOMAIN}
+      href: https://jellyfin.aresu.eu
       icon: jellyfin.svg
       namespace: media
       app: jellyfin
@@ -11,7 +11,7 @@
         key: {{HOMEPAGE_VAR_JELLYFIN_APIKEY}}
         enableNowPlaying: true
   - Plex:
-      href: https://plex.${SECRET_DOMAIN}
+      href: https://plex.aresu.eu
       icon: plex.svg
       namespace: media
       app: plex
@@ -22,7 +22,7 @@
         enableNowPlaying: true
         # fields: ["streams", "movies", "tv", "albums"]
   - Tautulli:
-      href: https://tautulli.${SECRET_DOMAIN}
+      href: https://tautulli.aresu.eu
       icon: tautulli.svg
       namespace: media
       app: tautulli
@@ -34,15 +34,15 @@
         # expandOneStreamToTwoRows: false # optional, defaults to true
         # showEpisodeNumber: true # optional, defaults to false
   - Immich:
-      href: https://immich.${SECRET_DOMAIN}
+      href: https://immich.aresu.eu
       icon: immich.svg
-      ping: https://immich.${SECRET_DOMAIN}
+      ping: https://immich.aresu.eu
       # widget:
       #   type: immich
       #   url: https://immich.aresu.eu # TODO: Migrate to svc when deployed
       #   key: {{HOMEPAGE_VAR_IMMICH_TOKEN}}
   - FreshRSS:
-      href: https://rss.${SECRET_DOMAIN}
+      href: https://rss.aresu.eu
       icon: freshrss.svg
       namespace: selfhosted
       app: freshrss
@@ -54,7 +54,7 @@
 - Downloads:
   - Bazarr:
       description: Subtitles Management
-      href: https://bazarr.${SECRET_DOMAIN}
+      href: https://bazarr.aresu.eu
       icon: bazarr.svg
       namespace: downloads
       app: bazarr
@@ -64,7 +64,7 @@
         key: {{HOMEPAGE_VAR_BAZARR_TOKEN}}
   - Lidarr:
       description: Music
-      href: https://lidarr.${SECRET_DOMAIN}
+      href: https://lidarr.aresu.eu
       icon: lidarr.svg
       namespace: downloads
       app: lidarr
@@ -74,7 +74,7 @@
         key: {{HOMEPAGE_VAR_LIDARR_TOKEN}}
   - Radarr:
       description: Movies
-      href: https://radarr.${SECRET_DOMAIN}
+      href: https://radarr.aresu.eu
       icon: radarr.svg
       namespace: downloads
       app: radarr
@@ -84,7 +84,7 @@
         key: {{HOMEPAGE_VAR_RADARR_TOKEN}}
   - Sonarr:
       description: TV Shows
-      href: https://sonarr.${SECRET_DOMAIN}
+      href: https://sonarr.aresu.eu
       icon: sonarr.svg
       namespace: downloads
       app: sonarr
@@ -94,7 +94,7 @@
         key: {{HOMEPAGE_VAR_SONARR_TOKEN}}
   - Readarr:
       description: Books
-      href: https://readarr.${SECRET_DOMAIN}
+      href: https://readarr.aresu.eu
       icon: readarr.svg
       namespace: downloads
       app: readarr
@@ -103,7 +103,7 @@
         url: http://readarr.downloads.svc.cluster.local:8787
         key: {{HOMEPAGE_VAR_READARR_TOKEN}}
   - Prowlarr:
-      href: https://prowlarr.${SECRET_DOMAIN}
+      href: https://prowlarr.aresu.eu
       icon: prowlarr.svg
       namespace: downloads
       app: prowlarr
@@ -112,12 +112,12 @@
         url: http://prowlarr.downloads.svc.cluster.local:9696
         key: {{HOMEPAGE_VAR_PROWLARR_TOKEN}}
   - QBittorrent:
-      href: https://qbittorrent.${SECRET_DOMAIN}
+      href: https://qbittorrent.aresu.eu
       icon: qbittorrent.svg
-      ping: https://qbittorrent.${SECRET_DOMAIN}
+      ping: https://qbittorrent.aresu.eu
       widget:
         type: qbittorrent
-        url: https://qbittorrent.${SECRET_DOMAIN}
+        url: https://qbittorrent.aresu.eu
         username: {{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}
         password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
         enableLeechProgress: true
@@ -152,48 +152,48 @@
         password: {{HOMEPAGE_VAR_MIKROTIK_PASSWORD}}
   - IPMI TV:
       description: ASRockRack E3C226D2I
-      href: http://ipmi-asrockrack.${SECRET_DOMAIN}
+      href: http://ipmi-asrockrack.aresu.eu
       icon: asrockrackipmi.png
-      ping: http://ipmi-asrockrack.${SECRET_DOMAIN}
+      ping: http://ipmi-asrockrack.aresu.eu
   - IPMI Server:
       description: Supermicro X10SL7-F
-      href: https://ipmi-supermicro.${SECRET_DOMAIN}
+      href: https://ipmi-supermicro.aresu.eu
       icon: supermicro.svg
-      ping: https://ipmi-supermicro.${SECRET_DOMAIN}
+      ping: https://ipmi-supermicro.aresu.eu
 
 - Services:
   - Proxmox on SuperMicro:
       description: Proxmox on SuperMicro
-      href: https://pve-supermicro.${SECRET_DOMAIN}:8006
+      href: https://pve-supermicro.aresu.eu:8006
       icon: proxmox.svg
-      ping: https://pve-supermicro.${SECRET_DOMAIN}
+      ping: https://pve-supermicro.aresu.eu
       widget:
         type: proxmox
-        url: https://pve-supermicro.${SECRET_DOMAIN}:8006
+        url: https://pve-supermicro.aresu.eu:8006
         username: {{HOMEPAGE_VAR_PROXMOX_USERNAME}}
         password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
   - Proxmox on Minisforum:
       description: Proxmox on Minisforum
-      href: https://pve-minisforum.${SECRET_DOMAIN}:8006
+      href: https://pve-minisforum.aresu.eu:8006
       icon: proxmox.svg
-      ping: https://pve-minisforum.${SECRET_DOMAIN}
+      ping: https://pve-minisforum.aresu.eu
       widget:
         type: proxmox
-        url: https://pve-minisforum.${SECRET_DOMAIN}:8006
+        url: https://pve-minisforum.aresu.eu:8006
         token: {{HOMEPAGE_VAR_PROXMOX_TOKEN}}
         secret: {{HOMEPAGE_VAR_PROXMOX_SECRET}}
   - TrueNAS:
-      href: https://truenas.${SECRET_DOMAIN}
+      href: https://truenas.aresu.eu
       icon: truenas.svg
-      ping: https://truenas.${SECRET_DOMAIN}
+      ping: https://truenas.aresu.eu
       widget:
         type: truenas
-        url: https://truenas.${SECRET_DOMAIN}
+        url: https://truenas.aresu.eu
         username: {{HOMEPAGE_VAR_TRUENAS_USERNAME}}
         password: {{HOMEPAGE_VAR_TRUENAS_PASSWORD}}
   - Karakeep:
       description: The Bookmark Everything App
-      href: https://karakeep.${SECRET_DOMAIN}
+      href: https://karakeep.aresu.eu
       icon: karakeep.svg
       namespace: selfhosted
       app: karakeep
@@ -203,20 +203,20 @@
         key: {{HOMEPAGE_VAR_KARAKEEP_TOKEN}}
   - HomeAssistant:
       description: Home Assistant
-      href: https://homeassistant.${SECRET_DOMAIN}
+      href: https://homeassistant.aresu.eu
       icon: home-assistant.svg
-      ping: https://homeassistant.${SECRET_DOMAIN}
+      ping: https://homeassistant.aresu.eu
       # widget:
       #   type: homeassistant
-      #   url: https://homeassistant.${SECRET_DOMAIN}
+      #   url: https://homeassistant.aresu.eu
       #   key: {{HOMEPAGE_VAR_HASS_TOKEN}}
   - SyncThing:
-      href: https://syncthing.${SECRET_DOMAIN}
+      href: https://syncthing.aresu.eu
       icon: syncthing.svg
-      ping: https://syncthing.${SECRET_DOMAIN}
+      ping: https://syncthing.aresu.eu
       widget:
         type: customapi
-        url: https://syncthing.${SECRET_DOMAIN}/rest/svc/report
+        url: https://syncthing.aresu.eu/rest/svc/report
         headers:
           X-API-Key: {{HOMEPAGE_VAR_SYNCTHING_TOKEN}}
         mappings:

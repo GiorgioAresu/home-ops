@@ -1,7 +1,7 @@
 ---
 # For configuration options and examples, please see:
 # https://gethomepage.dev/latest/configs/settings
-base: https://home.${SECRET_DOMAIN}
+base: https://home.aresu.eu
 color: slate
 favicon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/homepage.png
 headerStyle: clean
