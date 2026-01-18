@@ -153,7 +153,7 @@
   - IPMI TV:
       description: ASRockRack E3C226D2I
       href: http://ipmi-asrockrack.aresu.eu
-      icon: asrockrackipmi.png
+      icon: asrock-rack-ipmi.png
       ping: http://ipmi-asrockrack.aresu.eu
   - IPMI Server:
       description: Supermicro X10SL7-F
