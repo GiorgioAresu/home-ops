@@ -84,12 +84,12 @@ resource "routeros_ip_dns_record" "sip" {
   name     = "sip.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.freepbx.address
 }
-resource "routeros_ip_dns_record" "kube_nuc_01" {
+resource "routeros_ip_dns_record" "tv" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   type     = "A"
-  name     = "kube-nuc-01.aresu.eu"
-  address  = routeros_ip_dhcp_server_lease.kube_nuc_01.address
+  name     = "tv.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.nuc_dc3217by.address
 }
 resource "routeros_ip_dns_record" "unraid" {
   provider = routeros.rb5009

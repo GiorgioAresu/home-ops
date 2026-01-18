@@ -335,9 +335,9 @@ resource "routeros_ip_dhcp_server_lease" "rpi_4_2" {
   address     = "10.17.1.32"
   mac_address = "E4:5F:01:96:B3:70"
 }
-resource "routeros_ip_dhcp_server_lease" "kube_nuc_01" {
+resource "routeros_ip_dhcp_server_lease" "nuc_dc3217by" {
   provider    = routeros.rb5009
-  comment     = "Managed by Terraform - kube-nuc-01"
+  comment     = "Managed by Terraform - Intel DC3217BY @ TV"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.34"
   mac_address = "68:5B:35:A1:01:CA"
