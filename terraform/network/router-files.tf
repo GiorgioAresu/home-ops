@@ -15,6 +15,15 @@ resource "routeros_file" "netboot_xyz_uefi" {
   name     = "netboot.xyz.efi"
 }
 
+# Do not remove these
+import {
+  id = "name=netboot.xyz.bios"
+  to = routeros_file.netboot_xyz_bios
+}
+import {
+  id = "name=netboot.xyz.efi"
+  to = routeros_file.netboot_xyz_uefi
+}
 
 # ================================================================================================
 # TFTP
