@@ -195,7 +195,7 @@
       description: Home Assistant
       href: https://homeassistant.aresu.eu
       icon: home-assistant.svg
-      ping: https://homeassistant.aresu.eu
+      ping: 10.17.1.4
       # widget:
       #   type: homeassistant
       #   url: https://homeassistant.aresu.eu
