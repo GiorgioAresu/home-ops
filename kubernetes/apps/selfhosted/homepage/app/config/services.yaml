@@ -224,12 +224,12 @@
             format: number
   - OpenMediaVault:
       description: Offsite backups on Odroid HC4
-      href: https://10.17.100.50
+      href: https://odroidhc4.aresu.eu
       icon: openmediavault.svg
-      ping: https://10.17.100.50
+      ping: https://odroidhc4.aresu.eu
       widget:
         type: openmediavault
-        url: https://10.17.100.50
+        url: https://odroidhc4.aresu.eu
         username: {{HOMEPAGE_VAR_OPENMEDIAVAULT_USERNAME}}
         password: {{HOMEPAGE_VAR_OPENMEDIAVAULT_PASSWORD}}
         method: services.getStatus # required
