@@ -224,6 +224,14 @@
           - field: numDevices
             label: Devices
             format: number
+  - ForgeJo:
+      href: https://git.aresu.eu
+      icon: forgejo.svg
+      ping: https://git.aresu.eu
+      widget:
+        type: gitea
+        url: https://git.aresu.eu
+        key: {{HOMEPAGE_VAR_FORGEJO_TOKEN}}
   - OpenMediaVault:
       description: Offsite backups on Odroid HC4
       href: https://odroidhc4.aresu.eu
