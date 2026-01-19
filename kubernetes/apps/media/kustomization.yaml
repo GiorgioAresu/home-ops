@@ -8,6 +8,7 @@ components:
   - ../../components/flux-alerts
 resources:
   - ./namespace.yaml
+  - ./emby/ks.yaml
   - ./immich/ks.yaml
   - ./jellyfin/ks.yaml
   - ./plex/ks.yaml
