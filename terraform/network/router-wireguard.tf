@@ -55,6 +55,23 @@ resource "routeros_interface_wireguard_peer" "odroidhc4" {
   private_key          = var.wireguard_odroidhc4_private_key
   public_key           = var.wireguard_odroidhc4_public_key
 }
+resource "routeros_interface_wireguard_peer" "homeassistant_paola" {
+  provider             = routeros.rb5009
+  comment              = "Managed by Terraform - HomeAssistant @ Paola"
+  allowed_address      = ["10.17.100.51/32"]
+  client_address       = "10.17.100.51/32"
+  client_dns           = "10.17.100.1"
+  client_endpoint      = var.wireguard_home_endpoint
+  client_keepalive     = "30s"
+  client_listen_port   = null
+  disabled             = false
+  interface            = routeros_interface_wireguard.home.name
+  name                 = "HomeAssistantPaola"
+  persistent_keepalive = "30s"
+  # preshared_key        = var.wireguard_homeassistant_paola_preshared_key
+  # private_key          = var.wireguard_homeassistant_paola_private_key
+  public_key = var.wireguard_homeassistant_paola_public_key
+}
 resource "routeros_interface_wireguard_peer" "phone_giorgio" {
   provider             = routeros.rb5009
   comment              = "Managed by Terraform - Pixel 7"

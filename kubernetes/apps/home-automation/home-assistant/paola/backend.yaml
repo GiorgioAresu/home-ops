@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://datreeio.github.io/CRDs-catalog/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  labels:
+    app.kubernetes.io/instance: home-assistant-paola
+    app.kubernetes.io/name: home-assistant-paola
+  name: home-assistant-paola
+spec:
+  appProtocols:
+    - gateway.envoyproxy.io/wss
+  endpoints:
+    - ip:
+        address: 10.17.100.51
+        port: 8123

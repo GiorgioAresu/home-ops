@@ -154,6 +154,21 @@ variable "wireguard_odroidhc4_public_key" {
   sensitive   = false
   description = "Public key for OdroidHC4 wireguard client"
 }
+variable "wireguard_homeassistant_paola_preshared_key" {
+  type        = string
+  sensitive   = true
+  description = "Preshared key for HomeAssistantPaola wireguard client"
+}
+variable "wireguard_homeassistant_paola_private_key" {
+  type        = string
+  sensitive   = true
+  description = "Private key for HomeAssistantPaola wireguard client"
+}
+variable "wireguard_homeassistant_paola_public_key" {
+  type        = string
+  sensitive   = false
+  description = "Public key for HomeAssistantPaola wireguard client"
+}
 variable "wireguard_phone_giorgio_preshared_key" {
   type        = string
   sensitive   = true
