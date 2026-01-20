@@ -5,7 +5,7 @@ services:
     environment:
       - USER_UID=568
       - USER_GID=568
-    image: codeberg.org/forgejo/forgejo:13
+    image: codeberg.org/forgejo/forgejo:14
     ports:
       - 3000:3000
       - 222:22
