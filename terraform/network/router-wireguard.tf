@@ -68,9 +68,9 @@ resource "routeros_interface_wireguard_peer" "homeassistant_paola" {
   interface            = routeros_interface_wireguard.home.name
   name                 = "HomeAssistantPaola"
   persistent_keepalive = "30s"
-  # preshared_key        = var.wireguard_homeassistant_paola_preshared_key
-  # private_key          = var.wireguard_homeassistant_paola_private_key
-  public_key = var.wireguard_homeassistant_paola_public_key
+  preshared_key        = var.wireguard_homeassistant_paola_preshared_key
+  private_key          = var.wireguard_homeassistant_paola_private_key
+  public_key           = var.wireguard_homeassistant_paola_public_key
 }
 resource "routeros_interface_wireguard_peer" "phone_giorgio" {
   provider             = routeros.rb5009
