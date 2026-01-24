@@ -72,6 +72,10 @@ snapshot-all:
     just k8s snapshot "$ns" "$name"; \
   done
 
+[doc('Init VolSync for new app (without existing Snapshot for ReplicationDestination)')]
+kopiainit ns name:
+  kubectl -n "{{ ns }}" patch pvc "{{ name }}" --type json -p "[{\"op\":\"remove\",\"path\":\"/spec/dataSourceRef\"}]"
+
 [doc('Suspend or resume Keda ScaledObjects')]
 keda state ns name:
   kubectl -n "{{ ns }}" annotate --field-manager flux-client-side-apply --overwrite so "{{ name }}" autoscaling.keda.sh/paused{{ if state != "suspend" { "-" } else { "=true" } }}; \

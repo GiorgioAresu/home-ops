@@ -15,6 +15,12 @@ apply-node node *args:
   just log info "Applying Talos machineconfig" "node" "{{ node }}";
   just talos render-config "{{ node }}" | talosctl -n "{{ node }}" apply-config -f /dev/stdin {{ args }}
 
+[doc('Apply Talos config to a node that has been reset')]
+apply-node-initial node ip *args:
+  just log info "Applying Talos machineconfig" "node" "{{ node }}" "ip" "{{ ip }}";
+  just talos render-config "{{ node }}" | talosctl -n "{{ ip }}" apply-config --insecure -f /dev/stdin {{ args }}
+  just log info "Node should install and reboot now. Give it a few minutes, if it doesn't come back up run the standard apply-node job" "stage" "$0"
+
 [doc('Apply Talos config to all nodes in the cluster')]
 apply-cluster *args:
   kubectl get nodes --no-headers | while read -r node _; do \
