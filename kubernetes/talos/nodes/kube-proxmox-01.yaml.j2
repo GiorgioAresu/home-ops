@@ -15,7 +15,7 @@ provisioning:
   diskSelector:
     match: system_disk
   grow: false
-  maxSize: 50GB
+  maxSize: 100GB
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
@@ -23,15 +23,15 @@ name: local-hostpath
 provisioning:
   diskSelector:
     match: system_disk
-  grow: true
-  minSize: 40GB
+  grow: false
+  maxSize: 50GB
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
 name: longhorn
 provisioning:
   diskSelector:
-    match: '!system_disk'
+    match: 'system_disk'
   grow: true
   minSize: 50GiB
 ---
