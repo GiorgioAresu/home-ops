@@ -16,13 +16,13 @@ resource "routeros_interface_ethernet" "rb5009_ether2" {
 }
 resource "routeros_interface_ethernet" "rb5009_ether3" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform - [GI A] Unifi UAP AC Lite"
+  comment      = "Managed by Terraform - [GI A] Rack"
   factory_name = "ether3"
   name         = "ether3"
 }
 resource "routeros_interface_ethernet" "rb5009_ether4" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform - [SA B] hAP ax lite LTE"
+  comment      = "Managed by Terraform - [SA A] hAP ax lite LTE"
   factory_name = "ether4"
   name         = "ether4"
 }
@@ -34,19 +34,19 @@ resource "routeros_interface_ethernet" "rb5009_ether5" {
 }
 resource "routeros_interface_ethernet" "rb5009_ether6" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform - JetKVM"
+  comment      = "Managed by Terraform - [GI B] Unifi UAP AC Lite"
   factory_name = "ether6"
   name         = "ether6"
 }
 resource "routeros_interface_ethernet" "rb5009_ether7" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform - Unmanaged TP-Link"
+  comment      = "Managed by Terraform - [TV ↓] NUC TV"
   factory_name = "ether7"
   name         = "ether7"
 }
 resource "routeros_interface_ethernet" "rb5009_ether8" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform - Unmanaged Netgear"
+  comment      = "Managed by Terraform"
   factory_name = "ether8"
   name         = "ether8"
 }

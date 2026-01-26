@@ -53,7 +53,7 @@ resource "unifi_network" "iot" {
 
 resource "routeros_interface_bridge_vlan" "guest" {
   provider = routeros.rb5009
-  comment  = "Managed by Terraform"
+  comment  = "Managed by Terraform - Guest"
   bridge   = routeros_interface_bridge.bridge.name
   vlan_ids = [routeros_interface_vlan.guest.vlan_id]
   tagged   = [routeros_interface_bridge.bridge.name, routeros_interface_ethernet.rb5009_ether2.name, routeros_interface_ethernet.rb5009_ether3.name, routeros_interface_ethernet.rb5009_ether7.name, routeros_interface_ethernet.rb5009_ether8.name]
@@ -61,28 +61,28 @@ resource "routeros_interface_bridge_vlan" "guest" {
 }
 resource "routeros_interface_bridge_vlan" "security" {
   provider = routeros.rb5009
-  comment  = "Managed by Terraform"
+  comment  = "Managed by Terraform - Security"
   bridge   = routeros_interface_bridge.bridge.name
   vlan_ids = [routeros_interface_vlan.security.vlan_id]
   tagged   = [routeros_interface_bridge.bridge.name, routeros_interface_ethernet.rb5009_ether2.name, routeros_interface_ethernet.rb5009_ether3.name, routeros_interface_ethernet.rb5009_ether5.name, routeros_interface_ethernet.rb5009_ether7.name, routeros_interface_ethernet.rb5009_ether8.name]
 }
 resource "routeros_interface_bridge_vlan" "iot" {
   provider = routeros.rb5009
-  comment  = "Managed by Terraform"
+  comment  = "Managed by Terraform - IoT"
   bridge   = routeros_interface_bridge.bridge.name
   vlan_ids = [routeros_interface_vlan.iot.vlan_id]
   tagged   = [routeros_interface_bridge.bridge.name, routeros_interface_ethernet.rb5009_ether2.name, routeros_interface_ethernet.rb5009_ether3.name, routeros_interface_ethernet.rb5009_ether5.name, routeros_interface_ethernet.rb5009_ether7.name, routeros_interface_ethernet.rb5009_ether8.name]
 }
 resource "routeros_interface_bridge_vlan" "router_wan_backup" {
   provider = routeros.rb5009
-  comment  = "Managed by Terraform"
+  comment  = "Managed by Terraform - LTE Wan Backup"
   bridge   = routeros_interface_bridge.bridge.name
   vlan_ids = [routeros_interface_vlan.router_wan_backup.vlan_id]
   tagged   = [routeros_interface_bridge.bridge.name, routeros_interface_ethernet.rb5009_ether8.name]
 }
 resource "routeros_interface_bridge_vlan" "vpn_exit" {
   provider = routeros.rb5009
-  comment  = "Managed by Terraform"
+  comment  = "Managed by Terraform - VPN exit"
   bridge   = routeros_interface_bridge.bridge.name
   vlan_ids = [routeros_interface_vlan.vpn_exit.vlan_id]
   tagged   = [routeros_interface_bridge.bridge.name, routeros_interface_ethernet.rb5009_ether7.name, routeros_interface_ethernet.rb5009_ether8.name]
