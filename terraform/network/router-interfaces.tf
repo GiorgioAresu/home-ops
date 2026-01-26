@@ -7,48 +7,56 @@ resource "routeros_interface_ethernet" "rb5009_ether1" {
   comment      = "Managed by Terraform - WAN DSL Uplink"
   factory_name = "ether1"
   name         = "ether1"
+  poe_out      = "off"
 }
 resource "routeros_interface_ethernet" "rb5009_ether2" {
   provider     = routeros.rb5009
   comment      = "Managed by Terraform - [PRAN] hAP ax3"
   factory_name = "ether2"
   name         = "ether2"
+  poe_out      = "auto-on"
 }
 resource "routeros_interface_ethernet" "rb5009_ether3" {
   provider     = routeros.rb5009
   comment      = "Managed by Terraform - [GI A] Rack"
   factory_name = "ether3"
   name         = "ether3"
+  poe_out      = "off"
 }
 resource "routeros_interface_ethernet" "rb5009_ether4" {
   provider     = routeros.rb5009
   comment      = "Managed by Terraform - [SA A] hAP ax lite LTE"
   factory_name = "ether4"
   name         = "ether4"
+  poe_out      = "off"
 }
 resource "routeros_interface_ethernet" "rb5009_ether5" {
   provider     = routeros.rb5009
   comment      = "Managed by Terraform - HomeAssistant Blue"
   factory_name = "ether5"
   name         = "ether5"
+  poe_out      = "off"
 }
 resource "routeros_interface_ethernet" "rb5009_ether6" {
   provider     = routeros.rb5009
   comment      = "Managed by Terraform - [GI B] Unifi UAP AC Lite"
   factory_name = "ether6"
   name         = "ether6"
+  poe_out      = "auto-on"
 }
 resource "routeros_interface_ethernet" "rb5009_ether7" {
   provider     = routeros.rb5009
   comment      = "Managed by Terraform - [TV ↓] NUC TV"
   factory_name = "ether7"
   name         = "ether7"
+  poe_out      = "off"
 }
 resource "routeros_interface_ethernet" "rb5009_ether8" {
   provider     = routeros.rb5009
   comment      = "Managed by Terraform"
   factory_name = "ether8"
   name         = "ether8"
+  poe_out      = "auto-on"
 }
 resource "routeros_interface_ethernet" "rb5009_sfp_sfpplus1" {
   provider     = routeros.rb5009
