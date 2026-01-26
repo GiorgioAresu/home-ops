@@ -103,8 +103,8 @@ resource "routeros_interface_bridge_port" "rb5009_ether4" {
   comment     = "Managed by Terraform"
   bridge      = routeros_interface_bridge.bridge.name
   interface   = routeros_interface_ethernet.rb5009_ether4.name
-  pvid        = routeros_interface_vlan.guest.vlan_id
-  frame_types = "admit-only-untagged-and-priority-tagged"
+  pvid        = "1"
+  frame_types = "admit-all"
 }
 resource "routeros_interface_bridge_port" "rb5009_ether5" {
   provider    = routeros.rb5009
