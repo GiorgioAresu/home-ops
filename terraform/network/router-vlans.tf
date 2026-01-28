@@ -59,7 +59,6 @@ resource "routeros_interface_bridge_vlan" "lan" {
   tagged   = []
   untagged = [
     routeros_interface_bridge.bridge.name,
-    # routeros_interface_ethernet.rb5009_ether1.name, # This is WAN
     routeros_interface_ethernet.rb5009_ether2.name,
     routeros_interface_ethernet.rb5009_ether3.name,
     routeros_interface_ethernet.rb5009_ether4.name,
@@ -79,8 +78,10 @@ resource "routeros_interface_bridge_vlan" "guest" {
     routeros_interface_ethernet.rb5009_ether2.name,
     routeros_interface_ethernet.rb5009_ether3.name,
     routeros_interface_ethernet.rb5009_ether4.name,
+    routeros_interface_ethernet.rb5009_ether6.name,
     routeros_interface_ethernet.rb5009_ether7.name,
-  routeros_interface_ethernet.rb5009_ether8.name]
+    routeros_interface_ethernet.rb5009_ether8.name
+  ]
   untagged = []
 }
 resource "routeros_interface_bridge_vlan" "security" {
@@ -92,8 +93,9 @@ resource "routeros_interface_bridge_vlan" "security" {
     routeros_interface_bridge.bridge.name,
     routeros_interface_ethernet.rb5009_ether2.name,
     routeros_interface_ethernet.rb5009_ether3.name,
+    routeros_interface_ethernet.rb5009_ether4.name,
     routeros_interface_ethernet.rb5009_ether5.name,
-    routeros_interface_ethernet.rb5009_ether7.name,
+    routeros_interface_ethernet.rb5009_ether6.name,
     routeros_interface_ethernet.rb5009_ether8.name,
   ]
 }
@@ -107,7 +109,7 @@ resource "routeros_interface_bridge_vlan" "iot" {
     routeros_interface_ethernet.rb5009_ether3.name,
     routeros_interface_ethernet.rb5009_ether4.name,
     routeros_interface_ethernet.rb5009_ether5.name,
-    routeros_interface_ethernet.rb5009_ether7.name,
+    routeros_interface_ethernet.rb5009_ether6.name,
     routeros_interface_ethernet.rb5009_ether8.name
   ]
 }
@@ -128,6 +130,11 @@ resource "routeros_interface_bridge_vlan" "vpn_exit" {
   vlan_ids = [routeros_interface_vlan.vpn_exit.vlan_id]
   tagged = [
     routeros_interface_bridge.bridge.name,
+    routeros_interface_ethernet.rb5009_ether2.name,
+    routeros_interface_ethernet.rb5009_ether3.name,
+    routeros_interface_ethernet.rb5009_ether4.name,
+    routeros_interface_ethernet.rb5009_ether5.name,
+    routeros_interface_ethernet.rb5009_ether6.name,
     routeros_interface_ethernet.rb5009_ether7.name,
     routeros_interface_ethernet.rb5009_ether8.name,
   ]
