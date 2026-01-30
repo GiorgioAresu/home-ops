@@ -64,6 +64,11 @@ spec:
             - name: DS_AFRANET_PROMETHEUS
               value: Prometheus
           url: https://grafana.com/api/dashboards/23239/revisions/1/download
+        longhorn:
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+          url: https://grafana.com/api/dashboards/22705/revisions/1/download
         mikrotik-mktxp-exporter:
           datasource:
             - name: DS_PROMETHEUS
