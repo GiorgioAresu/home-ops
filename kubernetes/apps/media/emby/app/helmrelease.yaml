@@ -120,5 +120,5 @@ spec:
         hostnames:
           - emby.aresu.eu
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: network
