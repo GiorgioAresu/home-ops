@@ -14,7 +14,7 @@ spec:
       name: *appname
       namespace: media
   interval: 1h
-  path: "./kubernetes/apps/media/jellyfin/jellyplex-watched"
+  path: "./kubernetes/apps/media/jellyplex-watched"
   postBuild:
     substitute:
       APP: *appname

@@ -35,7 +35,7 @@ spec:
                   name: jellyfin-sync-secret
             env:
               DEBUG_LEVEL: debug
-              DRYRUN: false
+              DRYRUN: true
               JELLYFIN_BASEURL: http://jellyfin.media.svc.cluster.local:8096
               LOGFILE: /tmp/sync.log
               MARK_FILE: /tmp/mark.log
@@ -45,6 +45,7 @@ spec:
               USER_MAPPING: '{"giorgioaresu": "giorgio"}'
               WHITELIST_LIBRARY: Movies (EN),Movies (IT),Shows (EN),Shows (IT)
               WHITELIST_USERS: giorgio
+              EMBY_BASEURL: http://emby.media.svc.cluster.local:8096
             resources:
               requests:
                 cpu: 10m
