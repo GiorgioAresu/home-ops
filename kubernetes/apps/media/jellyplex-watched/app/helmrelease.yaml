@@ -35,7 +35,7 @@ spec:
                   name: jellyfin-sync-secret
             env:
               DEBUG_LEVEL: debug
-              DRYRUN: true
+              DRYRUN: false
               JELLYFIN_BASEURL: http://jellyfin.media.svc.cluster.local:8096
               LOGFILE: /tmp/sync.log
               MARK_FILE: /tmp/mark.log
