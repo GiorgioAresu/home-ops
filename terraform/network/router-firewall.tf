@@ -8,6 +8,7 @@ resource "routeros_ip_firewall_nat" "wan" {
   chain              = "srcnat"
   action             = "masquerade"
   out_interface_list = routeros_interface_list.wan.name
+  log               = false
 }
 resource "routeros_ip_firewall_nat" "vpn_exit" {
   provider      = routeros.rb5009
@@ -15,6 +16,7 @@ resource "routeros_ip_firewall_nat" "vpn_exit" {
   chain         = "srcnat"
   action        = "masquerade"
   out_interface = routeros_interface_wireguard.vpn_exit.name
+  log               = false
 }
 
 resource "routeros_ip_firewall_nat" "syncthing_tcp" {
@@ -27,6 +29,7 @@ resource "routeros_ip_firewall_nat" "syncthing_tcp" {
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 22000
   to_addresses      = "10.1.1.212"
+  log               = false
 }
 
 resource "routeros_ip_firewall_nat" "syncthing_udp" {
@@ -39,6 +42,7 @@ resource "routeros_ip_firewall_nat" "syncthing_udp" {
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 22000
   to_addresses      = "10.1.1.212"
+  log               = false
 }
 
 resource "routeros_ip_firewall_nat" "ingress" {
@@ -51,6 +55,7 @@ resource "routeros_ip_firewall_nat" "ingress" {
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 443
   to_addresses      = "10.1.1.201"
+  log               = false
 }
 
 resource "routeros_ip_firewall_nat" "qbittorrent_tcp" {
@@ -63,6 +68,7 @@ resource "routeros_ip_firewall_nat" "qbittorrent_tcp" {
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 52015
   to_addresses      = "10.1.1.215"
+  log               = false
 }
 
 resource "routeros_ip_firewall_nat" "qbittorrent_udp" {
@@ -75,6 +81,7 @@ resource "routeros_ip_firewall_nat" "qbittorrent_udp" {
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 52015
   to_addresses      = "10.1.1.216"
+  log               = false
 }
 
 resource "routeros_ip_firewall_nat" "ntp" {
@@ -101,6 +108,7 @@ resource "routeros_ip_firewall_nat" "dns" {
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 53
   to_addresses      = "10.17.1.1"
+  log               = false
 }
 
 
