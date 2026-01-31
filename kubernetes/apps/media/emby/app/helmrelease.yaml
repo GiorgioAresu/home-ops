@@ -87,6 +87,14 @@ spec:
           emby:
             app:
               - path: /config/cache
+      emby-sync:
+        type: nfs
+        server: "truenas.aresu.eu"
+        path: /mnt/tank/kubernetes/emby
+        advancedMounts:
+          emby:
+            app:
+              - path: /config/sync-temp
       tmpfs:
         type: emptyDir
         advancedMounts:
