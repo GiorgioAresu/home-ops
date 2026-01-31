@@ -94,7 +94,8 @@ spec:
         advancedMounts:
           emby:
             app:
-              - path: /config/sync-temp
+              - path: /config/sync
+                subPath: sync
       tmpfs:
         type: emptyDir
         advancedMounts:
