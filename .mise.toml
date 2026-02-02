@@ -25,3 +25,4 @@ TALOSCONFIG = '{{config_root}}/talosconfig'
 "aqua:siderolabs/talos" = "1.12.2"
 "aqua:yannh/kubeconform" = "0.7.0"
 "pipx:flux-local" = ["latest"]
+k9s = "latest"
