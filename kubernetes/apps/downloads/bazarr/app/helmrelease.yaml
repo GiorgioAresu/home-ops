@@ -12,7 +12,6 @@ spec:
   values:
     controllers:
       bazarr:
-        replicas: 0
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -22,10 +21,6 @@ spec:
             runAsGroup: 2000
             runAsNonRoot: true
             runAsUser: 2000
-            supplementalGroups:
-              - 100 # NAS: users
-              - 1000
-              - 1003 # NAS: nfs-user
         containers:
           app:
             image:

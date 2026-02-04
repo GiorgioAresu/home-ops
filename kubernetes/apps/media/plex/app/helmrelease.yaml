@@ -12,22 +12,16 @@ spec:
   values:
     controllers:
       plex:
-        replicas: 0
         pod:
           resourceClaims:
             - name: gpu
               resourceClaimTemplateName: plex-gpu
           securityContext:
-            runAsUser: 2000
-            runAsGroup: 2000
             fsGroup: 2000
             fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 44
-              - 109
-              - 100 # NAS: users
-              - 1000
-              - 1003 # NAS: nfs-user
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
         containers:
           app:
             image:
