@@ -10,6 +10,7 @@ resources:
   - ./namespace.yaml
   - ./emby/ks.yaml
   - ./immich/ks.yaml
+  - ./jellyfin/ks.yaml
   - ./jellyplex-watched/ks.yaml
   - ./plex/ks.yaml
   - ./plex-auto-languages/ks.yaml
