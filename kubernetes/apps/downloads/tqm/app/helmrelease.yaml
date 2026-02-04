@@ -19,6 +19,7 @@ spec:
         runAsNonRoot: true
     controllers:
       tqm:
+        replicas: 0
         type: cronjob
         cronjob: &cronJobSpec
           schedule: "@hourly"

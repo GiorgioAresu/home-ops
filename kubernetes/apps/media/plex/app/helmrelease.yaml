@@ -12,6 +12,7 @@ spec:
   values:
     controllers:
       plex:
+        replicas: 0
         pod:
           resourceClaims:
             - name: gpu
