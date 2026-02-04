@@ -106,10 +106,8 @@ spec:
         type: nfs
         server: "truenas.aresu.eu"
         path: /mnt/tank/media
-        advancedMounts:
-          emby:
-            app:
-              - path: /media
+        globalMounts:
+          - path: /data/media
     route:
       app:
         hostnames:
