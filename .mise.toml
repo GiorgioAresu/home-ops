@@ -10,7 +10,7 @@ TALOSCONFIG = '{{config_root}}/talosconfig'
 [tools]
 "aqua:astral-sh/uv" = ["latest"]
 "aqua:casey/just" = "1.46.0"
-"aqua:cloudflare/cloudflared" = "2026.1.2"
+"aqua:cloudflare/cloudflared" = "2026.2.0"
 "aqua:FiloSottile/age" = "1.3.1"
 "aqua:fluxcd/flux2" = "2.7.5"
 "aqua:getsops/sops" = "3.11.0"
