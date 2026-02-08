@@ -44,7 +44,6 @@ spec:
               LIBRARY_MAPPING: '{"Movies - ENG": "Movies - ENG", "Movies - ITA": "Movies - ITA", "TV Shows - ENG": "Shows - ENG", "TV Shows - ITA": "Shows - ITA"}'
               USER_MAPPING: '{"giorgioaresu": "giorgio", "alicebressan": "alice bressan", "fabio3942": "fabio", "lisabressan": "lisa bressan", "lisabressan889": "lisa bressan", "michaeltansen": "michele tansu", "paola.696": "paola"}'
               WHITELIST_USERS: giorgio
-              EMBY_BASEURL: http://emby.media.svc.cluster.local:8096
             resources:
               requests:
                 cpu: 10m
