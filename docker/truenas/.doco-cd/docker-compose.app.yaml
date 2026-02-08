@@ -27,7 +27,7 @@ services:
         - /doco-cd
         - healthcheck
       timeout: 5s
-    image: ghcr.io/kimdre/doco-cd:0.61.0
+    image: ghcr.io/kimdre/doco-cd:0.63.0
     ports:
       - 8080:8080
     restart: unless-stopped
