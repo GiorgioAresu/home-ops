@@ -26,3 +26,4 @@ TALOSCONFIG = '{{config_root}}/talosconfig'
 "aqua:yannh/kubeconform" = "0.7.0"
 "pipx:flux-local" = ["latest"]
 k9s = "latest"
+terraform = "latest"
