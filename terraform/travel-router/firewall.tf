@@ -10,14 +10,14 @@ resource "routeros_ip_firewall_nat" "wan" {
 }
 
 resource "routeros_ip_firewall_nat" "dns" {
-  comment            = "Managed by Terraform - Redirect all DNS to local"
-  disabled           = true
-  action             = "dst-nat"
-  chain              = "dstnat"
-  protocol           = "udp"
-  out_interface_list = routeros_interface_list.wan.name
-  dst_port           = 53
-  to_addresses       = "10.17.1.1"
+  comment           = "Managed by Terraform - Redirect all DNS to local"
+  disabled          = true
+  action            = "dst-nat"
+  chain             = "dstnat"
+  protocol          = "udp"
+  in_interface_list = routeros_interface_list.lan.name
+  dst_port          = 53
+  to_addresses      = "10.17.1.1"
 }
 
 
