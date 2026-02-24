@@ -59,6 +59,12 @@ variable "travel_wifi_password" {
   description = "The password for the Travel Wi-Fi network."
 }
 
+variable "wifi_station_cloned_mac" {
+  type        = string
+  sensitive   = false
+  description = "MAC to spoof, if any. Used to hijack another device auth in hotel networks"
+}
+
 
 ## ================================================================================================
 ## Wireguard Variables
@@ -90,8 +96,10 @@ variable "wireguard_home_public_key" {
 variable "known_wifis" {
   description = "List of known WiFi networks with passwords. Leave password empty for open networks"
   type = list(object({
-    comment  = string
-    ssid     = string
-    password = string
+    comment     = string
+    ssid        = string
+    password    = string
+    enabled     = optional(bool)
+    mac_address = optional(string)
   }))
 }
