@@ -44,7 +44,10 @@ resource "routeros_interface_wireless_connect_list" "known_wifis" {
     ? routeros_interface_wireless_security_profiles.known_wifis[each.key].name
     : "none"
   )
+  disabled          = false
+  connect           = coalesce(each.value.enabled, true)
   wireless_protocol = "802.11"
+  mac_address       = each.value.mac_address
 }
 
 resource "routeros_interface_wireless_security_profiles" "bridge" {
