@@ -70,6 +70,11 @@ resource "routeros_interface_bridge_port" "wifi_station" {
   bridge    = routeros_interface_bridge.bridge_wan.name
   interface = routeros_interface_wireless.station.name
 }
+resource "routeros_interface_bridge_port" "wifi_bridge" {
+  comment   = "Managed by Terraform"
+  bridge    = routeros_interface_bridge.bridge_wan.name
+  interface = routeros_interface_wireless.bridge.name
+}
 resource "routeros_interface_bridge_port" "wifi_travel" {
   comment   = "Managed by Terraform"
   bridge    = routeros_interface_bridge.bridge_lan.name
