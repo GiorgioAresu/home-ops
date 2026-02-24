@@ -18,6 +18,7 @@ resource "routeros_ip_dns" "dns-server" {
 # =================================================================================================
 # Not enough cpu/ram to run stevenblacks
 resource "routeros_ip_dns_adlist" "adaway" {
+  disabled   = true
   url        = "https://adaway.org/hosts.txt"
   ssl_verify = false
 }
