@@ -8,7 +8,7 @@ resource "routeros_ip_firewall_nat" "wan" {
   chain              = "srcnat"
   action             = "masquerade"
   out_interface_list = routeros_interface_list.wan.name
-  log               = false
+  log                = false
 }
 resource "routeros_ip_firewall_nat" "vpn_exit" {
   provider      = routeros.rb5009
@@ -16,7 +16,7 @@ resource "routeros_ip_firewall_nat" "vpn_exit" {
   chain         = "srcnat"
   action        = "masquerade"
   out_interface = routeros_interface_wireguard.vpn_exit.name
-  log               = false
+  log           = false
 }
 
 resource "routeros_ip_firewall_nat" "syncthing_tcp" {
@@ -91,7 +91,7 @@ resource "routeros_ip_firewall_nat" "ntp" {
   action            = "dst-nat"
   chain             = "dstnat"
   protocol          = "udp"
-  in_interface_list = routeros_interface_list.wan.name
+  in_interface_list = routeros_interface_list.lan.name
   dst_port          = 123
   to_addresses      = "10.17.1.1"
   log               = false
@@ -105,7 +105,7 @@ resource "routeros_ip_firewall_nat" "dns" {
   action            = "dst-nat"
   chain             = "dstnat"
   protocol          = "udp"
-  in_interface_list = routeros_interface_list.wan.name
+  in_interface_list = routeros_interface_list.lan.name
   dst_port          = 53
   to_addresses      = "10.17.1.1"
   log               = false
