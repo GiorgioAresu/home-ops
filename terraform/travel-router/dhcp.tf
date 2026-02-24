@@ -2,11 +2,21 @@
 # DHCP Client
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dhcp_client
 # ================================================================================================
+resource "routeros_ip_dhcp_client" "wlan1" {
+  comment                = "Managed by Terraform"
+  interface              = routeros_interface_bridge.bridge_wan.name
+  dhcp_options           = "hostname,clientid"
+  default_route_distance = 2
+  use_peer_dns           = true
+  use_peer_ntp           = true
+}
+
 resource "routeros_ip_dhcp_client" "ether1" {
-  comment      = "Managed by Terraform"
-  interface    = routeros_interface_ethernet.ether1.name
-  use_peer_dns = false
-  use_peer_ntp = false
+  comment                = "Managed by Terraform"
+  interface              = routeros_interface_ethernet.ether1.name
+  default_route_distance = 1
+  use_peer_dns           = true
+  use_peer_ntp           = true
 }
 
 
