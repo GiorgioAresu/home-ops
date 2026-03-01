@@ -9,9 +9,9 @@ configs:
         url: https://github.com/GiorgioAresu/home-ops.git
 secrets:
   1pw_token:
-    file: /home/truenas_admin/.config/doco-cd/1pw_token
+    file: /mnt/tank/homes/admin/.config/doco-cd/1pw_token
   webhook_secret:
-    file: /home/truenas_admin/.config/doco-cd/webhook_secret
+    file: /mnt/tank/homes/admin/.config/doco-cd/webhook_secret
 services:
   app:
     configs:
@@ -47,4 +47,3 @@ services:
       - data:/data
 volumes:
   data: {}
-  
