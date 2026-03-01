@@ -1,13 +1,17 @@
 ---
 # This file is not managed by doco-cd because it can't manage itself
-# Instead it is deployed manually (GUI or CLI)
+# Instead it is deployed through the TrueNAS SCALE UI
 
 configs:
   poll-config.yml:
     content: |
-      - target: truenas
-        # run_once: # Stop the poll job after the first run. Useful if you only want to do the first initial deployment via the poll job but do all future deployments via webhooks
+      - run_once: true
         url: https://github.com/GiorgioAresu/home-ops.git
+secrets:
+  1pw_token:
+    file: /home/truenas_admin/.config/doco-cd/1pw_token
+  webhook_secret:
+    file: /home/truenas_admin/.config/doco-cd/webhook_secret
 services:
   app:
     configs:
@@ -18,21 +22,29 @@ services:
       HTTP_PORT: 8080
       LOG_LEVEL: info
       POLL_CONFIG_FILE: /poll-config.yml
+      SECRET_PROVIDER: 1password
+      SECRET_PROVIDER_ACCESS_TOKEN_FILE: /run/secrets/1pw_token
+      WEBHOOK_SECRET_FILE: /run/secrets/webhook_secret
+      DEPLOY_CONFIG_BASE_DIR: ./docker/truenas/
     healthcheck:
-      interval: 30s
-      retries: 3
-      start_period: 15s
       test:
         - CMD
         - /doco-cd
         - healthcheck
+      start_period: 15s
+      interval: 30s
       timeout: 5s
-    image: ghcr.io/kimdre/doco-cd:0.69.0
+      retries: 3
+    image: ghcr.io/kimdre/doco-cd:0.69.0@sha256:6845c8d02b8b3dadc8e819855c843e58a0b46531143d2236b99104e76db2a5f5
     ports:
       - 8080:8080
     restart: unless-stopped
+    secrets:
+      - 1pw_token
+      - webhook_secret
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - data:/data
 volumes:
   data: {}
+  
