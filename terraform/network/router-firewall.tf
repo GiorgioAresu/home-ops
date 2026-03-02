@@ -85,30 +85,45 @@ resource "routeros_ip_firewall_nat" "qbittorrent_udp" {
 }
 
 resource "routeros_ip_firewall_nat" "ntp" {
-  provider          = routeros.rb5009
-  comment           = "Managed by Terraform - Redirect all NTP to local"
-  disabled          = false
-  action            = "dst-nat"
-  chain             = "dstnat"
-  protocol          = "udp"
-  in_interface_list = routeros_interface_list.lan.name
-  dst_port          = 123
-  to_addresses      = "10.17.1.1"
-  log               = false
-  log_prefix        = ""
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform - Redirect all NTP to local"
+  disabled     = false
+  action       = "redirect"
+  chain        = "dstnat"
+  protocol     = "udp"
+  in_interface = routeros_interface_vlan.iot.name
+  # in_interface_list = routeros_interface_list.lan.name
+  dst_port = 123
+  to_ports = "123"
+  log      = false
 }
 
-resource "routeros_ip_firewall_nat" "dns" {
-  provider          = routeros.rb5009
-  comment           = "Managed by Terraform - Redirect all DNS to local"
-  disabled          = true
-  action            = "dst-nat"
-  chain             = "dstnat"
-  protocol          = "udp"
-  in_interface_list = routeros_interface_list.lan.name
-  dst_port          = 53
-  to_addresses      = "10.17.1.1"
-  log               = false
+resource "routeros_ip_firewall_nat" "dns_tcp" {
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform - Redirect all DNS to local"
+  disabled     = false
+  action       = "redirect"
+  chain        = "dstnat"
+  protocol     = "tcp"
+  in_interface = routeros_interface_vlan.iot.name
+  # in_interface_list = routeros_interface_list.lan.name
+  dst_port = 53
+  to_ports = "53"
+  log      = false
+}
+
+resource "routeros_ip_firewall_nat" "dns_udp" {
+  provider     = routeros.rb5009
+  comment      = "Managed by Terraform - Redirect all DNS to local"
+  disabled     = false
+  action       = "redirect"
+  chain        = "dstnat"
+  protocol     = "udp"
+  in_interface = routeros_interface_vlan.iot.name
+  # in_interface_list = routeros_interface_list.lan.name
+  dst_port = 53
+  to_ports = "53"
+  log      = false
 }
 
 
