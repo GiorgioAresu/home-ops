@@ -4,6 +4,8 @@ resource "routeros_interface_wireless" "station" {
   channel_width           = "20mhz"
   compression             = true
   country                 = "italy"
+  default_authentication  = false # Avoid connecting to random APs
+  ssid                    = null  # Use connect list
   installation            = "indoor"
   mode                    = "station-pseudobridge-clone"
   name                    = "wlan1"
