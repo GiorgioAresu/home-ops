@@ -445,7 +445,7 @@ resource "routeros_ip_dhcp_server_lease" "framework" {
   comment     = "Managed by Terraform - Framework Laptop"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.99"
-  mac_address = "9E:3C:2C:78:26:29"
+  mac_address = "1A:F1:79:BB:8C:FA"
 }
 
 ### Security
