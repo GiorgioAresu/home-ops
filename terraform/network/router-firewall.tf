@@ -105,7 +105,7 @@ resource "routeros_ip_firewall_nat" "dns_tcp" {
   action       = "redirect"
   chain        = "dstnat"
   protocol     = "tcp"
-  in_interface = routeros_interface_vlan.iot.name
+  in_interface = "!${routeros_interface_vlan.guest.name}"
   # in_interface_list = routeros_interface_list.lan.name
   dst_port = 53
   to_ports = "53"
@@ -119,7 +119,7 @@ resource "routeros_ip_firewall_nat" "dns_udp" {
   action       = "redirect"
   chain        = "dstnat"
   protocol     = "udp"
-  in_interface = routeros_interface_vlan.iot.name
+  in_interface = "!${routeros_interface_vlan.guest.name}"
   # in_interface_list = routeros_interface_list.lan.name
   dst_port = 53
   to_ports = "53"
