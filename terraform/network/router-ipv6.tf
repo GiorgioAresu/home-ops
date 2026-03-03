@@ -8,6 +8,7 @@ resource "routeros_ipv6_settings" "settings" {
 # This shouldn't actually be needed in terraform, it's the default rule that can't be removed
 resource "routeros_ipv6_neighbor_discovery" "default" {
   provider  = routeros.rb5009
+  disabled  = true
   comment   = "Managed by Terraform"
   interface = "all"
 }
