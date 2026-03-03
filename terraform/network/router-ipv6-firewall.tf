@@ -1,3 +1,21 @@
+resource "routeros_ipv6_firewall_filter" "forward_drop_outbound_traffic" {
+  provider      = routeros.rb5009
+  comment       = "Managed by Terraform - Block outbound IPv6 traffic until ISP provides one AND it's set up properly"
+  action        = "drop"
+  chain         = "forward"
+  out_interface = routeros_interface_ethernet.rb5009_ether1.name # TODO: Address the LTE backup connection
+  place_before  = routeros_ipv6_firewall_filter.output_drop_outbound_traffic.id
+}
+
+resource "routeros_ipv6_firewall_filter" "output_drop_outbound_traffic" {
+  provider      = routeros.rb5009
+  comment       = "Managed by Terraform - Block outbound IPv6 traffic until ISP provides one AND it's set up properly"
+  action        = "drop"
+  chain         = "output"
+  out_interface = routeros_interface_ethernet.rb5009_ether1.name # TODO: Address the LTE backup connection
+  place_before  = routeros_ipv6_firewall_filter.input_accept_established.id
+}
+
 resource "routeros_ipv6_firewall_filter" "input_accept_established" {
   provider         = routeros.rb5009
   comment          = "defconf - Managed by Terraform - accept established,related,untracked"
