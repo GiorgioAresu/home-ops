@@ -6,6 +6,8 @@ services:
       - USER_UID=568
       - USER_GID=568
     image: codeberg.org/forgejo/forgejo:14
+    labels:
+      - "traefik.http.routers.git.rule=Host(`git.aresu.eu`)"
     ports:
       - 3000:3000
       - 222:22
