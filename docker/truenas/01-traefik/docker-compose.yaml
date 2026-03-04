@@ -29,6 +29,7 @@ services:
     ports:
       - 8099:80
       - 4439:443
+      - 8899:8080
     volumes:
       - acme:/certs
       - /var/run/docker.sock:/var/run/docker.sock:ro
