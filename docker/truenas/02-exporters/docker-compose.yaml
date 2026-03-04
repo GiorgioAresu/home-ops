@@ -23,7 +23,7 @@ services:
     container_name: smartctl-exporter
     image: quay.io/prometheuscommunity/smartctl-exporter:v0.14.0
     ports:
-      - 9634:9633 # TODO: Move back after truenas upgrade
+      - 9633:9633
     privileged: true
     restart: unless-stopped
     user: root
