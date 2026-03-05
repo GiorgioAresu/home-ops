@@ -7,9 +7,10 @@ resource "routeros_ip_dns" "dns-server" {
   allow_remote_requests = true
   cache_size            = 30720
   cache_max_ttl         = "1w"
-  servers               = []
-  use_doh_server        = var.doh_server
-  verify_doh_cert       = true
+  servers = [
+    "1.1.1.1", #"2606:4700:4700::1111",
+    "1.0.0.1", #"2606:4700:4700::1001",
+  ]
 }
 
 # =================================================================================================
@@ -27,21 +28,6 @@ resource "routeros_ip_dns_adlist" "stevenblack" {
 # DNS Record
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/ip_dns_record
 # =================================================================================================
-resource "routeros_ip_dns_record" "doh_server_ipv4_1" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform - Manual entry for DoH server"
-  type     = "A"
-  name     = "dns.nextdns.io"
-  address  = "45.90.28.0"
-}
-resource "routeros_ip_dns_record" "doh_server_ipv4_2" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform - Manual entry for DoH server"
-  type     = "A"
-  name     = "dns.nextdns.io"
-  address  = "45.90.30.0"
-}
-
 resource "routeros_ip_dns_record" "router" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"

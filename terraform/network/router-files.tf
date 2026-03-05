@@ -15,12 +15,6 @@ resource "routeros_file" "netboot_xyz_uefi" {
   name     = "netboot.xyz.efi"
 }
 
-# /tool fetch url="https://curl.se/ca/cacert.pem" dst-path=nextdns-doh.pem
-resource "routeros_file" "dns_over_https_cert" {
-  provider = routeros.rb5009
-  name     = "nextdns-doh.pem"
-}
-
 # Do not remove these
 import {
   id = "name=netboot.xyz.bios"
@@ -29,10 +23,6 @@ import {
 import {
   id = "name=netboot.xyz.efi"
   to = routeros_file.netboot_xyz_uefi
-}
-import {
-  id = "name=nextdns-doh.pem"
-  to = routeros_file.dns_over_https_cert
 }
 
 # ================================================================================================

@@ -234,8 +234,3 @@ variable "wireguard_proton_public_key" {
   sensitive   = true
   description = "Public key for Proton VPN wireguard server"
 }
-variable "doh_server" {
-  type        = string
-  sensitive   = false
-  description = "DNS-over-HTTPS server"
-}
