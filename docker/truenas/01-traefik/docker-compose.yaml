@@ -47,7 +47,8 @@ services:
       - --entryPoints.websecure.address=:443
       - --entrypoints.websecure.http.tls=true
       - --entrypoints.websecure.http.tls.certResolver=cf
-      - --entrypoints.websecure.http.tls.domains[0].main=*.aresu.eu
+      - --entrypoints.websecure.http.tls.domains[0].main=aresu.eu
+      - --entrypoints.websecure.http.tls.domains[0].sans[0]='*.aresu.eu'
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
       - --providers.docker.network=apps
