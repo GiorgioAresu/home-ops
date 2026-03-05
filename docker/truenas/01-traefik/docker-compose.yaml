@@ -35,11 +35,11 @@ services:
     command:
       - --api.dashboard=true
       - --api.insecure=true
-      - "--certificatesresolvers.le.acme.email=${EMAIL}"
       - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=0
       - --certificatesresolvers.cf.acme.dnsChallenge.provider=cloudflare
       - --certificatesresolvers.cf.acme.dnsChallenge.resolvers=1.1.1.1:53
+      - --certificatesresolvers.cf.acme.email=${EMAIL}
       - --certificatesresolvers.cf.acme.storage=/certs/acme.json
       - --entryPoints.web.address=:80
       - --entryPoints.web.http.redirections.entryPoint.scheme=https
