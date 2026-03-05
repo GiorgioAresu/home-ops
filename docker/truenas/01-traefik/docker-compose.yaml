@@ -35,7 +35,8 @@ services:
       - --api.dashboard=true
       - --api.insecure=true
       - --certificatesresolvers.cf.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=90
+      - --certificatesresolvers.cf.acme.dnsChallenge=true
+      - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=0
       - --certificatesresolvers.cf.acme.dnsChallenge.provider=cloudflare
       - --certificatesresolvers.cf.acme.dnsChallenge.resolvers=1.1.1.1:53
       - --certificatesresolvers.cf.acme.email=${EMAIL}
@@ -48,7 +49,7 @@ services:
       - --entrypoints.websecure.http.tls=true
       - --entrypoints.websecure.http.tls.certResolver=cf
       - --entrypoints.websecure.http.tls.domains[0].main=aresu.eu
-      - --entrypoints.websecure.http.tls.domains[0].sans[0]='*.aresu.eu'
+      - --entrypoints.websecure.http.tls.domains[0].sans='*.aresu.eu'
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
       - --providers.docker.network=proxy
