@@ -50,6 +50,7 @@ services:
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
       - --providers.docker.network=apps
+      - --providers.file=true
 
       - --accesslog=true # Enable access logs to stdout
     container_name: traefik
