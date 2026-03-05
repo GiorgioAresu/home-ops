@@ -1,4 +1,8 @@
 ---
+networks:
+  apps:
+    name: apps
+    external: true
 services:
   forgejo:
     container_name: forgejo
@@ -13,7 +17,7 @@ services:
       # - "traefik.http.routers.git.service=forgejo@docker"
       - "traefik.http.routers.git.tls=true"
     networks:
-      - proxy
+      - apps
     ports:
       - 3000:3000
       - 222:22
