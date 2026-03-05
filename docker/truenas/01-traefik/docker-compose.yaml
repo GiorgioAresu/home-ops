@@ -35,9 +35,9 @@ networks:
     # external: false
 services:
   traefik:
-    configs:
-      - source: traefik.yml
-        target: /etc/traefik/traefik.yml
+    # configs:
+    #   - source: traefik.yml
+    #     target: /etc/traefik/traefik.yml
     command:
       - --api.dashboard=true
       - --api.insecure=true
@@ -57,7 +57,7 @@ services:
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
       - --providers.docker.network=apps
-      
+
       - --accesslog=true # Enable access logs to stdout
     container_name: traefik
     environment:
