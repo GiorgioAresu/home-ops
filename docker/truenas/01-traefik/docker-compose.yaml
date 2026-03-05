@@ -19,7 +19,7 @@ configs:
         #     service: truenas
         services:
           truenas:
-            loadbalancer:
+            loadBalancer:
               servers:
                 - url: http://10.17.1.2:81
 networks:
