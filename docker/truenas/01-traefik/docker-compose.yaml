@@ -10,13 +10,13 @@ configs:
       # providers:
       #   docker: {}
       http:
-        routers:
-          truenas:
-            entrypoints:
-              - websecure
-            rule: "Host(`truenas.aresu.eu`)"
-            tls: true
-            service: truenas
+        # routers:
+        #   truenas:
+        #     entrypoints:
+        #       - websecure
+        #     rule: "Host(`truenas.aresu.eu`)"
+        #     tls: true
+        #     service: truenas
         services:
           truenas:
             loadbalancer:
