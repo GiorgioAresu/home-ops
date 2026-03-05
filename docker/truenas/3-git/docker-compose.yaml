@@ -12,14 +12,14 @@ services:
     image: codeberg.org/forgejo/forgejo:14
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.git.rule=Host(`git.aresu.eu`)"
-      - "traefik.http.routers.git.entrypoints=websecure"
-      # - "traefik.http.routers.git.service=forgejo@docker"
-      - "traefik.http.routers.git.tls=true"
+      - "traefik.http.routers.forgejo.rule=Host(`git.aresu.eu`)"
+      - "traefik.http.routers.forgejo.entrypoints=websecure"
+      - "traefik.http.routers.forgejo.tls=true"
+      - "traefik.http.services.forgejo.loadbalancer.server.port=3000" # Internal port of Forgejo web server
     networks:
       - apps
     ports:
-      - 3000:3000
+      - 3000:3000 # Shouldn't be needed with traefik
       - 222:22
     restart: unless-stopped
     volumes:
