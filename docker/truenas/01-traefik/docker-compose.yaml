@@ -15,7 +15,8 @@ configs:
             entrypoints:
               - websecure
             rule: "Host(`truenas.aresu.eu`)"
-            tls: true
+            tls:
+              certResolver: cf
             service: truenas
         services:
           truenas:
