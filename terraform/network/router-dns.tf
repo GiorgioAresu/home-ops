@@ -56,6 +56,13 @@ resource "routeros_ip_dns_record" "npm" {
   name     = "npm.aresu.eu"
   cname    = routeros_ip_dns_record.truenas.name
 }
+resource "routeros_ip_dns_record" "traefik_dashboard" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - Traefik on TrueNAS"
+  type     = "CNAME"
+  name     = "traefik-dashboard.aresu.eu"
+  cname    = routeros_ip_dns_record.truenas.name
+}
 resource "routeros_ip_dns_record" "mqtt" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
