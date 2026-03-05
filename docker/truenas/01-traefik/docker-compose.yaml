@@ -6,7 +6,8 @@ networks:
 services:
   traefik:
     command:
-      - --api.insecure=true
+      - --api.dashboard=true
+      - --api.insecure=false
       - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=0
       - --certificatesresolvers.cf.acme.dnsChallenge.provider=cloudflare
@@ -24,7 +25,21 @@ services:
     container_name: traefik
     environment:
       CF_DNS_API_TOKEN: ${TRAEFIK_CF_DNS_API_TOKEN}
+      TRAEFIK_API_BASICAUTH_HTPASSWD: "${TRAEFIK_API_BASICAUTH_USER}:${TRAEFIK_API_BASICAUTH_PASSWORD}"
     image: traefik:v3.6.9
+    labels:
+      # Enable self‑routing
+      - "traefik.enable=true"
+
+      # Dashboard router
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard.docker.localhost`)"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.tls=true"
+
+      # Basic‑auth middleware
+      - "traefik.http.middlewares.dashboard-auth.basicauth.users=${TRAEFIK_API_BASICAUTH_USER}:${TRAEFIK_API_BASICAUTH_PASSWORD}"
+      - "traefik.http.routers.dashboard.middlewares=dashboard-auth@docker"
     networks:
       - apps
     ports:
