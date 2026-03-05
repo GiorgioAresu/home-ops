@@ -56,7 +56,7 @@ services:
       # - --providers.file.watch=true
 
       - --log.level=DEBUG
-      - --accesslog=true # Enable access logs to stdout
+      # - --accesslog=true # Enable access logs to stdout
     container_name: traefik
     environment:
       CF_DNS_API_TOKEN: ${TRAEFIK_CF_DNS_API_TOKEN}
