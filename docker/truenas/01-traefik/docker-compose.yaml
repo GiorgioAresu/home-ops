@@ -8,6 +8,7 @@ services:
     command:
       - --api.dashboard=true
       - --api.insecure=false
+      - "--certificatesresolvers.le.acme.email=${EMAIL}"
       - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=0
       - --certificatesresolvers.cf.acme.dnsChallenge.provider=cloudflare
@@ -37,6 +38,7 @@ services:
     environment:
       CF_DNS_API_TOKEN: ${TRAEFIK_CF_DNS_API_TOKEN}
       TRAEFIK_API_BASICAUTH_HTPASSWD: "${TRAEFIK_API_BASICAUTH_USER}:${TRAEFIK_API_BASICAUTH_PASSWORD}"
+      EMAIL: ${EMAIL}
     image: traefik:v3.6.9
     labels:
       # Enable self‑routing
