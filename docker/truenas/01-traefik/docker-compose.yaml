@@ -9,13 +9,6 @@ configs:
       #     address: ":80"
       # providers:
       #   docker: {}
-      accessLog: {}
-
-      metrics:
-        otlp: {}
-
-      tracing: {}
-
       http:
         routers:
           truenas:
@@ -23,21 +16,21 @@ configs:
               - websecure
             rule: "Host(`truenas.aresu.eu`)"
             tls: true
-            loadbalancer:
+            service: truenas
         services:
           truenas:
             loadbalancer:
-              server:
-                port: 81
+              servers:
+                - url: http://10.17.1.2:81
 networks:
   apps:
     name: apps
     # external: false
 services:
   traefik:
-    # configs:
-    #   - source: traefik.yml
-    #     target: /etc/traefik/traefik.yml
+    configs:
+      - source: traefik.yml
+        target: /etc/traefik/traefik.yml
     command:
       - --api.dashboard=true
       - --api.insecure=true
