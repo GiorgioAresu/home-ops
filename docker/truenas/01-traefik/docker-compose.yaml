@@ -17,11 +17,11 @@ configs:
         #     rule: "Host(`truenas.aresu.eu`)"
         #     tls: true
         #     service: truenas
-        services:
-          truenas:
-            loadBalancer:
-              servers:
-                - url: http://10.17.1.2:81
+        # services:
+        #   truenas:
+        #     loadBalancer:
+        #       servers:
+        #         - url: http://10.17.1.2:81
 networks:
   apps:
     name: apps
