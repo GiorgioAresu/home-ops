@@ -7,7 +7,13 @@ services:
       - USER_GID=568
     image: codeberg.org/forgejo/forgejo:14
     labels:
+      - "traefik.enable=true"
       - "traefik.http.routers.git.rule=Host(`git.aresu.eu`)"
+      - "traefik.http.routers.git.entrypoints=websecure"
+      # - "traefik.http.routers.git.service=forgejo@docker"
+      - "traefik.http.routers.git.tls=true"
+    networks:
+      - proxy
     ports:
       - 3000:3000
       - 222:22

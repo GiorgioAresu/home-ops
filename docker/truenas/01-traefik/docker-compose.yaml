@@ -1,8 +1,6 @@
 ---
 networks:
-  apps:
-    name: apps
-    external: false
+  - apps
 services:
   traefik:
     command:
@@ -23,7 +21,7 @@ services:
       - --entrypoints.websecure.http.tls.domains[0].main=*.aresu.eu
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
-
+      - --providers.docker.network=apps
 
       # ... other command arguments ...
       - "--accesslog=true" # Enable access logs to stdout
