@@ -52,6 +52,7 @@ services:
       - --providers.docker.network=apps
       - --providers.file=true
 
+      - --log.level=INFO
       - --accesslog=true # Enable access logs to stdout
     container_name: traefik
     environment:
