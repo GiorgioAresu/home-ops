@@ -1,6 +1,6 @@
 ---
 configs:
-  traefik.yml:
+  rules.yml:
     content: |
       # api:
       #   insecure: true
@@ -17,11 +17,12 @@ configs:
         #     rule: "Host(`truenas.aresu.eu`)"
         #     tls: true
         #     service: truenas
-        # services:
-        #   truenas:
-        #     loadBalancer:
-        #       servers:
-        #         - url: http://10.17.1.2:81
+        services:
+          truenas:
+            loadBalancer:
+              servers:
+                - url: http://10.17.1.2:81
+              passHostHeader: true
 networks:
   apps:
     name: apps
@@ -29,8 +30,8 @@ networks:
 services:
   traefik:
     configs:
-      - source: traefik.yml
-        target: /etc/traefik/traefik.yml
+      - source: rules.yml
+        target: /etc/traefik/rules.yml
     command:
       - --api.dashboard=true
       - --api.insecure=true
