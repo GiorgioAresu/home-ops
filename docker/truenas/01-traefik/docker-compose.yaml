@@ -7,7 +7,7 @@ services:
   traefik:
     command:
       - --api.dashboard=true
-      - --api.insecure=false
+      - --api.insecure=true
       - "--certificatesresolvers.le.acme.email=${EMAIL}"
       - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=0
