@@ -22,6 +22,17 @@ services:
       - --entrypoints.websecure.http.tls.domains[0].main=*.aresu.eu
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
+
+
+      # ... other command arguments ...
+      - "--accesslog=true" # Enable access logs to stdout
+
+      # Optionally change format or output file (requires volume)
+      - "--accesslog.format=json"
+      - "--accesslog.filepath=/path/to/access.log"
+
+      # Optionally filter logs
+      - "--accesslog.filters.statuscodes=400-599"
     container_name: traefik
     environment:
       CF_DNS_API_TOKEN: ${TRAEFIK_CF_DNS_API_TOKEN}
