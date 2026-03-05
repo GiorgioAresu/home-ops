@@ -36,7 +36,7 @@ services:
       - --api.dashboard=true
       - --api.insecure=true
       - --certificatesresolvers.cf.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=0
+      - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=90
       - --certificatesresolvers.cf.acme.dnsChallenge.provider=cloudflare
       - --certificatesresolvers.cf.acme.dnsChallenge.resolvers=1.1.1.1:53
       - --certificatesresolvers.cf.acme.email=${EMAIL}
