@@ -1,6 +1,8 @@
 ---
 networks:
-  - apps
+  apps:
+    name: apps
+    # external: false
 services:
   traefik:
     command:
