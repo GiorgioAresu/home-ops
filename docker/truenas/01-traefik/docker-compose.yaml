@@ -34,7 +34,7 @@ services:
     command:
       - --api.dashboard=true
       - --api.insecure=true
-      - --certificatesresolvers.cf.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cf.acme.dnsChallenge=true
       # - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=90
       - --certificatesresolvers.cf.acme.dnsChallenge.provider=cloudflare
