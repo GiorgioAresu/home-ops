@@ -49,7 +49,7 @@ services:
       - --entrypoints.websecure.asDefault=true
       - --entrypoints.websecure.http.tls=true
       - --entrypoints.websecure.http.tls.certresolver=cf
-      - --entrypoints.websecure.http.tls.domains[0].main=aresu.eu
+      - --entrypoints.websecure.http.tls.domains[0].main=*.aresu.eu
       # - --entrypoints.websecure.http.tls.domains[0].sans=www.aresu.eu
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
