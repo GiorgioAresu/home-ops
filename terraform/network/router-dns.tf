@@ -67,21 +67,21 @@ resource "routeros_ip_dns_record" "garage_s3" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Garage on TrueNAS"
   type     = "CNAME"
-  name     = "s3.aresu.eu"
+  name     = "s3-2.aresu.eu"
   cname    = routeros_ip_dns_record.truenas.name
 }
 resource "routeros_ip_dns_record" "garage_s3_web" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Garage on TrueNAS"
   type     = "CNAME"
-  name     = "s3-web.aresu.eu"
+  name     = "s3-web-2.aresu.eu"
   cname    = routeros_ip_dns_record.truenas.name
 }
 resource "routeros_ip_dns_record" "garage_web" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Garage on TrueNAS"
   type     = "CNAME"
-  name     = "garage.aresu.eu"
+  name     = "garage-2.aresu.eu"
   cname    = routeros_ip_dns_record.truenas.name
 }
 resource "routeros_ip_dns_record" "mqtt" {
