@@ -68,7 +68,7 @@ services:
       API_ADMIN_KEY: ${GARAGE_ADMIN_TOKEN}
       API_BASE_URL: "http://garage:3903"
       S3_ENDPOINT_URL: "http://garage:3900"
-    image: khairul169/garage-webui:v1.1.0
+    image: khairul169/garage-webui:1.1.0
     labels:
       - traefik.enable=true
       - traefik.http.routers.garage-ui.rule=Host(`garage.aresu.eu`)
