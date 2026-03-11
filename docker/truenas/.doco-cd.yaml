@@ -5,7 +5,10 @@ auto_discover_opts:
   depth: 1
   delete: true
 external_secrets:
-  TRAEFIK_CF_DNS_API_TOKEN: op://Automation/Cloudflare/API Tokens/truenas_traefik
-  TRAEFIK_API_BASICAUTH_USER: op://Services/Traefik/username
-  TRAEFIK_API_BASICAUTH_PASSWORD: op://Services/Traefik/htpassword
   EMAIL: op://Services/LetsEncrypt/username
+  GARAGE_ADMIN_TOKEN: op://Services/Garage/GARAGE_ADMIN_TOKEN
+  GARAGE_METRICS_TOKEN: op://Services/Garage/GARAGE_METRICS_TOKEN
+  GARAGE_RPC_SECRET: op://Services/Garage/GARAGE_RPC_SECRET
+  TRAEFIK_API_BASICAUTH_PASSWORD: op://Services/Traefik/htpassword
+  TRAEFIK_API_BASICAUTH_USER: op://Services/Traefik/username
+  TRAEFIK_CF_DNS_API_TOKEN: op://Automation/Cloudflare/API Tokens/truenas_traefik
