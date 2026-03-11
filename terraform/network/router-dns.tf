@@ -63,6 +63,20 @@ resource "routeros_ip_dns_record" "traefik" {
   name     = "traefik.aresu.eu"
   cname    = routeros_ip_dns_record.truenas.name
 }
+resource "routeros_ip_dns_record" "garage_s3" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - Garage on TrueNAS"
+  type     = "CNAME"
+  name     = "s3.aresu.eu"
+  cname    = routeros_ip_dns_record.truenas.name
+}
+resource "routeros_ip_dns_record" "garage_web" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - Garage on TrueNAS"
+  type     = "CNAME"
+  name     = "s3-web.aresu.eu"
+  cname    = routeros_ip_dns_record.truenas.name
+}
 resource "routeros_ip_dns_record" "mqtt" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
