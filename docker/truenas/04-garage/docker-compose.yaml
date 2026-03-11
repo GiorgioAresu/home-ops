@@ -14,11 +14,11 @@ configs:
       [s3_api]
       s3_region = "garage"
       api_bind_addr = "0.0.0.0:3900"
-      root_domain = ".s3-2.aresu.eu"
+      root_domain = ".s3.aresu.eu"
 
       [s3_web]
       bind_addr = "0.0.0.0:3902"
-      root_domain = ".s3-web-2.aresu.eu"
+      root_domain = ".s3-web.aresu.eu"
       index = "index.html"
 
       [admin]
@@ -39,10 +39,10 @@ services:
     image: dxflrs/garage:v2.2.0
     labels:
       - traefik.enable=true
-      - traefik.http.routers.garage-s3.rule=Host(`s3-2.aresu.eu`) || HostRegexp(`^.+\.s3-2\.aresu\.eu$`)
+      - traefik.http.routers.garage-s3.rule=Host(`s3.aresu.eu`) || HostRegexp(`^.+\.s3\.aresu\.eu$`)
       - traefik.http.routers.garage-s3.service=garage-s3
       - traefik.http.routers.garage-s3.entrypoints=websecure
-      - traefik.http.routers.garage-web.rule=Host(`s3-web-2.aresu.eu`) || HostRegexp(`^.+\.s3-web-2\.aresu\.eu$`)
+      - traefik.http.routers.garage-web.rule=Host(`s3-web.aresu.eu`) || HostRegexp(`^.+\.s3-web\.aresu\.eu$`)
       - traefik.http.routers.garage-web.service=garage-web
       - traefik.http.routers.garage-web.entrypoints=websecure
       - traefik.http.routers.garage-web.middlewares=compression
@@ -71,7 +71,7 @@ services:
     image: khairul169/garage-webui:1.1.0
     labels:
       - traefik.enable=true
-      - traefik.http.routers.garage-ui.rule=Host(`garage-2.aresu.eu`)
+      - traefik.http.routers.garage-ui.rule=Host(`garage.aresu.eu`)
       - traefik.http.routers.garage-ui.service=garage-ui
       - traefik.http.routers.garage-ui.entrypoints=websecure
       - traefik.http.services.garage-ui.loadbalancer.server.port=3909
