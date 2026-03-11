@@ -2,33 +2,31 @@
 configs:
   garage.toml:
     content: |
-      metadata_dir = "/tmp/meta"
-      data_dir = "/tmp/data"
+      metadata_dir = "/var/lib/garage/meta"
+      data_dir = "/var/lib/garage/data"
       db_engine = "sqlite"
 
       replication_factor = 1
 
-      rpc_bind_addr = "[::]:3901"
+      rpc_bind_addr = "0.0.0.0:3901"
       rpc_public_addr = "127.0.0.1:3901"
-      rpc_secret = "${RPC_SECRET}"
 
       [s3_api]
       s3_region = "garage"
-      api_bind_addr = "[::]:3900"
-      root_domain = ".s3.garage.aresu.eu"
+      api_bind_addr = "0.0.0.0:3900"
+      root_domain = ".s3.aresu.eu"
 
       [s3_web]
-      bind_addr = "[::]:3902"
-      root_domain = ".web.garage.aresu.eu"
+      bind_addr = "0.0.0.0:3902"
+      root_domain = ".s3-web.aresu.eu"
       index = "index.html"
 
-      [k2v_api]
-      api_bind_addr = "[::]:3904"
-
       [admin]
-      api_bind_addr = "[::]:3903"
-      admin_token = "${ADMIN_TOKEN}"
-      metrics_token = "${METRICS_TOKEN}"
+      api_bind_addr = "0.0.0.0:3903"
+networks:
+  proxy:
+    name: proxy
+    external: true
 services:
   garage:
     configs:
@@ -36,10 +34,27 @@ services:
         target: /etc/garage.toml
     container_name: garage
     environment:
-      ADMIN_TOKEN: ${GARAGE_ADMIN_TOKEN}
-      METRICS_TOKEN: ${GARAGE_METRICS_TOKEN}
-      RPC_SECRET: ${GARAGE_RPC_SECRET}
+      GARAGE_ADMIN_TOKEN: ${GARAGE_ADMIN_TOKEN}
+      GARAGE_METRICS_TOKEN: ${GARAGE_METRICS_TOKEN}
+      GARAGE_RPC_SECRET: ${GARAGE_RPC_SECRET}
     image: dxflrs/garage:v2.2.0
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.garage-s3.rule=Host(`s3.aresu.eu`)
+      - traefik.http.routers.garage-s3.service=garage-s3
+      - traefik.http.routers.garage-s3.entrypoints=websecure
+      - traefik.http.routers.garage-web.rule=Host(`s3-web.aresu.eu`)
+      - traefik.http.routers.garage-web.service=garage-web
+      - traefik.http.routers.garage-web.entrypoints=websecure
+      - traefik.http.routers.garage-web.middlewares=compression
+      - traefik.http.services.garage-s3.loadbalancer.server.port=3900
+      - traefik.http.services.garage-s3.loadbalancer.healthCheck.path=/health
+      - traefik.http.services.garage-s3.loadbalancer.healthCheck.port=3903
+      - traefik.http.services.garage-web.loadbalancer.server.port=3902
+      - traefik.http.services.garage-web.loadbalancer.healthCheck.path=/health
+      - traefik.http.services.garage-web.loadbalancer.healthCheck.port=3903
+    networks:
+      - proxy
     ports:
       - 3900:3900
       - 3901:3901
