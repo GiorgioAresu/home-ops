@@ -20,3 +20,12 @@ spec:
           labels:
             issue: Longhorn volume {{$labels.volume}} usage on {{$labels.node}} is critical.
             severity: critical
+        - alert: LonghornVolumeRobustnessCritical
+          annotations:
+            description: Longhorn volume {{$labels.volume}} is at {{$value}} robustness for more than 5 minutes
+            summary: Longhorn volume is not healthy
+          expr: longhorn_volume_robustness{state!="healthy"} == 1
+          for: 5m
+          labels:
+            issue: Longhorn volue {{$labels.volume}} robustness is critical
+            severity: critical
