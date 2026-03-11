@@ -101,7 +101,7 @@ resource "routeros_ip_firewall_nat" "ntp" {
 resource "routeros_ip_firewall_nat" "dns_tcp" {
   provider     = routeros.rb5009
   comment      = "Managed by Terraform - Redirect all DNS to local"
-  disabled     = false
+  disabled     = true
   action       = "redirect"
   chain        = "dstnat"
   protocol     = "tcp"
@@ -115,7 +115,7 @@ resource "routeros_ip_firewall_nat" "dns_tcp" {
 resource "routeros_ip_firewall_nat" "dns_udp" {
   provider     = routeros.rb5009
   comment      = "Managed by Terraform - Redirect all DNS to local"
-  disabled     = false
+  disabled     = true
   action       = "redirect"
   chain        = "dstnat"
   protocol     = "udp"
