@@ -8,7 +8,7 @@ resource "routeros_ip_dns" "dns-server" {
   cache_size            = 30720
   cache_max_ttl         = "1w"
   servers = [
-    "9.9.9.9", #"2620:fe::fe",
+    "9.9.9.9",         #"2620:fe::fe",
     "149.112.112.112", #"2620:fe::9",
   ]
 }
