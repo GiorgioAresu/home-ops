@@ -16,6 +16,9 @@ configs:
                 scheme: https
         websecure:
           address: ":443"
+          asDefault: true
+          http:
+            tls: {}
       serversTransport:
         insecureSkipVerify: true
       providers:
@@ -76,7 +79,6 @@ services:
       - traefik.http.routers.dashboard.rule=Host(`traefik.aresu.eu`)
       - traefik.http.routers.dashboard.entryPoints=websecure
       - traefik.http.routers.dashboard.service=api@internal
-      - traefik.http.routers.dashboard.tls=true
       - traefik.http.routers.dashboard.middlewares=dashboard-auth
       - traefik.http.middlewares.dashboard-auth.basicauth.users=${TRAEFIK_API_BASICAUTH_DASHBOARD}
     networks:

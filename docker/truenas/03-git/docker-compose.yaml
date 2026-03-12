@@ -13,8 +13,6 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.forgejo.rule=Host(`git.aresu.eu`)
-      - traefik.http.routers.forgejo.entryPoints=websecure
-      - traefik.http.routers.forgejo.tls=true
       - traefik.http.services.forgejo.loadbalancer.server.port=3000
     networks:
       - proxy
