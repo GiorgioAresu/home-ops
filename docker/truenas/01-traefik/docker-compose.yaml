@@ -50,6 +50,8 @@ configs:
           truenas:
             rule: "Host(`truenas.aresu.eu`)"
             service: truenas
+            tls:
+              certResolver: cloudflare
         services:
           truenas:
             loadBalancer:
