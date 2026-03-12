@@ -9,6 +9,25 @@ terraform {
       version = "0.41.0"
     }
   }
+
+  backend "s3" {
+    bucket                 = "terraform"
+    insecure               = true # TODO: Remove after fixing traefik certs
+    key                    = "home-ops/terraform/network.tfstate"
+    region                 = "garage"
+
+    skip_region_validation = true
+    use_lockfile           = true
+    use_path_style         = true
+    # Required for non-AWS S3-compatible backends to avoid hitting AWS endpoints
+    skip_credentials_validation = true
+    skip_metadata_api_check     = true
+    skip_requesting_account_id  = true
+
+    endpoints = {
+      s3 = "https://s3.aresu.eu"
+    }
+  }
 }
 
 provider "routeros" {
