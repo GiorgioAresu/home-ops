@@ -34,10 +34,10 @@ tasks:
         vars:
           HOST: "{{ .HOST }}"
       - until nc -z {{.HOST}} 22; do sleep 5; done
-      - task: _upgrade-firmware
-        vars:
-          HOST: "{{ .HOST }}"
-      - until nc -z {{.HOST}} 22; do sleep 5; done
+      # - task: _upgrade-firmware
+      #   vars:
+      #     HOST: "{{ .HOST }}"
+      # - until nc -z {{.HOST}} 22; do sleep 5; done
       - task: _upgrade-modem
         vars:
           HOST: "{{ .HOST }}"
