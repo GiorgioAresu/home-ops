@@ -32,8 +32,10 @@ configs:
             caServer: https://acme-v02.api.letsencrypt.org/directory
             dnsChallenge:
               provider: cloudflare
-              disablePropagationCheck: true # Fixes issues with cloudflare propagation of the TXT record
-              delayBeforeCheck: 60s         # Fixes issues with cloudflare propagation of the TXT record, ensure the TXT record is ready before verification is attempted
+              propagation:
+                # Fixes issues with cloudflare propagation of the TXT record by just waiting instead of checking
+                disableChecks: true
+                delayBeforeChecks: 60s
               resolvers:
                 - "1.1.1.1:53"
                 - "1.0.0.1:53"
