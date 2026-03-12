@@ -18,7 +18,8 @@ configs:
           address: ":443"
           asDefault: true
           http:
-            tls: {}
+            tls:
+              certResolver: cloudflare
       serversTransport:
         insecureSkipVerify: true
       providers:
