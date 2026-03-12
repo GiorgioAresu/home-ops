@@ -1,0 +1,10 @@
+---
+working_dir: ./docker/truenas
+auto_discover: true
+auto_discover_opts:
+  depth: 1
+  delete: true
+external_secrets:
+  EMAIL: op://Services/LetsEncrypt/username
+  TRAEFIK_API_BASICAUTH_DASHBOARD: op://Services/Traefik/htpassword
+  TRAEFIK_CF_DNS_API_TOKEN: op://Automation/Cloudflare/API Tokens/truenas_traefik

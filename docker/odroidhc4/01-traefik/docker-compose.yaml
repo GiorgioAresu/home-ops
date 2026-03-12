@@ -1,32 +1,89 @@
 ---
+configs:
+  traefik.yaml:
+    content: |
+      api:
+        dashboard: true
+      log:
+        level: DEBUG
+      entryPoints:
+        web:
+          address: ":80"
+          http:
+            redirections:
+              entryPoint:
+                to: websecure
+                scheme: https
+        websecure:
+          address: ":443"
+          asDefault: true
+          http:
+            tls:
+              certResolver: cloudflare
+      serversTransport:
+        insecureSkipVerify: true
+      providers:
+        docker:
+          endpoint: "unix:///var/run/docker.sock"
+          exposedByDefault: false
+        file:
+          directory: /etc/traefik/dynamic
+      certificatesResolvers:
+        cloudflare:
+          acme:
+            email: ${EMAIL}
+            storage: /certs/acme.json
+            caServer: https://acme-v02.api.letsencrypt.org/directory
+            dnsChallenge:
+              provider: cloudflare
+              propagation:
+                # Fixes issues with cloudflare propagation of the TXT record by just waiting instead of checking
+                disableChecks: true
+                delayBeforeChecks: 60s
+              resolvers:
+                - "1.1.1.1:53"
+                - "1.0.0.1:53"
+  homeassistant.yaml:
+    content: |
+      http:
+        routers:
+          homeassistant:
+            entryPoints:
+              - websecure
+            rule: "Host(`homeassistant.paola.aresu.eu`)"
+            tls: {}
+            service: homeassistant
+        services:
+          homeassistant:
+            loadBalancer:
+              servers:
+                - url: http://10.17.1.2:81
+              passHostHeader: true
 networks:
-  apps:
-    name: apps
-    external: false
+  proxy:
+    name: proxy
 services:
   traefik:
-    command:
-      - --certificatesresolvers.cloudflare.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.cloudflare.acme.dnsChallenge.delayBeforeCheck=0
-      - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
-      - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53
-      - --certificatesresolvers.cloudflare.acme.storage=/certs/acme.json
-      - --entryPoints.web.address=:80
-      - --entryPoints.web.http.redirections.entryPoint.scheme=https
-      - --entryPoints.web.http.redirections.entryPoint.to=websecure
-      - --entryPoints.websecure.address=:443
-      - --entrypoints.websecure.http.tls=true
-      - --entrypoints.websecure.http.tls.certResolver=cf
-      - --entrypoints.websecure.http.tls.domains[0].main=*.paola.aresu.eu
-      - --providers.docker=true
-      - --providers.docker.exposedByDefault=false
+    configs:
+      - source: traefik.yaml
+        target: /etc/traefik/traefik.yaml
+      - source: truenas.yaml
+        target: /etc/traefik/dynamic/truenas.yaml
     container_name: traefik
-    env_file:
-      - path: secrets.sops.env
-        required: true
-    image: traefik:v3.6.9
+    environment:
+      CF_DNS_API_TOKEN: ${TRAEFIK_CF_DNS_API_TOKEN}
+      TRAEFIK_API_BASICAUTH_DASHBOARD: "${TRAEFIK_API_BASICAUTH_DASHBOARD}"
+      EMAIL: ${EMAIL}
+    image: traefik:v3.6.10
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.dashboard.rule=Host(`traefik.paola.aresu.eu`)
+      - traefik.http.routers.dashboard.entryPoints=websecure
+      - traefik.http.routers.dashboard.service=api@internal
+      - traefik.http.routers.dashboard.middlewares=dashboard-auth
+      - traefik.http.middlewares.dashboard-auth.basicauth.users=${TRAEFIK_API_BASICAUTH_DASHBOARD}
     networks:
-      - apps
+      - proxy
     ports:
       - 80:80
       - 443:443
