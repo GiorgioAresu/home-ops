@@ -48,10 +48,7 @@ configs:
       http:
         routers:
           truenas:
-            entryPoints:
-              - websecure
             rule: "Host(`truenas.aresu.eu`)"
-            tls: {}
             service: truenas
         services:
           truenas:
