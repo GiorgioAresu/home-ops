@@ -1,14 +1,44 @@
 ---
 configs:
-  rules.yml:
+  traefik.yaml:
     content: |
-      # api:
-      #   insecure: true
-      # entryPoints:
-      #   web:
-      #     address: ":80"
-      # providers:
-      #   docker: {}
+      api:
+        dashboard: true
+      log:
+        level: DEBUG
+      entryPoints:
+        web:
+          address: ":80"
+          http:
+            redirections:
+              entryPoint:
+                to: websecure
+                scheme: https
+        websecure:
+          address: ":443"
+      serversTransport:
+        insecureSkipVerify: true
+      providers:
+        docker:
+          endpoint: "unix:///var/run/docker.sock"
+          exposedByDefault: false
+        file:
+          directory: /etc/traefik/dynamic
+      certificatesResolvers:
+        cloudflare:
+          acme:
+            email: ${EMAIL}
+            storage: /certs/acme.json
+            caServer: https://acme-v02.api.letsencrypt.org/directory
+            dnsChallenge:
+              provider: cloudflare
+              disablePropagationCheck: true # Fixes issues with cloudflare propagation of the TXT record
+              delayBeforeCheck: 60s         # Fixes issues with cloudflare propagation of the TXT record, ensure the TXT record is ready before verification is attempted
+              resolvers:
+                - "1.1.1.1:53"
+                - "1.0.0.1:53"
+  truenas.yaml:
+    content: |
       http:
         routers:
           truenas:
@@ -29,41 +59,16 @@ networks:
 services:
   traefik:
     configs:
-      - source: rules.yml
-        target: /etc/traefik/rules.yml
-    command:
-      - --api.dashboard=true
-      - --api.insecure=true
-      - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.cf.acme.dnsChallenge=true
-      # - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=90
-      - --certificatesresolvers.cf.acme.dnsChallenge.provider=cloudflare
-      - --certificatesresolvers.cf.acme.dnsChallenge.resolvers=1.1.1.1:53
-      - --certificatesresolvers.cf.acme.email=${EMAIL}
-      - --certificatesresolvers.cf.acme.storage=/certs/acme.json
-      - --entryPoints.web.address=:80
-      - --entryPoints.web.http.redirections.entryPoint.scheme=https
-      - --entryPoints.web.http.redirections.entryPoint.to=websecure
-      - --entryPoints.websecure.address=:443
-      - --entrypoints.websecure.asDefault=true
-      - --entrypoints.websecure.http.tls=true
-      - --entrypoints.websecure.http.tls.certresolver=cf
-      - --entrypoints.websecure.http.tls.domains[0].main=aresu.eu
-      - --entrypoints.websecure.http.tls.domains[0].sans=*.aresu.eu
-      - --providers.docker=true
-      - --providers.docker.exposedByDefault=false
-      - --providers.docker.network=proxy
-      - --providers.file.directory=/etc/traefik
-      # - --providers.file.watch=true
-
-      - --log.level=DEBUG
-      # - --accesslog=true # Enable access logs to stdout
+      - source: traefik.yaml
+        target: /etc/traefik/traefik.yaml
+      - source: truenas.yaml
+        target: /etc/traefik/dynamic/truenas.yaml
     container_name: traefik
     environment:
       CF_DNS_API_TOKEN: ${TRAEFIK_CF_DNS_API_TOKEN}
       TRAEFIK_API_BASICAUTH_DASHBOARD: "${TRAEFIK_API_BASICAUTH_DASHBOARD}"
       EMAIL: ${EMAIL}
-    image: traefik:v3.6.9
+    image: traefik:v3.6.10
     labels:
       - traefik.enable=true
       - traefik.http.routers.dashboard.rule=Host(`traefik.aresu.eu`)
@@ -77,7 +82,6 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 8081:8080
     volumes:
       - acme:/certs
       - /var/run/docker.sock:/var/run/docker.sock:ro
