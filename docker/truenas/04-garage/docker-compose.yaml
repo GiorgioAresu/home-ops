@@ -41,10 +41,10 @@ services:
       - traefik.enable=true
       - traefik.http.routers.garage-s3.rule=Host(`s3.aresu.eu`) || HostRegexp(`^.+\.s3\.aresu\.eu$`)
       - traefik.http.routers.garage-s3.service=garage-s3
-      - traefik.http.routers.garage-s3.entrypoints=websecure
+      - traefik.http.routers.garage-s3.entryPoints=websecure
       - traefik.http.routers.garage-web.rule=Host(`s3-web.aresu.eu`) || HostRegexp(`^.+\.s3-web\.aresu\.eu$`)
       - traefik.http.routers.garage-web.service=garage-web
-      - traefik.http.routers.garage-web.entrypoints=websecure
+      - traefik.http.routers.garage-web.entryPoints=websecure
       - traefik.http.routers.garage-web.middlewares=compression
       - traefik.http.middlewares.compression.compress=true
       - traefik.http.services.garage-s3.loadbalancer.server.port=3900
@@ -73,7 +73,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.garage-ui.rule=Host(`garage.aresu.eu`)
       - traefik.http.routers.garage-ui.service=garage-ui
-      - traefik.http.routers.garage-ui.entrypoints=websecure
+      - traefik.http.routers.garage-ui.entryPoints=websecure
       - traefik.http.services.garage-ui.loadbalancer.server.port=3909
     networks:
       - proxy
