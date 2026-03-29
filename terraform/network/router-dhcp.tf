@@ -270,13 +270,6 @@ resource "routeros_ip_dhcp_server_lease" "truenas" {
   comment     = "Managed by Terraform - TrueNAS Scale"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.2"
-  mac_address = "D0:50:99:78:95:01"
-}
-resource "routeros_ip_dhcp_server_lease" "supermicro" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Supermicro"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.3"
   mac_address = "0C:C4:7A:6B:59:EA"
 }
 resource "routeros_ip_dhcp_server_lease" "homeassistant" {
@@ -376,13 +369,6 @@ resource "routeros_ip_dhcp_server_lease" "zigbee" {
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.40"
   mac_address = "0C:DC:7E:37:4F:7F"
-}
-resource "routeros_ip_dhcp_server_lease" "ipmi_asrockrack" {
-  provider    = routeros.rb5009
-  comment     = "Managed by Terraform - IPMI ASRockRack"
-  server      = routeros_ip_dhcp_server.lan.name
-  address     = "10.17.1.50"
-  mac_address = "BC:5F:F4:FE:FC:24"
 }
 resource "routeros_ip_dhcp_server_lease" "ipmi_supermicro" {
   provider    = routeros.rb5009

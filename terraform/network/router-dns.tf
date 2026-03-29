@@ -91,13 +91,6 @@ resource "routeros_ip_dns_record" "mqtt" {
   name     = "mqtt.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.homeassistant.address
 }
-resource "routeros_ip_dns_record" "supermicro" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
-  type     = "A"
-  name     = "pve-supermicro.aresu.eu"
-  address  = routeros_ip_dhcp_server_lease.supermicro.address
-}
 resource "routeros_ip_dns_record" "prusa" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
@@ -160,13 +153,6 @@ resource "routeros_ip_dns_record" "jetkvm" {
   type     = "A"
   name     = "jetkvm.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.jetkvm.address
-}
-resource "routeros_ip_dns_record" "ipmi_asrockrack" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
-  type     = "A"
-  name     = "ipmi-asrockrack.aresu.eu"
-  address  = routeros_ip_dhcp_server_lease.ipmi_asrockrack.address
 }
 resource "routeros_ip_dns_record" "ipmi_supermicro" {
   provider = routeros.rb5009
