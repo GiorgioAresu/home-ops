@@ -51,14 +51,13 @@ resource "unifi_device" "usw_flex_mini" {
 
   port_override {
     number          = 2
-    name            = "Desk"
-    port_profile_id = unifi_port_profile.desk.id
+    name            = "Port 2"
 
   }
 
   port_override {
     number          = 3
-    name            = "Camera-Dome"
+    name            = "Port 3"
     port_profile_id = unifi_port_profile.security.id
   }
 
@@ -70,8 +69,8 @@ resource "unifi_device" "usw_flex_mini" {
 
   port_override {
     number          = 5
-    name            = "IoT"
-    port_profile_id = unifi_port_profile.iot.id
+    name            = "Desk"
+    port_profile_id = unifi_port_profile.guest.id
   }
 
   lifecycle {
