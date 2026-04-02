@@ -270,6 +270,13 @@ resource "routeros_ip_dhcp_server_lease" "truenas" {
   comment     = "Managed by Terraform - TrueNAS Scale"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.2"
+  mac_address = "D0:50:99:78:95:01"
+}
+resource "routeros_ip_dhcp_server_lease" "supermicro" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - SuperMicro X10SL7-F"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.3"
   mac_address = "0C:C4:7A:6B:59:EA"
 }
 resource "routeros_ip_dhcp_server_lease" "homeassistant" {

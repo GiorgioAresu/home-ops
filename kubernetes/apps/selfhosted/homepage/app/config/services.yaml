@@ -158,6 +158,16 @@
       ping: https://ipmi-supermicro.aresu.eu
 
 - Services:
+  - Proxmox on SuperMicro:
+      description: Proxmox on SuperMicro
+      href: https://pve-supermicro.aresu.eu:8006
+      icon: proxmox.svg
+      ping: https://pve-supermicro.aresu.eu
+      widget:
+        type: proxmox
+        url: https://pve-supermicro.aresu.eu:8006
+        username: {{HOMEPAGE_VAR_PROXMOX_TOKEN}}
+        password: {{HOMEPAGE_VAR_PROXMOX_SECRET}}
   - TrueNAS:
       href: https://truenas.aresu.eu
       icon: truenas.svg
