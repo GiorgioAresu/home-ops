@@ -5,6 +5,8 @@ networks:
     external: true
 services:
   forgejo:
+    cap_drop:
+      - ALL
     container_name: forgejo
     environment:
       - USER_UID=568
@@ -19,6 +21,8 @@ services:
     ports:
       - 222:22
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges=true
     volumes:
       - /mnt/tank/apps/forgejo:/data
       - /etc/timezone:/etc/timezone:ro

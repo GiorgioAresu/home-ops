@@ -1,6 +1,8 @@
 ---
 services:
   node-exporter:
+    cap_drop:
+      - ALL
     command:
       - --path.rootfs=/host/root
       - --path.procfs=/host/proc
@@ -14,6 +16,8 @@ services:
     ports:
       - 9100:9100
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges=true
     volumes:
       - /:/host/root:ro
       - /proc:/host/proc:ro
