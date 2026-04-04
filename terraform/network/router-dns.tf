@@ -84,6 +84,13 @@ resource "routeros_ip_dns_record" "garage_web" {
   name     = "garage.aresu.eu"
   cname    = routeros_ip_dns_record.truenas.name
 }
+resource "routeros_ip_dns_record" "code_server" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - Code-Server on TrueNAS"
+  type     = "CNAME"
+  name     = "code.aresu.eu"
+  cname    = routeros_ip_dns_record.truenas.name
+}
 resource "routeros_ip_dns_record" "mqtt" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
