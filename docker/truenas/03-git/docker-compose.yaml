@@ -11,7 +11,7 @@ services:
     environment:
       - USER_UID=568
       - USER_GID=568
-    image: codeberg.org/forgejo/forgejo:14
+    image: codeberg.org/forgejo/forgejo:14-rootless
     labels:
       - traefik.enable=true
       - traefik.http.routers.forgejo.rule=Host(`git.aresu.eu`)
@@ -24,6 +24,7 @@ services:
     security_opt:
       - no-new-privileges=true
     volumes:
-      - /mnt/fast/apps/forgejo:/data
+      - /mnt/fast/apps/forgejo:/var/lib/gitea
+      - /mnt/fast/apps/forgejo/gitea/conf:/etc/gitea
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
