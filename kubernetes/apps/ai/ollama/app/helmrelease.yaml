@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ollama/ollama
-              tag: 0.17.7@sha256:0ff452f6a4c3c5bb4ab063a1db190b261d5834741a519189ed5301d50e4434d1
+              tag: 0.20.2@sha256:0455f166da85b1d07f694c33ba09278ca649603c0611ba8e46272b16eed7fccd
             env:
               OLLAMA_HOST: 0.0.0.0
               # OLLAMA_KEEP_ALIVE: "24h"
