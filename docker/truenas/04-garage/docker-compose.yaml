@@ -55,8 +55,8 @@ services:
       - proxy
     restart: unless-stopped
     volumes:
-      - /mnt/tank/apps/garage/meta:/var/lib/garage/meta
-      - /mnt/tank/apps/garage/data:/var/lib/garage/data
+      - /mnt/fast/apps/garage/meta:/var/lib/garage/meta
+      - /mnt/fast/apps/garage/data:/var/lib/garage/data
   webui:
     configs:
       - source: garage.toml

@@ -24,6 +24,6 @@ services:
     security_opt:
       - no-new-privileges=true
     volumes:
-      - /mnt/tank/apps/forgejo:/data
+      - /mnt/fast/apps/forgejo:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
