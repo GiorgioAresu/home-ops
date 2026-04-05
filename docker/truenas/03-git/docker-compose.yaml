@@ -5,13 +5,11 @@ networks:
     external: true
 services:
   forgejo:
-    cap_drop:
-      - ALL
     container_name: forgejo
     environment:
       - USER_UID=568
       - USER_GID=568
-    image: codeberg.org/forgejo/forgejo:14-rootless
+    image: codeberg.org/forgejo/forgejo:14
     labels:
       - traefik.enable=true
       - traefik.http.routers.forgejo.rule=Host(`git.aresu.eu`)
@@ -21,10 +19,7 @@ services:
     ports:
       - 222:22
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges=true
     volumes:
-      - /mnt/fast/apps/forgejo/gitea:/var/lib/gitea
-      - /mnt/fast/apps/forgejo/conf:/etc/gitea
+      - /mnt/fast/apps/forgejo:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
