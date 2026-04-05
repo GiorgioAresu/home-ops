@@ -90,6 +90,8 @@ services:
     ports:
       - 80:80
       - 443:443
+      - "10.17.1.212:22000:22000/tcp"
+      - "10.17.1.212:22000:22000/udp"
     volumes:
       - acme:/certs
       - /var/run/docker.sock:/var/run/docker.sock:ro
