@@ -24,7 +24,7 @@ services:
     security_opt:
       - no-new-privileges=true
     volumes:
-      - /mnt/fast/apps/forgejo:/var/lib/gitea
-      - /mnt/fast/apps/forgejo/gitea/conf:/etc/gitea
+      - /mnt/fast/apps/forgejo/gitea:/var/lib/gitea
+      - /mnt/fast/apps/forgejo/conf:/etc/gitea
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
