@@ -20,6 +20,10 @@ configs:
           http:
             tls:
               certResolver: cloudflare
+        syncthing-tcp:
+          address: "10.17.1.212:22000"
+        syncthing-udp:
+          address: "udp://10.17.1.212:22000"
       serversTransport:
         insecureSkipVerify: true
       providers:
