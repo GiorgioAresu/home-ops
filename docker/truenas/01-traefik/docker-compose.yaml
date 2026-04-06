@@ -23,7 +23,7 @@ configs:
         syncthing-tcp:
           address: ":22000"
         syncthing-udp:
-          address: "udp://:22000"
+          address: ":22000/udp"
       serversTransport:
         insecureSkipVerify: true
       providers:
