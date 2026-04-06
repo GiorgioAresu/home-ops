@@ -21,9 +21,9 @@ configs:
             tls:
               certResolver: cloudflare
         syncthing-tcp:
-          address: "10.17.1.212:22000"
+          address: ":22000"
         syncthing-udp:
-          address: "udp://10.17.1.212:22000"
+          address: "udp://:22000"
       serversTransport:
         insecureSkipVerify: true
       providers:
@@ -90,8 +90,8 @@ services:
     ports:
       - 80:80
       - 443:443
-      - "10.17.1.212:22000:22000/tcp"
-      - "10.17.1.212:22000:22000/udp"
+      - 22000:22000/tcp
+      - 22000:22000/udp
     volumes:
       - acme:/certs
       - /var/run/docker.sock:/var/run/docker.sock:ro
