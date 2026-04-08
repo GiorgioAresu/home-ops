@@ -78,7 +78,7 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-          url: https://grafana.com/api/dashboards/1860/revisions/43/download
+          url: https://grafana.com/api/dashboards/1860/revisions/44/download
         openebs-cluster:
           url: https://grafana.com/api/dashboards/12171/revisions/2/download
         prometheus:
