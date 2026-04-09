@@ -18,7 +18,7 @@ resource "routeros_interface_ethernet" "rb5009_ether2" {
 }
 resource "routeros_interface_ethernet" "rb5009_ether3" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform - [GI A] Rack"
+  comment      = "Managed by Terraform - [GI C] Rack"
   factory_name = "ether3"
   name         = "ether3"
   poe_out      = "off"
