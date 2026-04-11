@@ -50,8 +50,8 @@ resource "unifi_device" "usw_flex_mini" {
   }
 
   port_override {
-    number          = 2
-    name            = "Port 2"
+    number = 2
+    name   = "Port 2"
 
   }
 
