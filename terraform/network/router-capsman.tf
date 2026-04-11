@@ -198,24 +198,6 @@ resource "routeros_wifi_configuration" "iot-downstairs" {
     config = routeros_wifi_security.iot_wifi.name
   }
 }
-resource "routeros_wifi_configuration" "iot-upstairs" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform"
-  country  = "Italy"
-  name     = "IoT-upstairs"
-  mode     = "ap"
-  ssid     = "GeS-IoT-u"
-
-  channel = {
-    config = routeros_wifi_channel.slow.name
-  }
-  datapath = {
-    config = routeros_wifi_datapath.iot.name
-  }
-  security = {
-    config = routeros_wifi_security.iot_wifi.name
-  }
-}
 resource "routeros_wifi_configuration" "iot" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
@@ -285,7 +267,6 @@ resource "routeros_wifi_provisioning" "hap_axlite" {
   master_configuration = routeros_wifi_configuration.main_2ghz.name
   slave_configurations = [
     routeros_wifi_configuration.guest_2ghz.name,
-    routeros_wifi_configuration.iot-upstairs.name,
     routeros_wifi_configuration.iot.name,
   ]
 }
