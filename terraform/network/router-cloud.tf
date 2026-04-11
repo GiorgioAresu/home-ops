@@ -15,3 +15,7 @@ resource "routeros_ip_cloud" "hAP_ax_lite_LTE6" {
   provider     = routeros.hAP_ax_lite_LTE6
   ddns_enabled = "auto"
 }
+resource "routeros_ip_cloud" "wAP_ax" {
+  provider     = routeros.wAP_ax
+  ddns_enabled = "auto"
+}

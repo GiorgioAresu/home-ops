@@ -91,6 +91,13 @@ resource "routeros_ip_dns_record" "code_server" {
   name     = "code.aresu.eu"
   cname    = routeros_ip_dns_record.truenas.name
 }
+# resource "routeros_ip_dns_record" "syncthing" {
+#   provider = routeros.rb5009
+#   comment  = "Managed by Terraform - SyncThing on TrueNAS"
+#   type     = "A"
+#   name     = "syncthing.aresu.eu"
+#   address  = "10.17.1.212"
+# }
 resource "routeros_ip_dns_record" "mqtt" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"

@@ -12,3 +12,8 @@ resource "routeros_system_routerboard_settings" "hapaxlitelte6_settings" {
   provider     = routeros.hAP_ax_lite_LTE6
   auto_upgrade = true
 }
+
+resource "routeros_system_routerboard_settings" "wapax_settings" {
+  provider     = routeros.wAP_ax
+  auto_upgrade = true
+}

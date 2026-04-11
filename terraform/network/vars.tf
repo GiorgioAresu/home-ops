@@ -16,6 +16,12 @@ variable "mikrotik_host_url_hap_ax_lite_lte6" {
   description = "The URL of the MikroTik device."
 }
 
+variable "mikrotik_host_url_wap_ax" {
+  type        = string
+  sensitive   = false
+  description = "The URL of the MikroTik device."
+}
+
 variable "mikrotik_username" {
   type        = string
   sensitive   = true

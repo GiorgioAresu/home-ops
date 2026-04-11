@@ -35,15 +35,19 @@ Get the certificates.
 You can export them from an existing device, if you have access to them, with the following command. Note that providing a passphrase is necessary for the `.key` to be exported along the `.crt`:
 
 ```shell
-export-certificate [find name=AresuCA] file-name=AresuCA export-passphrase=${passphrase}
+/certificate
+export-certificate [find name=AresuCA] file-name=AresuCA export-passphrase=12345678
 ```
 
 Then log into the new one, reset without the initial configuration and do:
 
 ```shell
 /certificate
-import name=AresuCA file-name=AresuCA.crt passphrase=${passphrase}
-import name=AresuCA file-name=AresuCA.key passphrase=${passphrase}
+import name=AresuCA file-name=AresuCA.crt passphrase=12345678
+import name=AresuCA file-name=AresuCA.key passphrase=12345678
+
+/ip/dhcp-client
+add interface=ether1 name=lan
 
 /ip/service
 set ftp disabled=yes
@@ -61,6 +65,8 @@ add group=full name=mikro password=${mikro_pw}
 add group=terraform name=terraform password=${tf_pw}
 disable [find name=admin]
 ```
+
+Until [this](https://github.com/terraform-routeros/terraform-provider-routeros/issues/974) gets solved, after the first `terraform apply`, you have to manually set datapath="capdp" for each phisical wifi interface that needs to be managed by CAPsMAN
 
 ### Travel Router
 

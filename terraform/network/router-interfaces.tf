@@ -53,7 +53,7 @@ resource "routeros_interface_ethernet" "rb5009_ether7" {
 }
 resource "routeros_interface_ethernet" "rb5009_ether8" {
   provider     = routeros.rb5009
-  comment      = "Managed by Terraform"
+  comment      = "Managed by Terraform - [SOFF] wAP ax"
   factory_name = "ether8"
   name         = "ether8"
   poe_out      = "auto-on"
