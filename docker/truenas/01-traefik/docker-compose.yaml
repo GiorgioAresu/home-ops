@@ -20,6 +20,10 @@ configs:
           http:
             tls:
               certResolver: cloudflare
+          transport:
+            respondingTimeouts:
+              readTimeout: 600s
+              idleTimeout: 600s
         syncthing-tcp:
           address: ":22000"
         syncthing-udp:
