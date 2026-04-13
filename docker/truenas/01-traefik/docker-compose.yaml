@@ -22,7 +22,7 @@ configs:
               certResolver: cloudflare
           transport:
             respondingTimeouts:
-              readTimeout: 600s
+              readTimeout: 0s
               idleTimeout: 600s
         syncthing-tcp:
           address: ":22000"
