@@ -19,5 +19,4 @@ resources:
   - ./karakeep/ks.yaml
   - ./n8n/ks.yaml
   - ./paperless/ks.yaml
-  - ./syncthing/ks.yaml
   - ./unifi/ks.yaml
