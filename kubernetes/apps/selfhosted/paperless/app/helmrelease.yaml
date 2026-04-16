@@ -115,14 +115,3 @@ spec:
           paperless:
             app:
               - path: /data/nas
-    route:
-      app:
-        hostnames:
-          - paperless.aresu.eu
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
