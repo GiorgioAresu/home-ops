@@ -18,6 +18,7 @@ services:
       - proxy
     ports:
       - 222:22
+      - 3000:3000
     restart: unless-stopped
     volumes:
       - /mnt/fast/apps/forgejo:/data
