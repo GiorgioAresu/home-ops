@@ -36,7 +36,7 @@ services:
       GARAGE_ADMIN_TOKEN: ${GARAGE_ADMIN_TOKEN}
       # GARAGE_METRICS_TOKEN: ${GARAGE_METRICS_TOKEN}
       GARAGE_RPC_SECRET: ${GARAGE_RPC_SECRET}
-    image: dxflrs/garage:v2.2.0
+    image: dxflrs/garage:v2.3.0
     labels:
       - traefik.enable=true
       - traefik.http.routers.garage-s3.rule=Host(`s3.aresu.eu`) || HostRegexp(`^.+\.s3\.aresu\.eu$`)
