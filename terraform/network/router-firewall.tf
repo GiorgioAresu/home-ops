@@ -28,7 +28,7 @@ resource "routeros_ip_firewall_nat" "syncthing_tcp" {
   protocol          = "tcp"
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 22000
-  to_addresses      = "10.1.1.212"
+  to_addresses      = "10.17.1.2"
   log               = false
 }
 
@@ -41,7 +41,7 @@ resource "routeros_ip_firewall_nat" "syncthing_udp" {
   protocol          = "udp"
   in_interface_list = routeros_interface_list.wan.name
   dst_port          = 22000
-  to_addresses      = "10.1.1.212"
+  to_addresses      = "10.17.1.2"
   log               = false
 }
 
