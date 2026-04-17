@@ -9,7 +9,7 @@ services:
     environment:
       - USER_UID=568
       - USER_GID=568
-    image: codeberg.org/forgejo/forgejo:14
+    image: codeberg.org/forgejo/forgejo:15
     labels:
       - traefik.enable=true
       - traefik.http.routers.forgejo.rule=Host(`git.aresu.eu`)
