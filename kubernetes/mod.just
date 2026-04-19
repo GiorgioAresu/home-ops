@@ -7,6 +7,12 @@ kubernetes_dir := justfile_dir() + '/kubernetes'
 default:
   just -l k8s
 
+[doc('Fix a broken postgres pod')]
+fix-postgres namespace instance number:
+  kubectl cnpg -n {{ namespace }} fencing on {{ instance }} {{ instance }}-{{ number }}
+  kubectl delete pod -n {{ namespace }} {{ instance }}-{{ number }}
+  kubectl delete pvc -n {{ namespace }} {{ instance }}-{{ number }}
+
 [doc('Browse a PVC')]
 browse-pvc namespace claim:
   kubectl browse-pvc -n {{ namespace }} -i mirror.gcr.io/alpine:latest {{ claim }}
