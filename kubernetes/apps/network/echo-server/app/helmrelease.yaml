@@ -30,20 +30,12 @@ spec:
                 enabled: true
               startup:
                 enabled: true
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
             resources:
               requests:
                 cpu: 5m
                 memory: 64M
               limits:
                 memory: 64M
-    service:
-      app:
-        ports:
-          http:
-            port: *port
     route:
       app:
         hostnames:
@@ -51,3 +43,8 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
+    service:
+      app:
+        ports:
+          http:
+            port: *port
