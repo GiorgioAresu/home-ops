@@ -81,7 +81,7 @@ services:
       CF_DNS_API_TOKEN: ${TRAEFIK_CF_DNS_API_TOKEN}
       TRAEFIK_API_BASICAUTH_DASHBOARD: "${TRAEFIK_API_BASICAUTH_DASHBOARD}"
       EMAIL: ${EMAIL}
-    image: traefik:v3.6.13
+    image: traefik:v3.6.14
     labels:
       - traefik.enable=true
       - traefik.http.routers.dashboard.rule=Host(`traefik.aresu.eu`)
