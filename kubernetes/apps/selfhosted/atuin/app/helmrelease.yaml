@@ -19,20 +19,17 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           securityContext:
-            runAsNonRoot: true
-            runAsUser: 2000
-            runAsGroup: 2000
             fsGroup: 2000
             fsGroupChangePolicy: OnRootMismatch
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
         containers:
           app:
             image:
               repository: ghcr.io/atuinsh/atuin
               tag: 18.15.2
-            command:
-              - atuin
             args:
-              - server
               - start
             env:
               ATUIN_DB_URI: sqlite:///config/atuin.db
@@ -40,18 +37,27 @@ spec:
               ATUIN_PORT: &port 8888
               # ATUIN_OPEN_REGISTRATION: true
             probes:
-              liveness: &probes
+              liveness:
+                enabled: true
+                spec:
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /
+                    path: /healthz
                     port: *port
-                  initialDelaySeconds: 10
                   periodSeconds: 10
                   timeoutSeconds: 5
-                  failureThreshold: 3
-              readiness: *probes
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 10m
@@ -64,11 +70,6 @@ spec:
               capabilities:
                 drop:
                   - ALL
-    service:
-      app:
-        ports:
-          http:
-            port: *port
     persistence:
       config:
         existingClaim: atuin
@@ -79,3 +80,8 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
+    service:
+      app:
+        ports:
+          http:
+            port: *port
