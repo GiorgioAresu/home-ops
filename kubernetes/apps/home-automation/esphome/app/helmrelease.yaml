@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/esphome
-              tag: 2026.4.0@sha256:f2903ef91562cd00ff7707cfff417565879ad4a147a27343bc9f4be1bfe849cd
+              tag: 2026.4.2@sha256:67ef670010e81b1cf4a663673829259a63638482ad02f886445f8400bef5e0f8
             env:
               GIT_AUTHOR_NAME: Giorgio Aresu
             probes:
