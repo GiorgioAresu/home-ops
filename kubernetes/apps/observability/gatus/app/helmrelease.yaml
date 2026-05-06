@@ -82,8 +82,6 @@ spec:
         globalMounts:
           - path: /config/config.yaml
             subPath: config.yaml
-          - path: /config/config-icarus.yaml
-            subPath: icarus.yaml
     rbac:
       roles:
         gatus:
