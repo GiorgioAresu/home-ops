@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/keda.sh/scaledobject_v1alpha1.json
+# yaml-language-server: $schema=https://k8s-schemas.aresu.eu/keda.sh/scaledobject_v1alpha1.json
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
@@ -12,12 +12,12 @@ spec:
   maxReplicaCount: 1
   scaleTargetRef:
     apiVersion: apps/v1
-    kind: Deployment
+    kind: ${CONTROLLER:=Deployment}
     name: ${APP}
   triggers:
     - type: prometheus
       metadata:
         serverAddress: http://prometheus-operated.observability.svc.cluster.local:9090
-        query: probe_success{instance=~"truenas.aresu.eu:2049"}
+        query: max_over_time(probe_success{instance=~"truenas.aresu.eu:2049"}[1m])
         threshold: "1"
         ignoreNullValues: "0"

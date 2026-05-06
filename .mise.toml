@@ -12,7 +12,6 @@ pipx.uvx = true
 "aqua:FiloSottile/age" = "latest"
 "aqua:getsops/sops" = "latest"
 "aqua:google/yamlfmt" = "latest"
-"aqua:google/yamlfmt" = "latest"
 "aqua:kubernetes/kubectl" = "latest"
 "aqua:rhysd/actionlint" = "latest"
 "aqua:siderolabs/talos" = "latest"

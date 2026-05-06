@@ -17,10 +17,16 @@ spec:
       runAsUser: ${APP_UID:=2000}
       runAsGroup: ${APP_GID:=2000}
       fsGroup: ${APP_GID:=2000}
+    moverVolumes:
+      - mountPath: repository
+        volumeSource:
+          nfs:
+            path: /mnt/drone/backup/volsync
+            server: gladius.bjw-s.internal
     parallelism: 2
     repository: "${APP}-volsync-secret"
     retain:
       hourly: 24
       daily: 7
-    storageClassName: "${VOLSYNC_STORAGECLASS:=longhorn-singlereplica}"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=longhorn-snapshotclass}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:=ceph-block}"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}"

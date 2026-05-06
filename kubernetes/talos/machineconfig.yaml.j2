@@ -38,7 +38,6 @@ machine:
         [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
         [plugins."io.containerd.cri.v1.runtime"]
-          cdi_spec_dirs = ["/var/cdi/static", "/var/cdi/dynamic"]
           device_ownership_from_security_context = true
     - op: overwrite
       path: /etc/nfsmount.conf
@@ -47,8 +46,10 @@ machine:
         [ NFSMount_Global_Options ]
         nfsvers=4.2
         hard=True
+        nconnect=8
         noatime=True
-        nconnect=16
+        rsize=1048576
+        wsize=1048576
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
@@ -63,13 +64,25 @@ machine:
   sysctls:
     fs.inotify.max_user_instances: "8192"
     fs.inotify.max_user_watches: "1048576"
+    net.core.default_qdisc: fq
     net.core.rmem_max: "67108864"
     net.core.wmem_max: "67108864"
     net.ipv4.neigh.default.gc_thresh1: "4096"
     net.ipv4.neigh.default.gc_thresh2: "8192"
     net.ipv4.neigh.default.gc_thresh3: "16384"
+    net.ipv4.ping_group_range: 0 2147483647
+    net.ipv4.tcp_congestion_control: bbr
     net.ipv4.tcp_fastopen: "3"
+    net.ipv4.tcp_mtu_probing: "1"
+    net.ipv4.tcp_notsent_lowat: "131072"
+    net.ipv4.tcp_rmem: 4096 87380 33554432
+    net.ipv4.tcp_slow_start_after_idle: "0"
+    net.ipv4.tcp_window_scaling: "1"
+    net.ipv4.tcp_wmem: 4096 65536 33554432
+    sunrpc.tcp_max_slot_table_entries: "128"
+    sunrpc.tcp_slot_table_entries: "128"
     user.max_user_namespaces: "11255"
+    vm.nr_hugepages: "1024"
   token: op://automation/talos/MACHINE_TOKEN
 cluster:
   {% if ENV.IS_CONTROLPLANE %}
@@ -81,16 +94,8 @@ cluster:
     image: registry.k8s.io/kube-apiserver:v1.36.0
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: MutatingAdmissionPolicy=true
+      feature-gates: HPAScaleToZero=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
-    admissionControl:
-      - name: PodSecurity
-        configuration:
-          apiVersion: pod-security.admission.config.k8s.io/v1beta1
-          exemptions:
-            namespaces:
-              - longhorn
-          kind: PodSecurityConfiguration
     certSANs:
       - 127.0.0.1 # KubePrism
       - 10.17.1.8
@@ -149,10 +154,8 @@ cluster:
   discovery:
     enabled: true
     registries:
-      kubernetes:
-        disabled: true
-      service:
-        disabled: false
+      kubernetes: { disabled: true }
+      service: { disabled: false }
   id: op://automation/talos/CLUSTER_ID
   network:
     cni:
