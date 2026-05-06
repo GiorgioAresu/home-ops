@@ -11,9 +11,10 @@ spec:
   targets:
     staticConfig:
       static:
+        - homeassistant.aresu.eu
+        - jetkvm.aresu.eu
         - truenas.aresu.eu
-        - 10.17.1.4
-        - 1.1.1.1
+        - zigbee.aresu.eu
 ---
 # yaml-language-server: $schema=https://k8s-schemas.aresu.eu/monitoring.coreos.com/probe_v1.json
 apiVersion: monitoring.coreos.com/v1

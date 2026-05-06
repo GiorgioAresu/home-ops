@@ -91,8 +91,3 @@ spec:
     logLevel: warn
     serviceMonitor:
       enabled: true
-    readinessProbe:
-      httpGet:
-        path: /api/v1/health
-        port: http
-      timeoutSeconds: 3

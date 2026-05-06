@@ -3,16 +3,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname smartctl-exporter
+  name: smartctl-exporter
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *appname
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *appname
-      namespace: observability
+      app.kubernetes.io/name: smartctl-exporter
   interval: 1h
   path: "./kubernetes/apps/observability/smartctl-exporter/app"
   prune: true
