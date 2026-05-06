@@ -3,14 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: keda-add-ons-http
+  name: ksgate
 spec:
   chartRef:
     kind: OCIRepository
-    name: keda-add-ons-http
+    name: ksgate
   interval: 30m
   values:
-    interceptor:
-      tcpConnectTimeout: 5000ms # default: 500ms
-      keepAlive: 10s # default: 1s
-      responseHeaderTimeout: 5000ms # default: 500ms
+    extraArgs:
+      - --zap-log-level
+      - info

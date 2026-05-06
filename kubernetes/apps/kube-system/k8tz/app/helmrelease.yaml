@@ -5,12 +5,13 @@ kind: HelmRelease
 metadata:
   name: k8tz
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: k8tz
+  interval: 30m
   values:
-    namespace: system-controllers
+    namespace: null
+    createNamespace: false
     replicaCount: 2 # TODO: Increase this to 2-3 when adding nodes
     timezone: Europe/Rome
     cronJobTimeZone: true
@@ -29,15 +30,3 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: k8tz
               topologyKey: kubernetes.io/hostname
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              version: v1
-              kind: Namespace
-            patch: |-
-              $patch: delete
-              apiVersion: v1
-              kind: Namespace
-              metadata:
-                name: _

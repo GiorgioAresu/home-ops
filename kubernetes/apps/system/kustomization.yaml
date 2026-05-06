@@ -9,11 +9,11 @@ components:
 resources:
   - ./namespace.yaml
   - ./descheduler/ks.yaml
-  - ./fstrim/ks.yaml
   - ./generic-device-plugin/ks.yaml
   - ./keda/ks.yaml
   - ./kopia/ks.yaml
   - ./node-feature-discovery/ks.yaml
+  - ./ksgate/ks.yaml
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml
   - ./volsync/ks.yaml

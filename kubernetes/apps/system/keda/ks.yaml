@@ -3,45 +3,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname keda
+  name: keda
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *appname
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *appname
-      namespace: system
+      app.kubernetes.io/name: keda
   interval: 1h
   path: "./kubernetes/apps/system/keda/app"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: system
-  timeout: 5m
-  wait: true
----
-# yaml-language-server: $schema=https://k8s-schemas.aresu.eu/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &appname keda-add-ons-http
-spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
-  dependsOn:
-    - name: keda
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *appname
-      namespace: system
-  interval: 1h
-  path: "./kubernetes/apps/system/keda/add-ons-http"
   prune: true
   sourceRef:
     kind: GitRepository

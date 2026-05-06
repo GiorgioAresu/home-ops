@@ -9,12 +9,10 @@ spec:
     kind: OCIRepository
     name: snapshot-controller
   interval: 30m
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     controller:
       replicaCount: 2
       serviceMonitor:
         create: true
+    webhook:
+      enabled: false

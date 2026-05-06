@@ -3,16 +3,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname descheduler
+  name: descheduler
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *appname
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *appname
-      namespace: system
+      app.kubernetes.io/name: descheduler
   interval: 1h
   path: "./kubernetes/apps/system/descheduler/app"
   prune: true
