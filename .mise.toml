@@ -17,6 +17,7 @@ pipx.uvx = true
 "pipx:ansible-core" = "latest"
 "pipx:ansible" = "latest"
 "pipx:flux-local" = "latest"
+flux2 = "latest"
 gum = "latest"
 just = "latest"
 k9s = "latest"
