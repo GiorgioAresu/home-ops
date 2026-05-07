@@ -38,7 +38,7 @@ resource "routeros_ip_address" "wireguard" {
 # Wireguard Peer
 # https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/interface_wireguard_peer
 # =================================================================================================
-resource "routeros_interface_wireguard_peer" "odroidhc4" {
+resource "routeros_interface_wireguard_peer" "zimablade" {
   provider             = routeros.rb5009
   comment              = "Managed by Terraform - Odroid HC4"
   allowed_address      = ["10.17.100.50/32"]
@@ -49,11 +49,11 @@ resource "routeros_interface_wireguard_peer" "odroidhc4" {
   client_listen_port   = null
   disabled             = false
   interface            = routeros_interface_wireguard.home.name
-  name                 = "OdroidHC4"
+  name                 = "ZimaBlade"
   persistent_keepalive = "30s"
-  preshared_key        = var.wireguard_odroidhc4_preshared_key
-  private_key          = var.wireguard_odroidhc4_private_key
-  public_key           = var.wireguard_odroidhc4_public_key
+  preshared_key        = var.wireguard_zimablade_preshared_key
+  private_key          = var.wireguard_zimablade_private_key
+  public_key           = var.wireguard_zimablade_public_key
 }
 resource "routeros_interface_wireguard_peer" "homeassistant_paola" {
   provider             = routeros.rb5009

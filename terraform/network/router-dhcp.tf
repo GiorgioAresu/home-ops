@@ -321,6 +321,13 @@ resource "routeros_ip_dhcp_server_lease" "jetkvm" {
   address     = "10.17.1.9"
   mac_address = "30:52:53:09:B2:F5"
 }
+resource "routeros_ip_dhcp_server_lease" "odroid_hc4" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Odroid HC4 for offline backups"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.10"
+  mac_address = "00:11:22:33:44:55" #TODO: Update
+}
 resource "routeros_ip_dhcp_server_lease" "rpi_4_1" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - kube-rpi-01"
@@ -376,6 +383,13 @@ resource "routeros_ip_dhcp_server_lease" "zigbee" {
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.40"
   mac_address = "0C:DC:7E:37:4F:7F"
+}
+resource "routeros_ip_dhcp_server_lease" "zimablade" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - ZimaBlade@Home"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.50"
+  mac_address = "00:E0:4C:5D:7E:F6"
 }
 resource "routeros_ip_dhcp_server_lease" "ipmi_supermicro" {
   provider    = routeros.rb5009

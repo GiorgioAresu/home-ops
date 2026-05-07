@@ -112,6 +112,13 @@ resource "routeros_ip_dns_record" "paperless" {
   name     = "paperless.aresu.eu"
   cname    = routeros_ip_dns_record.truenas.name
 }
+resource "routeros_ip_dns_record" "odroid_hc4" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "odroidhc4.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.odroid_hc4.address
+}
 resource "routeros_ip_dns_record" "mqtt" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
@@ -324,10 +331,10 @@ resource "routeros_ip_dns_record" "nuc_power_control" {
   address  = routeros_ip_dhcp_server_lease.nuc_power_control.address
 }
 
-resource "routeros_ip_dns_record" "odroidhc4" {
+resource "routeros_ip_dns_record" "zimablade" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Odroid HC4 offsite backup target"
   type     = "A"
-  name     = "odroidhc4.aresu.eu"
+  name     = "zimablade.aresu.eu"
   address  = "10.17.100.50"
 }

@@ -145,20 +145,20 @@ variable "wireguard_proton_private_key" {
   description = "Private key for wireguard server"
 }
 
-variable "wireguard_odroidhc4_preshared_key" {
+variable "wireguard_zimablade_preshared_key" {
   type        = string
   sensitive   = true
-  description = "Preshared key for OdroidHC4 wireguard client"
+  description = "Preshared key for ZimaBlade wireguard client"
 }
-variable "wireguard_odroidhc4_private_key" {
+variable "wireguard_zimablade_private_key" {
   type        = string
   sensitive   = true
-  description = "Private key for OdroidHC4 wireguard client"
+  description = "Private key for ZimaBlade wireguard client"
 }
-variable "wireguard_odroidhc4_public_key" {
+variable "wireguard_zimablade_public_key" {
   type        = string
   sensitive   = false
-  description = "Public key for OdroidHC4 wireguard client"
+  description = "Public key for ZimaBlade wireguard client"
 }
 variable "wireguard_homeassistant_paola_preshared_key" {
   type        = string
