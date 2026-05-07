@@ -3,5 +3,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./gladius_memory_usage.yaml
+  - ./truenas_memory_usage.yaml
   - ./keda_hpa_maxed_out.yaml
