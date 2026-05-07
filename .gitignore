@@ -1,11 +1,6 @@
 # Folders
 testing/
 
-# Sops
-.decrypted~*
-*.agekey
-*.key
-
 # Terraform
 ## Local .terraform directories
 **/.terraform/*

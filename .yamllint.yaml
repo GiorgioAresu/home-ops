@@ -1,8 +1,4 @@
 ---
-ignore: |
-  *.sops.*
-  .history/
-
 extends: default
 
 rules:

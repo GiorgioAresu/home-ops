@@ -18,4 +18,4 @@ when successful
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 
-brew install gcc sops age
+brew install gcc

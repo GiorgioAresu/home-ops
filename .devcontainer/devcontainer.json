@@ -7,10 +7,8 @@
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
-		"ghcr.io/devcontainers-extra/features/age:1": {},
 		"ghcr.io/devcontainers-extra/features/homebrew-package:1": {},
 		"ghcr.io/devcontainers-extra/features/mise:1": {},
-		"ghcr.io/devcontainers-extra/features/sops:1": {},
 		"ghcr.io/devcontainers-extra/features/talosctl:1": {},
 		"ghcr.io/devcontainers/features/terraform:1": {},
 		"ghcr.io/jsburckhardt/devcontainer-features/flux:1": {},
@@ -33,7 +31,6 @@
 				"EditorConfig.editorconfig",
 				"mitchdenny.ecdc",
 				"nefrob.vscode-just-syntax",
-				"signageos.signageos-vscode-sops",
 				"redhat.vscode-yaml"
 			]
 		}
