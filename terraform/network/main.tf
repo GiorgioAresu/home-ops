@@ -54,6 +54,14 @@ provider "routeros" {
   insecure = var.mikrotik_insecure
 }
 
+provider "routeros" {
+  alias    = "wAP_ax"
+  hosturl  = var.mikrotik_host_url_wap_ax
+  username = var.mikrotik_username
+  password = var.mikrotik_password
+  insecure = var.mikrotik_insecure
+}
+
 provider "unifi" {
   username       = var.unifi_username
   password       = var.unifi_password

@@ -7,15 +7,14 @@ resource "routeros_interface_wireless" "station" {
   default_authentication  = false # Avoid connecting to random APs
   ssid                    = null  # Use connect list
   installation            = "indoor"
-  mode                    = "station-pseudobridge-clone"
-  name                    = "wlan1"
-  # security_profile              = "wlan1-GiorgioSpindox-repeater"
-  # ssid                          = "GiorgioSpindox"
-  station_bridge_clone_mac = "9E:3C:2C:78:26:29"
+  # mode                     = "station-pseudobridge"
+  mode        = "station-pseudobridge-clone"
+  name        = "wlan1"
+  mac_address = "C4:AD:34:A4:73:D3"
+  # mac_address              = var.wifi_station_cloned_mac
+  station_bridge_clone_mac = var.wifi_station_cloned_mac
   station_roaming          = "enabled"
-  # vlan_id                       = 1
-  # vlan_mode                     = "no-tag"
-  wps_mode = "disabled"
+  wps_mode                 = "disabled"
 }
 
 resource "routeros_interface_wireless_security_profiles" "known_wifis" {
