@@ -91,6 +91,13 @@ resource "routeros_ip_dns_record" "code_server" {
   name     = "code.aresu.eu"
   cname    = routeros_ip_dns_record.truenas.name
 }
+resource "routeros_ip_dns_record" "immich" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - Immich on TrueNAS"
+  type     = "CNAME"
+  name     = "photos.aresu.eu"
+  cname    = routeros_ip_dns_record.truenas.name
+}
 resource "routeros_ip_dns_record" "syncthing" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - SyncThing on TrueNAS"
