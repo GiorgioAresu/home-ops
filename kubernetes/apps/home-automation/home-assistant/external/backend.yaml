@@ -9,6 +9,7 @@ metadata:
   name: home-assistant
 spec:
   appProtocols:
+    - gateway.envoyproxy.io/ws
     - gateway.envoyproxy.io/wss
   endpoints:
     - ip:

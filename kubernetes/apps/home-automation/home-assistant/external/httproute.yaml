@@ -11,6 +11,7 @@ metadata:
     name: homeassistant
 spec:
   hostnames:
+    - hass.aresu.eu
     - homeassistant.aresu.eu
   parentRefs:
     - name: envoy-external
