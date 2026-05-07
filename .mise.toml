@@ -13,12 +13,17 @@ pipx.uvx = true
 "aqua:getsops/sops" = "latest"
 "aqua:google/yamlfmt" = "latest"
 "aqua:kubernetes/kubectl" = "latest"
+"aqua:mitsuhiko/minijinja" = "latest"
 "aqua:rhysd/actionlint" = "latest"
 "aqua:siderolabs/talos" = "latest"
 "pipx:ansible-core" = "latest"
 "pipx:ansible" = "latest"
 "pipx:flux-local" = "latest"
+gum = "latest"
+just = "latest"
 k9s = "latest"
+kubectl = "latest"
+terraform = "latest"
 
 [hooks]
 postinstall = "ansible-galaxy install -r {{config_root}}/ansible/requirements.yaml"
