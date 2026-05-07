@@ -10,6 +10,10 @@ spec:
       app.kubernetes.io/name: *appname
   interval: 1h
   path: "./kubernetes/apps/network/cloudflared/app"
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cloudflare-tunnel-id-secret
   prune: true
   sourceRef:
     kind: GitRepository
