@@ -56,7 +56,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "{{ .Release.Name }}.aresu.eu"
-          lbipam.cilium.io/ips: ${SVC_VLMCSD_ADDR}
+          lbipam.cilium.io/ips: 10.1.1.209
         ports:
           http:
             port: 1688

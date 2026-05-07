@@ -22,3 +22,11 @@ metadata:
   namespace: flux-system
 stringData:
   age.agekey: op://automation/flux/sops_private_key
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudflare-tunnel-id-secret
+  namespace: network
+stringData:
+  CLOUDFLARE_TUNNEL_ID: op://Automation/Cloudflare/tunnel_id
