@@ -23,14 +23,14 @@ jobs:
     steps:
       - name: Get changed files
         id: changed-files
-        uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
+        uses: https://github.com/bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
         with:
           patterns: |-
             kubernetes/**/*
 
   test:
     if: ${{ needs.filter-changes.outputs.changed-files != '[]' }}
-    name: Flux Local Test
+    name: Run flux-local test
     runs-on: ubuntu-latest
     needs:
       - filter-changes
@@ -41,13 +41,13 @@ jobs:
           persist-credentials: false
 
       - name: Run flux-local test
-        uses: docker://ghcr.io/allenporter/flux-local:v8.2.0
-        with:
-          args: test --enable-helm --all-namespaces --path /github/workspace/kubernetes/flux/cluster -v
+        shell: bash
+        run: |-
+          flux-local test --enable-helm --all-namespaces --path kubernetes/flux/cluster -v
 
   diff:
     if: ${{ needs.filter-changes.outputs.changed-files != '[]' }}
-    name: Flux Local Diff
+    name: Run flux-local diff ${{ matrix.resources }}
     runs-on: ubuntu-latest
     needs:
       - filter-changes
@@ -76,16 +76,15 @@ jobs:
           persist-credentials: false
 
       - name: Run flux-local diff
-        uses: docker://ghcr.io/allenporter/flux-local:v8.2.0
-        with:
-          args: >-
-            diff ${{ matrix.resources }}
-            --unified 6
-            --path /github/workspace/pull/kubernetes/flux/cluster
-            --path-orig /github/workspace/default/kubernetes/flux/cluster
-            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
-            --limit-bytes 10000
-            --all-namespaces
+        shell: bash
+        run: |-
+          flux-local diff ${{ matrix.resources }} \
+            --unified 6 \
+            --path pull/kubernetes/flux/cluster \
+            --path-orig default/kubernetes/flux/cluster \
+            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart" \
+            --limit-bytes 10000 \
+            --all-namespaces \
             --output-file diff.patch
 
       - name: Generate Diff
