@@ -13,7 +13,8 @@ resources:
   - ./lidarr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
+  - ./qui/ks.yaml
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
   - ./sonarr/ks.yaml
-  - ./tqm/ks.yaml
+  # - ./tqm/ks.yaml
