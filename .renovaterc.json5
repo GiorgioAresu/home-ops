@@ -1,10 +1,11 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "github>bjw-s/renovate-config",
+    "github>GiorgioAresu/renovate-config",
     "github>GiorgioAresu/home-ops//.renovate/overrides.json5",
     "github>GiorgioAresu/home-ops//.renovate/groups.json5",
     "github>GiorgioAresu/home-ops//.renovate/autoMerge.json5",
+    "github>GiorgioAresu/home-ops//.renovate/customManagers.json5",
     "github>GiorgioAresu/home-ops//.renovate/grafanaDashboards.json5",
   ],
   flux: {
@@ -15,13 +16,5 @@
   },
   kubernetes: {
     managerFilePatterns: ["/^kubernetes/.+\\.yaml(?:\\.j2)?$/"],
-  },
-  packageRules: [
-    {
-      description: "Configure prompp versioning",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["docker.io/prompp/prompp"],
-      versioning: "regex:^(?<build>.*)-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
-    },
-  ],
+  }
 }

@@ -12,16 +12,15 @@
         "ghcr.io/bjw-s",
         "ghcr.io/bjw-s-labs",
       ],
-      ignoreTests: false,
     },
     {
       description: "Auto merge minors and patches",
       matchDatasources: ["docker"],
       automerge: true,
-      automergeType: "pr",
       matchUpdateTypes: ["minor", "patch"],
       matchPackageNames: [
-        "/kube-prometheus-stack/",
+        "/external-dns-provider-mikrotik/",
+        "ghcr.io/bjw-s-labs/wrangler",
         "ghcr.io/home-operations/bazarr",
         "ghcr.io/home-operations/flaresolverr",
         "ghcr.io/home-operations/lidarr",
@@ -29,9 +28,19 @@
         "ghcr.io/home-operations/radarr",
         "ghcr.io/home-operations/readarr",
         "ghcr.io/home-operations/sonarr",
-        "/external-dns-provider-mikrotik/"
+        "ghcr.io/mogenius/helm-charts/renovate-operator",
       ],
-      ignoreTests: false,
+    },
+    {
+      description: "Auto-merge high-cadence packages weekly",
+      matchDatasources: ["docker"],
+      automerge: true,
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: [
+        "ghcr.io/prometheus-community/charts",
+        "ghcr.io/renovatebot/renovate",
+      ],
+      schedule: ["before 6am on Monday"],
     },
   ],
 }
