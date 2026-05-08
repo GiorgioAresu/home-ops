@@ -72,9 +72,6 @@ spec:
         existingClaim: jellyfin-config
         globalMounts:
           - path: /config
-        advancedMounts:
-          jellyfin:
-            app:
       tmpfs:
         type: emptyDir
         advancedMounts:
@@ -101,6 +98,11 @@ spec:
             namespace: network
     service:
       app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.1.1.217
+        externalTrafficPolicy: Local
         ports:
           http:
+            appProtocol: kubernetes.io/wss
             port: *port
