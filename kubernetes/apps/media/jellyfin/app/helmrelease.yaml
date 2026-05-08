@@ -101,6 +101,11 @@ spec:
             namespace: network
     service:
       app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.1.1.210
+        externalTrafficPolicy: Local
         ports:
           http:
+            appProtocol: kubernetes.io/ws
             port: *port
