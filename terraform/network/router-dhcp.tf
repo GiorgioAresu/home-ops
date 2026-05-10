@@ -326,7 +326,7 @@ resource "routeros_ip_dhcp_server_lease" "odroid_hc4" {
   comment     = "Managed by Terraform - Odroid HC4 for offline backups"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.10"
-  mac_address = "00:11:22:33:44:55" #TODO: Update
+  mac_address = "00:1E:06:49:07:F1"
 }
 resource "routeros_ip_dhcp_server_lease" "rpi_4_1" {
   provider    = routeros.rb5009
