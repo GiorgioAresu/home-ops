@@ -1,0 +1,96 @@
+---
+configs:
+  traefik.yaml:
+    content: |
+      # api:
+      #   dashboard: true
+      entryPoints:
+        web:
+          address: ":80"
+          http:
+            redirections:
+              entryPoint:
+                to: websecure
+                scheme: https
+        websecure:
+          address: ":443"
+          asDefault: true
+          http:
+            tls:
+              certResolver: cloudflare
+          transport:
+            respondingTimeouts:
+              readTimeout: 0s
+              idleTimeout: 600s
+      # serversTransport:
+      #   insecureSkipVerify: true
+      providers:
+        docker:
+          endpoint: "unix:///var/run/docker.sock"
+          exposedByDefault: false
+        file:
+          directory: /etc/traefik/dynamic
+      certificatesResolvers:
+        cloudflare:
+          acme:
+            email: ${EMAIL}
+            storage: /certs/acme.json
+            caServer: https://acme-v02.api.letsencrypt.org/directory
+            dnsChallenge:
+              provider: cloudflare
+              propagation:
+                # Fixes issues with cloudflare propagation of the TXT record by just waiting instead of checking
+                disableChecks: true
+                delayBeforeChecks: 60s
+              resolvers:
+                - "1.1.1.1:53"
+                - "1.0.0.1:53"
+  truenas.yaml:
+    content: |
+      http:
+        routers:
+          truenas:
+            rule: "Host(`zimablade.aresu.eu`)"
+            service: truenas
+            tls:
+              certResolver: cloudflare
+        services:
+          truenas:
+            loadBalancer:
+              servers:
+                - url: http://10.17.1.50:81
+                - url: http://10.17.100.50:81
+              passHostHeader: true
+networks:
+  apps:
+    name: apps
+services:
+  traefik:
+    configs:
+      - source: traefik.yaml
+        target: /etc/traefik/traefik.yaml
+      - source: truenas.yaml
+        target: /etc/traefik/dynamic/truenas.yaml
+    container_name: traefik
+    environment:
+      CF_DNS_API_TOKEN: ${TRAEFIK_CF_DNS_API_TOKEN}
+      # # TRAEFIK_API_BASICAUTH_DASHBOARD: "${TRAEFIK_API_BASICAUTH_DASHBOARD}"
+      EMAIL: ${EMAIL}
+    image: traefik:v3.7.1
+    labels:
+      - traefik.enable=true
+      # - traefik.http.routers.dashboard.rule=Host(`traefik.aresu.eu`)
+      # - traefik.http.routers.dashboard.entryPoints=websecure
+      # - traefik.http.routers.dashboard.service=api@internal
+      # # - traefik.http.routers.dashboard.middlewares=dashboard-auth
+      # # - traefik.http.middlewares.dashboard-auth.basicauth.users=${TRAEFIK_API_BASICAUTH_DASHBOARD}
+    networks:
+      - apps
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - acme:/certs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+volumes:
+  acme:

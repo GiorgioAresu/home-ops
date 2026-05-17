@@ -1,0 +1,48 @@
+---
+services:
+  liquidctl-exporter:
+    container_name: "liquidctl-exporter"
+    image: ghcr.io/fma965/liquidctl-exporter
+    network_mode: host
+    ports:
+      - 9530:9530
+    privileged: true
+    restart: unless-stopped
+
+  node-exporter:
+    cap_drop:
+      - ALL
+    command:
+      - --path.rootfs=/host/root
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --path.udev.data=/host/root/run/udev/data
+      - --web.listen-address=0.0.0.0:9100
+      - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
+    container_name: node-exporter
+    image: quay.io/prometheus/node-exporter:v1.11.1
+    network_mode: host
+    ports:
+      - 9100:9100
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges=true
+    volumes:
+      - /:/host/root:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+
+  # nut-exporter:
+  #   container_name: "nut-exporter"
+  #   image: druggeri/nut_exporter:3.2.3
+  #   network_mode: "host"
+  #   restart: unless-stopped
+
+  smartctl-exporter:
+    container_name: smartctl-exporter
+    image: quay.io/prometheuscommunity/smartctl-exporter:v0.14.0
+    ports:
+      - 9633:9633
+    privileged: true
+    restart: unless-stopped
+    user: root
