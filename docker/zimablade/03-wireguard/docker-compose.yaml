@@ -6,8 +6,8 @@ services:
       # - SYS_MODULE #optional
     container_name: wireguard
     environment:
-      - PUID=568
-      - PGID=568
+      - PUID=950
+      - PGID=950
       - TZ=Etc/Rome
     image: lscr.io/linuxserver/wireguard:latest
     ports:
@@ -16,5 +16,5 @@ services:
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     volumes:
-      - /home/truenas_admin/.config/wireguard:/config
+      - /home/truenas_admin/.config/wireguard/wg_confs:/config/wg_confs
       # - /lib/modules:/lib/modules #optional
