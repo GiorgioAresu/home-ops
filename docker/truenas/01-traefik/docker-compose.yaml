@@ -4,8 +4,6 @@ configs:
     content: |
       api:
         dashboard: true
-      log:
-        level: DEBUG
       entryPoints:
         web:
           address: ":80"
