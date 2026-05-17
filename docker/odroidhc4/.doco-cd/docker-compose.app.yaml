@@ -18,7 +18,7 @@ services:
         target: /poll-config.yml
     container_name: doco-cd
     environment:
-      HTTP_PORT: 8080
+      HTTP_PORT: 8880
       LOG_LEVEL: info
       POLL_CONFIG_FILE: /poll-config.yml
       SECRET_PROVIDER: 1password
@@ -36,7 +36,7 @@ services:
       retries: 3
     image: ghcr.io/kimdre/doco-cd:0.85.1@sha256:2f4650dfcd25c17d7c6b274a47b1e205d8408e3ee12a33aa3a2459b4604757ef
     ports:
-      - 8080:8080
+      - 8880:8880
     restart: unless-stopped
     secrets:
       - 1pw_token

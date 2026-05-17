@@ -11,4 +11,4 @@ spec:
   endpoints:
     - fqdn:
         hostname: truenas.aresu.eu
-        port: 8080
+        port: 8880
