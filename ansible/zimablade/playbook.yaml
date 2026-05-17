@@ -39,7 +39,7 @@
 
     - name: Wireguard
       vars:
-        wireguard_config_dir: /home/truenas_admin/.config/wireguard
+        wireguard_config_dir: /home/truenas_admin/.config/wireguard/wg_confs
       block:
         - name: Wireguard | Create directory
           ansible.builtin.file:

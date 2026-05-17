@@ -16,5 +16,5 @@ services:
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     volumes:
-      - /home/truenas_admin/.config/wireguard/wg_confs:/config/wg_confs
+      - /home/truenas_admin/.config/wireguard:/config
       # - /lib/modules:/lib/modules #optional
