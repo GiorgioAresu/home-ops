@@ -7,7 +7,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - truenas.aresu.eu:9100
+        - odroidhc4.aresu.eu:9100
   metricsPath: /metrics
   relabelings:
     - action: replace
