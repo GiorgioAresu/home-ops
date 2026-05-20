@@ -5,5 +5,5 @@ kind: Kustomization
 resources:
   - ./node-exporter-odroidhc4.yaml
   - ./node-exporter-truenas.yaml
-  - ./smartctl-exporter-odroidhc4.yaml
+  # - ./smartctl-exporter-odroidhc4.yaml # Disabled until the exporter is re-deployed
   - ./smartctl-exporter-truenas.yaml

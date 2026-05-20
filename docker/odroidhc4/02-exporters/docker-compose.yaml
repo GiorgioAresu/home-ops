@@ -29,7 +29,7 @@ services:
   #   network_mode: "host"
   #   restart: unless-stopped
 
-  # No arm build
+  # No arm build - https://github.com/prometheus-community/smartctl_exporter/pull/295
   # smartctl-exporter:
   #   container_name: smartctl-exporter
   #   image: quay.io/prometheuscommunity/smartctl-exporter:v0.14.0
