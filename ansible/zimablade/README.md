@@ -1,4 +1,4 @@
-# Setup zimablade for offline backups
+# Setup zimablade for offsite backups
 
 Edit the truenas_admin account on truenas:
 

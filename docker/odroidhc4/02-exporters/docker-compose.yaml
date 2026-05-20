@@ -23,6 +23,12 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
 
+  # nut-exporter:
+  #   container_name: "nut-exporter"
+  #   image: druggeri/nut_exporter:3.2.3
+  #   network_mode: "host"
+  #   restart: unless-stopped
+
   smartctl-exporter:
     container_name: smartctl-exporter
     image: quay.io/prometheuscommunity/smartctl-exporter:v0.14.0
@@ -31,12 +37,3 @@ services:
     privileged: true
     restart: unless-stopped
     user: root
-
-  liquidctl-exporter:
-    image: ghcr.io/fma965/liquidctl-exporter
-    container_name: liquidctl-exporter
-    ports:
-      - "9530:9530"
-    privileged: true
-    restart: unless-stopped
-    network_mode: host

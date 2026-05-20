@@ -1,1 +1,2 @@
 zimablade ansible_host=10.17.1.50
+odroidhc4 ansible_host=odroidhc4.aresu.eu

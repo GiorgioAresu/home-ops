@@ -1,10 +1,10 @@
 ---
-- name: Bootstrap TrueNAS
-  hosts: zimablade
+- name: Bootstrap OdroidHC4
+  hosts: odroidhc4
   become: true
   gather_facts: false
   vars:
-    ansible_user: truenas_admin
+    ansible_user: root
     ansible_python_interpreter: auto_silent
 
   tasks:
@@ -22,8 +22,6 @@
           var: doco_api_secret
         - key: automation/doco-cd/webhook_secret
           var: doco_webhook_secret
-        - key: Services/Wireguard Odroid/Client config
-          var: wireguard_config
       check_mode: false
       changed_when: false
       no_log: true
@@ -34,52 +32,26 @@
         doco_1pw_sa_token: "{{ secrets_raw.results[0].stdout }}"
         doco_api_secret: "{{ secrets_raw.results[1].stdout }}"
         doco_webhook_secret: "{{ secrets_raw.results[2].stdout }}"
-        wireguard_config_home: "{{ secrets_raw.results[3].stdout }}"
       no_log: true
-
-    - name: Wireguard
-      vars:
-        wireguard_config_dir: /home/truenas_admin/.config/wireguard/wg_confs
-      block:
-        - name: Wireguard | Create directory
-          ansible.builtin.file:
-            path: "{{ wireguard_config_dir }}"
-            state: directory
-            owner: truenas_admin
-            group: truenas_admin
-            mode: "0700"
-
-        - name: Wireguard | Create secrets
-          ansible.builtin.copy:
-            dest: "{{ wireguard_config_dir }}/{{ item.name }}"
-            content: |
-              {{ item.content }}
-            owner: truenas_admin
-            group: truenas_admin
-            mode: "0600"
-          no_log: true
-          loop:
-            - name: home.conf
-              content: "{{ wireguard_config_home }}"
 
     - name: doco-cd
       vars:
-        dococd_config_dir: /home/truenas_admin/.config/doco-cd
+        dococd_config_dir: /home/odroid/.config/doco-cd
       block:
         - name: doco-cd | Create directory
           ansible.builtin.file:
             path: "{{ dococd_config_dir }}"
             state: directory
-            owner: truenas_admin
-            group: truenas_admin
+            owner: odroid
+            group: odroid
             mode: "0700"
 
         - name: doco-cd | Copy docker-compose app file
           ansible.builtin.copy:
-            src: ../../docker/zimablade/.doco-cd/docker-compose.app.yaml
+            src: ../../docker/odroidhc4/.doco-cd/docker-compose.app.yaml
             dest: "{{ dococd_config_dir }}/docker-compose.yaml"
-            owner: truenas_admin
-            group: truenas_admin
+            owner: odroid
+            group: odroid
             mode: "0644"
           register: compose_file
 
@@ -88,8 +60,8 @@
             dest: "{{ dococd_config_dir }}/{{ item.name }}"
             content: |
               {{ item.content }}
-            owner: truenas_admin
-            group: truenas_admin
+            owner: odroid
+            group: odroid
             mode: "0600"
           no_log: true
           loop:
@@ -109,11 +81,21 @@
             state: present
           when: not ansible_check_mode
 
+        # - name: doco-cd | Wait for healthy
+        #   community.docker.docker_container_info:
+        #     name: doco-cd
+        #   register: dococd_info
+        #   until: dococd_info.container.State.Health.Status == "healthy"
+        #   retries: 30
+        #   delay: 10
+        #   when: not ansible_check_mode
+        # Replaced with the following due to python3.14 quirks
         - name: doco-cd | Wait for healthy
-          community.docker.docker_container_info:
-            name: doco-cd
-          register: dococd_info
-          until: dococd_info.container.State.Health.Status == "healthy"
+          ansible.builtin.command:
+            cmd: docker inspect --format='{{"{{"}} .State.Health.Status {{"}}"}}' doco-cd
+          register: health_status
+          until: health_status.stdout == "healthy"
           retries: 30
           delay: 10
+          changed_when: false
           when: not ansible_check_mode
