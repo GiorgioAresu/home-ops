@@ -26,7 +26,7 @@ spec:
       webhook:
         image:
           repository: ghcr.io/mirceanton/external-dns-provider-mikrotik
-          tag: v1.5.18@sha256:4ed0ab32821ed5bc590a455a8d205b0dd5fb9c9a9fd17fa7eb3ad47dfa7d48c4
+          tag: v1.6.2@sha256:5a3d94114266a24ce61c6628ed54d83020a94eb11e597561ce8741aa94cf6b12
         env:
           - name: MIKROTIK_USERNAME
             valueFrom:
