@@ -5,3 +5,5 @@ kind: Kustomization
 resources:
   - ./l3.yaml
   - ./pool.yaml
+  - ./cidrgroup-internet.yaml
+  - ./cidrgroup-nas.yaml

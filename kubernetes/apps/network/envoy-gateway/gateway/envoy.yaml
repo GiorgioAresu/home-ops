@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.k8s.io/envoyproxy_v1alpha1.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
@@ -12,7 +12,7 @@ spec:
     type: Kubernetes
     kubernetes:
       envoyDeployment:
-        replicas: 2
+        replicas: 1
         container:
           image: mirror.gcr.io/envoyproxy/envoy:v1.38.0
           resources:
@@ -83,6 +83,8 @@ spec:
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
+  proxyProtocol:
+    optional: true
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway

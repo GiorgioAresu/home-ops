@@ -14,7 +14,6 @@ spec:
     server:
       persistentVolume:
         enabled: true
-        storageClassName: longhorn
         size: 20Gi
       retentionPeriod: 14d
       route:
@@ -24,12 +23,11 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-
       serviceMonitor:
         enabled: true
     dashboards:
       enabled: true
-      annotations:
-        grafana_folder: observability
-      labels:
-        grafana_dashboard: "1"
+      grafanaOperator:
+        enabled: true
+        spec:
+          folderRef: victoria-logs

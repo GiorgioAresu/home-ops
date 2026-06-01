@@ -61,8 +61,8 @@ spec:
         existingClaim: frigate
       media:
         type: nfs
-        server: truenas.aresu.eu
         path: /mnt/tank/media/Frigate
+        server: truenas.aresu.eu
         globalMounts:
           - path: /media/frigate
       cache:

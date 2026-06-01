@@ -36,7 +36,7 @@ spec:
                   poll_timeout: 10m
                   labels: "app.kubernetes.io/name=forgejo-runner-instance,app.kubernetes.io/instance=env-${ENV_ID},egress.home.arpa/custom-egress=true"
             runner:
-              capacity: 2
+              capacity: 4
               file: /persistent/.runner
               labels:
                 - ubuntu-latest:k8s:/config/podspec-default.yaml
@@ -159,6 +159,7 @@ spec:
               readOnlyRootFilesystem: true
           k8s-plugin:
             image:
+              pullPolicy: Always
               repository: git.erwanleboucher.dev/eleboucher/runner-k8s-plugin
               tag: 12.10.3@sha256:3d2c4c6486400dcd770a7bb296a309ed979d951b168b878316f80f7367887080
             args:
@@ -209,6 +210,18 @@ spec:
         forgejo-runner:
           type: Role
           rules:
+            # Jobs - the plugin creates jobs to run pipeline steps
+            - apiGroups:
+                - "batch"
+              resources:
+                - jobs
+              verbs:
+                - create
+                - get
+                - list
+                - watch
+                - delete
+            # Pods - only needed when the plugin needs to interact with them (logs, exec)
             - apiGroups:
                 - ""
               resources:
@@ -216,9 +229,7 @@ spec:
               verbs:
                 - list
                 - watch
-                - create
                 - get
-                - delete
             - apiGroups:
                 - ""
               resources:

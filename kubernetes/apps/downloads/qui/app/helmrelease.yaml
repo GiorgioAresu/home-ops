@@ -29,9 +29,9 @@ spec:
             env:
               QUI__HOST: 0.0.0.0
               QUI__PORT: &port 8080
-            # envFrom:
-            #   - secretRef:
-            #       name: "{{ .Release.Name }}-secret"
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true

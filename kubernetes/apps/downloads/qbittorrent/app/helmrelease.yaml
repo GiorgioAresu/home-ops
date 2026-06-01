@@ -26,25 +26,40 @@ spec:
           securityContext:
             fsGroup: 2000
             fsGroupChangePolicy: "OnRootMismatch"
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
         containers:
           app:
-            nameOverride: qbittorrent
             image:
               repository: ghcr.io/home-operations/qbittorrent
               tag: 5.2.1
             env:
-              QBT_WEBUI_PORT: &port 8080
               QBT_TORRENTING_PORT: &torrentPort 50413
+              QBT_WEBUI_PORT: &port 8080
+            nameOverride: qbittorrent
             probes:
               liveness:
                 enabled: true
+                spec:
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
               readiness:
                 enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
               startup:
                 enabled: true
                 spec:
                   failureThreshold: 30
-                  periodSeconds: 5
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 150m
@@ -52,15 +67,11 @@ spec:
               limits:
                 memory: 2048Mi
             securityContext:
-              runAsUser: 2000
-              runAsGroup: 2000
-              runAsNonRoot: true
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
-
+              readOnlyRootFilesystem: true
           portmanager:
             image:
               repository: docker.io/library/alpine
@@ -106,24 +117,6 @@ spec:
                   # Renew every 45 seconds (before 60s timeout)
                   sleep 45
                 done
-    service:
-      app:
-        forceRename: qbittorrent
-        primary: true
-        annotations:
-          lbipam.cilium.io/ips: 10.1.1.215
-        ports:
-          http:
-            port: *port
-      bittorrent:
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 10.1.1.216
-        ports:
-          bittorrent:
-            enabled: true
-            port: *torrentPort
-            protocol: TCP
     persistence:
       config:
         existingClaim: qbittorrent
@@ -133,14 +126,11 @@ spec:
               - path: /config
       downloads:
         type: nfs
-        server: truenas.aresu.eu
         path: /mnt/tank/media
+        server: truenas.aresu.eu
         globalMounts:
           - path: /data/media/Downloads
             subPath: Downloads
-      qbrr:
-        type: image
-        image: ghcr.io/buroa/qbrr:0.1.6@sha256:50baeb6633f144b7220777c56a8d501ea708d43043e28eb416d93e4e96efe06b
       tmp:
         type: emptyDir
     route:
@@ -153,4 +143,22 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
+                port: http
+    service:
+      app:
+        forceRename: "{{ .Release.Name }}"
+        annotations:
+          lbipam.cilium.io/ips: 10.1.1.215
+        ports:
+          http:
+            port: *port
+        primary: true
+      bittorrent:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.1.1.216
+        externalTrafficPolicy: Local
+        ports:
+          bittorrent-tcp:
+            port: *torrentPort
+            protocol: TCP

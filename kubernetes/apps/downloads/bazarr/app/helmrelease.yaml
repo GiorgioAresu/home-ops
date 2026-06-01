@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: bazarr
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: bazarr
+  interval: 30m
   values:
     controllers:
       bazarr:
@@ -30,18 +30,27 @@ spec:
               - secretRef:
                   name: bazarr-secret
             probes:
-              liveness: &probes
+              liveness:
+                enabled: true
+                spec:
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /health
                     port: &port 6767
-                  initialDelaySeconds: 10
                   periodSeconds: 10
                   timeoutSeconds: 5
-                  failureThreshold: 3
-              readiness: *probes
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 15m
@@ -54,18 +63,13 @@ spec:
               capabilities:
                 drop:
                   - ALL
-    service:
-      app:
-        ports:
-          http:
-            port: *port
     persistence:
       config:
         existingClaim: bazarr-config
       media:
         type: nfs
-        server: truenas.aresu.eu
         path: /mnt/tank/media
+        server: truenas.aresu.eu
         globalMounts:
           - path: /data/media
     route:
@@ -75,3 +79,8 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
+    service:
+      app:
+        ports:
+          http:
+            port: *port
