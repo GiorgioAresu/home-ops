@@ -21,12 +21,12 @@ spec:
       - mountPath: repository
         volumeSource:
           nfs:
-            path: /mnt/tank/backups/volsync
-            server: truenas.aresu.eu
+            path: /mnt/drone/backup/volsync
+            server: gladius.bjw-s.internal
     parallelism: 2
     repository: "${APP}-volsync-secret"
     retain:
       hourly: 24
       daily: 7
-    storageClassName: "${VOLSYNC_STORAGECLASS:=ceph-block}"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:=longhorn}"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=longhorn-snapshotclass}"

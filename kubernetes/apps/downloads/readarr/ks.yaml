@@ -10,7 +10,6 @@ spec:
       app.kubernetes.io/name: *appname
   components:
     - ../../../../components/volsync
-    - ../../../../components/keda/nas-nfs-scaler
   dependsOn:
     - name: longhorn-volumesnapshotclass
       namespace: longhorn

@@ -9,7 +9,6 @@ spec:
     labels:
       app.kubernetes.io/name: kopia
   components:
-    - ../../../../components/keda/nas-nfs-scaler
   dependsOn:
     - name: volsync
       namespace: system
