@@ -12,17 +12,17 @@ releases:
   - name: envoy-gateway
     namespace: network
     chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
-    version: v1.8.0
+    version: 1.8.0
 
   - name: external-dns
     namespace: network
     chart: oci://ghcr.io/home-operations/charts-mirror/external-dns
     version: 1.21.1
 
-  - name: keda
-    namespace: kube-system
-    chart: oci://ghcr.io/home-operations/charts-mirror/keda
-    version: 2.19.0
+  - name: grafana-operator
+    namespace: observability
+    chart: oci://ghcr.io/grafana/helm-charts/grafana-operator
+    version: 5.23.0
 
   - name: kube-prometheus-stack
     namespace: observability

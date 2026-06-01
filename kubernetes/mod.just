@@ -32,14 +32,12 @@ prune-pods:
 [doc('Apply local Flux Kustomization')]
 [script]
 apply-ks ns ks:
-    just k8s render-local-ks "{{ ns }}" "{{ ks }}"
-    | kubectl apply --server-side --force-conflicts --field-manager=kustomize-controller -f -
+    just k8s render-local-ks "{{ ns }}" "{{ ks }}" | kubectl apply --server-side --force-conflicts --field-manager=kustomize-controller -f -
 
 [doc('Delete local Flux Kustomization')]
 [script]
 delete-ks ns ks:
-    just k8s render-local-ks "{{ ns }}" "{{ ks }}"
-    | kubectl delete -f -
+    just k8s render-local-ks "{{ ns }}" "{{ ks }}" | kubectl delete -f -
 
 [doc('Sync single Flux HelmRelease')]
 [script]
@@ -87,18 +85,6 @@ snapshot ns name:
 snapshot-all:
     kubectl get replicationsources --no-headers -A | while read -r ns name _; do
       just k8s snapshot "$ns" "$name"
-    done
-
-[doc('Suspend or resume Keda ScaledObjects')]
-[script]
-keda state ns name:
-    kubectl -n "{{ ns }}" annotate --field-manager flux-client-side-apply --overwrite so "{{ name }}" autoscaling.keda.sh/paused{{ if state != "suspend" { "-" } else { "=true" } }}
-
-[doc('Suspend or resume Keda ScaledObjects')]
-[script]
-keda-all state:
-    kubectl get scaledobjects --no-headers -A | while read -r ns name _; do
-      just k8s keda "{{ state }}" "$ns" "$name"
     done
 
 [private]

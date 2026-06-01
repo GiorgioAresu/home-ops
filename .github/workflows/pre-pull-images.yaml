@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Get changed files
         id: changed-files
-        uses: https://github.com/bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
+        uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
         with:
           patterns: |-
             kubernetes/**/*
@@ -83,7 +83,7 @@ jobs:
               '$f2 - $f1' \
           )
 
-          # Ensure matrix is never empty to prevent Github from blocking downstream jobs
+          # Ensure matrix is never empty to prevent GitHub from blocking downstream jobs
           if [ "${images}" = "[]" ]; then
               images='["__skip__"]'
           fi

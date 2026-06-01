@@ -102,33 +102,33 @@ jobs:
               echo '```'
           } >> "${GITHUB_STEP_SUMMARY}"
 
-      - name: Generate Token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        if: ${{ github.event.pull_request.head.repo.full_name == github.repository && steps.diff.outputs.diff != '' }}
-        id: app-token
-        with:
-          app-id: ${{ secrets.LAB_ASSISTANT_APP_ID }}
-          private-key: ${{ secrets.LAB_ASSISTANT_APP_KEY }}
+      - name: Add Comment
+        if: ${{ steps.diff.outputs.diff != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEADER: "${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resources }}"
+          DIFF_CONTENT: ${{ steps.diff.outputs.diff }}
+        run: |-
+          MARKER="<!-- sticky-comment: ${HEADER} -->"
+          BODY=$(printf $'%s\n```diff\n%s\n```' "${MARKER}" "${DIFF_CONTENT}")
+          BODY_JSON=$(jq -Rs '{"body": .}' <<< "${BODY}")
 
-      - if: ${{ steps.diff.outputs.diff != '' }}
-        name: Add Comment
-        uses: marocchino/sticky-pull-request-comment@0ea0beb66eb9baf113663a64ec522f60e49231c0 # v3.0.4
-        with:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          header: ${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resources }}
-          message: |
-            ```diff
-            ${{ steps.diff.outputs.diff }}
-            ```
+          COMMENT_ID=$(curl -s \
+            -H "Authorization: token ${GH_TOKEN}" \
+            "${{ github.api_url }}/repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
+            | jq -r --arg marker "${MARKER}" '.[] | select(.body | startswith($marker)) | .id' | head -1)
 
-  flux-local-success:
-    needs:
-      - test
-      - diff
-    if: ${{ !cancelled() }}
-    name: Flux Local successful
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check job status
-        if: ${{ contains(needs.*.result, 'failure') }}
-        run: exit 1
+          if [[ -n "${COMMENT_ID}" ]]; then
+            curl -s -X PATCH \
+              -H "Authorization: token ${GH_TOKEN}" \
+              -H "Content-Type: application/json" \
+              "${{ github.api_url }}/repos/${{ github.repository }}/issues/comments/${COMMENT_ID}" \
+              -d "${BODY_JSON}"
+          else
+            curl -s -X POST \
+              -H "Authorization: token ${GH_TOKEN}" \
+              -H "Content-Type: application/json" \
+              "${{ github.api_url }}/repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
+              -d "${BODY_JSON}"
+          fi
