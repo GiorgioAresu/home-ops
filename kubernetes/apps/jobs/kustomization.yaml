@@ -7,4 +7,3 @@ components:
   - ../../components/flux-alerts
 resources:
   - ./namespace.yaml
-  - ./publish-k8s-schemas/ks.yaml
