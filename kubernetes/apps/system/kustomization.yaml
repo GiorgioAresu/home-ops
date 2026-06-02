@@ -12,6 +12,5 @@ resources:
   - ./keda/ks.yaml
   - ./kopia/ks.yaml
   - ./node-feature-discovery/ks.yaml
-  - ./ksgate/ks.yaml
   - ./reloader/ks.yaml
   - ./volsync/ks.yaml
