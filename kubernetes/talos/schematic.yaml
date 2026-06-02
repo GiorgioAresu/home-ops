@@ -4,11 +4,8 @@ customization:
     - initcall_blacklist=algif_aead_init
   systemExtensions:
     officialExtensions:
-      - siderolabs/i915             # Intel iGPU
-      - siderolabs/intel-ucode      # Intel
-      - siderolabs/iscsi-tools      # Longhorn
-      - siderolabs/qemu-guest-agent # Proxmox
-      - siderolabs/util-linux-tools # Longhorn
+      - siderolabs/i915
+      - siderolabs/intel-ucode
       - siderolabs/zfs
 # ---
 # # kube-bmax-01

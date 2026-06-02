@@ -12,7 +12,7 @@ machine:
     diskQuotaSupport: true
     hostDNS:
       enabled: true
-      forwardKubeDNSToHost: true
+      forwardKubeDNSToHost: false # true?
       resolveMemberNames: true
     kubePrism:
       enabled: true
@@ -49,6 +49,8 @@ machine:
         noatime=True
         rsize=1048576
         wsize=1048576
+  install:
+    image: factory.talos.dev/metal-installer/7046abc7c40b0e28d7c1ec1ec73768b16ceb9a8e3d23b1f6c5c6bd4825273dc6:v1.13.2
   kernel:
     modules:
       - name: nbd
@@ -59,7 +61,6 @@ machine:
     extraConfig:
       maxPods: 150
       serializeImagePulls: false
-      maxParallelImagePulls: 3
     image: ghcr.io/siderolabs/kubelet:v1.36.1
     nodeIP:
       validSubnets:
@@ -101,7 +102,6 @@ cluster:
       runtime-config: admissionregistration.k8s.io/v1beta1=true
     certSANs:
       - 127.0.0.1 # KubePrism
-      - 10.17.1.8
       - k8s.aresu.eu
     disablePodSecurityPolicy: true
   controllerManager:
@@ -123,23 +123,6 @@ cluster:
     disabled: true
     image: registry.k8s.io/kube-proxy:v1.36.1
   scheduler:
-    config:
-      apiVersion: kubescheduler.config.k8s.io/v1
-      kind: KubeSchedulerConfiguration
-      profiles:
-        - pluginConfig:
-            - args:
-                defaultConstraints:
-                  - maxSkew: 1
-                    topologyKey: kubernetes.io/hostname
-                    whenUnsatisfiable: ScheduleAnyway
-                defaultingType: List
-              name: PodTopologySpread
-          plugins:
-            score:
-              disabled:
-                - name: ImageLocality
-          schedulerName: default-scheduler
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.36.1
@@ -153,7 +136,7 @@ cluster:
     key: op://automation/talos/CLUSTER_CA_KEY
     {% endif %}
   controlPlane:
-    endpoint: https://10.17.1.8:6443
+    endpoint: https://k8s.aresu.eu:6443
   clusterName: home-ops
   discovery:
     enabled: true
@@ -178,7 +161,7 @@ name: bond0
 links:
   - net0
 bondMode: active-backup
-mtu: 1500 # Change to 9000 at some point
+mtu: 1500
 ---
 apiVersion: v1alpha1
 kind: DHCPv4Config
@@ -191,7 +174,7 @@ kind: VLANConfig
 name: bond0.50
 vlanID: 50
 parent: bond0
-mtu: 1500 # Change to 9000 at some point
+mtu: 1500
 ---
 # VPN
 apiVersion: v1alpha1
@@ -199,15 +182,10 @@ kind: VLANConfig
 name: bond0.90
 vlanID: 90
 parent: bond0
-mtu: 1500 # Change to 9000 at some point
+mtu: 1500
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
 timeout: 5m
 ---
-# TODO: Should really move this outside the cluster
-apiVersion: v1alpha1
-kind: Layer2VIPConfig
-name: 10.17.1.8
-link: bond0
