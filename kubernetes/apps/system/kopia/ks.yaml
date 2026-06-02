@@ -9,6 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: kopia
   components:
+    - ../../../../components/zeroscaler
   dependsOn:
     - name: volsync
       namespace: system
