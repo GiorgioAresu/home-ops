@@ -10,8 +10,8 @@ spec:
     name: immich
   interval: 30m
   dependsOn:
-    - name: longhorn
-      namespace: longhorn
+    - name: volsync
+      namespace: system
   values:
     configMaps:
       config:

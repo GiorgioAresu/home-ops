@@ -13,8 +13,8 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: database
-    - name: longhorn-volumesnapshotclass
-      namespace: longhorn
+    - name: volsync
+      namespace: system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease

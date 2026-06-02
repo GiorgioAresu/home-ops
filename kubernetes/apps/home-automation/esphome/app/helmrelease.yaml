@@ -111,7 +111,6 @@ spec:
       #   type: persistentVolumeClaim
       #   accessMode: ReadWriteOnce
       #   size: 10Gi
-      #   storageClass: longhorn-singlereplica
       #   advancedMounts:
       #     esphome:
       #       app:

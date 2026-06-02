@@ -10,8 +10,8 @@ spec:
     kind: OCIRepository
     name: zigbee2mqtt
   dependsOn:
-    - name: longhorn
-      namespace: longhorn
+    - name: volsync
+      namespace: system
   values:
     controllers:
       zigbee2mqtt:

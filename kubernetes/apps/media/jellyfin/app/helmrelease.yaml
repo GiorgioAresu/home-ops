@@ -94,7 +94,7 @@ spec:
         hostnames:
           - jellyfin.aresu.eu
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: network
     service:
       app:
@@ -104,5 +104,4 @@ spec:
         externalTrafficPolicy: Local
         ports:
           http:
-            appProtocol: kubernetes.io/wss
             port: *port

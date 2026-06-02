@@ -23,8 +23,6 @@ background:
 providers:
   openweathermap: {{HOMEPAGE_VAR_OPENWEATHERMAP_TOKEN}}
   # weatherapi: weatherapiapikey
-  longhorn:
-    url: http://longhorn-frontend.longhorn.svc.cluster.local
 
 layout:
   Media:
