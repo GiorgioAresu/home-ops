@@ -49,6 +49,10 @@ machine:
         noatime=True
         rsize=1048576
         wsize=1048576
+  kernel:
+    modules:
+      - name: nbd
+      - name: zfs
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true

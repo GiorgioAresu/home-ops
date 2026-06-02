@@ -9,6 +9,7 @@ customization:
       - siderolabs/iscsi-tools      # Longhorn
       - siderolabs/qemu-guest-agent # Proxmox
       - siderolabs/util-linux-tools # Longhorn
+      - siderolabs/zfs
 # ---
 # # kube-bmax-01
 # customization:
