@@ -161,6 +161,13 @@ resource "routeros_ip_dns_record" "unraid" {
   name     = "unraid.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.unraid.address
 }
+resource "routeros_ip_dns_record" "k8s" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "k8s.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.minisforum_uh125_pro.address
+}
 resource "routeros_ip_dns_record" "minisforum_uh125_pro" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
