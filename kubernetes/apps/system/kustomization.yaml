@@ -8,7 +8,6 @@ components:
 resources:
   - ./namespace.yaml
   - ./descheduler/ks.yaml
-  - ./generic-device-plugin/ks.yaml
   - ./kopia/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./reloader/ks.yaml
