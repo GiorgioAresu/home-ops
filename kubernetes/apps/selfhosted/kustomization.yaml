@@ -9,7 +9,6 @@ resources:
   - ./namespace.yaml
   - ./actual/ks.yaml
   - ./atuin/ks.yaml
-  - ./bichon/ks.yaml
   - ./dococd/ks.yaml
   - ./freshrss/ks.yaml
   - ./homepage/ks.yaml
