@@ -19,24 +19,20 @@ spec:
         lvm:
           enabled: false
         zfs:
-          enabled: false
+          enabled: true
       replicated:
         mayastor:
           enabled: false
     localpv-provisioner:
-      analytics:
-        enabled: false
       helperPod:
         image:
           registry: quay.io/
       hostpathClass:
         enabled: true
         name: openebs-hostpath
-        basePath: &hostPath /var/mnt/local-hostpath
         isDefaultClass: false
       localpv:
         replicas: 1
-        basePath: *hostPath
         image:
           registry: quay.io/
         resources:
@@ -48,40 +44,39 @@ spec:
       rbac:
         create: true
     zfs-localpv:
-      enabled: false
-      # resources:
-      #   requests:
-      #     cpu: 20m
-      #     memory: 64Mi
-      #   limits:
-      #     memory: 128Mi
-      # zfs:
-      #   # Talos installs ZFS at a non-standard path
-      #   bin: /usr/local/sbin/zfs
-      # zfsController:
-      #   replicas: 1
-      #   resources:
-      #     requests:
-      #       cpu: 20m
-      #       memory: 64Mi
-      #     limits:
-      #       memory: 128Mi
-      # zfsNode:
-      #   # /home is read-only on Talos; use a writable path under /var
-      #   encrKeysDir: /var/local/openebs/keys
-      #   resources:
-      #     requests:
-      #       cpu: 89m
-      #       memory: 167Mi
-      #     limits:
-      #       memory: 167Mi
-      #   nodeDriverRegistrar:
-      #     resources:
-      #       requests:
-      #         cpu: 10m
-      #         memory: 32Mi
-      #       limits:
-      #         memory: 32Mi
+      resources:
+        requests:
+          cpu: 20m
+          memory: 64Mi
+        limits:
+          memory: 128Mi
+      zfs:
+        # Talos installs ZFS at a non-standard path
+        bin: /usr/local/sbin/zfs
+      zfsController:
+        replicas: 1
+        resources:
+          requests:
+            cpu: 20m
+            memory: 64Mi
+          limits:
+            memory: 128Mi
+      zfsNode:
+        # /home is read-only on Talos; use a writable path under /var
+        encrKeysDir: /var/local/openebs/keys
+        resources:
+          requests:
+            cpu: 89m
+            memory: 167Mi
+          limits:
+            memory: 167Mi
+        nodeDriverRegistrar:
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 32Mi
     loki:
       enabled: false
     lvm-localpv:
