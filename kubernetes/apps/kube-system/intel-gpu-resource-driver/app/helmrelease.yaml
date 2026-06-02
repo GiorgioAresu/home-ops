@@ -14,8 +14,6 @@ spec:
       staticPath: /run/cdi
       dynamicPath: /run/cdi
     kubeletPlugin:
-      nodeSelector:
-        node.kubernetes.io/gpu: "true"
       privileged: true
       healthMonitoring:
         enabled: false
