@@ -6,6 +6,14 @@ machine:
   type: controlplane
 ---
 apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: system_disk
+  maxSize: 200GB
+---
+apiVersion: v1alpha1
 kind: HostnameConfig
 hostname: kube-minisforum-01
 ---
