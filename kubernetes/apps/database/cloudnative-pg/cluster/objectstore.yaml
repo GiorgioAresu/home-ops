@@ -7,7 +7,7 @@ metadata:
 spec:
   configuration:
     destinationPath: s3://postgres/
-    endpointURL: http://garage-app.selfhosted.svc.cluster.local:3900
+    endpointURL: https://s3.aresu.eu
     s3Credentials:
       accessKeyId:
         name: cloudnative-pg-backups-secret
