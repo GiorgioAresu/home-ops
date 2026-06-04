@@ -75,8 +75,9 @@ spec:
           - system
         image:
           reference: ghcr.io/cloudnative-pg/postgis-extension-testing:3.6.0-18-trixie@sha256:ec21540f5799561a9b05ca188fd28ce32852a826f48d80329260940855f5f558
-      - name: earthdistance
       - name: vector
+      - name: cube
+      - name: earthdistance
 
   managed:
     services:
