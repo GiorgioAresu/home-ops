@@ -12,6 +12,7 @@ spec:
   kopia:
     accessModes:
       - "${VOLSYNC_ACCESSMODES:=ReadWriteOnce}"
+    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:=8Gi}"
     capacity: "${VOLSYNC_CAPACITY:=5Gi}"
     cleanupCachePVC: true
     cleanupTempPVC: true
