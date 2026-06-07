@@ -94,14 +94,10 @@ spec:
         hostnames:
           - jellyfin.aresu.eu
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: network
     service:
       app:
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 10.1.1.217
-        externalTrafficPolicy: Local
         ports:
           http:
             port: *port
