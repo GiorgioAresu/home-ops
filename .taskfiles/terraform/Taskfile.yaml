@@ -4,7 +4,7 @@ version: "3"
 
 vars:
   # Define your MikroTik device IPs here
-  DEVICES: ["10.17.1.1", "10.17.1.68", "10.17.1.69"]
+  DEVICES: ["10.17.1.1", "10.17.1.68", "10.17.1.69", "10.17.1.70"]
   TRAVEL_ROUTER: 10.17.4.1
 
 tasks:
