@@ -10,29 +10,6 @@
         url: http://jellyfin.media.svc.cluster.local:8096
         key: {{HOMEPAGE_VAR_JELLYFIN_APIKEY}}
         enableNowPlaying: true
-  - Plex:
-      href: https://plex.aresu.eu
-      icon: plex.svg
-      namespace: media
-      app: plex
-      widget:
-        type: plex
-        url: http://plex.media.svc.cluster.local:32400
-        key: {{HOMEPAGE_VAR_PLEX_TOKEN}}
-        enableNowPlaying: true
-        # fields: ["streams", "movies", "tv", "albums"]
-  - Tautulli:
-      href: https://tautulli.aresu.eu
-      icon: tautulli.svg
-      namespace: media
-      app: tautulli
-      widget:
-        type: tautulli
-        url: http://tautulli.media.svc.cluster.local:8181
-        key: {{HOMEPAGE_VAR_TAUTULLI_TOKEN}}
-        enableUser: true # optional, defaults to false
-        # expandOneStreamToTwoRows: false # optional, defaults to true
-        # showEpisodeNumber: true # optional, defaults to false
   - Immich:
       href: https://immich.aresu.eu
       icon: immich.svg
