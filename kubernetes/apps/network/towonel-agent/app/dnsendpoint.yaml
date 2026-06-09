@@ -7,6 +7,6 @@ metadata:
 spec:
   endpoints:
     - dnsName: ingress-ext.aresu.eu
-      recordType: A
+      recordType: CNAME
       targets:
         - &endpoint edge-eu.towonel.dev
