@@ -94,7 +94,7 @@ spec:
         hostnames:
           - jellyfin.aresu.eu
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: network
     service:
       app:
