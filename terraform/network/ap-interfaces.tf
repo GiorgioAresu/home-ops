@@ -328,8 +328,8 @@ resource "routeros_wifi" "hAP_ax3_1" {
   configuration = {
     manager = "capsman"
   }
-  lifecycle {
-    ignore_changes = [datapath]
+  datapath = {
+    config = routeros_wifi_datapath.hAP_ax3_localbridge.name
   }
 }
 resource "routeros_wifi" "hAP_ax3_2" {
@@ -340,8 +340,8 @@ resource "routeros_wifi" "hAP_ax3_2" {
   configuration = {
     manager = "capsman"
   }
-  lifecycle {
-    ignore_changes = [datapath]
+  datapath = {
+    config = routeros_wifi_datapath.hAP_ax3_localbridge.name
   }
 }
 resource "routeros_wifi" "hAP_ax_lite_LTE6" {
@@ -352,8 +352,8 @@ resource "routeros_wifi" "hAP_ax_lite_LTE6" {
   configuration = {
     manager = "capsman"
   }
-  lifecycle {
-    ignore_changes = [datapath]
+  datapath = {
+    config = routeros_wifi_datapath.hAP_ax_lite_LTE6_localbridge.name
   }
 }
 resource "routeros_wifi" "wAP_ax_1" {
@@ -364,8 +364,8 @@ resource "routeros_wifi" "wAP_ax_1" {
   configuration = {
     manager = "capsman"
   }
-  lifecycle {
-    ignore_changes = [datapath]
+  datapath = {
+    config = routeros_wifi_datapath.wAP_ax_localbridge.name
   }
 }
 resource "routeros_wifi" "wAP_ax_2" {
@@ -376,8 +376,8 @@ resource "routeros_wifi" "wAP_ax_2" {
   configuration = {
     manager = "capsman"
   }
-  lifecycle {
-    ignore_changes = [datapath]
+  datapath = {
+    config = routeros_wifi_datapath.wAP_ax_localbridge.name
   }
 }
 
