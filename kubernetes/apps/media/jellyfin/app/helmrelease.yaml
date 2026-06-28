@@ -104,4 +104,5 @@ spec:
         externalTrafficPolicy: Local
         ports:
           http:
+            appProtocol: kubernetes.io/ws
             port: *port
