@@ -5,6 +5,7 @@ area/bootstrap:
           - kubernetes/bootstrap/**/*
 area/ci:
   - changed-files:
+      - any-glob-to-any-file: ".forgejo/**/*"
       - any-glob-to-any-file: ".github/**/*"
 area/kubernetes:
   - changed-files:
