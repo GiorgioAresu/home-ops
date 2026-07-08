@@ -22,6 +22,37 @@ spec:
     - # Forgejo (External URL)
       toFQDNs:
         - matchName: git.aresu.eu
+    - # Forgejo runner controller
+      toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: forgejo-runner
+      toPorts:
+        - ports:
+            - protocol: TCP
+              port: "38809"
+    - # LiteLLM
+      toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: litellm
+            k8s:io.kubernetes.pod.namespace: ai
+      toPorts:
+        - ports:
+            - protocol: TCP
+              port: "4000"
+    - # Konflate
+      toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: konflate
+            k8s:io.kubernetes.pod.namespace: flux-system
+      toPorts:
+        - ports:
+            - protocol: TCP
+              port: "8080"
+    - # Hairpinned in-cluster external services
+      toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: network
+            gateway.networking.k8s.io/gateway-name: envoy-external
     - # Internet egress
       toCIDRSet:
         # Internet egress
