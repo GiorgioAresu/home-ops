@@ -18,10 +18,10 @@ pipx.uvx = true
 "aqua:google/yamlfmt" = "latest"
 "aqua:mitsuhiko/minijinja" = "latest"
 "aqua:rhysd/actionlint" = "latest"
+"github:home-operations/flate" = "latest"
 "krew:cnpg"="latest"
 "krew:browse-pvc"="latest"
 "pipx:ansible-core" = "latest"
-"pipx:flux-local" = "latest"
 ansible = { version = "latest", pipx_args = "--include-deps", uvx = false }
 flux2 = "latest"
 gum = "latest"
