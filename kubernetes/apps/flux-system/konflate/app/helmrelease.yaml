@@ -11,17 +11,17 @@ spec:
   interval: 1h
   values:
     config:
-      repo: forgejo://git.bjw-s.dev/bjw-s/home-ops
+      repo: forgejo://git.aresu.eu/GiorgioAresu/home-ops
       statusChecks: true
       prComments: true
-      publicUrl: https://konflate.bjw-s.dev
+      publicUrl: https://konflate.aresu.eu
       mcp: true
     secret:
       existingSecret: konflate-secret
     httpRoute:
       enabled: true
       hostnames:
-        - konflate.bjw-s.dev
+        - konflate.aresu.eu
       parentRefs:
         - name: envoy-internal
           namespace: network
