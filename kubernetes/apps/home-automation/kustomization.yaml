@@ -7,7 +7,6 @@ components:
   - ../../components/flux-alerts
 resources:
   - ./namespace.yaml
-  - ./esphome/ks.yaml
   - ./frigate/ks.yaml
   - ./home-assistant/ks.yaml
   - ./piper/ks.yaml
