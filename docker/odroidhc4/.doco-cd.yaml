@@ -1,4 +1,5 @@
 ---
+name: odroidhc4
 working_dir: ./docker/odroidhc4
 auto_discovery:
   enabled: true

@@ -1,4 +1,5 @@
 ---
+name: zimablade
 working_dir: ./docker/zimablade
 auto_discovery:
   enabled: true

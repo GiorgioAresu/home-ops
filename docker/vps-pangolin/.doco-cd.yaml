@@ -1,4 +1,5 @@
 ---
+name: vps-pangolin
 working_dir: ./docker/vps-pangolin
 auto_discovery:
   enabled: true

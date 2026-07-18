@@ -1,4 +1,5 @@
 ---
+name: truenas
 working_dir: ./docker/truenas
 auto_discovery:
   enabled: true
