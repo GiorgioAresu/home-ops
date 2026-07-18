@@ -22,6 +22,12 @@ spec:
     - # Forgejo (External URL)
       toFQDNs:
         - matchName: git.aresu.eu
+    - toFQDNs:
+        - matchName: truenas.aresu.eu
+      toPorts:
+        - ports:
+            - protocol: TCP
+              port: "3000"
     - # Forgejo runner controller
       toEndpoints:
         - matchLabels:
