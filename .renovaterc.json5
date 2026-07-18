@@ -1,12 +1,12 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "github>GiorgioAresu/renovate-config",
-    "github>GiorgioAresu/home-ops//.renovate/overrides.json5",
-    "github>GiorgioAresu/home-ops//.renovate/groups.json5",
-    "github>GiorgioAresu/home-ops//.renovate/autoMerge.json5",
-    "github>GiorgioAresu/home-ops//.renovate/customManagers.json5",
-    "github>GiorgioAresu/home-ops//.renovate/grafanaDashboards.json5",
+    "local>GiorgioAresu/renovate-config",
+    "local>GiorgioAresu/home-ops//.renovate/customManagers.json5",
+    "local>GiorgioAresu/home-ops//.renovate/groups.json5",
+    "local>GiorgioAresu/home-ops//.renovate/autoMerge.json5",
+    "local>GiorgioAresu/home-ops//.renovate/versions.json5",
+    "local>GiorgioAresu/home-ops//.renovate/overrides.json5",
   ],
   flux: {
     managerFilePatterns: ["/^kubernetes/.+\\.yaml(?:\\.j2)?$/"],
