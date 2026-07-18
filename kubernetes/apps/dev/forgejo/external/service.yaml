@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forgejo-http # This is so in the runner helmrelease we can keep it consistent
+spec:
+  type: ExternalName
+  externalName: truenas.aresu.eu
