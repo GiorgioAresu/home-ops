@@ -1,0 +1,8 @@
+---
+name: doco-cd-updater
+reference: main
+working_dir: ./docker/truenas
+auto_discovery:
+  enabled: false
+compose-files:
+  - .doco-cd/docker-compose.app.yaml
