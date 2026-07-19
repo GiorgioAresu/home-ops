@@ -5,9 +5,7 @@ kind: Kustomization
 metadata:
   name: onepassword-connect
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: onepassword-connect
+
   dependsOn:
     - name: external-secrets
   healthChecks:
@@ -31,4 +29,3 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: external-secrets
-  timeout: 5m

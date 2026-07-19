@@ -5,9 +5,6 @@ kind: Kustomization
 metadata:
   name: forgejo
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: forgejo
   interval: 1h
   path: "./kubernetes/apps/dev/forgejo/external"
   prune: true
@@ -16,7 +13,6 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: dev
-  timeout: 5m
   wait: false
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
@@ -25,9 +21,6 @@ kind: Kustomization
 metadata:
   name: forgejo-runner
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: forgejo
   interval: 1h
   path: "./kubernetes/apps/dev/forgejo/runner"
   prune: true
@@ -36,5 +29,4 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: dev
-  timeout: 5m
   wait: false

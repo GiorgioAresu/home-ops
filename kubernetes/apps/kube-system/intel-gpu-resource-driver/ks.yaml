@@ -5,9 +5,7 @@ kind: Kustomization
 metadata:
   name: intel-gpu-resource-driver
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: intel-gpu-resource-driver
+
   interval: 1h
   path: "./kubernetes/apps/kube-system/intel-gpu-resource-driver/app"
   prune: true
@@ -16,5 +14,4 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: kube-system
-  timeout: 5m
   wait: false

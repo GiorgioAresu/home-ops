@@ -5,9 +5,6 @@ kind: Kustomization
 metadata:
   name: &appname immich
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
   components:
     - ../../../../components/gpu
   dependsOn:
@@ -31,5 +28,4 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: media
-  timeout: 5m
   wait: false

@@ -5,9 +5,7 @@ kind: Kustomization
 metadata:
   name: kopia
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: kopia
+
   components:
     - ../../../../components/zeroscaler
   dependsOn:
@@ -29,4 +27,3 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: system
-  timeout: 5m

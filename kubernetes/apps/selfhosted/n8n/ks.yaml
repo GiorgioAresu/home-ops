@@ -5,9 +5,6 @@ kind: Kustomization
 metadata:
   name: &appname n8n
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
   components:
     - ../../../../components/volsync
   dependsOn:
@@ -15,7 +12,6 @@ spec:
       namespace: system
   interval: 1h
   targetNamespace: selfhosted
-  timeout: 5m
   path: "./kubernetes/apps/selfhosted/n8n/app"
   postBuild:
     substitute:

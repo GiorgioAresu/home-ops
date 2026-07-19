@@ -5,9 +5,6 @@ kind: Kustomization
 metadata:
   name: &appname cloudnative-pg
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
@@ -22,7 +19,6 @@ spec:
     namespace: flux-system
   wait: false
   targetNamespace: database
-  timeout: 5m
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -30,9 +26,6 @@ kind: Kustomization
 metadata:
   name: &appname cloudnative-pg-plugin-barman-cloud
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
   dependsOn:
     - name: cloudnative-pg
       namespace: database
@@ -50,7 +43,6 @@ spec:
     namespace: flux-system
   wait: false
   targetNamespace: database
-  timeout: 5m
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -58,9 +50,6 @@ kind: Kustomization
 metadata:
   name: &appname cloudnative-pg-cluster
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
   dependsOn:
     - name: cloudnative-pg
       namespace: database
@@ -73,4 +62,3 @@ spec:
     namespace: flux-system
   wait: false
   targetNamespace: database
-  timeout: 5m

@@ -5,9 +5,7 @@ kind: Kustomization
 metadata:
   name: kguardian
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: kguardian
+
   interval: 1h
   path: "./kubernetes/apps/kguardian/kguardian/app"
   prune: true
@@ -16,5 +14,4 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: kguardian
-  timeout: 5m
   wait: false

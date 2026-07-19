@@ -5,9 +5,7 @@ kind: Kustomization
 metadata:
   name: towonel-agent
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: towonel-agent
+
   dependsOn:
     - name: externaldns-mikrotik
   interval: 1h
@@ -18,4 +16,3 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: network
-  timeout: 5m

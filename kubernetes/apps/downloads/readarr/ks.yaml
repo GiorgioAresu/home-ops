@@ -5,9 +5,6 @@ kind: Kustomization
 metadata:
   name: &appname readarr
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
   components:
     - ../../../../components/volsync
   dependsOn:
@@ -21,7 +18,6 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: downloads
-  timeout: 5m
   wait: false
   postBuild:
     substitute:
