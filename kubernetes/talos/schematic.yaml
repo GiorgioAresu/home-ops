@@ -5,6 +5,7 @@ customization:
     - zfs.zfs_arc_max=4294967296 # Cap ZFS ARC at 4GiB
   systemExtensions:
     officialExtensions:
+      - siderolabs/drbd
       - siderolabs/i915
       - siderolabs/intel-ucode
       - siderolabs/zfs
