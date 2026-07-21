@@ -13,14 +13,15 @@ services:
       - FORGEJO__cron__archive_cleanup__OLDER_THAN=2h
       - FORGEJO__cron__archive_cleanup__RUN_AT_START=true
       - FORGEJO__cron__archive_cleanup__SCHEDULE="@every 1h"
+      - FORGEJO__mailer__ENABLED=false
       - FORGEJO__openid__ENABLE_OPENID_SIGNIN=false
       - FORGEJO__openid__ENABLE_OPENID_SIGNUP=false
       - FORGEJO__repository__DEFAULT_REPO_UNITS=repo.code,repo.releases,repo.issues,repo.pulls,repo.actions
       - FORGEJO__repository__DISABLED_REPO_UNITS=repo.ext_wiki,repo.ext_issues
       - FORGEJO__repository__pull-request__DEFAULT_MERGE_STYLE=squash
-      - FORGEJO__service__ALLOW_ONLY_EXTERNAL_REGISTRATION=false
+      - FORGEJO__service__ALLOW_ONLY_EXTERNAL_REGISTRATION=true
       - FORGEJO__service__DEFAULT_ENABLE_TIMETRACKING=false
-      - FORGEJO__service__ENABLE_INTERNAL_SIGNIN=true
+      - FORGEJO__service__ENABLE_INTERNAL_SIGNIN=false
       - FORGEJO__service__ENABLE_PASSWORD_SIGNIN_FORM=false
       - FORGEJO__service__explore__DISABLE_CODE_PAGE=false
       - FORGEJO__service__explore__DISABLE_ORGANIZATIONS_PAGE=true
