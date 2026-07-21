@@ -5,6 +5,8 @@ kind: HelmRelease
 metadata:
   name: miroir
 spec:
+  upgrade:
+    crds: CreateReplace
   chartRef:
     kind: OCIRepository
     name: miroir
@@ -12,21 +14,3 @@ spec:
   values:
     controller:
       autoTieBreaker: false
-    nodes:
-      kube-minisforum-01:
-        pools:
-          default:
-            backend: zfs
-            zfsDataset: data-pool/miroir
-    storageClass:
-      create: true
-      name: miroir-local
-      isDefault: true
-    replicatedStorageClass:
-      create: true
-      name: miroir-replicated
-      isDefault: false
-      quorum: last-man-standing
-    volumeSnapshotClass:
-      create: true
-      name: miroir-snap
