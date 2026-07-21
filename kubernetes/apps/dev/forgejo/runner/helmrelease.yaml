@@ -11,7 +11,7 @@ spec:
   interval: 30m
   values:
     forgejo:
-      url: http://truenas.aresu.eu:3000
+      url: http://truenas.aresu.eu.:3000
       existingSecret: forgejo-runner-secret
     image:
       repository: registry.erwanleboucher.dev/eleboucher/runner
