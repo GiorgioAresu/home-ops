@@ -11,11 +11,13 @@ spec:
   interval: 30m
   values:
     controller:
-      autoTieBreaker: false     
+      autoTieBreaker: false
     nodes:
       kube-minisforum-01:
-        backend: zfs
-        zfsDataset: data-pool/miroir
+        pools:
+          default:
+            backend: zfs
+            zfsDataset: data-pool/miroir
     storageClass:
       create: true
       name: miroir-local
