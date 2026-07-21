@@ -6,7 +6,7 @@ metadata:
   name: kanidm
 spec:
   components:
-    - ../../../../components/kopiur
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: kopiur
       namespace: system
