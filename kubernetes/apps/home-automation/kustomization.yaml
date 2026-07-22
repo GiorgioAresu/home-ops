@@ -8,8 +8,8 @@ components:
   - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
-  - ./frigate/ks.yaml
+  # - ./frigate/ks.yaml
   - ./home-assistant/ks.yaml
-  - ./piper/ks.yaml
-  - ./whisper/ks.yaml
+  # - ./piper/ks.yaml
+  # - ./whisper/ks.yaml
   - ./zigbee2mqtt/ks.yaml
