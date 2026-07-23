@@ -1,0 +1,114 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: calibre-web-automated
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: calibre-web-automated
+  interval: 30m
+  values:
+    controllers:
+      calibre-web-automated:
+        annotations:
+          secret.reloader.stakater.com/reload: calibre-web-automated-secret
+        pod:
+          securityContext:
+            fsGroup: 2000
+            fsGroupChangePolicy: OnRootMismatch
+            runAsGroup: 2000
+            runAsNonRoot: false
+            runAsUser: 0
+        containers:
+          app:
+            image:
+              repository: ghcr.io/crocodilestick/calibre-web-automated
+              tag: v4.0.6
+            env:
+              CACHE_DIR: /tmp/cache
+              CWA_PORT_OVERRIDE: &httpPort 8083
+              NETWORK_SHARE_MODE: "true"
+              PGID: 2000
+              PUID: 2000
+              S6_READ_ONLY_ROOT: "1"
+              S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: "1"
+              UMASK: "002"
+            envFrom:
+              - secretRef:
+                  name: calibre-web-automated-secret
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /login
+                    port: *httpPort
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /login
+                    port: *httpPort
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+            securityContext:
+              allowPrivilegeEscalation: true
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+                add:
+                  # S6
+                  - CHOWN
+                  - SETUID
+                  - SETGID
+                  - FOWNER
+                  - DAC_OVERRIDE
+    persistence:
+      data:
+        existingClaim: calibre-web-automated
+        advancedMounts:
+          calibre-web-automated:
+            app:
+              - path: /config
+      nfs-nas-media:
+        type: nfs
+        server: truenas.aresu.eu
+        path: /mnt/tank/media
+        advancedMounts:
+          calibre-web-automated:
+            app:
+              - path: /calibre-library
+                subPath: Books
+              - path: /cwa-book-ingest
+                subPath: Downloads/complete/imported
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+    route:
+      app:
+        hostnames:
+          - calibre.aresu.eu
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+    service:
+      app:
+        ports:
+          http:
+            port: *httpPort
