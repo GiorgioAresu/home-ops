@@ -32,8 +32,8 @@ spec:
               NETWORK_SHARE_MODE: "true"
               PGID: 2000
               PUID: 2000
-              S6_READ_ONLY_ROOT: "1"
-              S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: "1"
+              # S6_READ_ONLY_ROOT: "1"
+              # S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: "1"
               UMASK: "002"
             envFrom:
               - secretRef:
@@ -78,6 +78,7 @@ spec:
                   - SETGID
                   - FOWNER
                   - DAC_OVERRIDE
+        strategy: Recreate
     persistence:
       data:
         existingClaim: calibre-web-automated
@@ -93,9 +94,9 @@ spec:
           calibre-web-automated:
             app:
               - path: /calibre-library
-                subPath: Books
+                subPath: Books-new
               - path: /cwa-book-ingest
-                subPath: Downloads/complete/imported
+                subPath: Downloads/bookdrop
       tmp:
         type: emptyDir
         globalMounts:
