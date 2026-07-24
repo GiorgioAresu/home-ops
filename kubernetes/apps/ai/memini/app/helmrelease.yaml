@@ -88,7 +88,7 @@ spec:
           - name: envoy-internal
             namespace: network
         hostnames:
-          - memini.bjw-s.dev
+          - memini.aresu.eu
     serviceMonitor:
       main:
         enabled: true
