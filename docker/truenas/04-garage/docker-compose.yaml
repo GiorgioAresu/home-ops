@@ -36,7 +36,7 @@ services:
       GARAGE_ADMIN_TOKEN: ${GARAGE_ADMIN_TOKEN}
       # GARAGE_METRICS_TOKEN: ${GARAGE_METRICS_TOKEN}
       GARAGE_RPC_SECRET: ${GARAGE_RPC_SECRET}
-    image: dxflrs/garage:v2.3.0
+    image: docker.io/dxflrs/garage:v2.3.0
     labels:
       - traefik.enable=true
       - traefik.http.routers.garage-s3.rule=Host(`s3.aresu.eu`) || HostRegexp(`^.+\.s3\.aresu\.eu$`)
@@ -55,8 +55,8 @@ services:
       - proxy
     restart: unless-stopped
     volumes:
-      - /mnt/fast/apps/garage/meta:/var/lib/garage/meta
-      - /mnt/fast/apps/garage/data:/var/lib/garage/data
+      - meta:/var/lib/garage/meta
+      - data:/var/lib/garage/data
   webui:
     configs:
       - source: garage.toml
@@ -75,3 +75,16 @@ services:
     networks:
       - proxy
     restart: unless-stopped
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      device: /mnt/fast/apps/garage/data
+      o: bind
+      type: none
+  meta:
+    driver: local
+    driver_opts:
+      device: /mnt/fast/apps/garage/meta
+      o: bind
+      type: none
