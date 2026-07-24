@@ -86,11 +86,11 @@ spec:
         type: nfs
         server: truenas.aresu.eu
         path: /mnt/tank/media
-        advancedMounts:
-          shelfmark:
-            app:
-              - path: /bookdrop
-                subPath: Library/bookdrop
+        globalMounts:
+          - path: /books
+            subPath: Library/bookdrop
+          - path: /data/media/Downloads
+            subPath: Downloads
       tmpfs:
         type: emptyDir
         sizeLimit: 1Gi
