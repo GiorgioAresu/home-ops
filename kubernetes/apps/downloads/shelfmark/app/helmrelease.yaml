@@ -13,6 +13,14 @@ spec:
     controllers:
       shelfmark:
         pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |-
+              [{
+                "name": "multus-vpn",
+                "namespace": "network",
+                "ips": ["10.17.90.11/24"],
+                "mac": "64:16:7f:0a:c9:5d"
+              }]
           securityContext:
             fsGroup: 2000
             fsGroupChangePolicy: OnRootMismatch
