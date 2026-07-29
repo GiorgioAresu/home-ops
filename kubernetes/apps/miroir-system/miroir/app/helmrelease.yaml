@@ -12,5 +12,15 @@ spec:
     name: miroir
   interval: 30m
   values:
-    controller:
-      autoTieBreaker: false
+    autoTieBreaker: false
+    monitoring:
+      dashboards:
+        enabled: true
+        grafanaOperator:
+          enabled: true
+          matchLabels:
+            dashboards: grafana
+      podMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true
