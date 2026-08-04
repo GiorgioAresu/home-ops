@@ -29,6 +29,9 @@ spec:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: downloads
             app.kubernetes.io/name: radarr
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: selfhosted
+            app.kubernetes.io/name: homepage
       toPorts:
         - ports:
             - port: "8096"
