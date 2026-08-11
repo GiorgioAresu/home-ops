@@ -11,3 +11,4 @@ resources:
   - ./bookboss/ks.yaml
   - ./immich/ks.yaml
   - ./jellyfin/ks.yaml
+  - ./navidrome/ks.yaml
