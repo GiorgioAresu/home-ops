@@ -14,6 +14,9 @@ spec:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: network
             gateway.networking.k8s.io/gateway-name: envoy-internal
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: downloads
+            app.kubernetes.io/name: lidarr
       toPorts:
         - ports:
             - port: "4533"
