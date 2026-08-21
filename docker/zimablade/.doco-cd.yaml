@@ -9,3 +9,4 @@ external_secrets:
   EMAIL: op://Services/LetsEncrypt/username
   TRAEFIK_API_BASICAUTH_DASHBOARD: op://Services/Traefik/htpassword
   TRAEFIK_CF_DNS_API_TOKEN: op://Automation/Cloudflare/API Tokens/truenas_traefik
+  TOWONEL_INVITE_TOKEN: op://Services/towonel-tunnel/tokens/paola

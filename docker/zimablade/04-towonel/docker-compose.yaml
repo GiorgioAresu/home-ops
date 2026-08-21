@@ -1,0 +1,12 @@
+---
+services:
+  towonel-agent:
+    container_name: towonel
+    environment:
+      RUST_LOG: info
+      TOWONEL_INVITE_TOKEN: ${TOWONEL_INVITE_TOKEN}
+      TOWONEL_AGENT_SERVICES: |
+        [{"hostname":"hass.paola.aresu.eu","origin":"192.168.1.4:8123"}]
+    image: codeberg.org/towonel/towonel-agent:latest
+    network_mode: host
+    restart: unless-stopped
