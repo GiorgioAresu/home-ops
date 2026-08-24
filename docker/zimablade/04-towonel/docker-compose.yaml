@@ -7,6 +7,7 @@ services:
       TOWONEL_INVITE_TOKEN: ${TOWONEL_INVITE_TOKEN}
       TOWONEL_AGENT_SERVICES: |
         [
+          {"hostname":"dococd.paola.aresu.eu","origin":"192.168.1.7:8880"},
           {"hostname":"hass.paola.aresu.eu","origin":"192.168.1.4:8123"},
           {"hostname":"truenas.paola.aresu.eu","origin":"192.168.1.7:444"}
         ]

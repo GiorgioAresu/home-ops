@@ -60,6 +60,7 @@ configs:
               servers:
                 - url: http://10.17.1.50:81
                 - url: http://10.17.100.50:81
+                - url: http://192.168.1.7:81
               passHostHeader: true
 networks:
   apps:
