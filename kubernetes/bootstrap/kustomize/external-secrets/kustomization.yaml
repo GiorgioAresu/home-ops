@@ -2,8 +2,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: kguardian
 components:
-  - ../../components/flux-alerts
+  - ../../../components/namespace
 resources:
-  # - ./kguardian/ks.yaml
+  - ./secret.yaml

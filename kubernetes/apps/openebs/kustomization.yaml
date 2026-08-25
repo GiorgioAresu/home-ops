@@ -6,5 +6,4 @@ namespace: openebs
 components:
   - ../../components/flux-alerts
 resources:
-  - ./namespace.yaml
   - ./openebs/ks.yaml

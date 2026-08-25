@@ -6,9 +6,8 @@ namespace: downloads
 components:
   - ../../components/flux-alerts
   - ../../components/kopiur/secret
+  - ../../components/namespace
 resources:
-  - ./namespace.yaml
-  # Flux-Kustomizations
   - ./bazarr/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./lidarr/ks.yaml
