@@ -6,7 +6,7 @@ metadata:
   name: zigbee2mqtt
 spec:
   components:
-    - ../../../../components/kopiur/backup-import
+    - ../../../../components/kopiur/backup
   interval: 1h
   path: "./kubernetes/apps/home-automation/zigbee2mqtt/app"
   postBuild:

@@ -6,7 +6,7 @@ metadata:
   name: sonarr
 spec:
   components:
-    - ../../../../components/kopiur/backup-import
+    - ../../../../components/kopiur/backup
     - ../../../../components/zeroscaler
   interval: 1h
   path: "./kubernetes/apps/downloads/sonarr/app"

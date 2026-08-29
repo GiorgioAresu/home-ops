@@ -6,7 +6,7 @@ metadata:
   name: actual
 spec:
   components:
-    - ../../../../components/kopiur/backup-import
+    - ../../../../components/kopiur/backup
   interval: 1h
   path: "./kubernetes/apps/selfhosted/actual/app"
   postBuild:

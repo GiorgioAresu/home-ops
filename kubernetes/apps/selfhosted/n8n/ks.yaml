@@ -6,7 +6,7 @@ metadata:
   name: n8n
 spec:
   components:
-    - ../../../../components/kopiur/backup-import
+    - ../../../../components/kopiur/backup
   interval: 1h
   targetNamespace: selfhosted
   path: "./kubernetes/apps/selfhosted/n8n/app"
