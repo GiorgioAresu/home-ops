@@ -7,6 +7,7 @@ metadata:
 spec:
   components:
     - ../../../../components/volsync
+    - ../../../../components/kopiur/backup-import
   dependsOn:
     - name: volsync
       namespace: system
@@ -16,7 +17,9 @@ spec:
     substitute:
       APP: *appname
       VOLSYNC_CLAIM: atuin
+      KOPIUR_CLAIM: atuin
       VOLSYNC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository
