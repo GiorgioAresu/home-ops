@@ -5,28 +5,32 @@ kind: HelmRelease
 metadata:
   name: karakeep
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: karakeep
+  interval: 30m
   values:
     defaultPodOptions:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
     controllers:
       karakeep:
         forceRename: karakeep
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          labels:
+            app.kubernetes.io/component: application
+            egress.policy.home.arpa/internet: "true"
         containers:
           app:
             image:
               repository: ghcr.io/karakeep-app/karakeep
-              tag: 0.33.1@sha256:5467873df817ab3aa837f2b06bd7f2b0974132ba1ae5bce0b7e2fd134abc269b
+              tag: 0.33.2@sha256:b069e4307dec06ea06d16989c6861c30a1ff208568be44ed5fb5d422cd3e950c
             env:
               BROWSER_WEB_URL: http://karakeep-chrome.selfhosted.svc.cluster.local:9222
               CRAWLER_DOWNLOAD_BANNER_IMAGE: true
@@ -53,6 +57,8 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
+              startup:
+                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -61,11 +67,15 @@ spec:
       chrome:
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          labels:
+            app.kubernetes.io/component: chrome
+            egress.policy.home.arpa/internet: "true"
         containers:
           app:
             image:
-              repository: gcr.io/zenika-hub/alpine-chrome
-              tag: 124@sha256:1a0046448e0bb6c275c88f86e01faf0de62b02ec8572901256ada0a8c08be23f
+              repository: docker.io/zenika/alpine-chrome
+              tag: 124@sha256:47da877e5622528039625218d15d7e1ccae4e426c6cc7671d165837ea98aacc8
             command:
               - chromium-browser
             args:
@@ -89,6 +99,9 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
+          labels:
+            app.kubernetes.io/component: meilisearch
+            egress.policy.home.arpa/block-all: "true"
           affinity:
             podAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
@@ -107,7 +120,7 @@ spec:
           app:
             image:
               repository: docker.io/getmeili/meilisearch
-              tag: v1.52.0@sha256:d36e713e8f89483af1ab0d72011bbd503f5ab100b68ccbfad51c39e3f0a0567d
+              tag: v1.53.1@sha256:8d6643d86d71fad6ad3cba92cde7ccfce9e4d6c384bda67598eb553571c32431
             args:
               - /bin/meilisearch
               - --upgrade-db
@@ -123,24 +136,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 2Gi
-    service:
-      app:
-        forceRename: karakeep
-        primary: true
-        controller: karakeep
-        ports:
-          http:
-            port: &httpPort 3000
-      chrome:
-        controller: chrome
-        ports:
-          http:
-            port: 9222
-      meilisearch:
-        controller: meilisearch
-        ports:
-          http:
-            port: 7700
     persistence:
       data:
         existingClaim: karakeep-data
@@ -163,4 +158,22 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *httpPort
+                port: http
+    service:
+      app:
+        controller: karakeep
+        forceRename: karakeep
+        ports:
+          http:
+            port: 3000
+        primary: true
+      chrome:
+        controller: chrome
+        ports:
+          http:
+            port: 9222
+      meilisearch:
+        controller: meilisearch
+        ports:
+          http:
+            port: 7700
