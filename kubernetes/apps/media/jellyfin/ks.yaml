@@ -8,6 +8,7 @@ spec:
   components:
     - ../../../../components/gpu
     - ../../../../components/volsync
+    - ../../../../components/kopiur/backup-import
     - ../../../../components/zeroscaler
   dependsOn:
     - name: intel-gpu-resource-driver
@@ -24,6 +25,7 @@ spec:
       VOLSYNC_CAPACITY: 30Gi
       KOPIUR_CAPACITY: 30Gi
       VOLSYNC_CACHE_CAPACITY: 20Gi
+      KOPIUR_CACHE_CAPACITY: 20Gi
   prune: true
   sourceRef:
     kind: GitRepository

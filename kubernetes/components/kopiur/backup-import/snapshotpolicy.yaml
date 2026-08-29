@@ -31,4 +31,4 @@ spec:
     quick:
       schedule:
         cron: H 3 * * *
-  volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=miroir-snap}
+  volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=openebs-snapshots}
