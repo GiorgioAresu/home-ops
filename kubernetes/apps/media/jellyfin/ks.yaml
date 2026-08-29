@@ -7,7 +7,6 @@ metadata:
 spec:
   components:
     - ../../../../components/gpu
-    - ../../../../components/volsync
     - ../../../../components/kopiur/backup-import
     - ../../../../components/zeroscaler
   dependsOn:
@@ -18,11 +17,8 @@ spec:
   postBuild:
     substitute:
       APP: jellyfin
-      VOLSYNC_CLAIM: jellyfin-config
       KOPIUR_CLAIM: jellyfin-config
-      VOLSYNC_CAPACITY: 30Gi
       KOPIUR_CAPACITY: 30Gi
-      VOLSYNC_CACHE_CAPACITY: 20Gi
       KOPIUR_CACHE_CAPACITY: 20Gi
   prune: true
   sourceRef:

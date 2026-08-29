@@ -6,14 +6,12 @@ metadata:
   name: unifi
 spec:
   components:
-    - ../../../../components/volsync
     - ../../../../components/kopiur/backup-import
   interval: 1h
   path: "./kubernetes/apps/selfhosted/unifi/app"
   postBuild:
     substitute:
       APP: unifi
-      VOLSYNC_CAPACITY: 1Gi
       KOPIUR_CAPACITY: 1Gi
   prune: true
   sourceRef:

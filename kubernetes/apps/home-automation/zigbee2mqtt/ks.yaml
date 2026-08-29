@@ -6,16 +6,13 @@ metadata:
   name: zigbee2mqtt
 spec:
   components:
-    - ../../../../components/volsync
     - ../../../../components/kopiur/backup-import
   interval: 1h
   path: "./kubernetes/apps/home-automation/zigbee2mqtt/app"
   postBuild:
     substitute:
-      VOLSYNC_CLAIM: zigbee2mqtt-data
       APP: zigbee2mqtt
       KOPIUR_CLAIM: zigbee2mqtt-data
-      VOLSYNC_CAPACITY: 1Gi
       KOPIUR_CAPACITY: 1Gi
   prune: true
   sourceRef:
