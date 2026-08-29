@@ -9,9 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: karakeep
-  dependsOn:
-    - name: volsync
-      namespace: system
   values:
     defaultPodOptions:
       securityContext:

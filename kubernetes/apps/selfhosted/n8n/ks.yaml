@@ -8,9 +8,6 @@ spec:
   components:
     - ../../../../components/volsync
     - ../../../../components/kopiur/backup-import
-  dependsOn:
-    - name: volsync
-      namespace: system
   interval: 1h
   targetNamespace: selfhosted
   path: "./kubernetes/apps/selfhosted/n8n/app"
