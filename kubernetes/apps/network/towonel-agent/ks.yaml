@@ -5,7 +5,6 @@ kind: Kustomization
 metadata:
   name: towonel-agent
 spec:
-
   dependsOn:
     - name: externaldns-mikrotik
   interval: 1h

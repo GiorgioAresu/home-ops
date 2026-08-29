@@ -3,12 +3,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname vlmcsd
+  name: vlmcsd
 spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
-      name: *appname
+      name: vlmcsd
       namespace: default
   interval: 1h
   path: ./kubernetes/apps/default/vlmcsd/app
@@ -17,5 +17,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false
   targetNamespace: default

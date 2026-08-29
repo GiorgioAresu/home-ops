@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname home-assistant-external
+  name: home-assistant-external
 spec:
   interval: 1h
   path: "./kubernetes/apps/home-automation/home-assistant/external"
@@ -13,13 +13,12 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: home-automation
-  wait: false
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname home-assistant-paola
+  name: home-assistant-paola
 spec:
   interval: 1h
   path: "./kubernetes/apps/home-automation/home-assistant/paola"
@@ -29,4 +28,3 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: home-automation
-  wait: false

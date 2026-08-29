@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname n8n
+  name: n8n
 spec:
   components:
     - ../../../../components/volsync
@@ -13,7 +13,7 @@ spec:
   path: "./kubernetes/apps/selfhosted/n8n/app"
   postBuild:
     substitute:
-      APP: *appname
+      APP: n8n
       APP_UID: "1000"
       APP_GID: "1000"
       VOLSYNC_CAPACITY: 5Gi
@@ -23,4 +23,3 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false

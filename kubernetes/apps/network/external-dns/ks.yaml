@@ -3,12 +3,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname externaldns-cloudflare
+  name: externaldns-cloudflare
 spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
-      name: *appname
+      name: externaldns-cloudflare
       namespace: network
   interval: 1h
   path: "./kubernetes/apps/network/external-dns/cloudflare"
@@ -18,18 +18,18 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: network
-  wait: false
+  wait: true
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname externaldns-mikrotik
+  name: externaldns-mikrotik
 spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
-      name: *appname
+      name: externaldns-mikrotik
       namespace: network
   interval: 1h
   path: "./kubernetes/apps/network/external-dns/mikrotik"
@@ -39,4 +39,3 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: network
-  wait: false

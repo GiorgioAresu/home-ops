@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname immich
+  name: immich
 spec:
   components:
     - ../../../../components/gpu
@@ -13,17 +13,16 @@ spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
-      name: *appname
+      name: immich
       namespace: media
   interval: 1h
   path: "./kubernetes/apps/media/immich/app"
   postBuild:
     substitute:
-      APP: *appname
+      APP: immich
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: media
-  wait: false
