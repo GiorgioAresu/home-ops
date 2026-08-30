@@ -52,8 +52,8 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_proxmox_01" {
 
 resource "routeros_routing_bgp_connection" "home_ops_kube_minisforum_01" {
   provider       = routeros.rb5009
-  comment        = "Managed by Terraform - kube-minisforum-01"
-  name           = "cilium-bgp-minisforum-01"
+  comment        = "Managed by Terraform - MinisForum UH125 Pro"
+  name           = "cilium-bgp-delta"
   as             = local.bgp_as_local
   listen         = true
   nexthop_choice = "force-self"
