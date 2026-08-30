@@ -5,13 +5,19 @@ kind: HelmRelease
 metadata:
   name: miroir
 spec:
-  upgrade:
-    crds: CreateReplace
   chartRef:
     kind: OCIRepository
     name: miroir
   interval: 30m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
+    agent:
+      resources:
+        limits:
+          memory: 192Mi
     autoTieBreaker: false
     monitoring:
       dashboards:

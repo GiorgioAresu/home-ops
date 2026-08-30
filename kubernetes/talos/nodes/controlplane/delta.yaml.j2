@@ -1,32 +1,31 @@
 ---
 machine:
-  install:
-    diskSelector:
-      model: KINGSTON OM8PGP41024Q-A0
-  nodeLabels:
-    storage.miroir.home-operations.com/class: std
   type: controlplane
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+provisioning:
+  diskSelector:
+    match: disk.model == "KINGSTON OM8PGP41024Q-A0"
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: delta
 ---
 apiVersion: v1alpha1
 kind: VolumeConfig
 name: EPHEMERAL
 provisioning:
-  diskSelector:
-    match: system_disk
-  maxSize: 200GB
+  maxSize: 150GiB
 ---
 apiVersion: v1alpha1
 kind: RawVolumeConfig
-name: openebs-zfs
+name: miroir
 provisioning:
   diskSelector:
     match: system_disk
   grow: true
-  minSize: 200GB
----
-apiVersion: v1alpha1
-kind: HostnameConfig
-hostname: kube-minisforum-01
+  minSize: 1GiB
 ---
 apiVersion: v1alpha1
 kind: LinkAliasConfig

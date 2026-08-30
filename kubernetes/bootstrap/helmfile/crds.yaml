@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+helmDefaults:
+  args:
+    - --include-crds
+    - --no-hooks
+
+bases:
+  - default.yaml
+
+defaultInherit: default
+
+releases:
+  - name: envoy-gateway
+    namespace: network
+
+  - name: grafana-operator
+    namespace: observability
+
+  - name: kopiur
+    namespace: system
+
+  - name: kube-prometheus-stack
+    namespace: observability
+
+  - name: snapshot-controller
+    namespace: kube-system
