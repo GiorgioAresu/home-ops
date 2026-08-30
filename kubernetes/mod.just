@@ -77,7 +77,7 @@ sync-all-es:
 # ------
 [doc('Trigger Kopiur Snapshotpolicy')]
 snapshot-kopiur ns name:
-    kubectl kopiur -n "{{ ns }}" snapshot now --policy "{{ name }}"
+    kopiur -n "{{ ns }}" snapshot now --policy "{{ name }}"
 
 [doc('Trigger all Kopiur Snapshotpolicies')]
 snapshot-kopiur-all:
