@@ -172,8 +172,15 @@ resource "routeros_ip_dns_record" "minisforum_uh125_pro" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - MinisForum UH125 Pro"
   type     = "A"
-  name     = "delta.aresu.eu"
+  name     = "kube-minisforum-01.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.minisforum_uh125_pro.address
+}
+resource "routeros_ip_dns_record" "delta" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - MinisForum UH125 Pro"
+  type     = "CNAME"
+  name     = "delta.aresu.eu"
+  cname    = routeros_ip_dns_record.minisforum_uh125_pro.name
 }
 resource "routeros_ip_dns_record" "kube-bmax-01" {
   provider = routeros.rb5009
