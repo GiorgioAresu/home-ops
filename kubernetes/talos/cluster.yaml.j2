@@ -144,20 +144,20 @@ content: |
     discard_unpacked_layers = false
   [plugins."io.containerd.cri.v1.runtime"]
     device_ownership_from_security_context = true
----
+{# ---
 apiVersion: v1alpha1
 kind: RegistryMirrorConfig
 name: docker.io
 endpoints:
-  - url: https://registry.bjw-s.dev/v2/docker-hub/
+  - url: https://registry.aresu.eu/v2/docker-hub/
     overridePath: true
 ---
 apiVersion: v1alpha1
 kind: RegistryMirrorConfig
 name: ghcr.io
 endpoints:
-  - url: https://registry.bjw-s.dev/v2/ghcr/
-    overridePath: true
+  - url: https://registry.aresu.eu/v2/ghcr/
+    overridePath: true #}
 ---
 apiVersion: v1alpha1
 kind: KubeNodeConfig
