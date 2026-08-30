@@ -445,7 +445,7 @@ resource "routeros_ip_dhcp_server_lease" "mikrotik_wap_ax" {
   comment     = "Managed by Terraform - Mikrotik wAP ax"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.70"
-  mac_address = "D0:EA:11:30:EF:8C"
+  mac_address = "D0:EA:11:30:EF:8D"
 }
 resource "routeros_ip_dhcp_server_lease" "tv" {
   provider    = routeros.rb5009

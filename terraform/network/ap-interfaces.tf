@@ -409,7 +409,7 @@ resource "routeros_ip_dhcp_client" "wAP_ax_lan" {
   provider          = routeros.wAP_ax
   comment           = "defconf - Managed by Terraform"
   allow_reconfigure = true
-  interface         = "ether1" #routeros_interface_bridge.wAP_ax_bridge.name
+  interface         = routeros_interface_bridge.wAP_ax_bridge.name
   use_peer_dns      = true
   use_peer_ntp      = true
 }
