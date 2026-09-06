@@ -6,5 +6,6 @@ resources:
   - ./certificate.yaml
   - ./groups.yaml
   - ./kanidm.yaml
+  - ./kanidmpersonaccount.yaml
   - ./oauth2-garage-ui.yaml
   - ./oauth2-zot.yaml

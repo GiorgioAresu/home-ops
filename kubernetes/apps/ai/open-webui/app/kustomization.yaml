@@ -7,5 +7,4 @@ resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
   - ./kanidmgroup.yaml
-  - ./kanidmpersonaccount.yaml
   - ./kanidmoauth2client.yaml

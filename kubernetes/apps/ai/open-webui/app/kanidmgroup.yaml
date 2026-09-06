@@ -9,3 +9,5 @@ spec:
     name: kanidm
     namespace: security
   kanidmName: openwebui_users
+  members:
+    - giorgio@idm.aresu.eu
