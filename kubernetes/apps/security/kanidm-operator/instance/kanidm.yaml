@@ -19,6 +19,7 @@ spec:
   logLevel: info
   oauth2ClientNamespaceSelector: {}
   groupNamespaceSelector: {}
+  personNamespaceSelector: {}
   storage:
     volumeClaimTemplate:
       spec:

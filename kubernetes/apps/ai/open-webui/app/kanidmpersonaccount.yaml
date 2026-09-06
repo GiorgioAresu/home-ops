@@ -1,0 +1,13 @@
+---
+apiVersion: kaniop.rs/v1beta1
+kind: KanidmPersonAccount
+metadata:
+  name: giorgio
+spec:
+  kanidmRef:
+    name: kanidm
+    namespace: security
+  personAttributes:
+    displayname: Giorgio Aresu
+    mail:
+      - giorgioaresu@gmail.com
