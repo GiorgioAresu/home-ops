@@ -7,6 +7,7 @@ configs:
     content: |
       - run_once: true
         url: https://github.com/GiorgioAresu/home-ops.git
+        reference: refs/heads/main
 secrets:
   1pw_token:
     file: /mnt/tank/homes/admin/.config/doco-cd/1pw_token
