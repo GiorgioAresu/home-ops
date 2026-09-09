@@ -33,7 +33,7 @@ jobs:
           ref: ${{ forgejo.event.pull_request.head.sha }}
 
       - name: AI PR Review
-        uses: https://github.com/misospace/pr-reviewer-action@398d92dea2644f8b9ea139f135e4fb4c6d60d6b0 # v2.3.1
+        uses: https://github.com/misospace/pr-reviewer-action@f1605b97871cc821302a8b4827f9058a4d6cd7cb # v2.3.3
         with:
           platform: forgejo
           forgejo_api_url: http://truenas.aresu.eu.:3000
