@@ -78,4 +78,5 @@ locals {
   addr_list_bad_ipv6       = "bad_ipv6"
   bgp_as_local             = 64513
   bgp_as_remote_kubernetes = 64514
+  bgp_as_remote_truenas    = 64515
 }

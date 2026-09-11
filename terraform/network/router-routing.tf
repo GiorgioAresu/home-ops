@@ -100,6 +100,31 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_bmax_b4_plus" {
   }
 }
 
+resource "routeros_routing_bgp_connection" "home_ops_truenas" {
+  provider       = routeros.rb5009
+  comment        = "Managed by Terraform - TrueNAS"
+  name           = "cilium-bgp-truenas"
+  as             = local.bgp_as_local
+  listen         = true
+  nexthop_choice = "force-self"
+  routing_table  = "main"
+  templates      = [routeros_routing_bgp_template.home_ops.name]
+
+  input {
+    filter = routeros_routing_filter_rule.home_ops_in.chain
+  }
+  output {
+    filter_chain = routeros_routing_filter_rule.home_ops_out.chain
+  }
+  local {
+    role = "ebgp"
+  }
+  remote {
+    address = routeros_ip_dhcp_server_lease.truenas.address
+    as      = local.bgp_as_remote_truenas
+  }
+}
+
 resource "routeros_routing_table" "vpn_exit_table" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Routing via VPN Exit"
