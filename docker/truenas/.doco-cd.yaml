@@ -12,3 +12,7 @@ external_secrets:
   GARAGE_RPC_SECRET: op://Services/Garage/GARAGE_RPC_SECRET
   TRAEFIK_API_BASICAUTH_DASHBOARD: op://Services/Traefik/htpassword
   TRAEFIK_CF_DNS_API_TOKEN: op://Automation/Cloudflare/API Tokens/truenas_traefik
+  # ZOT_HTPASSWD: op://Services/Zot/htpasswd
+  # ZOT_OIDC_CLIENT_ID: op://Automation/kanidm/zot_oidc_client_id
+  # ZOT_OIDC_CLIENT_SECRET: op://Automation/kanidm/zot_oidc_client_secret
+  # ZOT_SESSION_KEYS: op://Services/Zot/session-keys
