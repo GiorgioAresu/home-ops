@@ -22,6 +22,5 @@ resources:
   - ./homepage/ks.yaml
   - ./it-tools/ks.yaml
   - ./karakeep/ks.yaml
-  # - ./n8n/ks.yaml
   - ./thelounge/ks.yaml
   # - ./unifi/ks.yaml
