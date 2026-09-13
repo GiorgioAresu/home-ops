@@ -21,6 +21,13 @@
       matchPackageNames: [
         "ghcr.io/renovatebot/renovate",
         "/kube-prometheus-stack/",
+        "/bazarr/",
+        "/flaresolverr/",
+        "/lidarr/",
+        "/prowlarr/",
+        "/radarr/",
+        "/readarr/",
+        "/sonarr/"
       ],
       automerge: true,
       automergeType: "pr",
