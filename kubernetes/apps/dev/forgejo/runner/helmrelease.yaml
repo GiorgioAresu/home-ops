@@ -14,11 +14,12 @@ spec:
       url: http://truenas.aresu.eu.:3000 # Keep the final dot to avoid it being expanded to the search domain and thus blocked
       existingSecret: forgejo-runner-secret
     image:
-      repository: registry.erwanleboucher.dev/eleboucher/runner
-      tag: 12.13.0
+      repository: data.forgejo.org/forgejo/runner
+      tag: 13.1.0
     plugin:
       image:
         repository: registry.erwanleboucher.dev/eleboucher/runner-k8s-plugin
+        image: 13.1.0
     podLabels:
       app.kubernetes.io/component: forgejo-runner
     runnerConfig: |
@@ -54,7 +55,7 @@ spec:
         capacity: 4
         labels:
           - ubuntu-latest:k8s:/config/podspec-default.yaml
-          - ubuntu-24.04:k8spod:/config/podspec-default.yaml
+          - ubuntu-24.04:k8s:/config/podspec-default.yaml
           - default:k8s:/config/podspec-default.yaml
           - docker:k8s:/config/podspec-dind.yaml
         timeout: 3h
