@@ -27,3 +27,14 @@ spec:
   strictRedirectUrl: true
   allowInsecureClientDisablePkce: true
   disableConsentPrompt: true
+---
+apiVersion: kaniop.rs/v1beta1
+kind: KanidmGroup
+metadata:
+  name: registry-ui-users
+spec:
+  kanidmRef:
+    name: kanidm
+  kanidmName: registry_ui_users
+  members:
+    - giorgio@idm.aresu.eu
