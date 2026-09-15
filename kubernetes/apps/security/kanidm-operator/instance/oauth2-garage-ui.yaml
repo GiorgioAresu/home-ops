@@ -6,6 +6,7 @@ metadata:
 spec:
   kanidmRef:
     name: kanidm
+    namespace: security
   displayname: Garage UI
   origin: https://garage.aresu.eu/
   redirectUrl:

@@ -6,24 +6,18 @@ metadata:
 spec:
   kanidmRef:
     name: kanidm
+    namespace: security
   displayname: Zot
   origin: https://registry.aresu.eu/
   redirectUrl:
     - https://registry.aresu.eu/zot/auth/callback/oidc
   scopeMap:
-    - group: registry-ui-users@idm.aresu.eu
+    - group: registry_ui_users@idm.aresu.eu
       scopes:
         - openid
         - profile
         - email
         - groups
-  claimMap:
-    - name: zot_groups
-      valuesMap:
-        - group: registry-ui-users@idm.aresu.eu
-          values:
-            - registry-ui-users
-      joinStrategy: array
   strictRedirectUrl: true
   allowInsecureClientDisablePkce: true
   disableConsentPrompt: true
@@ -35,6 +29,7 @@ metadata:
 spec:
   kanidmRef:
     name: kanidm
+    namespace: security
   kanidmName: registry_ui_users
   members:
     - giorgio@idm.aresu.eu
