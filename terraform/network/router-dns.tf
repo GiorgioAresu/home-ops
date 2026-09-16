@@ -59,9 +59,9 @@ resource "routeros_ip_dns_record" "npm" {
 resource "routeros_ip_dns_record" "traefik" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Traefik on TrueNAS"
-  type     = "CNAME"
+  type     = "A"
   name     = "traefik.aresu.eu"
-  cname    = routeros_ip_dns_record.truenas.name
+  address  = "10.1.1.21"
 }
 resource "routeros_ip_dns_record" "garage_s3" {
   provider = routeros.rb5009
