@@ -46,7 +46,6 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_proxmox_01" {
   }
   remote {
     address = routeros_ip_dhcp_server_lease.kube_proxmox_01.address
-    as      = local.bgp_as_remote_kubernetes
   }
 }
 
@@ -71,7 +70,6 @@ resource "routeros_routing_bgp_connection" "home_ops_delta" {
   }
   remote {
     address = routeros_ip_dhcp_server_lease.minisforum_uh125_pro.address
-    as      = local.bgp_as_remote_kubernetes
   }
 }
 
@@ -96,7 +94,6 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_bmax_b4_plus" {
   }
   remote {
     address = routeros_ip_dhcp_server_lease.bmax_b4_plus.address
-    as      = local.bgp_as_remote_kubernetes
   }
 }
 
@@ -121,7 +118,6 @@ resource "routeros_routing_bgp_connection" "home_ops_truenas" {
   }
   remote {
     address = routeros_ip_dhcp_server_lease.truenas.address
-    as      = local.bgp_as_remote_truenas
   }
 }
 
