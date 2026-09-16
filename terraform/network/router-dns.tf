@@ -49,13 +49,6 @@ resource "routeros_ip_dns_record" "git" {
   name     = "git.aresu.eu"
   cname    = routeros_ip_dns_record.truenas.name
 }
-resource "routeros_ip_dns_record" "npm" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform - NginxProxyManager on TrueNAS"
-  type     = "CNAME"
-  name     = "npm.aresu.eu"
-  cname    = routeros_ip_dns_record.truenas.name
-}
 resource "routeros_ip_dns_record" "traefik" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Traefik on TrueNAS"
