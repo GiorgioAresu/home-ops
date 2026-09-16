@@ -33,23 +33,6 @@ resource "routeros_interface_vlan" "vpn_exit" {
   name      = "vpn-exit"
   vlan_id   = local.vlan_id_vpn_exit
 }
-resource "unifi_network" "guest" {
-  name    = "guest"
-  purpose = "vlan-only"
-  vlan_id = local.vlan_id_guest
-}
-resource "unifi_network" "security" {
-  name          = "security"
-  multicast_dns = true
-  purpose       = "vlan-only"
-  vlan_id       = local.vlan_id_security
-}
-resource "unifi_network" "iot" {
-  name          = "iot"
-  multicast_dns = true
-  purpose       = "vlan-only"
-  vlan_id       = local.vlan_id_iot
-}
 
 resource "routeros_interface_bridge_vlan" "lan" {
   provider = routeros.rb5009

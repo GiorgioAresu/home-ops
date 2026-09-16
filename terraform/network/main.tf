@@ -4,10 +4,6 @@ terraform {
       source  = "terraform-routeros/routeros"
       version = "1.99.1"
     }
-    unifi = {
-      source  = "paultyng/unifi"
-      version = "0.41.0"
-    }
   }
 
   backend "s3" {
@@ -60,13 +56,6 @@ provider "routeros" {
   username = var.mikrotik_username
   password = var.mikrotik_password
   insecure = var.mikrotik_insecure
-}
-
-provider "unifi" {
-  username       = var.unifi_username
-  password       = var.unifi_password
-  api_url        = var.unifi_api_url
-  allow_insecure = var.unifi_insecure
 }
 
 locals {
