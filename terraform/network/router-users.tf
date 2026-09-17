@@ -32,14 +32,14 @@ resource "routeros_system_user" "mktxp" {
 resource "routeros_system_user_group" "external_dns" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
-  name     = "external_dns"
+  name     = "external-dns"
   policy   = ["api", "read", "rest-api", "write"]
 }
 
 resource "routeros_system_user" "external_dns" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
-  name     = "external_dns"
+  name     = "external-dns"
   group    = routeros_system_user_group.external_dns.name
   password = var.mikrotik_user_externaldns_password
 }
