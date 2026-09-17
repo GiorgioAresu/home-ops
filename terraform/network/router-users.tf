@@ -48,7 +48,7 @@ resource "routeros_system_user_group" "terraform" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform"
   name     = "terraform"
-  policy   = ["api", "policy", "read", "rest-api", "sensitive", "test", "write"]
+  policy   = ["api", "policy", "read", "rest-api", "sensitive", "test", "reboot", "write"]
 }
 
 resource "routeros_system_user" "terraform" {

@@ -87,19 +87,19 @@ resource "routeros_system_user_group" "hapax3_terraform" {
   provider = routeros.hAP_ax3
   comment  = "Managed by Terraform"
   name     = "terraform"
-  policy   = ["api", "policy", "read", "rest-api", "sensitive", "test", "write"]
+  policy   = ["api", "policy", "read", "rest-api", "sensitive", "test", "reboot", "write"]
 }
 resource "routeros_system_user_group" "hapaxlitelte6_terraform" {
   provider = routeros.hAP_ax_lite_LTE6
   comment  = "Managed by Terraform"
   name     = "terraform"
-  policy   = ["api", "policy", "read", "rest-api", "sensitive", "test", "write"]
+  policy   = ["api", "policy", "read", "rest-api", "sensitive", "test", "reboot", "write"]
 }
 resource "routeros_system_user_group" "wapax_terraform" {
   provider = routeros.wAP_ax
   comment  = "Managed by Terraform"
   name     = "terraform"
-  policy   = ["api", "policy", "read", "rest-api", "sensitive", "test", "write"]
+  policy   = ["api", "policy", "read", "rest-api", "sensitive", "test", "reboot", "write"]
 }
 import {
   id = "*4"
