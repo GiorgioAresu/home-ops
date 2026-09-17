@@ -49,21 +49,6 @@ configs:
               resolvers:
                 - "1.1.1.1:53"
                 - "1.0.0.1:53"
-  truenas.yaml:
-    content: |
-      http:
-        routers:
-          truenas:
-            rule: "Host(`truenas.aresu.eu`)"
-            service: truenas
-            tls:
-              certResolver: cloudflare
-        services:
-          truenas:
-            loadBalancer:
-              servers:
-                - url: http://10.17.1.2:81
-              passHostHeader: true
 networks:
   proxy:
     name: proxy
@@ -72,8 +57,6 @@ services:
     configs:
       - source: traefik.yaml
         target: /etc/traefik/traefik.yaml
-      - source: truenas.yaml
-        target: /etc/traefik/dynamic/truenas.yaml
     container_name: traefik
     environment:
       CF_DNS_API_TOKEN: ${TRAEFIK_CF_DNS_API_TOKEN}
