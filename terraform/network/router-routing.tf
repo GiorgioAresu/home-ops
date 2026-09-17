@@ -47,6 +47,11 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_proxmox_01" {
   remote {
     address = routeros_ip_dhcp_server_lease.kube_proxmox_01.address
   }
+
+  # Skip resouce until unknown parameter add-path-out is fixed in the provider
+  lifecycle {
+    ignore_changes = all
+  }
 }
 
 resource "routeros_routing_bgp_connection" "home_ops_delta" {
@@ -70,6 +75,11 @@ resource "routeros_routing_bgp_connection" "home_ops_delta" {
   }
   remote {
     address = routeros_ip_dhcp_server_lease.minisforum_uh125_pro.address
+  }
+
+  # Skip resouce until unknown parameter add-path-out is fixed in the provider
+  lifecycle {
+    ignore_changes = all
   }
 }
 
@@ -95,6 +105,11 @@ resource "routeros_routing_bgp_connection" "home_ops_kube_bmax_b4_plus" {
   remote {
     address = routeros_ip_dhcp_server_lease.bmax_b4_plus.address
   }
+
+  # Skip resouce until unknown parameter add-path-out is fixed in the provider
+  lifecycle {
+    ignore_changes = all
+  }
 }
 
 resource "routeros_routing_bgp_connection" "home_ops_truenas" {
@@ -118,6 +133,11 @@ resource "routeros_routing_bgp_connection" "home_ops_truenas" {
   }
   remote {
     address = routeros_ip_dhcp_server_lease.truenas.address
+  }
+
+  # Skip resouce until unknown parameter add-path-out is fixed in the provider
+  lifecycle {
+    ignore_changes = all
   }
 }
 
