@@ -42,13 +42,6 @@ resource "routeros_ip_dns_record" "truenas" {
   name     = "truenas.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.truenas.address
 }
-resource "routeros_ip_dns_record" "git" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform - ForgeJo on TrueNAS"
-  type     = "CNAME"
-  name     = "git.aresu.eu"
-  cname    = routeros_ip_dns_record.truenas.name
-}
 resource "routeros_ip_dns_record" "traefik" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Traefik on TrueNAS"
@@ -56,26 +49,33 @@ resource "routeros_ip_dns_record" "traefik" {
   name     = "traefik.aresu.eu"
   address  = "10.1.1.21"
 }
+resource "routeros_ip_dns_record" "git" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - ForgeJo on TrueNAS"
+  type     = "CNAME"
+  name     = "git.aresu.eu"
+  cname    = routeros_ip_dns_record.traefik.name
+}
 resource "routeros_ip_dns_record" "garage_s3" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Garage on TrueNAS"
   type     = "CNAME"
   name     = "s3.aresu.eu"
-  cname    = routeros_ip_dns_record.truenas.name
+  cname    = routeros_ip_dns_record.traefik.name
 }
 resource "routeros_ip_dns_record" "garage_s3_web" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Garage on TrueNAS"
   type     = "CNAME"
   name     = "s3-web.aresu.eu"
-  cname    = routeros_ip_dns_record.truenas.name
+  cname    = routeros_ip_dns_record.traefik.name
 }
 resource "routeros_ip_dns_record" "garage_web" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Garage on TrueNAS"
   type     = "CNAME"
   name     = "garage.aresu.eu"
-  cname    = routeros_ip_dns_record.truenas.name
+  cname    = routeros_ip_dns_record.traefik.name
 }
 resource "routeros_ip_dns_record" "code_server" {
   provider = routeros.rb5009
