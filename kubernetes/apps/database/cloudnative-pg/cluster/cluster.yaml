@@ -84,7 +84,7 @@ spec:
             metadata:
               name: *name
               annotations:
-                external-dns.alpha.kubernetes.io/hostname: postgres.aresu.eu
+                external-dns.kubernetes.io/hostname: postgres.aresu.eu
                 lbipam.cilium.io/ips: 10.1.1.208
                 # gatus.home-operations.com/enabled: "true"
                 # gatus.home-operations.com/endpoint: |
