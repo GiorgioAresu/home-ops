@@ -18,6 +18,9 @@ mod k8s "kubernetes"
 [group: 'talos']
 mod talos "kubernetes/talos"
 
+[group: 'terraform']
+mod terraform "terraform"
+
 [private]
 log lvl msg *args:
     gum log -t rfc3339 -s -l "{{ lvl }}" "{{ msg }}" {{ args }}
