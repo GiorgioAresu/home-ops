@@ -10,6 +10,85 @@ spec:
     name: immich
   interval: 30m
   values:
+    externalSecrets:
+      immich:
+        refreshInterval: 12h
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: onepassword-connect
+        target:
+          template:
+            data:
+              # Immich
+              DB_DATABASE_NAME: &dbname immich
+              DB_HOSTNAME: &dbhost postgres-rw.database.svc.cluster.local
+              DB_USERNAME: &dbuser "{{ .POSTGRES_USER }}"
+              DB_PASSWORD: &dbpass "{{ .POSTGRES_PASSWORD }}"
+              JWT_SECRET: "{{ .JWT_SECRET }}"
+              # Postgres Init
+              INIT_POSTGRES_DBNAME: *dbname
+              INIT_POSTGRES_HOST: *dbhost
+              INIT_POSTGRES_USER: *dbuser
+              INIT_POSTGRES_PASS: *dbpass
+              INIT_POSTGRES_SUPER_PASS: "{{ .POSTGRES_SUPER_PASS }}"
+        dataFrom:
+          - extract:
+              key: immich
+          - extract:
+              key: cloudnative-pg
+    networkpolicies:
+      immich-server:
+        type: cilium
+        endpointSelector:
+          matchLabels:
+            app.kubernetes.io/name: immich
+            app.kubernetes.io/instance: immich
+            app.kubernetes.io/service: immich-server
+        ingress:
+          - fromEndpoints:
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: network
+                  gateway.networking.k8s.io/gateway-name: envoy-internal
+            toPorts:
+              - ports:
+                  - port: "2283"
+                    protocol: TCP
+      immich-redis:
+        type: cilium
+        endpointSelector:
+          matchLabels:
+            app.kubernetes.io/name: immich
+            app.kubernetes.io/instance: immich
+            app.kubernetes.io/service: immich-redis
+        ingress:
+          - fromEndpoints:
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: media
+                  app.kubernetes.io/name: immich
+                  app.kubernetes.io/instance: immich
+                  app.kubernetes.io/controller: server
+            toPorts:
+              - ports:
+                  - port: "6379"
+                    protocol: TCP
+      immich-machine-learning:
+        type: cilium
+        endpointSelector:
+          matchLabels:
+            app.kubernetes.io/name: immich
+            app.kubernetes.io/instance: immich
+            app.kubernetes.io/service: immich-machine-learning
+        ingress:
+          - fromEndpoints:
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: media
+                  app.kubernetes.io/name: immich
+                  app.kubernetes.io/instance: immich
+                  app.kubernetes.io/controller: machine-learning
+            toPorts:
+              - ports:
+                  - port: "3003"
+                    protocol: TCP
     configMaps:
       config:
         data:
@@ -28,7 +107,7 @@ spec:
     controllers:
       server:
         annotations:
-          secret.reloader.stakater.com/reload: immich-secret
+          secret.reloader.stakater.com/reload: "{{ .Release.Name }}"
           configmap.reloader.stakater.com/reload: immich-configmap
         pod:
           enableServiceLinks: false
@@ -46,7 +125,7 @@ spec:
               pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
-                  name: immich-secret
+                  name: "{{ .Release.Name }}"
         containers:
           main:
             image:
@@ -54,7 +133,7 @@ spec:
               tag: v3.2.0@sha256:ae13784ffcfcce8f4178113eb6661602a1fd1912f3d539880b8ac0dd95fc8ac2
             envFrom:
               - secretRef:
-                  name: immich-secret
+                  name: "{{ .Release.Name }}"
               - configMapRef:
                   identifier: config
             resources:
@@ -71,7 +150,7 @@ spec:
                   - ALL
       machine-learning:
         annotations:
-          secret.reloader.stakater.com/reload: immich-secret
+          secret.reloader.stakater.com/reload: "{{ .Release.Name }}"
           configmap.reloader.stakater.com/reload: immich-configmap
         pod:
           enableServiceLinks: false
@@ -88,7 +167,7 @@ spec:
               tag: v3.2.2@sha256:60dfcf266a9ef3b7376f5678e8c980d4fb61db5fc48c078fe8a326ab1535d60d
             envFrom:
               - secretRef:
-                  name: immich-secret
+                  name: "{{ .Release.Name }}"
               - configMapRef:
                   identifier: config
             env:

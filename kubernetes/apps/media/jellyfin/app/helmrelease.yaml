@@ -10,9 +10,41 @@ spec:
     name: jellyfin
   interval: 30m
   values:
+    networkpolicies:
+      jellyfin:
+        type: cilium
+        ingress:
+          - fromEndpoints:
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: network
+                  gateway.networking.k8s.io/gateway-name: envoy-external
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: network
+                  gateway.networking.k8s.io/gateway-name: envoy-internal
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: downloads
+                  app.kubernetes.io/name: bazarr
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: downloads
+                  app.kubernetes.io/name: lidarr
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: downloads
+                  app.kubernetes.io/name: sonarr
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: downloads
+                  app.kubernetes.io/name: radarr
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: selfhosted
+                  app.kubernetes.io/name: homepage
+            toPorts:
+              - ports:
+                  - port: "8096"
+                    protocol: TCP
     controllers:
       jellyfin:
         pod:
+          labels:
+            egress.policy.home.arpa/internet: "true"
           resourceClaims:
             - name: gpu
               resourceClaimTemplateName: jellyfin-gpu
@@ -79,6 +111,24 @@ spec:
         existingClaim: jellyfin-config
         globalMounts:
           - path: /config
+      metadata:
+        size: 10Gi
+        accessMode: ReadWriteOnce
+        storageClass: miroir-local
+        suffix: "metadata"
+        globalMounts:
+          - path: /metadata
+            subPath: metadata
+          - path: /config/data/introskipper
+            subPath: introskipper
+      media:
+        type: nfs
+        server: truenas.aresu.eu
+        path: /mnt/tank/media
+        advancedMounts:
+          jellyfin:
+            app:
+              - path: /data/media
       tmpfs:
         type: emptyDir
         advancedMounts:
@@ -86,16 +136,10 @@ spec:
             app:
               - path: /cache
                 subPath: cache
-              - path: /config/log
-                subPath: log
               - path: /tmp
                 subPath: tmp
-      media:
-        type: nfs
-        server: truenas.aresu.eu
-        path: /mnt/tank/media
-        globalMounts:
-          - path: /data/media
+              - path: /transcode
+                subPath: transcode
     route:
       app:
         hostnames:

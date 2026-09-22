@@ -10,9 +10,26 @@ spec:
     name: navidrome
   interval: 30m
   values:
+    networkpolicies:
+      navidrome:
+        type: cilium
+        ingress:
+          - fromEndpoints:
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: network
+                  gateway.networking.k8s.io/gateway-name: envoy-internal
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: media
+                  app.kubernetes.io/name: bonob
+            toPorts:
+              - ports:
+                  - port: "4533"
+                    protocol: TCP
     controllers:
       navidrome:
         pod:
+          labels:
+            egress.policy.home.arpa/block-all: "true"
           securityContext:
             fsGroup: 2000
             fsGroupChangePolicy: OnRootMismatch
@@ -27,6 +44,8 @@ spec:
             env:
               ND_BASEURL: https://navidrome.aresu.eu
               ND_ENABLEINSIGHTSCOLLECTOR: false
+              ND_ENABLESHARING: false
+              ND_ENABLESTARRATING: false
             probes:
               liveness:
                 enabled: true
