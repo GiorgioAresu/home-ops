@@ -29,6 +29,8 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
+          labels:
+            egress.policy.home.arpa/block-all: "true"
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000

@@ -17,7 +17,6 @@ spec:
     bgpControlPlane:
       enabled: true
     bpf:
-      datapathMode: netkit # TODO: remove
       masquerade: true
       preallocateMaps: true
     cgroup:

@@ -12,7 +12,7 @@ spec:
   values:
     namespace: null
     createNamespace: false
-    replicaCount: 2 # TODO: Increase this to 2-3 when adding nodes
+    replicaCount: 1
     timezone: Europe/Rome
     cronJobTimeZone: true
     webhook:
