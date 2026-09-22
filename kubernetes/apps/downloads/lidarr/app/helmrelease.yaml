@@ -10,6 +10,17 @@ spec:
     name: lidarr
   interval: 30m
   values:
+    externalSecrets:
+      lidarr:
+        refreshInterval: 12h
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: onepassword-connect
+        data:
+          - secretKey: api_key
+            remoteRef:
+              key: lidarr
+              property: api_key
     controllers:
       lidarr:
         annotations:
@@ -31,7 +42,7 @@ spec:
               LIDARR__AUTH__APIKEY:
                 valueFrom:
                   secretKeyRef:
-                    name: lidarr-secret
+                    name: "{{ .Release.Name }}"
                     key: api_key
               LIDARR__AUTH__METHOD: External
               LIDARR__AUTH__REQUIRED: DisabledForLocalAddresses
