@@ -1,0 +1,109 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cloudflared
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: cloudflared
+  interval: 30m
+  values:
+    externalSecrets:
+      cloudflared:
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: onepassword-connect
+        target:
+          template:
+            data:
+              TUNNEL_TOKEN: |-
+                {{ toJson (dict "a" .tunnel_account_tag "t" .tunnel_id "s" .tunnel_secret) | b64enc }}
+        dataFrom:
+          - extract:
+              key: Cloudflare
+            rewrite:
+              - regexp:
+                  source: "[^a-zA-Z0-9-]"
+                  target: "_"
+    configMaps:
+      config:
+        data:
+          config.yaml: |-
+            ingress:
+              - hostname: "*.aresu.eu"
+                originRequest:
+                  http2Origin: true
+                  originServerName: ingress-ext.aresu.eu
+                service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
+              - service: http_status:404
+    controllers:
+      cloudflared:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        replicas: 1
+        strategy: RollingUpdate
+        pod:
+          securityContext:
+            fsGroup: 64535
+            fsGroupChangePolicy: OnRootMismatch
+            runAsUser: 64535
+            runAsNonRoot: true
+            runAsGroup: 64535
+        containers:
+          app:
+            image:
+              repository: docker.io/cloudflare/cloudflared
+              tag: 2026.9.1
+            env:
+              TUNNEL_POST_QUANTUM: true
+              TUNNEL_TRANSPORT_PROTOCOL: quic
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}"
+            args:
+              - tunnel
+              - run
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ready
+                    port: &port 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 5m
+                memory: 64M
+              limits:
+                memory: 64M
+    route:
+      app:
+        hostnames:
+          - cloudflared.aresu.eu
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: http
+    persistence:
+      config-file:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /etc/cloudflared/config.yaml
+            subPath: config.yaml
