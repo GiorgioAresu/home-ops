@@ -77,6 +77,13 @@ resource "routeros_ip_dns_record" "garage_web" {
   name     = "garage.aresu.eu"
   cname    = routeros_ip_dns_record.traefik.name
 }
+resource "routeros_ip_dns_record" "registry" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform - Zot registry on TrueNAS"
+  type     = "CNAME"
+  name     = "registry.aresu.eu"
+  cname    = routeros_ip_dns_record.traefik.name
+}
 resource "routeros_ip_dns_record" "code_server" {
   provider = routeros.rb5009
   comment  = "Managed by Terraform - Code-Server on TrueNAS"
@@ -103,13 +110,6 @@ resource "routeros_ip_dns_record" "paperless" {
   comment  = "Managed by Terraform - Paperless on TrueNAS"
   type     = "CNAME"
   name     = "paperless.aresu.eu"
-  cname    = routeros_ip_dns_record.truenas.name
-}
-resource "routeros_ip_dns_record" "registry" {
-  provider = routeros.rb5009
-  comment  = "Managed by Terraform - Zot registry on TrueNAS"
-  type     = "CNAME"
-  name     = "registry.aresu.eu"
   cname    = routeros_ip_dns_record.truenas.name
 }
 resource "routeros_ip_dns_record" "odroid_hc4" {
