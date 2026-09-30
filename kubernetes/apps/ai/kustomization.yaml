@@ -21,5 +21,4 @@ resources:
   - ./litellm/ks.yaml
   - ./litellm-operator/ks.yaml
   - ./llmkube/ks.yaml
-  - ./minimax-shim/ks.yaml
   - ./open-webui/ks.yaml
