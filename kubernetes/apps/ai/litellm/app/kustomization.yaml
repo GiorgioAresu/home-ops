@@ -6,4 +6,5 @@ resources:
   - ./externalsecret.yaml
   - ./litellmproxy.yaml
   - ./serviceMonitor.yaml
+  - ./ciliumnetworkpolicy.yaml
   - ./models/

@@ -1,0 +1,25 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: "dragonfly-cilium-policy"
+spec:
+  endpointSelector:
+    matchLabels:
+      app: "litellm-dragonfly"
+      app.kubernetes.io/name: dragonfly
+      "app.kubernetes.io/part-of": dragonfly
+  enableDefaultDeny:
+    ingress: true
+    egress: false
+  ingress:
+  -
+    fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/instance: litellm
+        "app.kubernetes.io/managed-by": "litellm-operator"
+        app.kubernetes.io/name: litellm
+    toPorts:
+    - ports:
+      - port: "6379"
+        protocol: TCP
