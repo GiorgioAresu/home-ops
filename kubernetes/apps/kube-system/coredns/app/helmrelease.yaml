@@ -46,6 +46,11 @@ spec:
               fallthrough in-addr.arpa ip6.arpa
           - name: autopath
             parameters: "@kubernetes"
+          - name: template # Drop public AAAA records to fix intermittent IPv6 routing errors
+            parameters: ANY AAAA .
+            configBlock: |-
+              rcode NOERROR
+              fallthrough
           - name: forward
             parameters: . /etc/resolv.conf
           - name: cache
