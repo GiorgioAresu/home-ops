@@ -1,0 +1,142 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: searxng
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: searxng
+  interval: 30m
+  values:
+    externalSecrets:
+      searxng:
+        refreshInterval: 12h
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: onepassword-connect
+        target:
+          template:
+            data:
+              SEARXNG_SECRET: "{{ .searxng_secret_key }}"
+        dataFrom:
+          - extract:
+              key: searxng
+            rewrite:
+              - regexp:
+                  source: "(.*)"
+                  target: "searxng_$1"
+    networkpolicies:
+      searxng:
+        type: cilium
+        egress:
+          - toEndpoints:
+              - matchLabels:
+                  k8s:app: searxng-dragonfly
+            toPorts:
+              - ports:
+                  - port: "6379"
+                    protocol: TCP
+        ingress:
+          - fromEndpoints:
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: network
+                  gateway.networking.k8s.io/gateway-name: envoy-internal
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: ai
+                  app.kubernetes.io/name: open-webui
+            toPorts:
+              - ports:
+                  - port: "8080"
+                    protocol: TCP
+    controllers:
+      searxng:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          labels:
+            egress.policy.home.arpa/internet: "true"
+          securityContext:
+            fsGroup: 977
+            fsGroupChangePolicy: "OnRootMismatch"
+            runAsGroup: 977
+            runAsUser: 977
+        containers:
+          main:
+            image:
+              repository: ghcr.io/searxng/searxng
+              tag: 2026.9.21-49064747a@sha256:98a7ef5023169bb67a0782a4d36a8347d461d140426712bff92b016c90afea2d
+            env:
+              SEARXNG_BASE_URL: https://search.aresu.eu
+              SEARXNG_PORT: &httpPort 8080
+              SEARXNG_VALKEY_URL: "redis://searxng-dragonfly:6379"
+            envFrom:
+              - externalSecretRef:
+                  identifier: searxng
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /stats
+                    port: *httpPort
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /stats
+                    port: *httpPort
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                add:
+                  - CHOWN
+                  - DAC_OVERRIDE
+                  - SETGID
+                  - SETUID
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+    persistence:
+      config:
+        type: configMap
+        name: searxng-config
+        globalMounts:
+          - path: /etc/searxng/limiter.toml
+            subPath: limiter.toml
+            readOnly: true
+          - path: /etc/searxng/settings.yml
+            subPath: settings.yaml
+            readOnly: true
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+    route:
+      app:
+        hostnames:
+          - search.aresu.eu
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+    service:
+      app:
+        ports:
+          http:
+            port: *httpPort
