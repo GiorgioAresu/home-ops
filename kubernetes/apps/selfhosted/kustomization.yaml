@@ -15,7 +15,6 @@ patches:
         path: /metadata/annotations/kopiur.home-operations.com~1privileged-movers
         value: "true"
 resources:
-  - ./actual/ks.yaml
   - ./dococd/ks.yaml
   - ./freshrss/ks.yaml
   - ./homepage/ks.yaml
