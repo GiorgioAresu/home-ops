@@ -40,3 +40,12 @@ spec:
               protocol: TCP
             - port: "8443"
               protocol: TCP
+    # Let towonel-agent reach the Envoy external Gateway for its tunnel.
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: network
+            app.kubernetes.io/name: towonel-agent
+      toPorts:
+        - ports:
+            - port: "8443"
+              protocol: TCP
