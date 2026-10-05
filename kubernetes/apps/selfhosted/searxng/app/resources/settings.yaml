@@ -10,6 +10,10 @@ server:
 search:
   autocomplete: duckduckgo
   favicon_resolver: duckduckgo
+  engines:
+    - name: openlibrary
+      engine: openlibrary
+      enabled: true
   languages:
     - all
     - en
