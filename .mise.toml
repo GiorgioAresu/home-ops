@@ -5,9 +5,6 @@ KUBECONFIG = '{{config_root}}/kubeconfig'
 MINIJINJA_CONFIG_FILE = "{{config_root}}/.minijinja.toml"
 TALOSCONFIG = '{{config_root}}/talosconfig'
 
-[hooks]
-postinstall = "ansible-galaxy install -r {{config_root}}/ansible/requirements.yaml"
-
 [plugins]
 krew="https://github.com/soupglasses/mise-krew"
 
@@ -37,5 +34,9 @@ yamlfmt = "latest"
 "aqua:mitsuhiko/minijinja" = "latest"
 "github:home-operations/flate" = "latest"
 "github:kguardian-dev/kguardian" = { version = "latest", version_prefix = "advisor/v", exe = "advisor", bin = "kubectl-kguardian" }
+"github:perfectra1n/fjo" = "latest"
 "krew:browse-pvc"="latest"
 "krew:cnpg"="latest"
+
+[hooks]
+postinstall = "ansible-galaxy install -r {{config_root}}/ansible/requirements.yaml"
