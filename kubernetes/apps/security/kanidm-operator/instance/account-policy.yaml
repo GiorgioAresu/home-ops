@@ -17,6 +17,7 @@ spec:
   kanidmName: idm_all_accounts
   accountPolicy:
     authSessionExpiry: 2592000
+    privilegeExpiry: 600
 ---
 apiVersion: kaniop.rs/v1beta1
 kind: KanidmGroup
