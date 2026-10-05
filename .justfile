@@ -28,3 +28,28 @@ log lvl msg *args:
 [private]
 template file *args:
     minijinja-cli "{{ file }}" {{ args }} | op inject
+
+[group: 'repo']
+[doc('Get the list of open PRs in the repository')]
+list-prs:
+  fjo pr list -R GiorgioAresu/home-ops
+
+[group: 'repo']
+[doc('Merge all open PRs in the repository')]
+merge-all-prs:
+  fjo pr list -R GiorgioAresu/home-ops --jq ".[].number" | xargs -I {} sh -c '
+    PR="{}"
+    ATTEMPT=1
+    MAX_RETRIES=3
+
+    until fjo pr merge "$PR" -R GiorgioAresu/home-ops; do
+        if [ $ATTEMPT -ge $MAX_RETRIES ]; then
+        echo "❌ PR $PR failed after $MAX_RETRIES attempts. Skipping to the next one..."
+        break
+        fi
+        echo "⚠️ PR $PR not ready (Attempt $ATTEMPT/$MAX_RETRIES). Retrying in 4 seconds..."
+        ATTEMPT=$((ATTEMPT + 1))
+        sleep 4
+    done
+    sleep 1
+  '
