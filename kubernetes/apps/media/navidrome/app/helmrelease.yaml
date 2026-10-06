@@ -46,6 +46,7 @@ spec:
               ND_ENABLEINSIGHTSCOLLECTOR: false
               ND_ENABLESHARING: false
               ND_ENABLESTARRATING: false
+              ND_SESSIONTIMEOUT: 720h # 30 days
             probes:
               liveness:
                 enabled: true
