@@ -22,7 +22,7 @@ services:
       - source: zot_session_keys
         target: /etc/zot/sessionKeys.json
     container_name: zot
-    image: ghcr.io/project-zot/zot-linux-amd64:v2.1.21
+    image: ghcr.io/project-zot/zot-linux-amd64:v2.1.22
     labels:
       traefik.enable: 'true'
       traefik.http.routers.zot.rule: Host(`registry.aresu.eu`)
