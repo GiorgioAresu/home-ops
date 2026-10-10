@@ -48,7 +48,7 @@ spec:
           - fromEndpoints:
               - matchLabels:
                   k8s:io.kubernetes.pod.namespace: network
-                  gateway.networking.k8s.io/gateway-name: envoy-internal
+                  gateway.networking.k8s.io/gateway-name: envoy-external
             toPorts:
               - ports:
                   - port: "2283"
@@ -253,7 +253,7 @@ spec:
         hostnames:
           - immich.aresu.eu
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: network
         rules:
           - backendRefs:
