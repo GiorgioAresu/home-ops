@@ -13,7 +13,7 @@ spec:
   postBuild:
     substitute:
       APP: bazarr
-      KOPIUR_CLAIM: bazarr
+      KOPIUR_CLAIM: bazarr-config
   prune: true
   sourceRef:
     kind: GitRepository
