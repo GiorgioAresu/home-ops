@@ -29,7 +29,7 @@ services:
       - FORGEJO__service__explore__REQUIRE_SIGNIN_VIEW=false
       - FORGEJO__service__SHOW_REGISTRATION_BUTTON=false
       - FORGEJO__webhook__ALLOWED_HOST_LIST=*
-    image: codeberg.org/forgejo/forgejo:16
+    image: codeberg.org/forgejo/forgejo:17
     labels:
       - traefik.enable=true
       - traefik.http.routers.forgejo.rule=Host(`git.aresu.eu`)
