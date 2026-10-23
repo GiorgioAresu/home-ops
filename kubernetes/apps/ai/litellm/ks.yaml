@@ -10,10 +10,6 @@ spec:
   dependsOn:
     - name: dragonfly-operator
       namespace: database
-    - name: kanidm-instance
-      namespace: security
-    - name: kanidm-provision
-      namespace: security
     - name: litellm-operator
       namespace: ai
   healthCheckExprs:
