@@ -7,9 +7,12 @@ metadata:
 spec:
   components:
     - ../../../../components/dragonfly
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: dragonfly-operator
       namespace: database
+    - name: kanidm-instance
+      namespace: security
     - name: litellm-operator
       namespace: ai
   healthCheckExprs:
