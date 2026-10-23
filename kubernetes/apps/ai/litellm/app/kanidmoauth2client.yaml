@@ -5,7 +5,7 @@ metadata:
   name: litellm
 spec:
   kanidmRef:
-    name: sso
+    name: kanidm
     namespace: security
   displayname: LiteLLM
   origin: https://litellm.aresu.eu/

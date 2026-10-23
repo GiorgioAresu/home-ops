@@ -3,7 +3,7 @@
 apiVersion: kaniop.rs/v1alpha1
 kind: KanidmBackupSchedule
 metadata:
-  name: sso
+  name: kanidm
 spec:
   jitterSeconds: 300
   kanidmRef:
