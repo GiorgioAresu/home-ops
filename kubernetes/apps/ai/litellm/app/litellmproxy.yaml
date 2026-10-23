@@ -16,11 +16,11 @@ spec:
   env:
     - name: CHATGPT_TOKEN_DIR
       value: /app/chatgpt_tokens
-    - name: DATABASE_URL
-      valueFrom:
-        secretKeyRef:
-          name: litellm-postgres-app
-          key: uri
+    # - name: DATABASE_URL
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: litellm-postgres-app
+    #       key: uri
     - name: GENERIC_AUTHORIZATION_ENDPOINT
       value: https://idm.aresu.eu/ui/oauth2
     - name: GENERIC_CLIENT_USE_PKCE
