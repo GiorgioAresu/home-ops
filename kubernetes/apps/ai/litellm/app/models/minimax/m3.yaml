@@ -3,21 +3,27 @@
 apiVersion: litellm.home-operations.com/v1alpha1
 kind: LiteLLMModel
 metadata:
-  name: minimax-m3-anthropic
+  name: minimax-m3
 spec:
-  modelName: minimax/MiniMax-M3-anthropic
+  modelName: minimax/m3
+  proxyRef: litellm
   params:
-    model: anthropic/MiniMax-M3
-    apiBase: https://api.minimax.io/anthropic
+    model: minimax/MiniMax-M3
+    # OpenAI-compatible endpoint; LiteLLM appends /chat/completions.
+    apiBase: https://api.minimax.io/v1
     apiKeyRef:
       name: litellm
       key: MINIMAX_API_KEY
-    dropParams: true
+    additional:
+      cache_control_injection_points:
+      - location: message
+        role: system
+      - location: message
+        index: -1
   info:
+    mode: chat
     maxInputTokens: 1000000
     maxOutputTokens: 131072
     supportsFunctionCalling: true
     supportsPromptCaching: true
     supportsVision: true
-    extra:
-      supports_reasoning: true

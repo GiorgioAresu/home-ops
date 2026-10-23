@@ -3,20 +3,20 @@
 apiVersion: litellm.home-operations.com/v1alpha1
 kind: LiteLLMModel
 metadata:
-  name: opencode-go-qwen3-6-plus
+  name: opencode-go-dsv4.1f
 spec:
-  modelName: opencode-go/qwen3.6-plus
+  modelName: opencode-go/dsv4.1f
   params:
-    model: anthropic/qwen3.6-plus
-    apiBase: https://opencode.ai/zen/go
+    model: openai/deepseek-v4.1-flash
+    apiBase: https://opencode.ai/zen/go/v1
     apiKeyRef:
       name: litellm
       key: OPENCODE_GO_API_KEY
     dropParams: true
   info:
-    maxInputTokens: 262144
-    maxOutputTokens: 32768
+    mode: chat
+    maxInputTokens: 1000000
+    maxOutputTokens: 393216
     supportsFunctionCalling: true
     supportsPromptCaching: true
-    extra:
-      supports_reasoning: true
+    supportsVision: true

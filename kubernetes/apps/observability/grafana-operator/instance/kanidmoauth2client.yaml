@@ -8,9 +8,9 @@ spec:
     name: kanidm
     namespace: security
   displayname: Grafana
-  origin: https://grafana.bjw-s.dev/
+  origin: https://grafana.aresu.eu/
   redirectUrl:
-    - https://grafana.bjw-s.dev/login/generic_oauth
+    - https://grafana.aresu.eu/login/generic_oauth
   scopeMap:
     - group: grafana_admins@idm.aresu.eu
       scopes:

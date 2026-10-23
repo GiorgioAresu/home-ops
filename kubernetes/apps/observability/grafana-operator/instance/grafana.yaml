@@ -44,7 +44,7 @@ spec:
       angular_support_enabled: "true"
     server:
       enable_gzip: "true"
-      root_url: https://grafana.bjw-s.dev/
+      root_url: https://grafana.aresu.eu/
   disableDefaultAdminSecret: true
   disableDefaultSecurityContext: All
   deployment:

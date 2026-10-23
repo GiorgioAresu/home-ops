@@ -16,9 +16,6 @@ patches:
         value:
           resource.kubernetes.io/admin-access: "true"
 resources:
-  - ./context7-mcp/ks.yaml
-  - ./ha-mcp/ks.yaml
   - ./litellm/ks.yaml
   - ./litellm-operator/ks.yaml
-  - ./llmkube/ks.yaml
   - ./open-webui/ks.yaml
