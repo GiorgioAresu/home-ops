@@ -33,7 +33,7 @@ yamlfmt = "latest"
 "aqua:kubernetes-sigs/krew" = "latest"
 "aqua:mitsuhiko/minijinja" = "latest"
 "github:home-operations/flate" = "latest"
-"github:kguardian-dev/kguardian" = { version = "latest", version_prefix = "advisor/v", exe = "advisor", bin = "kubectl-kguardian" }
+"github:kguardian-dev/kguardian" = { version = "latest", version_prefix = "advisor/v", bin = "kubectl-kguardian" }
 "github:perfectra1n/fjo" = "latest"
 "krew:browse-pvc"="latest"
 "krew:cnpg"="latest"
