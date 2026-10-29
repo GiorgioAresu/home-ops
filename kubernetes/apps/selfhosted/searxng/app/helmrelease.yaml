@@ -66,7 +66,7 @@ spec:
           main:
             image:
               repository: ghcr.io/searxng/searxng
-              tag: 2026.10.25-54ca1d9cf@sha256:23482d8ecf7ddf66029479468ea04c1bb11d2b65785a17a7e629e2ffd13296ca
+              tag: 2026.10.29-c15647b5a@sha256:c4e8448495ef3b0175eb6c97a19c1ac7cc0a5c907d581ab3877f3cb430e81b86
             env:
               SEARXNG_BASE_URL: https://search.aresu.eu
               SEARXNG_PORT: &httpPort 8080
