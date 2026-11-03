@@ -5,5 +5,8 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./grafana.yaml
+  - ./ciliumnetworkpolicy.yaml
+  - ./grafanaserviceaccount.yaml
   - ./kanidmgroups.yaml
   - ./kanidmoauth2client.yaml
+  - ./mcpserver.yaml
