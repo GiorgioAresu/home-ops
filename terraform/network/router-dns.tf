@@ -344,6 +344,13 @@ resource "routeros_ip_dns_record" "nuc_power_control" {
   name     = "nuc-power-control.iot.aresu.eu"
   address  = routeros_ip_dhcp_server_lease.nuc_power_control.address
 }
+resource "routeros_ip_dns_record" "immich_frame" {
+  provider = routeros.rb5009
+  comment  = "Managed by Terraform"
+  type     = "A"
+  name     = "immich-frame.iot.aresu.eu"
+  address  = routeros_ip_dhcp_server_lease.immich_frame.address
+}
 
 resource "routeros_ip_dns_record" "zimablade" {
   provider = routeros.rb5009

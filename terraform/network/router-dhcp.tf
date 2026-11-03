@@ -626,6 +626,13 @@ resource "routeros_ip_dhcp_server_lease" "nuc_power_control" {
   address     = "10.17.50.46"
   mac_address = "3C:71:BF:29:13:BD"
 }
+resource "routeros_ip_dhcp_server_lease" "immich_frame" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Immich picture frame"
+  server      = routeros_ip_dhcp_server.iot.name
+  address     = "10.17.50.47"
+  mac_address = "DC:1E:D5:9B:7E:A4"
+}
 
 # resource "routeros_ip_dhcp_server_lease" "this" { *16
 #   provider    = routeros.rb5009
