@@ -15,6 +15,7 @@ spec:
       toEndpoints:
         - matchLabels:
             app.kubernetes.io/name: forgejo
+            k8s:io.kubernetes.pod.namespace: dev
       toPorts:
         - ports:
             - protocol: TCP
@@ -28,14 +29,6 @@ spec:
         - ports:
             - protocol: TCP
               port: "3000"
-    - # Forgejo runner controller
-      toEndpoints:
-        - matchLabels:
-            app.kubernetes.io/name: forgejo-runner
-      toPorts:
-        - ports:
-            - protocol: TCP
-              port: "38809"
     - # Forgejo runner cache & proxy
       toEndpoints:
         - matchLabels:
