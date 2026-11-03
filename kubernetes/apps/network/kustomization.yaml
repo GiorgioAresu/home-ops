@@ -6,6 +6,14 @@ namespace: network
 components:
   - ../../components/flux-alerts
   - ../../components/namespace
+patches:
+  - target:
+      kind: Namespace
+    patch: |
+      - op: add
+        path: /metadata/labels
+        value:
+          pss.policy.aresu.eu/baseline: audit
 resources:
   # - ./cloudflared/ks.yaml
   - ./echo-server/ks.yaml

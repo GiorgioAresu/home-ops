@@ -1,0 +1,58 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingAdmissionPolicy
+metadata:
+  name: default-pod-security-baseline
+spec:
+  failurePolicy: Fail
+  reinvocationPolicy: IfNeeded
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["namespaces"]
+  matchConditions:
+    - name: not-excluded-system-namespace
+      expression: >-
+        !["kube-system", "kube-public", "kube-node-lease"].exists(name,
+        name == object.metadata.name)
+  mutations:
+    - patchType: ApplyConfiguration
+      applyConfiguration:
+        expression: >-
+          Object{metadata: Object.metadata{labels: has(object.metadata.labels) &&
+          "pss.policy.aresu.eu/baseline" in object.metadata.labels &&
+          object.metadata.labels["pss.policy.aresu.eu/baseline"] == "audit" ?
+          ("pod-security.kubernetes.io/audit" in object.metadata.labels ? {} :
+          {"pod-security.kubernetes.io/audit": "baseline",
+          "pss.policy.aresu.eu/audit-injected": "true"}) :
+          ("pod-security.kubernetes.io/enforce" in object.metadata.labels ? {} :
+          {"pod-security.kubernetes.io/enforce": "baseline",
+          "pss.policy.aresu.eu/enforce-injected": "true"})}}
+    - patchType: JSONPatch
+      jsonPatch:
+        expression: >-
+          has(object.metadata.labels) &&
+          "pss.policy.aresu.eu/baseline" in object.metadata.labels &&
+          object.metadata.labels["pss.policy.aresu.eu/baseline"] == "audit" &&
+          "pss.policy.aresu.eu/enforce-injected" in object.metadata.labels &&
+          object.metadata.labels["pss.policy.aresu.eu/enforce-injected"] == "true" &&
+          "pod-security.kubernetes.io/enforce" in object.metadata.labels &&
+          object.metadata.labels["pod-security.kubernetes.io/enforce"] == "baseline" ? [
+            JSONPatch{op: "remove", path: "/metadata/labels/pod-security.kubernetes.io~1enforce"},
+            JSONPatch{op: "remove", path: "/metadata/labels/pss.policy.aresu.eu~1enforce-injected"}
+          ] : []
+    - patchType: JSONPatch
+      jsonPatch:
+        expression: >-
+          has(object.metadata.labels) &&
+          (! ("pss.policy.aresu.eu/baseline" in object.metadata.labels) ||
+          object.metadata.labels["pss.policy.aresu.eu/baseline"] != "audit") &&
+          "pss.policy.aresu.eu/audit-injected" in object.metadata.labels &&
+          object.metadata.labels["pss.policy.aresu.eu/audit-injected"] == "true" &&
+          "pod-security.kubernetes.io/audit" in object.metadata.labels &&
+          object.metadata.labels["pod-security.kubernetes.io/audit"] == "baseline" ? [
+            JSONPatch{op: "remove", path: "/metadata/labels/pod-security.kubernetes.io~1audit"},
+            JSONPatch{op: "remove", path: "/metadata/labels/pss.policy.aresu.eu~1audit-injected"}
+          ] : []
