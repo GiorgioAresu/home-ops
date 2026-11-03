@@ -454,12 +454,33 @@ resource "routeros_ip_dhcp_server_lease" "tv" {
   address     = "10.17.1.75"
   mac_address = "FC:03:9F:B1:8D:DD"
 }
-resource "routeros_ip_dhcp_server_lease" "framework" {
+resource "routeros_ip_dhcp_server_lease" "framework_wifi" {
   provider    = routeros.rb5009
-  comment     = "Managed by Terraform - Framework Laptop"
+  comment     = "Managed by Terraform - Framework Laptop (WiFi)"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.99"
-  mac_address = "1A:F1:79:BB:8C:FA"
+  mac_address = "36:F1:AE:CC:99:B1"
+}
+resource "routeros_ip_dhcp_server_lease" "framework_caldigit" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Framework Laptop (Caldigit)"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.100"
+  mac_address = "64:4B:F0:37:E8:C7"
+}
+resource "routeros_ip_dhcp_server_lease" "pixel_7" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Pixel 7"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.101"
+  mac_address = "26:F1:7A:E6:33:A6"
+}
+resource "routeros_ip_dhcp_server_lease" "pixel_9a" {
+  provider    = routeros.rb5009
+  comment     = "Managed by Terraform - Pixel 9a"
+  server      = routeros_ip_dhcp_server.lan.name
+  address     = "10.17.1.102"
+  mac_address = "96:A1:D2:C7:67:30"
 }
 
 ### Security
@@ -589,21 +610,21 @@ resource "routeros_ip_dhcp_server_lease" "alarm" {
   comment     = "Managed by Terraform - Alarm System"
   server      = routeros_ip_dhcp_server.iot.name
   address     = "10.17.50.44"
-  mac_address = "cc:50:e3:b6:1e:e0"
+  mac_address = "CC:50:E3:B6:1E:E0"
 }
 resource "routeros_ip_dhcp_server_lease" "mailbox" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - Mailbox"
   server      = routeros_ip_dhcp_server.iot.name
   address     = "10.17.50.45"
-  mac_address = "8c:bf:ea:cc:7c:e4"
+  mac_address = "8C:BF:EA:CC:7C:E4"
 }
 resource "routeros_ip_dhcp_server_lease" "nuc_power_control" {
   provider    = routeros.rb5009
   comment     = "Managed by Terraform - NUC Power Control (for 3217CK's issues with booting)"
   server      = routeros_ip_dhcp_server.iot.name
   address     = "10.17.50.46"
-  mac_address = "3c:71:bf:29:13:bd"
+  mac_address = "3C:71:BF:29:13:BD"
 }
 
 # resource "routeros_ip_dhcp_server_lease" "this" { *16
