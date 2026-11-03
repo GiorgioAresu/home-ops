@@ -305,7 +305,7 @@ resource "routeros_ip_dhcp_server_lease" "prusa" {
   comment     = "Managed by Terraform - Prusa MK3.5S"
   server      = routeros_ip_dhcp_server.lan.name
   address     = "10.17.1.7"
-  mac_address = "EC:64:C9:F3:C0:F8"
+  mac_address = "10:9C:70:2A:43:1D"
 }
 resource "routeros_ip_dhcp_server_lease" "freepbx" {
   provider    = routeros.rb5009
