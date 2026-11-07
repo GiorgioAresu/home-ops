@@ -14,6 +14,10 @@ spec:
     - name: RENOVATE_ALLOWED_COMMANDS
       value: |-
         ["pnpm run bundle"]
+    - name: RENOVATE_DETECT_HOST_RULES_FROM_ENV
+      value: "true"
+    - name: RENOVATE_DOCKER_GHCR_IO_USERNAME
+      value: GiorgioAresu
     - name: RENOVATE_HOST_RULES
       value: >-
         [
