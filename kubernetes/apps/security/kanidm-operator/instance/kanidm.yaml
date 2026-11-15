@@ -16,7 +16,7 @@ spec:
       resources:
         requests:
           cpu: 10m
-  image: kanidm/server:1.12.0
+  image: kanidm/server:1.12.1
   logLevel: info
   oauth2ClientNamespaceSelector: {}
   groupNamespaceSelector: {}
