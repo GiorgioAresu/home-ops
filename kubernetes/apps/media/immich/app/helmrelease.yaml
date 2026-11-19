@@ -48,7 +48,7 @@ spec:
           - fromEndpoints:
               - matchLabels:
                   k8s:io.kubernetes.pod.namespace: network
-                  gateway.networking.k8s.io/gateway-name: envoy-external
+                  gateway.networking.k8s.io/gateway-name: envoy-internal
             toPorts:
               - ports:
                   - port: "2283"
@@ -99,11 +99,11 @@ spec:
           NODE_ENV: "production"
           REDIS_HOSTNAME: immich-redis.media.svc.cluster.local
           REDIS_PORT: "6379"
-      # initdb:
-      #   data:
-      #     immich.sql: |-
-      #       CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
-      #       CREATE EXTENSION IF NOT EXISTS vector CASCADE;
+          # initdb:
+          #   data:
+          #     immich.sql: |-
+          #       CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
+          #       CREATE EXTENSION IF NOT EXISTS vector CASCADE;
     controllers:
       server:
         annotations:
@@ -180,7 +180,8 @@ spec:
               tag: 8.10.3@sha256:1f88291b4c57bdf249f02eb085a8669889b2d2954e91d4de5118a5da6b78dd53
             env:
               REDIS_REPLICATION_MODE: master
-            command: ["redis-server"]
+            command:
+              - "redis-server"
     service:
       server:
         controller: server
@@ -230,13 +231,13 @@ spec:
                 subPath: geocoding
               - path: /usr/src/app/.transformers_cache
                 subPath: transformers
-      # initdb:
-      #   type: configMap
-      #   identifier: initdb
-      #   advancedMounts:
-      #     server:
-      #       init-db:
-      #         - path: /initdb
+                # initdb:
+                #   type: configMap
+                #   identifier: initdb
+                #   advancedMounts:
+                #     server:
+                #       init-db:
+                #         - path: /initdb
     serviceMonitor:
       server:
         enabled: true
@@ -253,7 +254,7 @@ spec:
         hostnames:
           - immich.aresu.eu
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: network
         rules:
           - backendRefs:
