@@ -26,7 +26,7 @@ spec:
             "allowInternal": true
           }
         ]
-  image: ghcr.io/renovatebot/renovate:44.240.0
+  image: ghcr.io/renovatebot/renovate:44.257.9
   parallelism: 5
   provider:
     name: forgejo
